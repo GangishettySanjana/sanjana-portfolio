@@ -1,70 +1,125 @@
-# Getting Started with Create React App
+# Sanjana Gangishetty — Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Personal portfolio for Sanjana Gangishetty, Product Designer.
 
-## Available Scripts
+Built with Next.js 14, Tailwind CSS, Framer Motion, and the Anthropic API.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Quick start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+npm install
+cp .env.example .env.local
+# Add your ANTHROPIC_API_KEY to .env.local
+npm run dev
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Open [http://localhost:3000](http://localhost:3000).
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setup checklist
 
-### `npm run build`
+### 1. Add your photo
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Drop your photo into:
+```
+public/images/sanjana.jpg
+```
+The hero and about page both reference this file. Any JPEG or PNG works — it gets cropped to fill the stamp shape.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2. Add your API key
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+cp .env.example .env.local
+```
 
-### `npm run eject`
+Edit `.env.local` and add your key:
+```
+ANTHROPIC_API_KEY=sk-ant-...
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Get a key at [console.anthropic.com](https://console.anthropic.com).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3. Swap in your real fonts (optional but recommended)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The build currently uses Google Fonts equivalents. To use the approved typefaces:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**LUNALENA** (display — hero name):
+1. Add your font files to `public/fonts/LUNALENA.woff2`
+2. In `app/layout.tsx`, replace the Cormorant import with:
+```typescript
+import localFont from 'next/font/local'
+const displayFont = localFont({
+  src: '../public/fonts/LUNALENA.woff2',
+  variable: '--font-display',
+})
+```
 
-## Learn More
+**Hatton** (headings) and **Molenilo** (labels): same pattern, variables `--font-heading` and `--font-label`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**YSABEAU INFANT** is already the real font — loaded from Google Fonts.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 4. Add project cover images
 
-### Code Splitting
+Replace the stamp placeholders with real screenshots in `public/images/`:
+- `cover-flairx.jpg`
+- `cover-fireside.jpg`
+- `cover-aura.jpg`
+- `cover-getup.jpg`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Then in `components/ProjectCard.tsx`, swap the placeholder div for an `<Image>` tag.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Project structure
 
-### Making a Progressive Web App
+```
+app/
+  layout.tsx           root layout, font imports, metadata
+  page.tsx             home: Hero + Projects + About + Contact
+  globals.css          design tokens, stamp CSS, base styles
+  about/page.tsx       full about page
+  projects/[slug]/     case study pages (static generated)
+  api/chat/route.ts    AI chat API route (key never client-exposed)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+components/
+  Navigation.tsx       fixed nav with mobile hamburger menu
+  Hero.tsx             animated hero with stamp photo + name reveal
+  StampImage.tsx       reusable stamp-shaped image component
+  Projects.tsx         project grid section
+  ProjectCard.tsx      stamp-style project card
+  CaseStudy.tsx        case study with Recruiter/Full Story toggle
+  About.tsx            about section (home page)
+  AboutTimeline.tsx    career timeline
+  Contact.tsx          dark contact section
+  ChatWidget.tsx       floating AI chat powered by Claude
 
-### Advanced Configuration
+data/
+  projects.ts          all project content — edit here to update
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Design tokens
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+| Color | Hex | Role |
+|-------|-----|------|
+| Old Lace | `#F6F3EE` | Page background |
+| Freshly Roasted | `#4B2E1F` | Primary text |
+| Butter | `#F4E6A6` | Accent, CTAs |
+| Oyster Bay | `#DCECEF` | About section |
+| Dark bg | `#2E1C10` | Contact section |
 
-### `npm run build` fails to minify
+Fonts: `--font-display` / `--font-heading` / `--font-body` / `--font-label`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## Deploy to Vercel
+
+```bash
+npm i -g vercel && vercel
+```
+
+Add `ANTHROPIC_API_KEY` in the Vercel environment variables dashboard.
