@@ -101,7 +101,7 @@ export default function Contact() {
             },
             {
               label: 'Email',
-              href: 'mailto:gangishettysanjana@gmail.com',
+              href: 'mailto:gangishettysanjana084@gmail.com',
               icon: (
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
                   <rect x="2" y="4" width="20" height="16" rx="3" stroke="#111827" strokeWidth="1.5"/>

@@ -1,8 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import ProjectCard from './ProjectCard'
-import { projects } from '@/data/projects'
+import FolderStack from './FolderStack'
 
 export default function Projects() {
   return (
@@ -37,13 +36,15 @@ export default function Projects() {
           </motion.p>
         </div>
 
-        {/* Project list — full width stacked cards */}
-        <div className="flex flex-col gap-6 lg:gap-8">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.slug} project={project} index={i} />
-          ))}
-
-        </div>
+        {/* ── Folder stack ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <FolderStack />
+        </motion.div>
 
         {/* Bottom divider */}
         <motion.div

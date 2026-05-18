@@ -38,6 +38,9 @@ export interface Project {
     solution2?: string      // second solution image
   }
 
+  // Optional testimonial for project card
+  testimonial?: { quote: string; author: string }
+
   // Optional per-project nav sections for the full-story sidebar
   navSections?: { id: string; label: string }[]
 }
@@ -65,7 +68,7 @@ export const projects: Project[] = [
       { value: '0 duplicates', label: 'Automated detection' },
     ],
 
-    tldr: 'Recruiters don\'t distrust AI because they\'re afraid of it, they distrust it because they can\'t see inside it. I redesigned FlairX\'s workflow to fix that. Candidate intake: 7 steps to 3. Bulk decisions: actually explainable.',
+    tldr: 'Recruiters distrust AI when they can\'t see inside it. I redesigned FlairX\'s workflow to make every decision explainable.',
     problem: 'Recruiters were manually scrolling candidate details, uploading one by one, and sorting pools by hand. The AI existed but nobody used it, they couldn\'t tell why it was recommending someone, so they ignored it entirely.',
     outcome: 'A reimagined talent upload and review workflow with explainable AI signals, recruiter override controls, and inline error handling. The system now shows its work. +130 hires tracked to the redesign.',
     metrics: [
@@ -119,6 +122,10 @@ export const projects: Project[] = [
       { id: 'edgecases',  label: 'Edge Cases' },
       { id: 'impact',     label: 'Impact' },
     ],
+    testimonial: {
+      quote: 'We were paying our recruiter by the hour. This paid for itself.',
+      author: 'Founder, FlairX',
+    },
   },
 
   {
@@ -143,7 +150,7 @@ export const projects: Project[] = [
       { value: '5mo', label: 'Design sprint' },
     ],
 
-    tldr: 'A 3D topographic table that projects real wildfire behavior onto physical terrain. The audience: families, school groups, and people who\'ve never thought about fire science. The design challenge: make the science land without dumbing it down.',
+    tldr: 'A 3D topographic table that teaches wildfire science to families and school groups — without dumbing it down.',
     problem: 'Wildfires are increasingly frequent and deadly, but traditional safety education (brochures, lectures) can\'t convey the dynamic, chaotic nature of how fires actually spread. People leave not understanding the variables that make fires unpredictable.',
     outcome: 'A three-mode interactive experience. Learn, Simulate, Act, displayed at public science events. Users could see fire spread in real time, adjust environmental variables, and deploy suppression tactics on a physical 3D terrain.',
     metrics: [
@@ -204,7 +211,7 @@ export const projects: Project[] = [
       { value: '4mo', label: 'End-to-end' },
     ],
 
-    tldr: 'COVID cleared the shop floor. Aura moved the experience online. A mobile app for a Hyderabad florist, custom bouquets, live inventory, and a checkout flow designed around the feeling of being helped, not just processed.',
+    tldr: 'A mobile app for a Hyderabad florist after COVID — custom bouquets, live inventory, a checkout that feels helped, not processed.',
     problem: 'Small florists had no way to let customers browse real inventory or customize orders online. COVID lockdowns made this urgent. Customers wanted personal floral experiences but couldn\'t visit in person.',
     outcome: 'A mobile app with real-time inventory browsing, a bouquet customization preview tool, and delivery scheduling (one-time and subscription). Took the florist from zero digital presence to a complete ordering flow.',
     metrics: [
@@ -264,7 +271,7 @@ export const projects: Project[] = [
       { value: '1', label: 'Solo designer' },
     ],
 
-    tldr: 'Three weeks. No copywriter, no brand guidelines, one celebrity backer. I derived the voice from GetUp\'s social presence, wrote the copy, and designed the pre-order pop-up from scratch. Complete Figma handoff. Shipped on time.',
+    tldr: 'Three weeks. No copywriter, no brand guidelines, one celebrity backer. Derived the voice, wrote the copy, designed the pop-up — shipped on time.',
     problem: 'GetUp needed a promotional pop-up to support an imminent product launch with limited time and incomplete brand information. The pop-up had to drive pre-orders while staying true to GetUp\'s outdoor, energetic brand voice.',
     outcome: 'A pop-up design that captured GetUp\'s adventurous brand, energetic visuals, punchy copy, clear CTA, delivered in three weeks as a Figma handoff ready for development.',
     metrics: [
@@ -299,6 +306,71 @@ export const projects: Project[] = [
       { id: 'design',     label: 'The Design' },
       { id: 'copy',       label: 'Copy Process' },
       { id: 'reflection', label: 'Reflection' },
+    ],
+    testimonial: {
+      quote: 'The campaign was a success. We hit our traffic numbers.',
+      author: 'Founder, GetUp Nutrition',
+    },
+  },
+
+  {
+    cardContext: 'Hackathon · Women in Product',
+    slug: 'sparkconnect',
+    title: 'SparkConnect',
+    tagline: 'WIP Referral Network',
+    company: 'Women in Product Hackathon',
+    year: '2024',
+    duration: '48 hours',
+    role: 'Product Designer',
+    status: 'Live Product',
+    tools: ['Figma', 'Lovable', 'Claude'],
+    liveUrl: 'https://wip-spark-connect.lovable.app',
+    coverBg: 'bg-[#1E1438]',
+    coverTextColor: 'text-[#E8D8FF]',
+    coverGradient: 'linear-gradient(135deg, #3D2B6B 0%, #2D1F54 60%, #1E1438 100%)',
+    stats: [
+      { value: '48hr', label: 'Hackathon sprint' },
+      { value: 'WIP', label: 'Women in Product' },
+      { value: '0→1', label: 'Full product built' },
+      { value: '4 steps', label: 'Search · Request · Chat · Refer' },
+    ],
+
+    tldr: 'A community referral network built in 48 hours — so women in product can get warm introductions instead of sending cold applications into the void.',
+    problem: 'Women in product roles have a strong community in WIP, but no structured way to turn those community connections into actual referrals. Job boards are cold. LinkedIn messages go unread. The network existed but there was no product to activate it.',
+    outcome: 'A working referral platform where WIP members can search for referrers at specific companies, submit structured requests, connect directly over chat, and track referral status. Built and shipped in 48 hours.',
+    metrics: [
+      'Full product designed and shipped within a 48-hour hackathon window',
+      'Four-step referral flow: search, request, chat, refer',
+      'Referrer controls: accept/decline, availability settings, leaderboard recognition',
+      'Membership scoped to WIP community — trust built in by default',
+    ],
+
+    context: 'Built for a Women in Product hackathon. The WIP community is one of the strongest product communities out there — tens of thousands of women across every level and company. But when someone needed a referral, they were still cold-messaging strangers on LinkedIn. The community had the network. It just didn\'t have the product.',
+    challenge: '48 hours meant zero time for research rounds or lengthy iteration. The design had to be right the first time, which meant every decision had to be grounded in something concrete: what does a referral request actually need to contain? What does a referrer need to feel safe saying yes? What happens when someone declines, and how do you make that not awkward?',
+    solution: 'A structured four-step flow that removes friction from both sides. The requester provides exactly what a referrer needs (LinkedIn, fit statement, job link) — no vague asks. The referrer has full control: toggle availability, decline anonymously, manage their queue. A leaderboard surfaces the most active referrers, creating community recognition without pressure.',
+    process: [
+      {
+        heading: 'Scoping the problem in hour one',
+        body: 'Started by mapping the exact moment where the WIP community fell short: you know someone at a company, you want a referral, and there\'s no good way to ask. Identified the two-sided problem immediately — requesters need to ask clearly, referrers need to feel in control. Everything else followed from that.',
+      },
+      {
+        heading: 'Designing the request form',
+        body: 'The form is the product. If the request is vague, the referrer says no. If it\'s too long, the requester gives up. Three fields: LinkedIn URL, a one-paragraph fit statement, the specific job link. That\'s it. Enough context, no noise.',
+      },
+      {
+        heading: 'Referrer controls and community trust',
+        body: 'Referrers needed to feel like they could say no without it being a moment. Anonymous decline notifications, availability toggles, and a clear queue meant they stayed in the platform instead of ghosting. The leaderboard was added last — recognition, not pressure.',
+      },
+    ],
+    reflection: '48 hours is enough time to build something real if you\'re ruthless about scope. The hardest cut was a matching algorithm that would suggest referrers automatically — we decided the search-and-select flow was faster to build and probably more trustworthy anyway. Sometimes the simpler thing is the better thing.',
+
+    navSections: [
+      { id: 'overview',    label: 'Overview' },
+      { id: 'problem',     label: 'Problem' },
+      { id: 'solution',    label: 'Solution' },
+      { id: 'flow',        label: 'The Flow' },
+      { id: 'decisions',   label: 'Design Decisions' },
+      { id: 'reflection',  label: 'Reflection' },
     ],
   },
 ]

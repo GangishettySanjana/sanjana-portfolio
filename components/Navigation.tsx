@@ -1,138 +1,178 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const linkColor = 'rgba(20,28,50,0.75)'
+  const linkHoverColor = 'rgba(20,28,50,1)'
+  const linkHoverBg = 'rgba(20,28,50,0.07)'
 
   const linkStyle: React.CSSProperties = {
-    fontFamily: 'var(--font-label), sans-serif',
-    fontSize: 12, fontWeight: 700,
-    letterSpacing: '0.08em',
-    textTransform: 'uppercase',
-    color: 'rgba(20,28,50,0.75)',
+    fontFamily: 'var(--font-body), Georgia, serif',
+    fontSize: 15,
+    fontWeight: 500,
+    letterSpacing: '-0.01em',
+    textTransform: 'none',
+    color: linkColor,
     textDecoration: 'none',
     padding: '6px 11px',
     borderRadius: 8,
-    transition: 'background 0.12s, color 0.12s',
+    transition: 'background 0.12s, color 0.15s',
   }
 
   return (
     <>
-      {/* desktop pill nav */}
+      {/* Main header */}
       <motion.header
         style={{
-          position: 'fixed', top: 16, left: 16, right: 16, zIndex: 50,
-          pointerEvents: 'none',
+          position: 'fixed',
+          top: 0, left: 0, right: 0,
+          zIndex: 50,
+          background: scrolled ? 'rgba(255,255,255,0.88)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(20px)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(0,0,0,0.06)' : '1px solid transparent',
+          transition: 'background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease',
         }}
-        initial={{ y: -24, opacity: 0 }}
+        initial={{ y: -8, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
       >
-        {/* desktop */}
+        {/* Desktop nav */}
         <nav
           className="hidden md:flex"
           style={{
-            pointerEvents: 'all',
             alignItems: 'center',
             justifyContent: 'space-between',
             width: '100%',
-            padding: '8px 12px 8px 20px',
-            borderRadius: 999,
-            background: 'rgba(255,255,255,0.7)',
-            backdropFilter: 'blur(24px)',
-            WebkitBackdropFilter: 'blur(24px)',
-            border: '1px solid rgba(255,255,255,0.9)',
-            boxShadow: '0 2px 20px rgba(20,28,50,0.08), 0 0 0 0.5px rgba(20,28,50,0.06)',
+            maxWidth: 1320,
+            margin: '0 auto',
+            padding: '0 clamp(24px, 5vw, 80px)',
+            height: 64,
           }}
         >
-          {/* Home / Logo — left */}
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', flexShrink: 0 }}
+          {/* Logo */}
+          <Link
+            href="/"
+            style={{ textDecoration: 'none', flexShrink: 0 }}
             onMouseEnter={e => (e.currentTarget.style.opacity = '0.6')}
             onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
           >
-            <img src="/logo.png" alt="Sanjana" style={{ height: 44, width: 'auto', display: 'block', transition: 'opacity 0.12s' }} />
+            <span style={{
+              fontFamily: 'var(--font-body), Georgia, serif',
+              fontSize: 15,
+              fontWeight: 500,
+              color: '#111827',
+              letterSpacing: '-0.01em',
+            }}>
+              Sanjana Gangishetty
+            </span>
           </Link>
 
-          {/* Work · About · Resume — center cluster */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          {/* Right side: all links + CTA */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 2, flexShrink: 0 }}>
             {[
-              { label: 'Work', href: '#work' },
-              { label: 'About', href: '#about' },
+              { label: 'Work', href: '/#work' },
+              { label: 'About', href: '/#about' },
             ].map(({ label, href }) => (
-              <a key={label} href={href} style={linkStyle}
+              <a
+                key={label}
+                href={href}
+                style={linkStyle}
                 onMouseEnter={e => {
-                  e.currentTarget.style.background = 'rgba(20,28,50,0.07)'
-                  e.currentTarget.style.color = 'rgba(20,28,50,1)'
+                  e.currentTarget.style.background = linkHoverBg
+                  e.currentTarget.style.color = linkHoverColor
                 }}
                 onMouseLeave={e => {
                   e.currentTarget.style.background = 'transparent'
-                  e.currentTarget.style.color = 'rgba(20,28,50,0.75)'
+                  e.currentTarget.style.color = linkColor
                 }}
               >
                 {label}
               </a>
             ))}
-            <Link
-              href="/resume"
+            <div style={{ width: 12 }} />
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ ...linkStyle, fontWeight: 500 }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = 'rgba(20,28,50,0.07)'
-                e.currentTarget.style.color = 'rgba(20,28,50,1)'
+                e.currentTarget.style.background = linkHoverBg
+                e.currentTarget.style.color = linkHoverColor
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.background = 'transparent'
-                e.currentTarget.style.color = 'rgba(20,28,50,0.75)'
+                e.currentTarget.style.color = linkColor
               }}
             >
               Resume ↗
-            </Link>
-          </div>
-
-          {/* Let's Connect — pill button */}
-          <a href="#contact" style={{
-            fontFamily: 'var(--font-label), sans-serif',
-            fontSize: 11, fontWeight: 800,
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-            color: '#fff',
-            textDecoration: 'none',
-            background: 'linear-gradient(135deg, #2A3550 0%, #1a2236 100%)',
-            borderRadius: 999,
-            padding: '10px 22px',
-            boxShadow: '0 2px 12px rgba(20,28,50,0.35), inset 0 1px 0 rgba(255,255,255,0.1)',
-            border: '1px solid rgba(255,255,255,0.12)',
-            transition: 'box-shadow 0.12s, transform 0.12s',
-            flexShrink: 0,
-          }}
+            </a>
+          <a
+            href="/#contact"
+            style={{
+              fontFamily: 'var(--font-label), sans-serif',
+              fontSize: 11,
+              fontWeight: 800,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: '#fff',
+              textDecoration: 'none',
+              background: 'linear-gradient(135deg, #2A3550 0%, #1a2236 100%)',
+              borderRadius: 999,
+              padding: '9px 20px',
+              boxShadow: '0 2px 12px rgba(20,28,50,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
+              border: '1px solid transparent',
+              transition: 'box-shadow 0.12s, transform 0.12s',
+              flexShrink: 0,
+            }}
             onMouseEnter={e => {
-              e.currentTarget.style.boxShadow = '0 4px 20px rgba(20,28,50,0.45), inset 0 1px 0 rgba(255,255,255,0.1)'
               e.currentTarget.style.transform = 'scale(1.04)'
+              e.currentTarget.style.boxShadow = scrolled
+                ? '0 4px 20px rgba(20,28,50,0.45), inset 0 1px 0 rgba(255,255,255,0.1)'
+                : '0 4px 16px rgba(0,0,0,0.18)'
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.boxShadow = '0 2px 12px rgba(20,28,50,0.35), inset 0 1px 0 rgba(255,255,255,0.1)'
               e.currentTarget.style.transform = 'scale(1)'
+              e.currentTarget.style.boxShadow = scrolled
+                ? '0 2px 12px rgba(20,28,50,0.35), inset 0 1px 0 rgba(255,255,255,0.1)'
+                : '0 2px 12px rgba(0,0,0,0.12)'
             }}
           >
             Let&apos;s Connect
           </a>
+          </div>
         </nav>
 
-        {/* mobile: logo + hamburger */}
+        {/* Mobile header */}
         <div
           className="flex md:hidden"
           style={{
-            pointerEvents: 'all',
             width: '100%',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '0 4px',
+            padding: '12px 20px',
           }}
         >
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-            <img src="/logo.png" alt="Sanjana" style={{ height: 44, width: 'auto', display: 'block' }} />
+          <Link href="/" style={{ textDecoration: 'none' }}>
+            <span style={{
+              fontFamily: 'var(--font-body), Georgia, serif',
+              fontSize: 15, fontWeight: 500,
+              color: '#111827',
+            }}>
+              Sanjana Gangishetty
+            </span>
           </Link>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -142,7 +182,12 @@ export default function Navigation() {
             {[0, 1, 2].map(i => (
               <motion.span
                 key={i}
-                style={{ display: 'block', width: 22, height: 1.5, borderRadius: 2, background: 'rgba(20,28,50,0.82)', transformOrigin: 'center' }}
+                style={{
+                  display: 'block', width: 22, height: 1.5, borderRadius: 2,
+                  background: 'rgba(20,28,50,0.82)',
+                  transformOrigin: 'center',
+                  transition: 'background 0.3s',
+                }}
                 animate={
                   menuOpen && i === 0 ? { rotate: 45, y: 6.5 }
                     : menuOpen && i === 1 ? { opacity: 0 }
@@ -156,7 +201,7 @@ export default function Navigation() {
         </div>
       </motion.header>
 
-      {/* mobile fullscreen menu */}
+      {/* Mobile fullscreen menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -166,7 +211,7 @@ export default function Navigation() {
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
-            {[['Work', '#work'], ['About', '#about'], ['Connect', '#contact']].map(([label, href], i) => (
+            {[['Work', '/#work'], ['About', '/#about'], ['Connect', '/#contact']].map(([label, href], i) => (
               <motion.a key={label} href={href}
                 style={{ fontFamily: 'var(--font-heading), Georgia, serif', fontSize: 36, color: '#3D4B6B', textDecoration: 'none' }}
                 onClick={() => setMenuOpen(false)}
@@ -177,7 +222,7 @@ export default function Navigation() {
                 {label}
               </motion.a>
             ))}
-            <motion.a href="/resume"
+            <motion.a href="/resume.pdf" target="_blank" rel="noopener noreferrer"
               style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '12px 28px', border: '1px solid #3D4B6B', borderRadius: 999, color: '#3D4B6B', textDecoration: 'none' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

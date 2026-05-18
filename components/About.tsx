@@ -56,7 +56,7 @@ export default function About() {
 
               {[
                 `There is a designer in the market, and she has been chasing a specific feeling since 2018. Not the feeling of shipping. The feeling of watching someone use something you built, and come back to it the next day without being asked. A Bachelor's in Design. A Master's from CU Boulder, where the altitude apparently clarifies one's opinions about what works and what very much does not. She has since been observed working across research, strategy, prototyping, and handoff, with a particular fondness for the moment before the decision. Not the wireframe. Not the prototype. The thinking that happens before either of those exists.`,
-                `She is not, this author wishes to make clear, simply 'open to opportunities.' She is looking for a team building AI products where getting it wrong is not an option, the kind of team that asks not just 'does this work' but 'why would someone come back to this tomorrow.' That question, dear reader, is where she does her best work. Whether you are that team remains to be seen. But this author suspects you already know the answer.`,
+                `She is open to roles, dear reader, with a particular soft spot for teams building AI products where getting it wrong is not an option — the kind of team that asks not just 'does this work' but 'why would someone come back to this tomorrow.' That question is where she does her best work. Whether you are that team remains to be seen. But this author suspects you already know the answer.`,
               ].map((para, i) => (
                 <motion.p
                   key={i}

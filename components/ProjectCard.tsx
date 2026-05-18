@@ -89,9 +89,10 @@ function ExpandingButton({ slug, router }: { slug: string; router: ReturnType<ty
 interface ProjectCardProps {
   project: Project
   index: number
+  hero?: boolean
 }
 
-export default function ProjectCard({ project, index }: ProjectCardProps) {
+export default function ProjectCard({ project, index, hero }: ProjectCardProps) {
   const router = useRouter()
   return (
     <motion.article
@@ -111,7 +112,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         }}>
 
           {/* ── Left: text ── */}
-          <div className="project-card-text" style={{ padding: '48px 44px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+          <div className="project-card-text" style={{ padding: hero ? '60px 52px' : '48px 44px', display: 'flex', flexDirection: 'column', gap: 20 }}>
 
             {/* Title + context tag */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -196,6 +197,37 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               {project.tldr}
             </p>
 
+            {/* Testimonial */}
+            {project.testimonial && (
+              <div style={{
+                borderLeft: '2px solid rgba(20,28,50,0.12)',
+                paddingLeft: 14,
+                marginTop: 4,
+              }}>
+                <p style={{
+                  fontFamily: 'var(--font-body), Georgia, serif',
+                  fontSize: 13.5,
+                  fontStyle: 'italic',
+                  fontWeight: 300,
+                  color: '#374151',
+                  lineHeight: 1.6,
+                  margin: '0 0 6px',
+                }}>
+                  &ldquo;{project.testimonial.quote}&rdquo;
+                </p>
+                <p style={{
+                  fontFamily: 'var(--font-label), sans-serif',
+                  fontSize: 10,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: '#6B7280',
+                  margin: 0,
+                }}>
+                  — {project.testimonial.author}
+                </p>
+              </div>
+            )}
+
             {/* Tool logos */}
             <div style={{ display: 'flex', gap: 8, marginTop: 'auto' }}>
               {project.tools.slice(0, 5).map(tool => (
@@ -211,7 +243,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           <div className="project-card-image" style={{
             background: 'linear-gradient(145deg, #F0F2F7 0%, #E8EBF4 100%)',
             overflow: 'hidden',
-            minHeight: 380,
+            minHeight: hero ? 500 : 380,
             position: 'relative',
             display: 'flex',
             alignItems: 'center',

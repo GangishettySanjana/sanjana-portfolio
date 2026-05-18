@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About Section — Concepts</title>
+<link rel="preconnect" href="https://api.fontshare.com"/>
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500,600,700,800,900&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --cream: #f5f3ef;
+    --warm:  #ebe5dc;
+    --blue:  #1e5dac;
+    --ink:   #0d0d0d;
+    --muted: rgba(13,13,13,0.45);
+    --head:  'Cabinet Grotesk', sans-serif;
+    --body:  'Satoshi', sans-serif;
+    --max:   1320px;
+    --g:     clamp(24px, 5vw, 80px);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: #e8e4de; font-family: var(--body); }
+
+  /* ── PICKER BAR ── */
+  .picker {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(232,228,222,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.09);
+    padding: 0 var(--g); height: 56px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .picker span { font-family: var(--body); font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-right: 8px; }
+  .chip {
+    padding: 7px 18px; border-radius: 999px;
+    font-family: var(--head); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.03em; cursor: pointer; border: 1.5px solid transparent;
+    background: rgba(0,0,0,0.07); color: var(--ink);
+    transition: all 0.18s;
+  }
+  .chip.active, .chip:hover { background: var(--ink); color: #fff; }
+  .chip-label { font-size: 10px; font-weight: 500; color: var(--muted); margin-left: 2px; }
+
+  /* ── CONCEPT PANELS ── */
+  .concept { display: none; }
+  .concept.active { display: block; }
+
+  /* shared section wrapper */
+  .section-wrap {
+    background: var(--cream);
+    padding: 100px var(--g);
+  }
+  .inner {
+    max-width: var(--max); margin: 0 auto;
+  }
+
+  /* ── CONCEPT A — Editorial Split ── */
+  .a-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .a-photo-col { position: relative; }
+  .a-photo {
+    width: 100%; aspect-ratio: 4/5;
+    border-radius: 24px; overflow: hidden;
+    background: #c8d0c4;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .a-photo img { width:100%; height:100%; object-fit: cover; }
+  .photo-ph { font-family: var(--body); font-size: 11px; color: rgba(0,0,0,0.35); letter-spacing: 0.06em; text-transform: uppercase; }
+  .a-status-bar {
+    margin-top: 24px;
+    display: flex; gap: 0;
+    border: 1px solid rgba(0,0,0,0.12);
+    border-radius: 12px; overflow: hidden;
+  }
+  .a-stat {
+    flex: 1; padding: 16px 20px;
+    border-right: 1px solid rgba(0,0,0,0.1);
+  }
+  .a-stat:last-child { border-right: none; }
+  .a-stat-label { font-family: var(--body); font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .a-stat-val   { font-family: var(--head); font-size: 14px; font-weight: 700; color: var(--ink); }
+
+  .a-text-col { padding-top: 8px; }
+  .eyebrow { font-family: var(--body); font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+  .a-headline {
+    font-family: var(--head); font-size: clamp(32px, 3.5vw, 52px); font-weight: 800;
+    color: var(--ink); letter-spacing: -0.025em; line-height: 1.08;
+    margin-bottom: 28px;
+  }
+  .a-body {
+    font-family: var(--body); font-size: 18px; line-height: 1.75;
+    color: rgba(13,13,13,0.72); margin-bottom: 36px; max-width: 520px;
+  }
+  .a-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+  .a-chip {
+    padding: 8px 16px; border-radius: 999px;
+    background: rgba(0,0,0,0.06);
+    font-family: var(--head); font-size: 13px; font-weight: 600; color: var(--ink);
+  }
+  .a-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 28px; border-radius: 999px;
+    background: var(--ink); color: #fff;
+    font-family: var(--head); font-size: 14px; font-weight: 700;
+    letter-spacing: 0.04em; text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .a-cta:hover { opacity: 0.8; }
+
+  /* ── CONCEPT B — Personal + Gallery ── */
+  .b-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 60px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+  .b-headline {
+    font-family: var(--head); font-size: clamp(40px, 5vw, 68px); font-weight: 900;
+    color: var(--ink); letter-spacing: -0.03em; line-height: 1;
+    max-width: 600px;
+  }
+  .b-headline em { font-style: normal; color: var(--blue); }
+  .b-intro {
+    max-width: 340px;
+    font-family: var(--body); font-size: 16px; line-height: 1.7;
+    color: var(--muted); text-align: right;
+  }
+  .b-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .b-bio {
+    font-family: var(--body); font-size: 18px; line-height: 1.8;
+    color: rgba(13,13,13,0.75); margin-bottom: 32px;
+  }
+  .b-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }
+  .b-list li {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--body); font-size: 16px; color: var(--ink);
+  }
+  .b-list li::before {
+    content: '↗'; font-size: 12px; color: var(--blue); font-weight: 700;
+  }
+  .b-photo-grid {
+    display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto;
+    gap: 12px;
+  }
+  .b-photo {
+    border-radius: 16px; overflow: hidden;
+    background: #c4cfc0;
+    display: flex; align-items: center; justify-content: center;
+    aspect-ratio: 4/3;
+  }
+  .b-photo.tall { grid-row: span 2; aspect-ratio: unset; }
+  .b-photo img { width:100%; height:100%; object-fit:cover; }
+  .b-photo-ph { font-family: var(--body); font-size: 10px; color: rgba(0,0,0,0.3); letter-spacing: 0.06em; text-transform: uppercase; text-align:center; }
+
+  /* ── CONCEPT C — Centered Minimal ── */
+  .c-wrap { text-align: center; max-width: 760px; margin: 0 auto 80px; }
+  .c-avatar {
+    width: 120px; height: 120px; border-radius: 50%;
+    background: #c8d0c4; margin: 0 auto 32px;
+    overflow: hidden; display: flex; align-items:center; justify-content:center;
+    border: 3px solid rgba(0,0,0,0.08);
+  }
+  .c-avatar img { width:100%; height:100%; object-fit:cover; }
+  .c-headline {
+    font-family: var(--head); font-size: clamp(36px, 4vw, 56px); font-weight: 800;
+    letter-spacing: -0.025em; line-height: 1.1; color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .c-body {
+    font-family: var(--body); font-size: 19px; line-height: 1.75;
+    color: rgba(13,13,13,0.7); margin-bottom: 36px;
+  }
+  .c-tags { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 48px; }
+  .c-tag {
+    padding: 9px 20px; border-radius: 12px;
+    border: 1.5px solid rgba(0,0,0,0.15);
+    font-family: var(--head); font-size: 13px; font-weight: 600; color: var(--ink);
+  }
+  .c-divider { width: 100%; height: 1px; background: rgba(0,0,0,0.1); margin-bottom: 72px; }
+  .c-cols {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    text-align: left;
+  }
+  .c-col-head {
+    font-family: var(--body); font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 20px;
+  }
+  .c-col-body { font-family: var(--body); font-size: 16px; line-height: 1.8; color: rgba(13,13,13,0.7); }
+  .c-skills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .c-skill {
+    padding: 6px 14px; border-radius: 8px;
+    background: rgba(0,0,0,0.06);
+    font-family: var(--head); font-size: 12px; font-weight: 600; color: var(--ink);
+  }
+
+  /* ── CONNECT SECTION (shared) ── */
+  .connect-section {
+    background: var(--warm); padding: 100px var(--g);
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .connect-inner {
+    max-width: var(--max); margin: 0 auto;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 40px;
+  }
+  .connect-left { max-width: 580px; }
+  .connect-eyebrow { font-family: var(--body); font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+  .connect-headline {
+    font-family: var(--head); font-size: clamp(36px, 4.5vw, 62px); font-weight: 900;
+    color: var(--ink); letter-spacing: -0.03em; line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .connect-sub { font-family: var(--body); font-size: 17px; color: var(--muted); line-height: 1.7; }
+  .connect-right { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+  .connect-btn {
+    display: flex; align-items: center; justify-content: space-between;
+    min-width: 260px; padding: 18px 24px; border-radius: 14px;
+    border: 1.5px solid rgba(0,0,0,0.14);
+    font-family: var(--head); font-size: 14px; font-weight: 700;
+    color: var(--ink); text-decoration: none;
+    transition: all 0.18s; gap: 20px;
+  }
+  .connect-btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .connect-btn span { opacity: 0.5; font-size: 16px; }
+  .connect-footer {
+    max-width: var(--max); margin: 60px auto 0;
+    padding-top: 40px; border-top: 1px solid rgba(0,0,0,0.1);
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--body); font-size: 13px; color: var(--muted);
+  }
+
+  /* Label badges */
+  .concept-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(0,0,0,0.07);
+    font-family: var(--head); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 32px;
+  }
+</style>
+</head>
+<body>
+
+<!-- PICKER -->
+<div class="picker">
+  <span>About concepts</span>
+  <button class="chip active" onclick="show('a')">A — Editorial Split <span class="chip-label">Tamilkumaran-inspired</span></button>
+  <button class="chip"        onclick="show('b')">B — Personal Gallery <span class="chip-label">Megan-inspired</span></button>
+  <button class="chip"        onclick="show('c')">C — Centered Minimal <span class="chip-label">Clean & focused</span></button>
+</div>
+
+<!-- ════════════════════════
+     CONCEPT A — EDITORIAL SPLIT
+═══════════════════════════ -->
+<div class="concept active" id="concept-a">
+  <div class="section-wrap">
+    <div class="inner">
+      <div class="concept-badge">Concept A — Editorial Split</div>
+      <div class="a-grid">
+
+        <!-- LEFT: Photo + stat bar -->
+        <div class="a-photo-col">
+          <div class="a-photo">
+            <span class="photo-ph">Your photo here</span>
+          </div>
+          <div class="a-status-bar">
+            <div class="a-stat">
+              <div class="a-stat-label">Based in</div>
+              <div class="a-stat-val">United States</div>
+            </div>
+            <div class="a-stat">
+              <div class="a-stat-label">Focus</div>
+              <div class="a-stat-val">Product · AI · SaaS</div>
+            </div>
+            <div class="a-stat">
+              <div class="a-stat-label">Status</div>
+              <div class="a-stat-val" style="color:#2a7a2a">Open to roles ✦</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Text -->
+        <div class="a-text-col">
+          <p class="eyebrow">About</p>
+          <h2 class="a-headline">I started in rooms. Turns out software has the same problems.</h2>
+          <p class="a-body">Interior design first, product design second. The switch made sense — same questions, different material. CU Boulder MS, 2025.<br><br>Shipped AI tools, fintech products, e-commerce. I do my best work in the gap before the wireframe exists, when you're still figuring out what you're actually trying to solve. If your team cares about that part, we'd probably get along.</p>
+          <div class="a-chips">
+            <span class="a-chip">Figma</span>
+            <span class="a-chip">Vibecodes</span>
+            <span class="a-chip">AI Products</span>
+            <span class="a-chip">CU Boulder MS '25</span>
+            <span class="a-chip">Loves to cook</span>
+          </div>
+          <a href="#" class="a-cta">Let's Connect →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connect -->
+  <div class="connect-section">
+    <div class="connect-inner">
+      <div class="connect-left">
+        <p class="connect-eyebrow">Let's Connect</p>
+        <h2 class="connect-headline">Got a project?<br>Let's make it real.</h2>
+        <p class="connect-sub">I'm open to full-time product design roles, collaborations, and conversations about AI, design systems, and things that are harder than they look.</p>
+      </div>
+      <div class="connect-right">
+        <a href="mailto:sanjana@example.com" class="connect-btn">Email me <span>↗</span></a>
+        <a href="#" class="connect-btn">LinkedIn <span>↗</span></a>
+        <a href="#" class="connect-btn">Resume <span>↗</span></a>
+      </div>
+    </div>
+    <div class="connect-footer">
+      <span>Sanjana Gangishetty © 2025</span>
+      <span>Designed & built with love (and GSAP)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════
+     CONCEPT B — PERSONAL GALLERY
+═══════════════════════════ -->
+<div class="concept" id="concept-b">
+  <div class="section-wrap">
+    <div class="inner">
+      <div class="concept-badge">Concept B — Personal + Gallery</div>
+
+      <div class="b-header">
+        <h2 class="b-headline">Hi — I'm Sanjana.<br>I build things that <em>feel</em> right.</h2>
+        <p class="b-intro">Product designer with 3+ years shipping AI, SaaS, and e-commerce. Currently at CU Boulder finishing my MS.</p>
+      </div>
+
+      <div class="b-content">
+        <!-- LEFT: Bio text -->
+        <div>
+          <p class="b-bio">I started in interior design — drawing floor plans, thinking about how people move through spaces. Then I found product design and realized: it's the same job, different canvas. I've been doing it ever since.<br><br>I work in Figma, I vibe-code prototypes, I've shipped things used by millions. When I'm not designing:</p>
+          <ul class="b-list">
+            <li>Cooking something ambitious on a Tuesday night</li>
+            <li>Building with AI tools before they're mainstream</li>
+            <li>Thinking about your business (it's a habit)</li>
+            <li>Figma deep-dives at weird hours</li>
+          </ul>
+          <a href="#" class="a-cta">Let's Connect →</a>
+        </div>
+        <!-- RIGHT: Photo grid -->
+        <div class="b-photo-grid">
+          <div class="b-photo tall"><span class="b-photo-ph">Portrait photo</span></div>
+          <div class="b-photo"><span class="b-photo-ph">Life photo 1</span></div>
+          <div class="b-photo"><span class="b-photo-ph">Life photo 2</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connect -->
+  <div class="connect-section">
+    <div class="connect-inner">
+      <div class="connect-left">
+        <p class="connect-eyebrow">Let's Connect</p>
+        <h2 class="connect-headline">Got a project?<br>Let's make it real.</h2>
+        <p class="connect-sub">I'm open to full-time product design roles, collaborations, and conversations about AI, design systems, and things that are harder than they look.</p>
+      </div>
+      <div class="connect-right">
+        <a href="mailto:sanjana@example.com" class="connect-btn">Email me <span>↗</span></a>
+        <a href="#" class="connect-btn">LinkedIn <span>↗</span></a>
+        <a href="#" class="connect-btn">Resume <span>↗</span></a>
+      </div>
+    </div>
+    <div class="connect-footer">
+      <span>Sanjana Gangishetty © 2025</span>
+      <span>Designed & built with love (and GSAP)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════
+     CONCEPT C — CENTERED MINIMAL
+═══════════════════════════ -->
+<div class="concept" id="concept-c">
+  <div class="section-wrap">
+    <div class="inner">
+      <div class="concept-badge">Concept C — Centered Minimal</div>
+
+      <div class="c-wrap">
+        <div class="c-avatar"><span class="b-photo-ph" style="font-size:9px">Photo</span></div>
+        <p class="eyebrow" style="text-align:center">About Sanjana</p>
+        <h2 class="c-headline">Designer who builds,<br>builder who designs.</h2>
+        <p class="c-body">Interior design → product design. The transition made sense: same questions, different material. I research how people think, then design around it — especially when "it" is an AI that has to earn trust first.<br><br>3+ years across AI, SaaS, and e-commerce. CU Boulder MS '25. Based in the United States. Open to full-time roles.</p>
+        <div class="c-tags">
+          <span class="c-tag">Product Design</span>
+          <span class="c-tag">AI / SaaS</span>
+          <span class="c-tag">Figma</span>
+          <span class="c-tag">Vibecoder</span>
+          <span class="c-tag">Loves to cook</span>
+          <span class="c-tag">Thinks about your business</span>
+        </div>
+      </div>
+
+      <div class="c-divider"></div>
+
+      <div class="c-cols">
+        <div>
+          <p class="c-col-head">Background</p>
+          <p class="c-col-body">Started in interior design, moved to product design when I realized rooms and software have the same core problem: how do people feel when they're inside it?<br><br>I've shipped fintech tools, AI platforms, and e-commerce experiences. I don't hand off work I haven't tried to break first.</p>
+        </div>
+        <div>
+          <p class="c-col-head">Skills & Tools</p>
+          <div class="c-skills">
+            <span class="c-skill">Figma</span>
+            <span class="c-skill">Framer</span>
+            <span class="c-skill">UX Research</span>
+            <span class="c-skill">Design Systems</span>
+            <span class="c-skill">HTML / CSS</span>
+            <span class="c-skill">Prototyping</span>
+            <span class="c-skill">AI Products</span>
+            <span class="c-skill">User Interviews</span>
+            <span class="c-skill">Information Architecture</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connect -->
+  <div class="connect-section">
+    <div class="connect-inner">
+      <div class="connect-left">
+        <p class="connect-eyebrow">Let's Connect</p>
+        <h2 class="connect-headline">Got a project?<br>Let's make it real.</h2>
+        <p class="connect-sub">I'm open to full-time product design roles, collaborations, and conversations about AI, design systems, and things that are harder than they look.</p>
+      </div>
+      <div class="connect-right">
+        <a href="mailto:sanjana@example.com" class="connect-btn">Email me <span>↗</span></a>
+        <a href="#" class="connect-btn">LinkedIn <span>↗</span></a>
+        <a href="#" class="connect-btn">Resume <span>↗</span></a>
+      </div>
+    </div>
+    <div class="connect-footer">
+      <span>Sanjana Gangishetty © 2025</span>
+      <span>Designed & built with love (and GSAP)</span>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.concept').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  document.getElementById('concept-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo({ top: 56, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

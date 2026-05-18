@@ -74,9 +74,14 @@ export default function HomePage() {
       function positionLabelsOnOrbit() {
         const W  = window.innerWidth
         const H  = window.innerHeight
+        const isSmall  = W <= 480
         const isMobile = W <= 768
-        const aX = isMobile ? Math.min(W * 0.36, 260) : Math.min(W * 0.37, 535)
-        const aY = isMobile ? Math.min(H * 0.26, 200) : Math.min(H * 0.28, 300)
+        const aX = isSmall  ? Math.min(W * 0.30, 115) :
+                   isMobile ? Math.min(W * 0.32, 230) :
+                              Math.min(W * 0.37, 535)
+        const aY = isSmall  ? Math.min(H * 0.14, 120) :
+                   isMobile ? Math.min(H * 0.17, 148) :
+                              Math.min(H * 0.28, 300)
         labels.forEach((lbl, i) => {
           const ang = (_startDeg + i * _step) * Math.PI / 180
           gsap.set(lbl, {
@@ -627,7 +632,7 @@ export default function HomePage() {
         {/* Center name */}
         <div id="intro-name">Sanjana Gangishetty</div>
         {/* Sub-label */}
-        <p id="intro-sub">Product Designer<span>·</span>CU Boulder &apos;25</p>
+        <p id="intro-sub">Product Designer<span>·</span>CU Boulder &apos;25<span>·</span>Looking for full time</p>
 
         {/* Floating labels — JS positions these on an ellipse around the name */}
         <div className="intro-label" id="lbl-1">Thinks about your business<span className="lbl-tip">Stakeholder-first design</span></div>
@@ -665,8 +670,8 @@ export default function HomePage() {
             <a href="#work" className="nav-link">Work</a>
             <Link href="/about" className="nav-link">About</Link>
             <div className="nav-sep"></div>
-            <a href="#" className="nav-link">Resume ↗</a>
-            <a href="#" className="nav-cta">Let&apos;s Connect</a>
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="nav-link">Resume ↗</a>
+            <a href="#contact" className="nav-cta">Let&apos;s Connect</a>
           </div>
         </div>
       </nav>
@@ -675,15 +680,15 @@ export default function HomePage() {
       <section className="hero-section">
         <div className="hero-card">
           <div className="hero-text">
-            <p className="hero-greeting" id="hGreeting">Hello — I&apos;m a product designer who builds. Currently open to full-time.</p>
+            <p className="hero-greeting" id="hGreeting">Hello, I&apos;m a product designer who builds. Currently open to full-time.</p>
             <h1 className="hero-headline" id="hHead">I don&apos;t wait until I know how. I build until I do.</h1>
-            <p className="hero-body" id="hBody">I research how people think, then design around it — especially when &ldquo;it&rdquo; is an AI that has to earn trust before anyone lets it do anything useful.</p>
+            <p className="hero-body" id="hBody">I research how people think, then design around it. Especially when &ldquo;it&rdquo; is an AI that has to earn trust before anyone lets it do anything useful.</p>
             <p className="hero-worked-in">
               Previously in<span>·</span>AI<span>·</span>HR Tech<span>·</span>SaaS<span>·</span>EDU Tech<span>·</span>E-Commerce
             </p>
             <div className="hero-cta-row" id="hCta">
               <a href="#work" className="hero-btn-primary">See my work <span className="arrow">→</span></a>
-              <a href="#" className="hero-btn-secondary">Resume ↗</a>
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="hero-btn-secondary">Resume ↗</a>
             </div>
             <p className="hero-location" id="hLoc">Based in the United States · CU Boulder MS &apos;25</p>
           </div>
@@ -732,7 +737,7 @@ export default function HomePage() {
                   <div className="card-left">
                     <h3 className="card-title">FlairX</h3>
                     <p className="card-subtitle">Redesigning the Recruiter Workflow</p>
-                    <p className="card-desc">Designed the upload and review experience so recruiters could filter hundreds of applicants down to the ones worth an interview — without losing their minds.</p>
+                    <p className="card-desc">Designed the upload and review experience so recruiters could filter hundreds of applicants down to the ones worth an interview, without losing their minds.</p>
                     <div className="card-stats">
                       <div className="stat">
                         <span className="stat-val">4h→30m</span>
@@ -768,7 +773,7 @@ export default function HomePage() {
                   <div className="card-left">
                     <h3 className="card-title">Fireside Interactive</h3>
                     <p className="card-subtitle">Wildfire Education Platform</p>
-                    <p className="card-desc">Made complex wildfire data legible. Charts and visuals over walls of text — because nobody reads walls of text, especially not in an emergency.</p>
+                    <p className="card-desc">Made complex wildfire data legible. Charts and visuals over walls of text, because nobody reads walls of text, especially not in an emergency.</p>
                     <div className="card-stats">
                       <div className="stat">
                         <span className="stat-val">EDU</span>
@@ -845,25 +850,25 @@ export default function HomePage() {
                 <div className="card-num-bg">04</div>
                 <div className="card-top-row">
                   <span className="card-index">04 / 04</span>
-                  <span className="card-category">UX Research · FinTech</span>
+                  <span className="card-category">Mobile App · E-commerce</span>
                 </div>
                 <div className="card-content-row">
                   <div className="card-left">
                     <h3 className="card-title">Aura</h3>
-                    <p className="card-subtitle">Wealth Advisory Mobile App</p>
-                    <p className="card-desc">Led UX research for a wealth advisory platform — mapping workflow gaps and retirement planning pain points into insights that shaped the core product strategy.</p>
+                    <p className="card-subtitle">Gifting Experience Platform</p>
+                    <p className="card-desc">A personalized floral and gifting app that cuts through decision fatigue and long queues. Designed end-to-end for a Hyderabad florist as part of the Google UX Certificate.</p>
                     <div className="card-stats">
-                      <div className="stat">
-                        <span className="stat-val">UXR</span>
-                        <span className="stat-label">Research Lead</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val">FinTech</span>
-                        <span className="stat-label">Domain</span>
-                      </div>
                       <div className="stat">
                         <span className="stat-val">Mobile</span>
                         <span className="stat-label">Platform</span>
+                      </div>
+                      <div className="stat">
+                        <span className="stat-val">3×</span>
+                        <span className="stat-label">Usability rounds</span>
+                      </div>
+                      <div className="stat">
+                        <span className="stat-val">Google</span>
+                        <span className="stat-label">UX Certificate</span>
                       </div>
                     </div>
                     <Link href="/projects/aura" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
@@ -896,8 +901,8 @@ export default function HomePage() {
           <p className="recognition-eyebrow" id="recEye">Recognition</p>
           <div className="recognition-card" id="recCard">
             <div className="rec-left">
-              <h2 className="recognition-title">Finalist — Women in Product × Lovable Hackathon 2026</h2>
-              <p className="recognition-desc">Built a working referral network for the WIP community in one sprint — designed to make cold referral requests feel less awkward and more human. Team of 5. Shipped, presented, placed.</p>
+              <h2 className="recognition-title">Finalist: Women in Product × Lovable Hackathon 2026</h2>
+              <p className="recognition-desc">Built a working referral network for the WIP community in one sprint, designed to make cold referral requests feel less awkward and more human. Team of 5. Shipped, presented, placed.</p>
               <div className="recognition-tags">
                 <span className="recognition-tag">Lovable</span>
                 <span className="recognition-tag">AI-Assisted</span>
@@ -906,8 +911,8 @@ export default function HomePage() {
               </div>
             </div>
             <div className="rec-right">
-              <a href="#" className="recognition-btn">View Project Deck</a>
-              <a href="#" className="recognition-btn">View Website</a>
+              <a href="https://id-preview--e94c1759-cb49-4560-bae0-cee815c16b13.lovable.app" target="_blank" rel="noopener noreferrer" className="recognition-btn">View Project Deck</a>
+              <a href="https://wip-spark-connect.lovable.app" target="_blank" rel="noopener noreferrer" className="recognition-btn">View Website</a>
             </div>
           </div>
         </div>
@@ -950,7 +955,7 @@ export default function HomePage() {
 
               <div className="about-btns" id="aboutBtns">
                 <Link href="/about" className="about-btn-dark">Full Story →</Link>
-                <a href="#" className="about-btn-outline">Resume ↗</a>
+                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="about-btn-outline">Resume ↗</a>
               </div>
             </div>
 
@@ -970,7 +975,7 @@ export default function HomePage() {
                 <span className="about-photo-ph" style={{display:'none'}}>Your photo here</span>
                 <div className="about-status-badge">
                   <span className="status-dot"></span>
-                  Open to Full-Time
+                  Looking for Full Time
                 </div>
               </div>
             </div>
@@ -1003,9 +1008,9 @@ export default function HomePage() {
 
             {/* CTAs */}
             <div className="connect-btns" id="conBtns">
-              <a href="mailto:sanjana@example.com" className="con-btn-primary">Email me ↗</a>
-              <a href="#" className="con-btn-ghost">LinkedIn ↗</a>
-              <a href="#" className="con-btn-ghost">Resume ↗</a>
+              <a href="mailto:gangishettysanjana084@gmail.com" className="con-btn-primary">Email me ↗</a>
+              <a href="https://www.linkedin.com/in/sanjana-gangishetty" target="_blank" rel="noopener noreferrer" className="con-btn-ghost">LinkedIn ↗</a>
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="con-btn-ghost">Resume ↗</a>
             </div>
 
           </div>

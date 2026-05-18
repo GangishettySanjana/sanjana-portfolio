@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Font Preview — Pick Your Font</title>
+
+<!-- All fonts loaded upfront -->
+<link rel="preconnect" href="https://api.fontshare.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+
+<!-- Fontshare -->
+<style>
+  @import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&display=swap');
+  @import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap');
+  @import url('https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap');
+  @import url('https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700,800&display=swap');
+  @import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+  @import url('https://api.fontshare.com/v2/css?f[]=boska@400,500,700,900&display=swap');
+
+  /* Google Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
+</style>
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #111;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Sticky selector bar */
+  .font-bar {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 56px; z-index: 100;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center;
+    padding: 0 24px; gap: 8px;
+    overflow-x: auto;
+  }
+  .font-bar-label {
+    font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(255,255,255,0.3);
+    white-space: nowrap; margin-right: 8px;
+    font-family: 'Inter', sans-serif;
+  }
+  .font-chip {
+    padding: 7px 16px; border-radius: 999px;
+    font-size: 12px; font-weight: 500;
+    cursor: pointer; border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.5); background: transparent;
+    white-space: nowrap; transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .font-chip:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+  .font-chip.active { background: #fff; color: #000; border-color: #fff; }
+
+  /* Sections — one per font option */
+  .font-section {
+    display: none;
+    min-height: 100vh;
+    padding-top: 56px;
+  }
+  .font-section.visible { display: block; }
+
+  /* Hero preview card */
+  .preview-hero {
+    min-height: calc(100vh - 56px);
+    display: flex; align-items: center;
+    padding: 60px clamp(24px, 5vw, 80px);
+    background: url('/hero-bg.png') center top / cover no-repeat;
+  }
+  .hero-card {
+    width: 100%; max-width: 1320px;
+    margin: 0 auto;
+    background-color: rgba(240, 236, 228, 0.85);
+    border-radius: 60px;
+    padding: 80px 58px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 85px;
+    position: relative; overflow: hidden;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute; inset: 0; border-radius: 60px;
+    pointer-events: none; z-index: 0; opacity: 0.65;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat; background-size: 200px 200px;
+  }
+  .hero-text {
+    position: relative; z-index: 2;
+    flex: 1; max-width: 679px;
+    display: flex; flex-direction: column; gap: 18px;
+    align-self: center;
+  }
+  .hero-greeting {
+    font-size: 18px; font-weight: 400; color: #000;
+    font-family: 'Inter', sans-serif;
+  }
+  .hero-headline {
+    font-size: 45px; font-weight: 700; color: #000;
+    line-height: 1.08; letter-spacing: -0.02em;
+  }
+  .hero-body {
+    font-size: 20px; font-weight: 400; color: #000;
+    line-height: 1.6; max-width: 560px;
+    font-family: 'Inter', sans-serif;
+  }
+  .hero-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 200px; height: 65px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 42px; font-size: 16px; font-weight: 500;
+    color: #000; text-decoration: none;
+    font-family: 'Inter', sans-serif;
+  }
+  .hero-location {
+    font-size: 14px; color: #000;
+    font-family: 'Inter', sans-serif;
+  }
+  .hero-photo {
+    position: relative; z-index: 2; flex-shrink: 0;
+    width: 343px; height: 359px;
+    border-radius: 40px; border: 1px solid #000;
+    background: #c8d8c0;
+    display: flex; align-items: center; justify-content: center;
+    align-self: center;
+  }
+  .photo-placeholder {
+    font-size: 11px; color: rgba(0,0,0,0.4);
+    text-align: center; line-height: 1.8;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Font info bar below hero */
+  .font-info {
+    background: #1a1a1a;
+    padding: 32px clamp(24px, 5vw, 80px);
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .font-name {
+    font-size: 28px; font-weight: 700; color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .font-meta {
+    font-size: 13px; color: rgba(255,255,255,0.4);
+    line-height: 1.7; max-width: 480px; text-align: right;
+    font-family: 'Inter', sans-serif;
+  }
+  .font-meta strong { color: rgba(255,255,255,0.7); }
+
+  /* Alphabet specimen */
+  .specimen {
+    background: #141414;
+    padding: 40px clamp(24px, 5vw, 80px) 60px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+  .specimen-label {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.25); margin-bottom: 24px;
+    font-family: 'Inter', sans-serif;
+  }
+  .specimen-large {
+    font-size: clamp(48px, 8vw, 96px); font-weight: 700; color: #fff;
+    line-height: 1; letter-spacing: -0.03em; margin-bottom: 24px;
+  }
+  .specimen-weights {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .weight-row {
+    display: flex; align-items: baseline; gap: 24px;
+  }
+  .weight-label {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.25); width: 64px; flex-shrink: 0;
+    font-family: 'Inter', sans-serif;
+  }
+  .weight-sample { font-size: 22px; color: rgba(255,255,255,0.85); line-height: 1; }
+
+  /* ── FONT-SPECIFIC CLASSES ── */
+
+  /* A: Cabinet Grotesk + Satoshi */
+  .f-a .hero-headline { font-family: 'Cabinet Grotesk', sans-serif; }
+  .f-a .hero-body     { font-family: 'Satoshi', sans-serif; }
+  .f-a .font-name     { font-family: 'Cabinet Grotesk', sans-serif; }
+  .f-a .specimen-large  { font-family: 'Cabinet Grotesk', sans-serif; }
+  .f-a .weight-sample   { font-family: 'Cabinet Grotesk', sans-serif; }
+
+  /* B: Boska (Serif Display) + General Sans */
+  .f-b .hero-headline { font-family: 'Boska', serif; font-weight: 900; }
+  .f-b .hero-body     { font-family: 'General Sans', sans-serif; }
+  .f-b .font-name     { font-family: 'Boska', serif; }
+  .f-b .specimen-large  { font-family: 'Boska', serif; }
+  .f-b .weight-sample   { font-family: 'Boska', serif; }
+
+  /* C: Clash Display + Satoshi */
+  .f-c .hero-headline { font-family: 'Clash Display', sans-serif; font-weight: 600; }
+  .f-c .hero-body     { font-family: 'Satoshi', sans-serif; }
+  .f-c .font-name     { font-family: 'Clash Display', sans-serif; }
+  .f-c .specimen-large  { font-family: 'Clash Display', sans-serif; }
+  .f-c .weight-sample   { font-family: 'Clash Display', sans-serif; }
+
+  /* D: Cormorant Garamond + General Sans */
+  .f-d .hero-headline { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 54px; }
+  .f-d .hero-body     { font-family: 'General Sans', sans-serif; }
+  .f-d .font-name     { font-family: 'Cormorant Garamond', serif; }
+  .f-d .specimen-large  { font-family: 'Cormorant Garamond', serif; }
+  .f-d .weight-sample   { font-family: 'Cormorant Garamond', serif; }
+
+  /* E: DM Serif Display + General Sans */
+  .f-e .hero-headline { font-family: 'DM Serif Display', serif; font-weight: 400; }
+  .f-e .hero-body     { font-family: 'General Sans', sans-serif; }
+  .f-e .font-name     { font-family: 'DM Serif Display', serif; }
+  .f-e .specimen-large  { font-family: 'DM Serif Display', serif; }
+  .f-e .weight-sample   { font-family: 'DM Serif Display', serif; }
+
+  /* F: Switzer + Satoshi */
+  .f-f .hero-headline { font-family: 'Switzer', sans-serif; font-weight: 700; }
+  .f-f .hero-body     { font-family: 'Satoshi', sans-serif; }
+  .f-f .font-name     { font-family: 'Switzer', sans-serif; }
+  .f-f .specimen-large  { font-family: 'Switzer', sans-serif; }
+  .f-f .weight-sample   { font-family: 'Switzer', sans-serif; }
+
+  /* G: Plus Jakarta Sans only */
+  .f-g .hero-headline { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; }
+  .f-g .hero-body     { font-family: 'Plus Jakarta Sans', sans-serif; }
+  .f-g .font-name     { font-family: 'Plus Jakarta Sans', sans-serif; }
+  .f-g .specimen-large  { font-family: 'Plus Jakarta Sans', sans-serif; }
+  .f-g .weight-sample   { font-family: 'Plus Jakarta Sans', sans-serif; }
+</style>
+</head>
+<body>
+
+<!-- STICKY FONT PICKER -->
+<div class="font-bar">
+  <span class="font-bar-label">Pick your font →</span>
+  <button class="font-chip active" onclick="show('a', this)">Cabinet Grotesk</button>
+  <button class="font-chip" onclick="show('b', this)">Boska (Serif)</button>
+  <button class="font-chip" onclick="show('c', this)">Clash Display</button>
+  <button class="font-chip" onclick="show('d', this)">Cormorant Garamond</button>
+  <button class="font-chip" onclick="show('e', this)">DM Serif Display</button>
+  <button class="font-chip" onclick="show('f', this)">Switzer</button>
+  <button class="font-chip" onclick="show('g', this)">Plus Jakarta Sans</button>
+</div>
+
+<!-- ── A: Cabinet Grotesk ── -->
+<div class="font-section f-a visible" id="section-a">
+  <div class="preview-hero">
+    <div class="hero-card">
+      <div class="hero-text">
+        <p class="hero-greeting">Hello, I am Sanjana, I am product designer! - Currently Looking for full-times</p>
+        <h1 class="hero-headline">I don't wait until I know how. I build until I do.</h1>
+        <p class="hero-body">I research how people think, then design around it. Especially when "it" is an AI that has to earn the user's trust before they'll let it do anything useful.</p>
+        <a href="#" class="hero-btn">SEE MY WORK</a>
+        <p class="hero-location">BASED IN THE UNITED STATES · CU BOULDER MS '25</p>
+      </div>
+      <div class="hero-photo"><div class="photo-placeholder">Your photo<br/>343 × 359</div></div>
+    </div>
+  </div>
+  <div class="font-info">
+    <div class="font-name">Cabinet Grotesk</div>
+    <div class="font-meta"><strong>Free · Fontshare</strong><br/>Modern grotesk with subtle quirks — slightly curved R, angled terminals. Used across top design portfolios. Confident, contemporary, distinctive without being loud.</div>
+  </div>
+  <div class="specimen f-a">
+    <p class="specimen-label">Specimen</p>
+    <div class="specimen-large">AaBbCc 123</div>
+    <div class="specimen-weights">
+      <div class="weight-row"><span class="weight-label">Regular</span><span class="weight-sample" style="font-weight:400">I don't wait until I know how. I build until I do.</span></div>
+      <div class="weight-row"><span class="weight-label">Medium</span><span class="weight-sample" style="font-weight:500">I don't wait until I know how. I build until I do.</span></div>
+      <div class="weight-row"><span class="weight-label">Bold</span><span class="weight-sample" style="font-weight:700">I don't wait until I know how. I build until I do.</span></div>
+      <div class="weight-row"><span class="weight-label">Black</span><span class="weight-sample" style="font-weight:900">I don't wait until I know how. I build until I do.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── B: Boska ── -->
+<div class="font-section f-b" id="section-b">
+  <div class="preview-hero">
+    <div class="hero-card">
+      <div class="hero-text">
+        <p class="hero-greeting">Hello, I am Sanjana, I am product designer! - Currently Looking for full-times</p>
+        <h1 class="hero-headline">I don't wait until I know how. I build until I do.</h1>
+        <p class="hero-body">I research how people think, then design around it. Especially when "it" is an AI that has to earn the user's trust before they'll let it do anything useful.</p>
+        <a href="#" class="hero-btn">SEE MY WORK</a>
+        <p class="hero-location">BASED IN THE UNITED STATES · CU BOULDER MS '25</p>
+      </div>
+      <div class="hero-photo"><div class="photo-placeholder">Your photo<br/>343 × 359</div></div>
+    </div>
+  </div>
+  <div class="font-info">
+    <div class="font-name">Boska</div>
+    <div class="font-meta"><strong>Free · Fontshare</strong><br/>A high-contrast serif with editorial energy — think magazine cover, not textbook. Striking at large sizes. Pairs with General Sans for body to keep it grounded.</div>
+  </div>
+  <div class="specimen f-b">
+    <p class="specimen-label">Specimen</p>
+    <div class="specimen-large">AaBbCc 123</div>
+    <div class="specimen-weights">
+      <div class="weight-row"><span class="weight-label">Regular</span><span class="weight-sample" style="font-weight:400">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">Medium</span><span class="weight-sample" style="font-weight:500">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">Bold</span><span class="weight-sample" style="font-weight:700">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">Black</span><span class="weight-sample" style="font-weight:900">I don't wait until I know how.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── C: Clash Display ── -->
+<div class="font-section f-c" id="section-c">
+  <div class="preview-hero">
+    <div class="hero-card">
+      <div class="hero-text">
+        <p class="hero-greeting">Hello, I am Sanjana, I am product designer! - Currently Looking for full-times</p>
+        <h1 class="hero-headline">I don't wait until I know how. I build until I do.</h1>
+        <p class="hero-body">I research how people think, then design around it. Especially when "it" is an AI that has to earn the user's trust before they'll let it do anything useful.</p>
+        <a href="#" class="hero-btn">SEE MY WORK</a>
+        <p class="hero-location">BASED IN THE UNITED STATES · CU BOULDER MS '25</p>
+      </div>
+      <div class="hero-photo"><div class="photo-placeholder">Your photo<br/>343 × 359</div></div>
+    </div>
+  </div>
+  <div class="font-info">
+    <div class="font-name">Clash Display</div>
+    <div class="font-meta"><strong>Free · Fontshare</strong><br/>Geometric, bold, designed specifically for headlines. Very popular in product and startup design. Makes the headline feel intentional and structured.</div>
+  </div>
+  <div class="specimen f-c">
+    <p class="specimen-label">Specimen</p>
+    <div class="specimen-large">AaBbCc 123</div>
+    <div class="specimen-weights">
+      <div class="weight-row"><span class="weight-label">Regular</span><span class="weight-sample" style="font-weight:400">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">Medium</span><span class="weight-sample" style="font-weight:500">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">SemiBold</span><span class="weight-sample" style="font-weight:600">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">Bold</span><span class="weight-sample" style="font-weight:700">I don't wait until I know how.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── D: Cormorant Garamond ── -->
+<div class="font-section f-d" id="section-d">
+  <div class="preview-hero">
+    <div class="hero-card">
+      <div class="hero-text">
+        <p class="hero-greeting">Hello, I am Sanjana, I am product designer! - Currently Looking for full-times</p>
+        <h1 class="hero-headline">I don't wait until I know how. I build until I do.</h1>
+        <p class="hero-body">I research how people think, then design around it. Especially when "it" is an AI that has to earn the user's trust before they'll let it do anything useful.</p>
+        <a href="#" class="hero-btn">SEE MY WORK</a>
+        <p class="hero-location">BASED IN THE UNITED STATES · CU BOULDER MS '25</p>
+      </div>
+      <div class="hero-photo"><div class="photo-placeholder">Your photo<br/>343 × 359</div></div>
+    </div>
+  </div>
+  <div class="font-info">
+    <div class="font-name">Cormorant Garamond</div>
+    <div class="font-meta"><strong>Free · Google Fonts</strong><br/>High-contrast editorial serif — closest free alternative to Canela. Tall, refined, fashion-editorial. Makes the headline feel like a statement. Pairs with General Sans body.</div>
+  </div>
+  <div class="specimen f-d">
+    <p class="specimen-label">Specimen</p>
+    <div class="specimen-large">AaBbCc 123</div>
+    <div class="specimen-weights">
+      <div class="weight-row"><span class="weight-label">Light</span><span class="weight-sample" style="font-weight:300">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">Medium</span><span class="weight-sample" style="font-weight:500">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">Bold</span><span class="weight-sample" style="font-weight:700">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">Italic</span><span class="weight-sample" style="font-weight:500;font-style:italic">I don't wait until I know how.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── E: DM Serif Display ── -->
+<div class="font-section f-e" id="section-e">
+  <div class="preview-hero">
+    <div class="hero-card">
+      <div class="hero-text">
+        <p class="hero-greeting">Hello, I am Sanjana, I am product designer! - Currently Looking for full-times</p>
+        <h1 class="hero-headline">I don't wait until I know how. I build until I do.</h1>
+        <p class="hero-body">I research how people think, then design around it. Especially when "it" is an AI that has to earn the user's trust before they'll let it do anything useful.</p>
+        <a href="#" class="hero-btn">SEE MY WORK</a>
+        <p class="hero-location">BASED IN THE UNITED STATES · CU BOULDER MS '25</p>
+      </div>
+      <div class="hero-photo"><div class="photo-placeholder">Your photo<br/>343 × 359</div></div>
+    </div>
+  </div>
+  <div class="font-info">
+    <div class="font-name">DM Serif Display</div>
+    <div class="font-meta"><strong>Free · Google Fonts</strong><br/>Warm, approachable serif — not stiff or academic. Strong ink-trap details that look great on screens. The most human-feeling serif of the bunch.</div>
+  </div>
+  <div class="specimen f-e">
+    <p class="specimen-label">Specimen</p>
+    <div class="specimen-large">AaBbCc 123</div>
+    <div class="specimen-weights">
+      <div class="weight-row"><span class="weight-label">Regular</span><span class="weight-sample" style="font-weight:400">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">Italic</span><span class="weight-sample" style="font-weight:400;font-style:italic">I don't wait until I know how.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── F: Switzer ── -->
+<div class="font-section f-f" id="section-f">
+  <div class="preview-hero">
+    <div class="hero-card">
+      <div class="hero-text">
+        <p class="hero-greeting">Hello, I am Sanjana, I am product designer! - Currently Looking for full-times</p>
+        <h1 class="hero-headline">I don't wait until I know how. I build until I do.</h1>
+        <p class="hero-body">I research how people think, then design around it. Especially when "it" is an AI that has to earn the user's trust before they'll let it do anything useful.</p>
+        <a href="#" class="hero-btn">SEE MY WORK</a>
+        <p class="hero-location">BASED IN THE UNITED STATES · CU BOULDER MS '25</p>
+      </div>
+      <div class="hero-photo"><div class="photo-placeholder">Your photo<br/>343 × 359</div></div>
+    </div>
+  </div>
+  <div class="font-info">
+    <div class="font-name">Switzer</div>
+    <div class="font-meta"><strong>Free · Fontshare · 18 styles</strong><br/>A neo-grotesque — inspired by Swiss classics but entirely original. Clean, neutral, highly versatile. 18 styles including 9 italics. The "safe bet that's actually cool."</div>
+  </div>
+  <div class="specimen f-f">
+    <p class="specimen-label">Specimen</p>
+    <div class="specimen-large">AaBbCc 123</div>
+    <div class="specimen-weights">
+      <div class="weight-row"><span class="weight-label">Light</span><span class="weight-sample" style="font-weight:300">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">Regular</span><span class="weight-sample" style="font-weight:400">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">SemiBold</span><span class="weight-sample" style="font-weight:600">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">Bold</span><span class="weight-sample" style="font-weight:700">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">ExtraBold</span><span class="weight-sample" style="font-weight:800">I don't wait until I know how.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── G: Plus Jakarta Sans ── -->
+<div class="font-section f-g" id="section-g">
+  <div class="preview-hero">
+    <div class="hero-card">
+      <div class="hero-text">
+        <p class="hero-greeting">Hello, I am Sanjana, I am product designer! - Currently Looking for full-times</p>
+        <h1 class="hero-headline">I don't wait until I know how. I build until I do.</h1>
+        <p class="hero-body">I research how people think, then design around it. Especially when "it" is an AI that has to earn the user's trust before they'll let it do anything useful.</p>
+        <a href="#" class="hero-btn">SEE MY WORK</a>
+        <p class="hero-location">BASED IN THE UNITED STATES · CU BOULDER MS '25</p>
+      </div>
+      <div class="hero-photo"><div class="photo-placeholder">Your photo<br/>343 × 359</div></div>
+    </div>
+  </div>
+  <div class="font-info">
+    <div class="font-name">Plus Jakarta Sans</div>
+    <div class="font-meta"><strong>Free · Google Fonts</strong><br/>Warm geometric sans with a premium feel. Approachable but serious. Very clean at all sizes. Used across top-tier SaaS products and portfolios.</div>
+  </div>
+  <div class="specimen f-g">
+    <p class="specimen-label">Specimen</p>
+    <div class="specimen-large">AaBbCc 123</div>
+    <div class="specimen-weights">
+      <div class="weight-row"><span class="weight-label">Light</span><span class="weight-sample" style="font-weight:300">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">Regular</span><span class="weight-sample" style="font-weight:400">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">SemiBold</span><span class="weight-sample" style="font-weight:600">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">Bold</span><span class="weight-sample" style="font-weight:700">I don't wait until I know how.</span></div>
+      <div class="weight-row"><span class="weight-label">ExtraBold</span><span class="weight-sample" style="font-weight:800">I don't wait until I know how.</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.font-section').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('.font-chip').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('visible');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

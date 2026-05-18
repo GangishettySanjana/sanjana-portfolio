@@ -862,9 +862,10 @@
     /* Intro curtain — hide outer pills on mobile */
     #intro-name  { font-size: clamp(24px, 7vw, 44px); }
     .intro-label { font-size: 12px; padding: 6px 12px; }
-    /* keep only 4 pills on mobile — JS still handles their orbit positions */
-    #lbl-1, #lbl-4, #lbl-5, #lbl-6,
-    #lbl-8, #lbl-9, #lbl-11 { display: none; }
+    /* 4 evenly-spread pills: upper(-67°), right(30.9°), lower-left(129.1°), upper-left(227.3°) */
+    #lbl-1,  #lbl-3,  #lbl-4,  #lbl-6,
+    #lbl-7,  #lbl-9,  #lbl-10 { display: none; }
+    #lbl-2, #lbl-5, #lbl-8, #lbl-11 { display: block; }
   }
 
   /* ═══════════════════════════════════════════
@@ -879,6 +880,9 @@
     .about-headline-italic { font-size: 20px; }
     .connect-headline { font-size: 28px; }
     .con-pill-2, .con-pill-6, .con-pill-7 { display: none; }
+    /* 2 short pills on very small screens */
+    #lbl-2, #lbl-8 { display: block; }
+    #lbl-5, #lbl-11 { display: none; }
   }
 </style>
 </head>
@@ -1308,10 +1312,14 @@ window.addEventListener('mousemove', e => {
   function positionLabelsOnOrbit() {
     const W  = window.innerWidth;
     const H  = window.innerHeight;
+    const isSmall  = W <= 480;
     const isMobile = W <= 768;
-    // Semi-axes: smaller on mobile to keep pills inside the viewport
-    const aX = isMobile ? Math.min(W * 0.36, 260) : Math.min(W * 0.37, 535);
-    const aY = isMobile ? Math.min(H * 0.26, 200) : Math.min(H * 0.28, 300);
+    const aX = isSmall  ? Math.min(W * 0.30, 115) :
+               isMobile ? Math.min(W * 0.32, 230) :
+                          Math.min(W * 0.37, 535);
+    const aY = isSmall  ? Math.min(H * 0.14, 120) :
+               isMobile ? Math.min(H * 0.17, 148) :
+                          Math.min(H * 0.28, 300);
 
     labels.forEach((lbl, i) => {
       const ang = (_startDeg + i * _step) * Math.PI / 180;

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 import { Fraunces, Playfair_Display, Ysabeau_Infant, Space_Grotesk, Outfit } from 'next/font/google'
 import './globals.css'
 
@@ -75,8 +76,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${displayFont.variable} ${headingFont.variable} ${bodyFont.variable} ${labelFont.variable}`}
     >
+      <head>
+        <link rel="preconnect" href="https://api.fontshare.com"/>
+        <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500,600,700,800,900&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap" rel="stylesheet"/>
+      </head>
       <body className="bg-white text-roasted antialiased">
         {children}
+        <Analytics />
       </body>
     </html>
   )

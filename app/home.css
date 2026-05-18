@@ -281,6 +281,31 @@ nav {
 .card-aura .card-btn { background: #2a1f3d; color: #c9c2d4; }
 .card-aura .card-right { background: #b8b0c8; }
 
+.card-sparkconnect { background: #1E1438; color: #E8D8FF; }
+.card-sparkconnect .card-category { border-color: #9F7AEA; color: #C4B5FD; }
+.card-sparkconnect .card-btn { background: #9F7AEA; color: #fff; }
+.card-sparkconnect .card-right { background: #2D1F54; display: flex; align-items: center; justify-content: center; }
+.card-sparkconnect .card-num-bg { color: rgba(159,122,234,0.10); }
+.card-sparkconnect .card-subtitle { color: rgba(232,216,255,0.65); }
+.card-sparkconnect .card-desc { color: rgba(232,216,255,0.80); }
+.card-sparkconnect .stat-val { color: #C4B5FD; }
+.card-sparkconnect .stat-label { color: rgba(196,181,253,0.55); }
+.card-sparkconnect .card-btn-secondary {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 20px; border-radius: 999px; font-size: 12px;
+  font-family: var(--label); letter-spacing: 0.06em; font-weight: 600;
+  background: transparent; border: 1px solid rgba(159,122,234,0.45);
+  color: #C4B5FD; text-decoration: none; transition: border-color 0.2s, color 0.2s;
+}
+.card-sparkconnect .card-btn-secondary:hover { border-color: #9F7AEA; color: #fff; }
+.card-sparkconnect .hackathon-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 999px;
+  background: rgba(159,122,234,0.15); border: 1px solid rgba(159,122,234,0.35);
+  font-family: var(--label); font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #C4B5FD; margin-bottom: 14px;
+}
+
 /* ── RECOGNITION ── */
 .recognition-section { background: var(--page-bg); padding: 0 0 100px; }
 .recognition-eyebrow {
@@ -856,10 +881,11 @@ nav {
 
   /* Intro curtain */
   #intro-name { font-size: clamp(24px, 7vw, 44px); }
-  .intro-label { font-size: 12px; padding: 6px 12px; }
-  /* keep only 4 pills on mobile — JS still handles orbit positions */
-  #lbl-1, #lbl-4, #lbl-5, #lbl-6,
-  #lbl-8, #lbl-9, #lbl-11 { display: none; }
+  .intro-label { font-size: 11px; padding: 5px 14px; }
+  /* 4 evenly-spread pills on mobile: upper-center, right, lower-left, upper-left */
+  #lbl-1,  #lbl-3,  #lbl-4,  #lbl-6,
+  #lbl-7,  #lbl-9,  #lbl-10 { display: none; }
+  #lbl-2, #lbl-5, #lbl-8, #lbl-11 { display: block; }
 }
 
 /* ═══════════════════════════════════════════
@@ -888,7 +914,7 @@ nav {
   .recognition-card { padding: 32px 20px; }
   .rec-right { flex-direction: column; }
 
-  /* Intro — only 2 pills on very small screens */
-  #lbl-2, #lbl-3, #lbl-7, #lbl-10 { display: none; }
-  #lbl-6, #lbl-11 { display: block; }
+  /* Intro — 2 short pills on very small screens: upper-right + lower-left */
+  #lbl-2, #lbl-8 { display: block; }
+  #lbl-5, #lbl-11 { display: none; }
 }

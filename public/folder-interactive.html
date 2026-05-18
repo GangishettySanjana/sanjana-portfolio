@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Folder Cards</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: #1a1918;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px 60px;
+    gap: 28px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .hint { color: rgba(255,255,255,0.2); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  .stack-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 780px;
+  }
+
+  /* ── One folder ── */
+  .folder-wrap {
+    position: absolute;
+    left: 0; right: 0;
+    transition: top 0.5s cubic-bezier(0.16,1,0.3,1),
+                height 0.5s cubic-bezier(0.16,1,0.3,1);
+    cursor: pointer;
+  }
+
+  /* The tab sticks up above the body */
+  .f-tab {
+    position: absolute;
+    top: 0;
+    height: 36px;
+    width: 150px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
+    /* slightly darker shade */
+    filter: brightness(0.9);
+    z-index: 2;
+  }
+
+  /* The folder body — sits below the tab */
+  .f-body {
+    position: absolute;
+    left: 0; right: 0;
+    top: 32px; /* overlap tab by 4px so no gap */
+    bottom: 0;
+    border-radius: 4px 18px 18px 18px;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.25), 0 2px 6px rgba(0,0,0,0.15);
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+  }
+  .folder-wrap:hover .f-body {
+    box-shadow: 0 16px 56px rgba(0,0,0,0.38), 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  /* Paper lines */
+  .f-lines {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(
+      0deg, transparent, transparent 29px,
+      rgba(0,0,0,0.055) 29px, rgba(0,0,0,0.055) 30px
+    );
+    pointer-events: none;
+  }
+
+  /* Red margin line (like real paper) */
+  .f-margin {
+    position: absolute;
+    left: 52px; top: 0; bottom: 0;
+    width: 1px;
+    background: rgba(200,100,100,0.15);
+    pointer-events: none;
+  }
+
+  /* ── Peek state ── */
+  .f-peek {
+    position: relative; z-index: 1;
+    padding: 20px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 100%;
+  }
+  .f-peek-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    line-height: 1.2;
+  }
+  .f-peek-sub {
+    font-size: 10px; letter-spacing: 0.09em;
+    text-transform: uppercase; opacity: 0.45; margin-top: 4px;
+  }
+
+  /* ── Expanded state ── */
+  .f-expanded {
+    display: none;
+    position: relative; z-index: 1;
+    height: 100%;
+  }
+  .folder-wrap.active .f-expanded { display: flex; }
+  .folder-wrap.active .f-peek { display: none; }
+
+  .f-exp-left {
+    flex: 1;
+    padding: 40px 36px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .f-exp-context {
+    font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; opacity: 0.45;
+  }
+  .f-exp-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(22px, 3vw, 28px);
+    line-height: 1.15;
+  }
+  .f-exp-desc {
+    font-size: 14px; line-height: 1.7;
+    opacity: 0.68; max-width: 300px;
+  }
+  .f-stats { display: flex; gap: 24px; margin-top: 4px; }
+  .f-stat-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+  }
+  .f-stat-lbl {
+    font-size: 9px; letter-spacing: 0.1em;
+    text-transform: uppercase; opacity: 0.45; margin-top: 2px;
+  }
+  .f-btn {
+    margin-top: auto;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 22px; border-radius: 999px;
+    font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 600;
+    cursor: pointer; border: none;
+    font-family: 'DM Sans', sans-serif;
+    width: fit-content; transition: opacity 0.15s;
+    text-decoration: none;
+  }
+  .f-btn:hover { opacity: 0.75; }
+
+  /* Thumbnail */
+  .f-thumb-panel {
+    width: 260px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    padding: 28px 24px;
+  }
+  .f-thumb {
+    width: 100%;
+    aspect-ratio: 3/4;
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+    overflow: hidden;
+    background: white;
+    display: flex; flex-direction: column;
+    transform: rotate(2deg);
+    transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+  .folder-wrap.active .f-thumb { transform: rotate(0deg); }
+  .f-thumb-top { height: 44%; display: flex; align-items: center; justify-content: center; }
+  .f-thumb-lines { flex: 1; padding: 10px 14px; display: flex; flex-direction: column; gap: 7px; }
+  .f-thumb-line { height: 6px; border-radius: 3px; }
+
+  /* Progress bar */
+  .f-progress {
+    position: absolute; bottom: 0; left: 0;
+    height: 3px; width: 0%;
+    transition: width 0.07s linear;
+    border-radius: 0 0 0 18px;
+  }
+
+  /* Dots */
+  .dots { display: flex; gap: 8px; }
+  .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .dot.active { background: rgba(255,255,255,0.75); transform: scale(1.35); }
+</style>
+</head>
+<body>
+
+<p class="hint">Click any folder · auto-rotates every 2 s</p>
+<div class="stack-wrap" id="stack"></div>
+<div class="dots" id="dots"></div>
+
+<script>
+const projects = [
+  {
+    label: 'FlairX',
+    context: 'AI Product · 2024',
+    title: 'FlairX — AI Stylist',
+    desc: 'Redesigned onboarding for an AI fashion assistant. Cut drop-off 40%, tripled week-2 retention.',
+    stats: [{ val: '40%', lbl: 'Drop-off reduced' }, { val: '3×', lbl: 'Retention lift' }],
+    color: '#E8B4A8',
+    text: '#3d2a24',
+    tabLeft: '0px',
+  },
+  {
+    label: 'Fireside',
+    context: 'B2B SaaS · 2024',
+    title: 'Fireside',
+    desc: 'Redesigned creator monetisation dashboard. Simplified complex analytics into clear decisions.',
+    stats: [{ val: '$2M', lbl: 'ARR impact' }, { val: '28%', lbl: 'Engagement up' }],
+    color: '#B5634A',
+    text: '#f5e8e4',
+    tabLeft: '160px',
+  },
+  {
+    label: 'Aura Health',
+    context: 'AI · Health · 2023',
+    title: 'Aura Health',
+    desc: 'Intelligent health tracking that adapts to you — rated 4.8★ on the App Store.',
+    stats: [{ val: '4.8★', lbl: 'App rating' }, { val: '2×', lbl: 'Session length' }],
+    color: '#9BB8C2',
+    text: '#1e3540',
+    tabLeft: '320px',
+  },
+  {
+    label: 'GetUp',
+    context: 'Mobile · Wellness · 2023',
+    title: 'GetUp',
+    desc: 'Habit-forming morning routine app built 0→1. Launched with 10k users in 3 months.',
+    stats: [{ val: '10K', lbl: 'Launch users' }, { val: '62%', lbl: 'Day-7 retention' }],
+    color: '#5B7FA6',
+    text: '#e8f0f8',
+    tabLeft: '480px',
+  },
+  {
+    label: 'Northern Trust',
+    context: 'Enterprise · FinTech',
+    title: 'Northern Trust',
+    desc: 'Simplified wealth management tools for a Fortune 500 bank — saving hours per advisor weekly.',
+    stats: [{ val: '60%', lbl: 'Task time saved' }, { val: '94%', lbl: 'Adoption rate' }],
+    color: '#F2EDE4',
+    text: '#3a3530',
+    tabLeft: '580px',
+  },
+];
+
+const N = projects.length;
+const TAB_H   = 36;
+const PEEK_H  = 72;
+const ACTIVE_H = 420;
+const GAP = 6;
+
+let active = 0;
+let autoTimer = null;
+let progTimer = null;
+let progVal = 0;
+
+const stackEl = document.getElementById('stack');
+const dotsEl  = document.getElementById('dots');
+
+projects.forEach((p, i) => {
+  // Dot
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => activate(i, true);
+  dotsEl.appendChild(dot);
+
+  // Folder
+  const fw = document.createElement('div');
+  fw.className = 'folder-wrap' + (i === 0 ? ' active' : '');
+  fw.dataset.i = i;
+
+  fw.innerHTML = `
+    <!-- Tab -->
+    <div class="f-tab" style="background:${p.color};color:${p.text};left:${p.tabLeft};">
+      ${p.label}
+    </div>
+
+    <!-- Body -->
+    <div class="f-body" style="background:${p.color};color:${p.text};">
+      <div class="f-lines"></div>
+      <div class="f-margin"></div>
+
+      <!-- Peek -->
+      <div class="f-peek">
+        <div>
+          <div class="f-peek-title">${p.title}</div>
+          <div class="f-peek-sub">${p.context}</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="opacity:0.35;flex-shrink:0;">
+          <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <!-- Expanded -->
+      <div class="f-expanded">
+        <div class="f-exp-left">
+          <div class="f-exp-context">${p.context}</div>
+          <div class="f-exp-title">${p.title}</div>
+          <div class="f-exp-desc">${p.desc}</div>
+          <div class="f-stats">
+            ${p.stats.map(s => `
+              <div>
+                <div class="f-stat-val">${s.val}</div>
+                <div class="f-stat-lbl">${s.lbl}</div>
+              </div>`).join('')}
+          </div>
+          <a class="f-btn" href="#" style="background:${p.text};color:${p.color};">
+            View Case Study →
+          </a>
+        </div>
+        <div class="f-thumb-panel" style="background:rgba(0,0,0,0.06);">
+          <div class="f-thumb">
+            <div class="f-thumb-top" style="background:${p.color}88;">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style="opacity:0.4;">
+                <rect x="3" y="3" width="18" height="18" rx="3" stroke="${p.text}" stroke-width="1.5"/>
+                <circle cx="12" cy="10" r="3" stroke="${p.text}" stroke-width="1.5"/>
+                <path d="M6 21c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="${p.text}" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="f-thumb-lines">
+              <div class="f-thumb-line" style="width:70%;background:${p.text};opacity:0.15;"></div>
+              <div class="f-thumb-line" style="width:50%;background:${p.text};opacity:0.15;"></div>
+              <div class="f-thumb-line" style="width:85%;background:${p.text};opacity:0.15;"></div>
+              <div class="f-thumb-line" style="width:40%;background:${p.text};opacity:0.15;"></div>
+              <div class="f-thumb-line" style="width:65%;background:${p.text};opacity:0.15;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="f-progress" id="ps-${i}" style="background:${p.text};opacity:0.25;"></div>
+    </div>
+  `;
+
+  fw.onclick = (e) => {
+    if (e.target.closest('.f-btn')) return;
+    activate(parseInt(fw.dataset.i), true);
+  };
+
+  stackEl.appendChild(fw);
+});
+
+function layout() {
+  const folders = stackEl.querySelectorAll('.folder-wrap');
+  const dots    = dotsEl.querySelectorAll('.dot');
+
+  folders.forEach((fw, i) => {
+    const isActive = i === active;
+    fw.classList.toggle('active', isActive);
+
+    if (isActive) {
+      fw.style.top    = (i * (PEEK_H + GAP)) + 'px';
+      fw.style.height = (TAB_H + ACTIVE_H) + 'px';
+      fw.style.zIndex = N + 10;
+    } else if (i < active) {
+      fw.style.top    = (i * (PEEK_H + GAP)) + 'px';
+      fw.style.height = (TAB_H + PEEK_H) + 'px';
+      fw.style.zIndex = i + 1;
+    } else {
+      const top = active * (PEEK_H + GAP) + TAB_H + ACTIVE_H + (i - active - 1) * (PEEK_H + GAP);
+      fw.style.top    = top + 'px';
+      fw.style.height = (TAB_H + PEEK_H) + 'px';
+      fw.style.zIndex = N - i;
+    }
+
+    document.getElementById('ps-' + i).style.width = '0%';
+  });
+
+  dots.forEach((d, i) => d.classList.toggle('active', i === active));
+
+  const totalH = active * (PEEK_H + GAP) + TAB_H + ACTIVE_H
+               + (N - active - 1) * (PEEK_H + GAP) + TAB_H + 20;
+  stackEl.style.height = totalH + 'px';
+}
+
+function activate(idx, restart) {
+  active = idx;
+  layout();
+  if (restart) startAuto();
+}
+
+function startAuto() {
+  clearTimeout(autoTimer);
+  clearInterval(progTimer);
+  progVal = 0;
+
+  progTimer = setInterval(() => {
+    progVal += 100 / (2000 / 60);
+    const ps = document.getElementById('ps-' + active);
+    if (ps) ps.style.width = Math.min(progVal, 100) + '%';
+  }, 60);
+
+  autoTimer = setTimeout(() => {
+    activate((active + 1) % N, false);
+    startAuto();
+  }, 2000);
+}
+
+layout();
+startAuto();
+</script>
+</body>
+</html>

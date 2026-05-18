@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Download Background</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #111; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; gap: 20px; font-family: sans-serif; }
+  canvas { border-radius: 12px; max-width: 90vw; max-height: 70vh; }
+  .btn {
+    padding: 12px 32px; background: white; color: #111; border: none; border-radius: 999px;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.8; }
+  p { color: rgba(255,255,255,0.4); font-size: 12px; letter-spacing: 0.06em; }
+</style>
+</head>
+<body>
+<canvas id="c" width="2880" height="1800"></canvas>
+<button class="btn" onclick="download()">Download PNG (2880 × 1800)</button>
+<p>Wallpaper / hero background · palette: #F9F6F2 · #9DD5DC · #7CB9E8</p>
+
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+
+const blobs = [
+  { x: 0.15, y: 0.2,  r: 0.65, color: [249,246,242], phase: 0,   speed: 0.28 },
+  { x: 0.72, y: 0.15, r: 0.6,  color: [157,213,220], phase: 1.8, speed: 0.22 },
+  { x: 0.5,  y: 0.72, r: 0.55, color: [124,185,232], phase: 3.4, speed: 0.18 },
+  { x: 0.88, y: 0.82, r: 0.5,  color: [157,213,220], phase: 0.9, speed: 0.24 },
+  { x: 0.08, y: 0.88, r: 0.45, color: [124,185,232], phase: 2.5, speed: 0.20 },
+];
+
+// Draw a nice still frame
+function drawFrame(t) {
+  ctx.fillStyle = '#F9F6F2';
+  ctx.fillRect(0, 0, W, H);
+  blobs.forEach(b => {
+    const x = (b.x + Math.sin(t * b.speed + b.phase) * 0.12) * W;
+    const y = (b.y + Math.cos(t * b.speed * 0.8 + b.phase) * 0.1) * H;
+    const r = b.r * Math.max(W, H);
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    const [r0,g0,b0] = b.color;
+    g.addColorStop(0, `rgba(${r0},${g0},${b0},0.72)`);
+    g.addColorStop(1, `rgba(${r0},${g0},${b0},0)`);
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+  });
+
+  // Grain
+  const grain = ctx.createImageData(W, H);
+  for (let i = 0; i < grain.data.length; i += 4) {
+    const v = Math.random() * 255;
+    grain.data[i] = v; grain.data[i+1] = v; grain.data[i+2] = v; grain.data[i+3] = 255;
+  }
+  ctx.save();
+  ctx.globalAlpha = 0.04;
+  ctx.globalCompositeOperation = 'multiply';
+  const tmp = document.createElement('canvas');
+  tmp.width = W; tmp.height = H;
+  tmp.getContext('2d').putImageData(grain, 0, 0);
+  ctx.drawImage(tmp, 0, 0);
+  ctx.restore();
+}
+
+// Animate preview
+let raf;
+function animate(t) {
+  drawFrame(t / 1000);
+  raf = requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);
+
+function download() {
+  cancelAnimationFrame(raf);
+  drawFrame(1.4); // pick a nice frame
+  const a = document.createElement('a');
+  a.download = 'sanjana-portfolio-bg.png';
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+  requestAnimationFrame(animate); // resume
+}
+</script>
+</body>
+</html>

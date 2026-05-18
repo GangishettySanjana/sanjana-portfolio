@@ -11,8 +11,8 @@ const timeline = [
   {
     year: '2018',
     title: 'Interior design. Yes, interior design.',
-    whisper: 'Woxsen School of Arts and Design. Where it all began.',
-    detail: 'She enrolled studying Interior Design. Spaces, materials, how a room makes a person feel. Four years learning to observe people and build environments around them. She was good at it. She loved it. And she had no idea what was coming.',
+    whisper: 'Woxsen School of Arts and Design. Four years.',
+    detail: 'I spent four years studying interior design — rooms, materials, how light changes a space. Most of the job was figuring out what someone wanted a place to feel like before they could put it into words. I liked it a lot. I just had no idea it was also training me for something else.',
     tag: 'Education',
     color: '#A880D4',
     photo: '/journey/2018-school.jpg',
@@ -21,8 +21,8 @@ const timeline = [
   {
     year: '2020',
     title: 'COVID hit. Online school turned out to be fine.',
-    whisper: 'Most people hated it. She did not.',
-    detail: 'Sketchbooks, Zoom critiques, late-night design rabbit holes. A surprisingly productive pandemic year. She kept designing, kept learning, and graduated with more clarity than she started with.',
+    whisper: 'Most people hated it. I did not.',
+    detail: 'Sketchbooks, Zoom critiques, late nights going down design rabbit holes. Honestly a good year for me. I graduated with more clarity than I had going in.',
     tag: 'Education',
     color: '#A880D4',
     photo: '/journey/2020-covid.jpg',
@@ -31,8 +31,8 @@ const timeline = [
   {
     year: '2022',
     title: 'Graduated. First class with distinction.',
-    whisper: 'Interior designer by degree. Something else entirely, by curiosity.',
-    detail: 'Woxsen awarded her a Bachelor\'s in Design with first class and distinction. She walked off that stage proud, qualified, and genuinely unsure what came next. The answer arrived three months later.',
+    whisper: 'Interior designer on paper. Curious about everything else.',
+    detail: 'Walked out with first class distinction and no real plan. Three months later I started an internship that answered the question I didn\'t know I was asking.',
     tag: 'Education',
     color: '#A880D4',
     photo: '/journey/2022-grad-ceremony.jpg',
@@ -40,9 +40,9 @@ const timeline = [
   },
   {
     year: '2022',
-    title: 'Tell Design Tales. The pivot happens here.',
-    whisper: 'Three months. One UX project. One very clear answer.',
-    detail: 'Her first internship put her on a UX project for the studio\'s website. She liked it. Not in the polite way one likes things one has chosen and must now defend. She liked it genuinely, in the way that makes three months feel simultaneously too long and not long enough. Interior design had taught her to think about people in space. UX was the same instinct, different canvas.',
+    title: 'Tell Design Tales. Everything shifts.',
+    whisper: 'Three months. One UX project. Pretty obvious from there.',
+    detail: 'My first internship put me on a UX project for the studio\'s website. I just liked it. Like, genuinely, immediately. Four years of thinking about how spaces make people feel — turns out that\'s basically what UX is. Different medium, same question.',
     tag: 'Work',
     color: '#2BB5C2',
     photo: '/journey/2022-telltales.jpg',
@@ -50,9 +50,9 @@ const timeline = [
   },
   {
     year: '2022',
-    title: 'Google UX Design Certificate. Making it official.',
+    title: 'Google UX Certificate.',
     whisper: 'Aug 2, 2022. Foundations of User Experience Design. Coursera verified.',
-    detail: 'Right after the internship confirmed it, she sat down and formalized the knowledge. Screener surveys, usability testing, journey mapping. Turned instinct into method. The certificate was a receipt for a decision already made.',
+    detail: 'Got the Google UX cert right after. Screener surveys, usability testing, journey maps. It put names to things I\'d already started doing by feel.',
     tag: 'Education',
     color: '#A880D4',
     photo: '/journey/2022-google-cert.jpg',
@@ -60,18 +60,18 @@ const timeline = [
   },
   {
     year: '2022',
-    title: 'Aura. MySassy Interiors. Six projects solo.',
-    whisper: 'Interior design background, UX brain. Turns out: lethal combination.',
-    detail: 'Aura was born here: a bouquet customization app for a Hyderabad florist navigating lockdown. Then a full-time role at MySassy Interiors, wrapping six projects single-handedly. Her interior design years showed up constantly. Understanding how people want a space to feel before they know the words for it. That instinct transferred directly to screen. She kept applying to master\'s programs throughout. She got in.',
+    title: 'Aura. MySassy Interiors. Six projects, mostly solo.',
+    whisper: 'Bouquet app, six interiors, one acceptance email.',
+    detail: 'Built Aura — a bouquet customization app for a Hyderabad florist during lockdown. Then a full-time role at MySassy Interiors where I ran six projects on my own. The interior design background kept showing up in useful ways. I was applying to master\'s programs the whole time. Eventually I got in.',
     tag: 'Work',
     color: '#2BB5C2',
     pivot: false,
   },
   {
     year: '2023',
-    title: 'Said yes to CU Boulder. Became a Buff.',
-    whisper: 'One overstuffed suitcase. Immense hope. The Rockies.',
-    detail: 'The offer arrived. She accepted before finishing the sentence. Two years in Boulder designing at the intersection of emerging tech and human experience, where the altitude clarifies one\'s opinions rapidly. Her interior design background made her the most spatially-minded person in every digital room. She used that shamelessly.',
+    title: 'CU Boulder. Moved to Colorado.',
+    whisper: 'One overstuffed suitcase. The Rockies.',
+    detail: 'Packed everything and moved to Boulder for the master\'s program. Two years working on AI tools, interactive exhibits, product launches. Being the only person in the room who\'d designed physical spaces turned out to matter more than I expected.',
     tag: 'Education',
     color: '#A880D4',
     photo: '/journey/2023-boulder.jpg',
@@ -79,9 +79,9 @@ const timeline = [
   },
   {
     year: '2025',
-    title: "Master's in Creative Technology & Design.",
-    whisper: 'The long arc, completed.',
-    detail: 'FlairX, Fireside Interactive, GetUp: AI recruiter workflows, wildfire simulation exhibits, a celebrity product launch. The girl who once designed living rooms was now designing AI-augmented experiences. The through-line was always the same: understand the human first. Everything else is just the medium.',
+    title: "MS in Creative Technology & Design.",
+    whisper: 'Five years. Two countries. One direction.',
+    detail: 'FlairX, Fireside Interactive, GetUp: AI recruiter workflows, a wildfire simulation exhibit, a celebrity product launch. Graduated. The work was all over the place, but it kept coming back to the same question — what does this person actually need?',
     tag: 'Education',
     color: '#A880D4',
     photo: '/journey/2025-grad.jpg',
@@ -89,9 +89,9 @@ const timeline = [
   },
   {
     year: 'Now',
-    title: 'Seeking the next hard thing.',
-    whisper: 'Applications open. Standards high. Coffee: ongoing.',
-    detail: 'She is not simply "open to opportunities," this author must insist. She is looking for a team that genuinely cares about the gap between technically works and actually good. A room, digital or otherwise, that she can make better for the people inside it.',
+    title: 'Looking for the right team.',
+    whisper: 'Open to work. Standards intact. Coffee: non-negotiable.',
+    detail: 'I\'m not just "open to opportunities." I want to work somewhere that cares about the difference between something that technically works and something that\'s actually good. If that sounds like your team, I\'d like to talk.',
     tag: 'Open',
     color: '#4ade80',
     pivot: false,
@@ -117,7 +117,7 @@ const principles = [
   },
   {
     title: 'Cross-functional comfort',
-    body: "I've worked with developers, educators, SMEs, and product managers. I translate between what users need, what engineers can build, and what the business needs.",
+    body: "I've worked with developers, educators, subject matter experts, and PMs. I'm comfortable being the person who sits between what users need, what engineers can build, and what the business is asking for.",
   },
   {
     title: 'Clarity over cleverness',
@@ -338,7 +338,7 @@ export default function AboutPage() {
 
         {/* ── Hero ── */}
         <section className="about-page-hero-section" style={{
-          margin: '104px 20px 20px',
+          margin: '80px 20px 20px',
           borderRadius: 20,
           background: '#F7F3EE',
           overflow: 'hidden',
@@ -363,14 +363,14 @@ export default function AboutPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                Dearest gentle reader.<br />
-                <em style={{ fontStyle: 'italic', fontWeight: 300 }}>Your correspondent<br />brings news.</em>
+                I design products.<br />
+                <em style={{ fontStyle: 'italic', fontWeight: 300 }}>I used to design rooms.</em>
               </motion.h1>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                 {[
-                  "She started in interior design (actual rooms, actual spaces) and spent four years at Woxsen learning to watch how people move through environments before she ever touched a screen. The pivot to UX happened at her first internship and was not remotely dramatic. She tried it, liked it a lot, and kept going. Graduated with first class distinction, did the Google UX cert, built Aura, ran six projects solo at MySassy Interiors, then packed everything and moved to Colorado for a Master's in Creative Technology and Design at CU Boulder. That way of reading a room came with her.",
-                  "Two years in the Rockies later: AI recruiter flows, wildfire simulation exhibits, a celebrity product launch. She uses Claude, Figma, Lovable. Whatever gets the thing done, no ceremony. Now she is looking for a team that genuinely cares about the gap between technically works and actually good. If that is you, dear reader, she would very much like to hear from you.",
+                  "I studied interior design for four years — actual rooms, real spaces. You spend a lot of time figuring out what someone wants a place to feel like before they have words for it. My first UX internship felt like the same problem on a different surface. I liked it enough to keep going. Did the Google cert, built a bouquet app, ran six projects solo, then moved to Colorado for a master's at CU Boulder.",
+                  "Two years later I'd shipped an AI recruiter workflow, a wildfire simulation exhibit, and a celebrity product launch. I use Figma, Claude, whatever gets things done. Now I'm looking for a team that cares about the gap between technically works and actually good. That gap is where I do my best work.",
                 ].map((para, i) => (
                   <motion.p
                     key={i}
@@ -403,7 +403,7 @@ export default function AboutPage() {
                 >
                   Get in touch →
                 </a>
-                <a href="/resume" style={{
+                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" style={{
                   display: 'inline-flex', alignItems: 'center', gap: 8,
                   padding: '13px 28px', borderRadius: 999,
                   border: '1px solid rgba(42,53,80,0.2)', color: '#2A3550',
@@ -442,7 +442,7 @@ export default function AboutPage() {
                 display: 'flex', alignItems: 'center', gap: 8,
               }}>
                 <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#4ade80', display: 'block', flexShrink: 0 }} />
-                <span style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: '#2A3550' }}>Open to full-time · CU Boulder MS &apos;25</span>
+                <span style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: '#2A3550' }}>Looking for full time · CU Boulder MS &apos;25</span>
               </div>
             </motion.div>
 
@@ -476,7 +476,7 @@ export default function AboutPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            How she works, for those keeping score.
+            How I work.
           </motion.h2>
 
           <div className="about-skills-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>

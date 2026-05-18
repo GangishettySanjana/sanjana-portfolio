@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Background Previews</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #f0f0ee; font-family: Georgia, serif; padding: 40px 24px; }
+  h1 { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #888; margin-bottom: 32px; font-family: sans-serif; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1200px; }
+  @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+  .card { border-radius: 16px; overflow: hidden; position: relative; height: 380px; }
+  .label { position: absolute; top: 16px; left: 20px; font-family: sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; background: rgba(255,255,255,0.18); backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); z-index: 10; }
+  .hero-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 32px; z-index: 10; }
+  .hero-text .greeting { font-size: 12px; color: rgba(20,28,50,0.55); margin-bottom: 8px; font-family: Georgia, serif; }
+  .hero-text h2 { font-size: clamp(24px, 3.5vw, 36px); font-weight: 800; color: #111827; line-height: 1.1; letter-spacing: -0.03em; font-family: sans-serif; }
+  .hero-text .tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(20,28,50,0.4); margin-top: 10px; font-family: sans-serif; }
+  /* WIDE card for E */
+  .card.wide { grid-column: 1 / -1; height: 320px; }
+  .hero-text.light .greeting { color: rgba(255,255,255,0.55); }
+  .hero-text.light h2 { color: #fff; }
+  .hero-text.light .tag { color: rgba(255,255,255,0.4); }
+</style>
+</head>
+<body>
+<h1>Background Options — Pick Your Vibe</h1>
+<div class="grid">
+
+  <!-- A: Aurora blobs -->
+  <div class="card" id="aurora">
+    <canvas id="auroraCanvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+    <div style="position:absolute;inset:0;background:rgba(255,255,255,0.08);"></div>
+    <span class="label" style="color:#3D4B6B;">A — Aurora Blobs</span>
+    <div class="hero-text">
+      <p class="greeting">Hello, I am Sanjana</p>
+      <h2>Complex doesn't<br>have to feel complex.</h2>
+      <p class="tag">Based in Seattle · Open to relocation</p>
+    </div>
+  </div>
+
+  <!-- B: Noise + gradient -->
+  <div class="card" id="noise" style="background: linear-gradient(135deg, #f5e6d3 0%, #dde8f0 50%, #e8ddf5 100%);">
+    <canvas id="noiseCanvas" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.55;mix-blend-mode:multiply;"></canvas>
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(240,210,180,0.6) 0%,rgba(200,220,240,0.4) 60%,rgba(220,200,240,0.5) 100%);"></div>
+    <span class="label" style="color:#3D4B6B;">B — Noise + Gradient</span>
+    <div class="hero-text">
+      <p class="greeting">Hello, I am Sanjana</p>
+      <h2>Complex doesn't<br>have to feel complex.</h2>
+      <p class="tag">Based in Seattle · Open to relocation</p>
+    </div>
+  </div>
+
+  <!-- C: Floating geometric -->
+  <div class="card" id="geo" style="background:#f8f7f4;">
+    <canvas id="geoCanvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+    <span class="label" style="color:#3D4B6B;">C — Floating Geometry</span>
+    <div class="hero-text">
+      <p class="greeting">Hello, I am Sanjana</p>
+      <h2>Complex doesn't<br>have to feel complex.</h2>
+      <p class="tag">Based in Seattle · Open to relocation</p>
+    </div>
+  </div>
+
+  <!-- D: Beach leveled up -->
+  <div class="card" id="beach">
+    <svg viewBox="0 0 800 380" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;">
+      <defs>
+        <radialGradient id="sun" cx="75%" cy="18%" r="30%">
+          <stop offset="0%" stop-color="#FFE8A0" stop-opacity="0.9"/>
+          <stop offset="40%" stop-color="#FFD060" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#FFD060" stop-opacity="0"/>
+        </radialGradient>
+        <pattern id="grain" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse">
+          <circle cx="8" cy="12" r="1.4" fill="rgba(170,128,70,0.2)"/>
+          <circle cx="28" cy="6" r="1.0" fill="rgba(170,128,70,0.15)"/>
+          <circle cx="42" cy="30" r="1.6" fill="rgba(170,128,70,0.18)"/>
+          <circle cx="16" cy="38" r="1.0" fill="rgba(170,128,70,0.12)"/>
+        </pattern>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#C8E8F8"/>
+          <stop offset="60%" stop-color="#A8D8F0"/>
+          <stop offset="100%" stop-color="#80C8E8"/>
+        </linearGradient>
+      </defs>
+      <rect width="800" height="380" fill="url(#skyGrad)"/>
+      <rect width="800" height="380" fill="url(#sun)"/>
+      <!-- Deep ocean -->
+      <path d="M0,0 L800,0 L800,260 C680,235 560,275 440,250 C320,225 200,265 80,248 C50,244 20,246 0,248Z" fill="#1A9DB5" opacity="0.7"/>
+      <!-- Mid ocean -->
+      <path d="M0,0 L800,0 L800,240 C680,215 560,255 440,230 C320,205 200,245 80,228 C50,224 20,226 0,228Z" fill="#2BB5C2"/>
+      <!-- Bright water -->
+      <path d="M0,0 L800,0 L800,215 C680,190 560,230 440,205 C320,180 200,220 80,203 C50,199 20,201 0,203Z" fill="#42C8D4"/>
+      <!-- Foam -->
+      <path d="M-40,200 C80,168 200,238 320,200 C440,162 560,232 680,200 C740,184 780,188 840,192 L840,218 C780,210 740,208 680,222 C560,250 440,182 320,222 C200,262 80,190 -40,222Z" fill="white" opacity="0.8"/>
+      <!-- Sand -->
+      <path d="M-40,205 C80,185 200,230 320,210 C440,190 560,235 680,215 C740,205 780,208 840,212 L840,380 L-40,380Z" fill="#EDD598"/>
+      <rect width="800" height="380" fill="url(#grain)"/>
+      <!-- Sun glow -->
+      <circle cx="600" cy="68" r="38" fill="#FFE566" opacity="0.22"/>
+      <circle cx="600" cy="68" r="24" fill="#FFE566" opacity="0.35"/>
+      <circle cx="600" cy="68" r="14" fill="#FFF0A0" opacity="0.7"/>
+    </svg>
+    <span class="label" style="color:#1a4a5a;">D — Beach Leveled Up</span>
+    <div class="hero-text">
+      <p class="greeting">Hello, I am Sanjana</p>
+      <h2>Complex doesn't<br>have to feel complex.</h2>
+      <p class="tag">Based in Seattle · Open to relocation</p>
+    </div>
+  </div>
+
+  <!-- E: Dark hero -->
+  <div class="card wide" id="dark" style="background:#0f1624;">
+    <canvas id="darkCanvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(60,80,160,0.35) 0%,transparent 65%),radial-gradient(ellipse at 20% 80%,rgba(180,100,120,0.2) 0%,transparent 55%);"></div>
+    <span class="label" style="color:rgba(255,255,255,0.7);">E — Dark &amp; Bold</span>
+    <div class="hero-text light">
+      <p class="greeting">Hello, I am Sanjana</p>
+      <h2>Complex doesn't<br>have to feel complex.</h2>
+      <p class="tag">Based in Seattle · Open to relocation</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── A: Aurora blobs ──
+(function() {
+  const canvas = document.getElementById('auroraCanvas');
+  const card = document.getElementById('aurora');
+  canvas.width = card.offsetWidth; canvas.height = card.offsetHeight;
+  const ctx = canvas.getContext('2d');
+  const blobs = [
+    { x: 0.2, y: 0.3, r: 0.55, color: [200,220,255], phase: 0 },
+    { x: 0.7, y: 0.2, r: 0.5,  color: [255,200,210], phase: 1.5 },
+    { x: 0.5, y: 0.7, r: 0.45, color: [200,255,230], phase: 3 },
+    { x: 0.85,y: 0.6, r: 0.4,  color: [230,210,255], phase: 0.8 },
+  ];
+  function draw(t) {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = '#f0f4ff';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    blobs.forEach(b => {
+      const x = (b.x + Math.sin(t*0.4+b.phase)*0.08) * canvas.width;
+      const y = (b.y + Math.cos(t*0.3+b.phase)*0.07) * canvas.height;
+      const r = b.r * Math.min(canvas.width, canvas.height);
+      const g = ctx.createRadialGradient(x,y,0,x,y,r);
+      const [r0,g0,bl] = b.color;
+      g.addColorStop(0, `rgba(${r0},${g0},${bl},0.55)`);
+      g.addColorStop(1, `rgba(${r0},${g0},${bl},0)`);
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+    });
+    requestAnimationFrame(t2 => draw(t2/1000));
+  }
+  requestAnimationFrame(t => draw(t/1000));
+})();
+
+// ── B: Noise ──
+(function() {
+  const canvas = document.getElementById('noiseCanvas');
+  const card = document.getElementById('noise');
+  canvas.width = card.offsetWidth; canvas.height = card.offsetHeight;
+  const ctx = canvas.getContext('2d');
+  const img = ctx.createImageData(canvas.width, canvas.height);
+  for (let i = 0; i < img.data.length; i += 4) {
+    const v = Math.random() * 255;
+    img.data[i] = img.data[i+1] = img.data[i+2] = v;
+    img.data[i+3] = 255;
+  }
+  ctx.putImageData(img, 0, 0);
+})();
+
+// ── C: Floating geometry ──
+(function() {
+  const canvas = document.getElementById('geoCanvas');
+  const card = document.getElementById('geo');
+  canvas.width = card.offsetWidth; canvas.height = card.offsetHeight;
+  const ctx = canvas.getContext('2d');
+  const shapes = Array.from({length: 18}, () => ({
+    x: Math.random(), y: Math.random(),
+    size: 8 + Math.random() * 36,
+    type: Math.floor(Math.random()*3),
+    speed: 0.008 + Math.random()*0.012,
+    phase: Math.random()*Math.PI*2,
+    opacity: 0.06 + Math.random()*0.1,
+    color: ['#2A3550','#E8A09A','#C5C9E8'][Math.floor(Math.random()*3)],
+  }));
+  function draw(t) {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    shapes.forEach(s => {
+      const x = ((s.x + Math.sin(t*s.speed+s.phase)*0.05) % 1) * canvas.width;
+      const y = ((s.y + t*s.speed*0.3) % 1) * canvas.height;
+      ctx.save();
+      ctx.globalAlpha = s.opacity;
+      ctx.strokeStyle = s.color;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      if (s.type === 0) { ctx.arc(x,y,s.size,0,Math.PI*2); ctx.stroke(); }
+      else if (s.type === 1) {
+        ctx.moveTo(x-s.size,y-s.size); ctx.lineTo(x+s.size,y-s.size);
+        ctx.lineTo(x+s.size,y+s.size); ctx.lineTo(x-s.size,y+s.size);
+        ctx.closePath(); ctx.stroke();
+      } else {
+        ctx.moveTo(x, y-s.size); ctx.lineTo(x+s.size,y+s.size); ctx.lineTo(x-s.size,y+s.size); ctx.closePath(); ctx.stroke();
+      }
+      ctx.restore();
+    });
+    requestAnimationFrame(t2 => draw(t2/1000));
+  }
+  requestAnimationFrame(t => draw(t/1000));
+})();
+
+// ── E: Dark particles ──
+(function() {
+  const canvas = document.getElementById('darkCanvas');
+  const card = document.getElementById('dark');
+  canvas.width = card.offsetWidth; canvas.height = card.offsetHeight;
+  const ctx = canvas.getContext('2d');
+  const particles = Array.from({length: 60}, () => ({
+    x: Math.random(), y: Math.random(),
+    size: 0.5 + Math.random()*1.5,
+    speed: 0.005 + Math.random()*0.01,
+    phase: Math.random()*Math.PI*2,
+    opacity: 0.2 + Math.random()*0.5,
+  }));
+  function draw(t) {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p => {
+      const x = ((p.x + Math.sin(t*p.speed+p.phase)*0.04) % 1) * canvas.width;
+      const y = ((p.y - t*p.speed*0.15) % 1 + 1) % 1 * canvas.height;
+      ctx.beginPath();
+      ctx.arc(x,y,p.size,0,Math.PI*2);
+      ctx.fillStyle = `rgba(180,200,255,${p.opacity})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(t2 => draw(t2/1000));
+  }
+  requestAnimationFrame(t => draw(t/1000));
+})();
+</script>
+</body>
+</html>
