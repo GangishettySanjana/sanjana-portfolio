@@ -759,6 +759,9 @@ nav {
   .card-right { min-height: 300px; }
   .card-num-bg { font-size: 160px; }
 
+  /* Recognition — reduce gap on tablet */
+  .recognition-card { gap: 48px; padding: 48px; }
+
   /* About */
   .about-grid { grid-template-columns: 1fr 340px; gap: 48px; }
 
@@ -812,8 +815,15 @@ nav {
   .card-stats        { gap: 0; }
   .stat-val          { font-size: 18px; }
 
-  /* Recognition */
+  /* Recognition — stack vertically on mobile */
   .recognition-section { padding: 0 0 72px; }
+  .recognition-card {
+    flex-direction: column; gap: 32px; padding: 40px 28px;
+  }
+  .rec-right { flex: none; width: 100%; flex-direction: row; flex-wrap: wrap; gap: 10px; }
+  .recognition-title { font-size: 24px; }
+  .recognition-desc  { font-size: 15px; margin-bottom: 20px; }
+  .recognition-tags  { flex-wrap: wrap; }
 
   /* About */
   .about-section { padding: 80px 0 72px; }
@@ -864,4 +874,21 @@ nav {
   .about-headline-italic { font-size: 20px; }
   .connect-headline { font-size: 28px; }
   .con-pill-2, .con-pill-6, .con-pill-7 { display: none; }
+
+  /* Hero extra-small */
+  .hero-card  { padding: 32px 20px 40px; border-radius: 24px; }
+  .hero-btn-primary, .hero-btn-secondary { font-size: 13px; padding: 12px 20px; }
+
+  /* Cards extra-small */
+  .card-inner { padding: 24px 16px 0; }
+  .card-stats { flex-wrap: wrap; }
+  .stat + .stat { border-left: none; border-top: 1px solid currentColor; padding: 12px 0; }
+
+  /* Recognition extra-small */
+  .recognition-card { padding: 32px 20px; }
+  .rec-right { flex-direction: column; }
+
+  /* Intro — only 2 pills on very small screens */
+  #lbl-2, #lbl-3, #lbl-7, #lbl-10 { display: none; }
+  #lbl-6, #lbl-11 { display: block; }
 }
