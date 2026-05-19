@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -7,6 +7,18 @@ import { CustomEase } from 'gsap/CustomEase'
 import './home.css'
 
 export default function HomePage() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [musicPlaying, setMusicPlaying] = useState(false)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+
+  useEffect(() => {
+    const audio = new Audio('/music/luther.mp3')
+    audio.loop = true
+    audio.volume = 0.15
+    audioRef.current = audio
+    return () => { audio.pause(); audio.src = '' }
+  }, [])
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, CustomEase)
 
@@ -76,10 +88,10 @@ export default function HomePage() {
         const H  = window.innerHeight
         const isSmall  = W <= 480
         const isMobile = W <= 768
-        const aX = isSmall  ? Math.min(W * 0.30, 115) :
+        const aX = isSmall  ? Math.min(W * 0.40, 145) :
                    isMobile ? Math.min(W * 0.32, 230) :
                               Math.min(W * 0.37, 535)
-        const aY = isSmall  ? Math.min(H * 0.14, 120) :
+        const aY = isSmall  ? Math.min(H * 0.26, 185) :
                    isMobile ? Math.min(H * 0.17, 148) :
                               Math.min(H * 0.28, 300)
         labels.forEach((lbl, i) => {
@@ -94,17 +106,22 @@ export default function HomePage() {
         })
       }
 
-      positionLabelsOnOrbit()
-      window.addEventListener('resize', positionLabelsOnOrbit)
+      const _isMobileDevice = window.innerWidth <= 768
 
-      gsap.set(labels, { opacity: 0, y: 12, scale: 0.88 })
-
-      labels.forEach(lbl => {
-        lbl.addEventListener('mouseenter', () =>
-          gsap.to(lbl, { scale: 1.08, duration: 0.18, ease: 'power2.out', overwrite: 'auto' }))
-        lbl.addEventListener('mouseleave', () =>
-          gsap.to(lbl, { scale: 1,    duration: 0.18, ease: 'power2.out', overwrite: 'auto' }))
-      })
+      if (!_isMobileDevice) {
+        positionLabelsOnOrbit()
+        window.addEventListener('resize', positionLabelsOnOrbit)
+        gsap.set(labels, { opacity: 0, y: 12, scale: 0.88 })
+        labels.forEach(lbl => {
+          lbl.addEventListener('mouseenter', () =>
+            gsap.to(lbl, { scale: 1.08, duration: 0.18, ease: 'power2.out', overwrite: 'auto' }))
+          lbl.addEventListener('mouseleave', () =>
+            gsap.to(lbl, { scale: 1,    duration: 0.18, ease: 'power2.out', overwrite: 'auto' }))
+        })
+      } else {
+        // Keep labels hidden on mobile — just name + sparkles
+        gsap.set(labels, { opacity: 0 })
+      }
 
       /* --- Gold star SVG --- */
       function goldStar(size: number) {
@@ -120,11 +137,16 @@ export default function HomePage() {
         { x:   0,y:-110},{ x:   0,y:100 },{ x:-150,y:-85 },{ x: 150,y:-85 },
       ]
       const sparkSizes = [12,8,16,7,11,14,8,12,9,16,7,10,13,8,9,14]
+      // Scale sparkle spread so they stay visible on smaller screens
+      const _sw = window.innerWidth
+      const sparkScale = _sw <= 480 ? 0.38 : _sw <= 768 ? 0.62 : 1.0
       const sparkEls = sparkPos.map((p, i) => {
         const el = document.createElement('div')
         el.className = 'sparkle'
         el.innerHTML = goldStar(sparkSizes[i])
-        el.style.cssText = `left:calc(50% + ${p.x}px);top:calc(50% + ${p.y}px);margin-left:-${sparkSizes[i]/2}px;margin-top:-${sparkSizes[i]/2}px;`
+        const sx = Math.round(p.x * sparkScale)
+        const sy = Math.round(p.y * sparkScale)
+        el.style.cssText = `left:calc(50% + ${sx}px);top:calc(50% + ${sy}px);margin-left:-${sparkSizes[i]/2}px;margin-top:-${sparkSizes[i]/2}px;`
         introEl.appendChild(el)
         return el
       })
@@ -209,9 +231,12 @@ export default function HomePage() {
         stagger: { amount: 0.35, from: 'random' },
       }, '-=0.1')
 
-      // 3. Labels: anticipation dip THEN bounce up
-      .to(labels, { y: '+=6', scale: 0.94, duration: 0.18, ease: 'power2.in', stagger: 0.1 })
-      .to(labels, { opacity: 1, y: 0, scale: 1, duration: 0.52, ease: 'back.out(2.2)', stagger: 0.12, onComplete: startLabelFloat }, '-=0.4')
+      // 3. Labels: anticipation dip THEN bounce up (desktop only)
+      if (!_isMobileDevice) {
+        tl.to(labels, { y: '+=6', scale: 0.94, duration: 0.18, ease: 'power2.in', stagger: 0.1 })
+          .to(labels, { opacity: 1, y: 0, scale: 1, duration: 0.52, ease: 'back.out(2.2)', stagger: 0.12, onComplete: startLabelFloat }, '-=0.4')
+      }
+      tl
 
       // 4. Sparkles twinkle pulse
       .to(sparkEls, {
@@ -231,10 +256,11 @@ export default function HomePage() {
         labels.forEach(l => gsap.killTweensOf(l))
         gsap.to('#intro-sub', { opacity: 0, y: -6, duration: 0.25, ease: 'power2.in' })
         gsap.to(labels, { opacity: 0, y: -10, scale: 0.88, duration: 0.32, ease: 'power2.in', stagger: 0.05 })
+        const _exitScale = window.innerWidth <= 480 ? 0.4 : window.innerWidth <= 768 ? 0.65 : 1.0
         gsap.to(sparkEls, {
           opacity: 0, scale: 0,
-          x: gsap.utils.wrap([-80,70,-60,90,-70,60,-50,80,-65,75,-55,85,0,0,-70,70]),
-          y: gsap.utils.wrap([-70,-80,-55,40,55,-75,75,-45,65,55,-85,70,-100,110,-60,90]),
+          x: gsap.utils.wrap([-80,70,-60,90,-70,60,-50,80,-65,75,-55,85,0,0,-70,70].map(v => v * _exitScale)),
+          y: gsap.utils.wrap([-70,-80,-55,40,55,-75,75,-45,65,55,-85,70,-100,110,-60,90].map(v => v * _exitScale)),
           duration: 0.5, ease: 'power2.in',
           stagger: { amount: 0.25, from: 'random' },
         })
@@ -665,16 +691,92 @@ export default function HomePage() {
       {/* NAV */}
       <nav id="nav">
         <div className="nav-inner">
-          <span className="nav-logo">Sanjana Gangishetty</span>
+          {/* Logo + music toggle */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
+            <span className="nav-logo">Sanjana Gangishetty</span>
+            <span style={{ color: 'rgba(20,28,50,0.2)', margin: '0 10px', fontSize: 13 }}>·</span>
+            <button
+              onClick={() => {
+                if (musicPlaying) {
+                  audioRef.current?.pause()
+                  setMusicPlaying(false)
+                } else {
+                  audioRef.current?.play()
+                  setMusicPlaying(true)
+                }
+              }}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 6,
+                background: 'none', border: 'none', cursor: 'pointer',
+                padding: '4px 6px', borderRadius: 6,
+                transition: 'opacity 0.15s',
+              }}
+            >
+              {musicPlaying ? (
+                <>
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                    <rect x="1" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
+                    <rect x="7.5" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
+                  </svg>
+                  <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'rgba(20,28,50,0.55)', letterSpacing: '-0.01em' }}>my current vibe</span>
+                </>
+              ) : (
+                <>
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 1.5L11 6L2 10.5V1.5Z" fill="rgba(20,28,50,0.35)" />
+                  </svg>
+                  <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'rgba(20,28,50,0.35)', letterSpacing: '-0.01em' }}>my current vibe</span>
+                </>
+              )}
+            </button>
+          </div>
+
           <div className="nav-links">
             <a href="#work" className="nav-link">Work</a>
             <Link href="/about" className="nav-link">About</Link>
             <div className="nav-sep"></div>
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="nav-link">Resume ↗</a>
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="nav-link">Resume →</a>
             <a href="#contact" className="nav-cta">Let&apos;s Connect</a>
           </div>
+          {/* Mobile hamburger */}
+          <button
+            className={`nav-hamburger${menuOpen ? ' is-open' : ''}`}
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label="Menu"
+          >
+            <span className="nav-ham-bar" />
+            <span className="nav-ham-bar" />
+            <span className="nav-ham-bar" />
+          </button>
         </div>
       </nav>
+
+      {/* Mobile pill menu */}
+      {menuOpen && (
+        <>
+          <div className="nav-pill-backdrop" onClick={() => setMenuOpen(false)} />
+          <div className="nav-pill-card">
+            {([
+              { label: 'Work',           href: '#work' },
+              { label: 'About',          href: '/about' },
+              { label: "Let's Connect",  href: '#contact' },
+              { label: 'Resume',         href: '/resume.pdf', external: true },
+            ] as { label: string; href: string; external?: boolean }[]).map(({ label, href, external }) => (
+              <a
+                key={label}
+                href={href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
+                className={`nav-pill-item${label === "Let's Connect" ? ' nav-pill-cta' : ''}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                <span>{label}</span>
+                <span className="nav-pill-arrow">→</span>
+              </a>
+            ))}
+          </div>
+        </>
+      )}
 
       {/* HERO */}
       <section className="hero-section">
@@ -1017,7 +1119,7 @@ export default function HomePage() {
 
           <div className="connect-footer-row" id="conFooter">
             <span>Sanjana Gangishetty © 2025</span>
-            <span>Designed in Figma · Built with GSAP</span>
+            <span>Built with Figma, GSAP, and 47 Stack Overflow tabs</span>
           </div>
         </div>
       </section>
