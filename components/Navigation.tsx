@@ -69,10 +69,10 @@ export default function Navigation() {
           position: 'fixed',
           top: 0, left: 0, right: 0,
           zIndex: 50,
-          background: scrolled ? 'rgba(255,255,255,0.88)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(20px)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(0,0,0,0.06)' : '1px solid transparent',
+          background: scrolled ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.75)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderBottom: scrolled ? '1px solid rgba(0,0,0,0.06)' : '1px solid rgba(0,0,0,0.04)',
           transition: 'background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease',
         }}
         initial={{ y: -8, opacity: 0 }}
