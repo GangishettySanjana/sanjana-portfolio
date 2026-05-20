@@ -113,8 +113,8 @@ export default function Navigation() {
               style={{
                 display: 'flex', alignItems: 'center', gap: 6,
                 background: 'none', border: 'none', cursor: 'pointer',
-                padding: '4px 6px', borderRadius: 6,
-                transition: 'opacity 0.15s',
+                padding: '2px 4px', borderRadius: 6,
+                transition: 'opacity 0.15s', lineHeight: 1,
               }}
             >
               {musicPlaying ? (
@@ -230,41 +230,73 @@ export default function Navigation() {
               Sanjana Gangishetty
             </span>
           </Link>
-          <button
-            id="mobile-menu-btn"
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{
-              background: menuOpen ? 'rgba(20,28,50,0.06)' : 'none',
-              border: '1px solid',
-              borderColor: menuOpen ? 'rgba(20,28,50,0.12)' : 'transparent',
-              borderRadius: 8,
-              cursor: 'pointer',
-              padding: '7px 8px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 5,
-              transition: 'background 0.18s, border-color 0.18s',
-            }}
-            aria-label="Toggle menu"
-          >
-            {[0, 1, 2].map(i => (
-              <motion.span
-                key={i}
-                style={{
-                  display: 'block', width: 22, height: 1.5, borderRadius: 2,
-                  background: 'rgba(20,28,50,0.82)',
-                  transformOrigin: 'center',
-                }}
-                animate={
-                  menuOpen && i === 0 ? { rotate: 45, y: 6.5 }
-                    : menuOpen && i === 1 ? { opacity: 0 }
-                    : menuOpen && i === 2 ? { rotate: -45, y: -6.5 }
-                    : { rotate: 0, y: 0, opacity: 1 }
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            {/* Mobile music toggle */}
+            <button
+              onClick={() => {
+                if (musicPlaying) {
+                  audioRef.current?.pause()
+                  setMusicPlaying(false)
+                } else {
+                  audioRef.current?.play()
+                  setMusicPlaying(true)
                 }
-                transition={{ duration: 0.2 }}
-              />
-            ))}
-          </button>
+              }}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 5,
+                background: 'none', border: 'none', cursor: 'pointer',
+                padding: '6px 8px', borderRadius: 6,
+              }}
+            >
+              {musicPlaying ? (
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                  <rect x="1" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
+                  <rect x="7.5" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
+                </svg>
+              ) : (
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 1.5L11 6L2 10.5V1.5Z" fill="rgba(20,28,50,0.35)" />
+                </svg>
+              )}
+              <span style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 11, color: musicPlaying ? 'rgba(20,28,50,0.55)' : 'rgba(20,28,50,0.35)', letterSpacing: '-0.01em' }}>vibe</span>
+            </button>
+            {/* Hamburger */}
+            <button
+              id="mobile-menu-btn"
+              onClick={() => setMenuOpen(!menuOpen)}
+              style={{
+                background: menuOpen ? 'rgba(20,28,50,0.06)' : 'none',
+                border: '1px solid',
+                borderColor: menuOpen ? 'rgba(20,28,50,0.12)' : 'transparent',
+                borderRadius: 8,
+                cursor: 'pointer',
+                padding: '7px 8px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 5,
+                transition: 'background 0.18s, border-color 0.18s',
+              }}
+              aria-label="Toggle menu"
+            >
+              {[0, 1, 2].map(i => (
+                <motion.span
+                  key={i}
+                  style={{
+                    display: 'block', width: 22, height: 1.5, borderRadius: 2,
+                    background: 'rgba(20,28,50,0.82)',
+                    transformOrigin: 'center',
+                  }}
+                  animate={
+                    menuOpen && i === 0 ? { rotate: 45, y: 6.5 }
+                      : menuOpen && i === 1 ? { opacity: 0 }
+                      : menuOpen && i === 2 ? { rotate: -45, y: -6.5 }
+                      : { rotate: 0, y: 0, opacity: 1 }
+                  }
+                  transition={{ duration: 0.2 }}
+                />
+              ))}
+            </button>
+          </div>
         </div>
       </motion.header>
 
