@@ -9,7 +9,7 @@ export interface Project {
   role: string
   status: 'Live Product' | 'Case Study' | 'In Progress'
   tools: string[]
-  liveUrl: string
+  liveUrl?: string // retired — not rendered
   coverBg: string       // Tailwind bg class for card accent
   coverTextColor: string
   coverGradient: string  // CSS gradient for card right panel
@@ -145,9 +145,9 @@ export const projects: Project[] = [
     coverTextColor: 'text-roasted',
     coverGradient: 'linear-gradient(135deg, #E8A09A 0%, #D4706A 60%, #C05A55 100%)',
     stats: [
-      { value: '3', label: 'Interaction modes' },
-      { value: '8–80', label: 'Target age range' },
-      { value: '5mo', label: 'Design sprint' },
+      { value: '3 modes', label: 'Learn → Simulate → Act' },
+      { value: '8–80', label: 'Age range, no prior knowledge needed' },
+      { value: '4 events', label: 'Deployed at public science museums' },
     ],
 
     tldr: 'A 3D topographic table that teaches wildfire science to families and school groups — without dumbing it down.',
@@ -206,9 +206,9 @@ export const projects: Project[] = [
     coverTextColor: 'text-roasted',
     coverGradient: 'linear-gradient(135deg, #E8DEFF 0%, #C5A8E8 60%, #A880D4 100%)',
     stats: [
-      { value: '4', label: 'Step checkout flow' },
-      { value: '3×', label: 'Usability rounds' },
-      { value: '4mo', label: 'End-to-end' },
+      { value: '3 rounds', label: 'Usability testing — redesigned each time' },
+      { value: 'Preview 2×', label: 'Enlarged after round 1 — completion jumped' },
+      { value: 'Checkout reordered', label: 'Delivery date moved to step 1 after round 2' },
     ],
 
     tldr: 'A mobile app for a Hyderabad florist after COVID — custom bouquets, live inventory, a checkout that feels helped, not processed.',
@@ -266,9 +266,9 @@ export const projects: Project[] = [
     coverTextColor: 'text-roasted',
     coverGradient: 'linear-gradient(135deg, #A8D8B0 0%, #6BBF7A 60%, #4DAA60 100%)',
     stats: [
-      { value: '3wk', label: 'Turnaround' },
-      { value: '2', label: 'Screen variants' },
-      { value: '1', label: 'Solo designer' },
+      { value: '3 weeks', label: 'Brief to Figma handoff' },
+      { value: 'Mobile-first', label: 'Responsive to desktop' },
+      { value: 'Solo', label: 'Copy, visual direction, handoff' },
     ],
 
     tldr: 'Three weeks. No copywriter, no brand guidelines, one celebrity backer. Derived the voice, wrote the copy, designed the pop-up — shipped on time.',

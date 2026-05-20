@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { type Project } from '@/data/projects'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // ── Type scale (Impeccable: 5 clear sizes, ~1.333 ratio, 16px base minimum)
 // xs  : 12px — legal, placeholder labels
@@ -90,11 +92,33 @@ function ViewToggle({ view, setView }: { view: 'recruiter' | 'full'; setView: (v
   )
 }
 
+const PROJECT_ACCENT: Record<string, string> = {
+  flairx:       '#2BB5C2',
+  fireside:     '#66a9a9',
+  aura:         '#A880D4',
+  getup:        '#4DAA60',
+  sparkconnect: '#9B7FD4',
+}
+
 export default function CaseStudy({ project }: { project: Project }) {
   const [view, setView] = useState<'recruiter' | 'full'>('recruiter')
   const [activeSection, setActiveSection] = useState('overview')
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({})
   const navSections = project.navSections ?? DEFAULT_NAV_SECTIONS
+  const mainRef = useRef<HTMLElement | null>(null)
+
+  // Switching to full story scrolls back to top so you start at section 1
+  function switchView(v: 'recruiter' | 'full') {
+    setView(v)
+    if (v === 'full') {
+      requestAnimationFrame(() => {
+        const top = mainRef.current?.getBoundingClientRect().top
+          ? mainRef.current.getBoundingClientRect().top + window.scrollY - 108
+          : 0
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
+      })
+    }
+  }
 
   useEffect(() => {
     if (view !== 'full') return
@@ -115,8 +139,92 @@ export default function CaseStudy({ project }: { project: Project }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [view, navSections])
 
+  // GSAP scroll-reveal
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    function revealEl(el: HTMLElement, delay = 0) {
+      const rect = el.getBoundingClientRect()
+      const alreadyVisible = rect.top < window.innerHeight * 0.88
+      if (alreadyVisible) {
+        // Already in viewport — animate in directly, no ScrollTrigger needed
+        gsap.fromTo(el,
+          { opacity: 0, y: 22 },
+          { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out', delay }
+        )
+      } else {
+        gsap.fromTo(el,
+          { opacity: 0, y: 36 },
+          {
+            opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none', once: true },
+          }
+        )
+      }
+    }
+
+    const timer = setTimeout(() => {
+      // Sections
+      const sections = document.querySelectorAll<HTMLElement>('section[id]')
+      sections.forEach((el, i) => revealEl(el, i * 0.04))
+
+      // Section headings
+      document.querySelectorAll<HTMLElement>('.case-section-heading').forEach(el => revealEl(el))
+
+      // Stat bar — staggered reveal
+      const statBar = document.querySelector<HTMLElement>('.case-stat-bar')
+      if (statBar) {
+        const statItems = Array.from(statBar.querySelectorAll<HTMLElement>(':scope > div'))
+        const barRect = statBar.getBoundingClientRect()
+        const barVisible = barRect.top < window.innerHeight * 0.92
+        if (barVisible) {
+          gsap.fromTo(statItems,
+            { opacity: 0, y: 18 },
+            { opacity: 1, y: 0, stagger: 0.09, duration: 0.5, ease: 'power2.out' }
+          )
+          gsap.fromTo(statBar.querySelectorAll<HTMLElement>('p:first-child'),
+            { scale: 0.85, opacity: 0 },
+            { scale: 1, opacity: 1, stagger: 0.09, duration: 0.45, ease: 'back.out(1.4)' }
+          )
+        } else {
+          gsap.fromTo(statItems,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1, y: 0, stagger: 0.08, duration: 0.55, ease: 'power2.out',
+              scrollTrigger: { trigger: statBar, start: 'top 88%', once: true },
+            }
+          )
+        }
+      }
+    }, 60)
+
+    return () => {
+      clearTimeout(timer)
+      ScrollTrigger.getAll().forEach(t => t.kill())
+    }
+  }, [view])
+
   return (
     <div style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
+      <style>{`
+  @media (max-width: 768px) {
+    .case-layout { flex-direction: column !important; gap: 32px !important; padding-top: 80px !important; }
+    .case-sidebar { width: 100% !important; position: static !important; max-height: none !important; display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+    .case-sidebar-toggle { order: -1; }
+    .case-sidebar-nav { display: none !important; }
+    .case-sidebar-glance { flex: 1; min-width: 200px; }
+    .case-sidebar-tools { flex: 1; min-width: 150px; }
+    .case-3col, .getup-3col { grid-template-columns: 1fr !important; }
+    .case-2col, .getup-2col { grid-template-columns: 1fr !important; }
+    .case-stat-bar { grid-template-columns: 1fr 1fr !important; }
+    .case-section-heading { font-size: clamp(20px, 5vw, 28px) !important; }
+    .case-2col-discovery { flex-direction: column !important; }
+    .case-2col-discovery img { width: 100% !important; }
+  }
+  @media (max-width: 480px) {
+    .case-stat-bar { grid-template-columns: 1fr !important; }
+  }
+`}</style>
       <div className="case-layout" style={{
         maxWidth: 1100, margin: '0 auto',
         padding: 'clamp(100px, 10vh, 130px) clamp(24px, 5vw, 60px) 100px',
@@ -139,10 +247,10 @@ export default function CaseStudy({ project }: { project: Project }) {
           </Link>
 
           <div className="case-sidebar-toggle" style={{ marginBottom: 32 }}>
-            <ViewToggle view={view} setView={setView} />
+            <ViewToggle view={view} setView={switchView} />
           </div>
 
-          <div className="case-sidebar-nav">{view === 'full' && <SectionNav activeSection={activeSection} setActiveSection={setActiveSection} sectionRefs={sectionRefs} sections={navSections} />}</div>
+          <div className="case-sidebar-nav">{view === 'full' && <SectionNav activeSection={activeSection} setActiveSection={setActiveSection} sectionRefs={sectionRefs} sections={navSections} accentColor={PROJECT_ACCENT[project.slug] ?? '#2BB5C2'} />}</div>
 
           {/* ■ At a glance */}
           <div className="case-sidebar-glance">
@@ -168,7 +276,7 @@ export default function CaseStudy({ project }: { project: Project }) {
         </aside>
 
         {/* ── Main ── */}
-        <main style={{ flex: 1, minWidth: 0 }}>
+        <main ref={mainRef} style={{ flex: 1, minWidth: 0 }}>
           <h1 style={{
             fontFamily: 'var(--font-display), Georgia, serif',
             fontSize: 'clamp(32px, 5vw, 60px)',
@@ -185,7 +293,7 @@ export default function CaseStudy({ project }: { project: Project }) {
           <AnimatePresence mode="wait">
             {view === 'recruiter' ? (
               <motion.div key="recruiter" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
-                <RecruiterContent project={project} onReadMore={() => setView('full')} />
+                <RecruiterContent project={project} onReadMore={() => switchView('full')} />
               </motion.div>
             ) : (
               <motion.div key="full" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
@@ -231,21 +339,22 @@ function scrollToSection(el: HTMLElement | null) {
   window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' })
 }
 
-function SectionNav({ activeSection, setActiveSection, sectionRefs, sections }: {
+function SectionNav({ activeSection, setActiveSection, sectionRefs, sections, accentColor = '#2BB5C2' }: {
   activeSection: string;
   setActiveSection: (id: string) => void;
   sectionRefs: React.MutableRefObject<Record<string, HTMLElement | null>>;
-  sections: { id: string; label: string }[]
+  sections: { id: string; label: string }[];
+  accentColor?: string;
 }) {
   const activeIdx = sections.findIndex(s => s.id === activeSection)
 
   return (
     <nav style={{ position: 'relative', marginBottom: 32, paddingLeft: 18 }}>
       {/* Static track */}
-      <div style={{ position: 'absolute', left: 5, top: 6, bottom: 6, width: 1.5, background: 'rgba(0,36,72,0.08)', borderRadius: 2 }} />
+      <div style={{ position: 'absolute', left: 6, top: 6, bottom: 6, width: 1.5, background: 'rgba(0,36,72,0.08)', borderRadius: 2 }} />
       {/* Filled progress */}
       <motion.div
-        style={{ position: 'absolute', left: 5, top: 6, width: 1.5, background: '#2BB5C2', borderRadius: 2, transformOrigin: 'top' }}
+        style={{ position: 'absolute', left: 6, top: 6, width: 1.5, background: accentColor, borderRadius: 2, transformOrigin: 'top' }}
         animate={{ height: activeIdx < 0 ? 0 : `${Math.round(((activeIdx + 0.5) / sections.length) * 100)}%` }}
         transition={{ type: 'spring', stiffness: 300, damping: 36 }}
       />
@@ -259,7 +368,7 @@ function SectionNav({ activeSection, setActiveSection, sectionRefs, sections }: 
             <motion.div
               animate={{
                 scale: isActive ? 1.25 : 1,
-                background: isActive ? '#2BB5C2' : isDone ? 'rgba(43,181,194,0.55)' : 'rgba(0,36,72,0.15)',
+                background: isActive ? accentColor : isDone ? `${accentColor}8C` : 'rgba(0,36,72,0.15)',
               }}
               transition={{ duration: 0.18 }}
               style={{ width: 8, height: 8, borderRadius: '50%', flexShrink: 0, position: 'absolute', left: 2 }}
@@ -279,7 +388,7 @@ function SectionNav({ activeSection, setActiveSection, sectionRefs, sections }: 
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase' as const,
                 fontWeight: isActive ? 700 : 500,
-                color: isActive ? '#2BB5C2' : isDone ? 'rgba(0,36,72,0.6)' : 'rgba(0,36,72,0.35)',
+                color: isActive ? accentColor : isDone ? 'rgba(0,36,72,0.6)' : 'rgba(0,36,72,0.35)',
                 transition: 'color 0.15s',
                 whiteSpace: 'nowrap' as const,
               }}
@@ -293,18 +402,21 @@ function SectionNav({ activeSection, setActiveSection, sectionRefs, sections }: 
   )
 }
 
-// ── Bullet list helper (converts prose to → bullets) ──
+// ── Bullet list helper (renders prose as clean paragraphs) ──
 function BulletBody({ text, fontSize = 17 }: { text: string; fontSize?: number }) {
-  const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0)
+  const chunks = text.includes('\n\n')
+    ? text.split('\n\n').filter(Boolean)
+    : text.split(/(?<=[.!?])\s+(?=[A-Z])/).filter(s => s.trim().length > 0)
   return (
-    <ul style={{ paddingLeft: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
-      {sentences.map((s, i) => (
-        <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, paddingLeft: 20, position: 'relative' }}>
-          <span style={{ position: 'absolute', left: 0, color: 'rgba(43,181,194,0.7)' }}>→</span>
-          {s}
-        </li>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {chunks.map((chunk, i) => (
+        <p key={i} style={{
+          fontFamily: 'var(--font-body), Georgia, serif',
+          fontSize, lineHeight: 1.75,
+          color: 'rgba(0,36,72,0.78)', margin: 0,
+        }}>{chunk.trim()}</p>
       ))}
-    </ul>
+    </div>
   )
 }
 
@@ -322,7 +434,7 @@ function RecruiterContent({ project, onReadMore }: { project: Project; onReadMor
       <div className="case-stat-bar" style={{ display: 'grid', gridTemplateColumns: `repeat(${project.stats.length}, 1fr)`, gap: 0, marginBottom: 40, borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(43,181,194,0.15)' }}>
         {project.stats.map(({ value, label }, i) => (
           <div key={i} style={{ padding: '20px 24px', background: i % 2 === 0 ? 'rgba(0,36,72,0.03)' : 'rgba(43,181,194,0.04)', borderRight: i < project.stats.length - 1 ? '1px solid rgba(43,181,194,0.15)' : 'none' }}>
-            <p style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 'clamp(13px, 1.4vw, 18px)', fontWeight: 500, color: '#002448', margin: '0 0 4px', lineHeight: 1.2 }}>{value}</p>
+            <p style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 'clamp(20px, 2.2vw, 28px)', fontWeight: 700, color: '#002448', margin: '0 0 4px', lineHeight: 1.2 }}>{value}</p>
             <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', margin: 0 }}>{label}</p>
           </div>
         ))}
@@ -360,15 +472,42 @@ function RecruiterContent({ project, onReadMore }: { project: Project; onReadMor
         </div>
       )}
 
+      {/* Reflection quote — surfaces the most human moment of the case study in Quick Read */}
+      {project.reflection && (
+        <div style={{
+          margin: '40px 0 32px',
+          paddingLeft: 22,
+          borderLeft: '2px solid rgba(43,181,194,0.35)',
+        }}>
+          <p style={{
+            fontFamily: 'var(--font-label), sans-serif', fontSize: 11,
+            letterSpacing: '0.12em', textTransform: 'uppercase' as const,
+            color: 'rgba(0,36,72,0.35)', marginBottom: 10,
+          }}>A thought from the work</p>
+          <p style={{
+            fontFamily: 'var(--font-display), Georgia, serif',
+            fontSize: 'clamp(16px, 1.6vw, 19px)', fontStyle: 'italic',
+            color: 'rgba(0,36,72,0.65)', lineHeight: 1.6, margin: 0,
+          }}>
+            {/* Take the first sentence of the reflection as the pull quote */}
+            {project.reflection.split(/(?<=[.!?])\s+/)[0]}
+          </p>
+        </div>
+      )}
+
       <button onClick={onReadMore} style={{
-        background: 'none', border: 'none', cursor: 'pointer', padding: 0,
-        fontFamily: 'var(--font-label), sans-serif', fontSize: 13, letterSpacing: '0.1em',
-        textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.35)', transition: 'color 0.2s',
+        display: 'inline-flex', alignItems: 'center', gap: 10,
+        padding: '14px 28px', borderRadius: 999, border: 'none', cursor: 'pointer',
+        background: '#002448', color: '#FFFFFF',
+        fontFamily: 'var(--font-label), sans-serif',
+        fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase' as const,
+        fontWeight: 600, transition: 'opacity 0.2s',
+        marginTop: 0,
       }}
-        onMouseEnter={e => (e.currentTarget.style.color = '#002448')}
-        onMouseLeave={e => (e.currentTarget.style.color = 'rgba(0,36,72,0.35)')}
+        onMouseEnter={e => (e.currentTarget.style.opacity = '0.82')}
+        onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
       >
-        Read the full story →
+        Read the full story <span style={{ fontSize: 16 }}>→</span>
       </button>
     </div>
   )

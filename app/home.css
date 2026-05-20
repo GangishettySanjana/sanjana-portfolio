@@ -127,8 +127,9 @@ nav {
 .hero-card {
   width: 100%; max-width: var(--max-w);
   background-color: rgba(240,236,228,0.85);
-  border-radius: 60px; padding: 80px 58px;
-  display: flex; align-items: center; justify-content: space-between; gap: 85px;
+  border-radius: 60px; padding: 72px 72px;
+  display: grid; grid-template-columns: 1fr auto;
+  align-items: center; gap: 64px;
   position: relative; overflow: hidden;
 }
 .hero-card::before {
@@ -141,10 +142,26 @@ nav {
   position: relative; z-index: 2; flex: 1; max-width: 679px;
   display: flex; flex-direction: column; gap: 20px; align-self: center;
 }
+/* Name + location plate at top of hero */
+.hero-nameplate {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  opacity: 0; transform: translateY(16px);
+}
+.hero-nameplate-name {
+  font-family: var(--body); font-size: 14px; font-weight: 600;
+  color: rgba(0,0,0,0.82); letter-spacing: -0.01em;
+}
+.hero-nameplate-dot {
+  color: rgba(0,0,0,0.25); font-size: 12px;
+}
+.hero-nameplate-loc {
+  font-family: var(--body); font-size: 13px; font-weight: 400;
+  color: rgba(0,0,0,0.45); letter-spacing: 0.01em;
+}
+
+/* kept for GSAP targeting — invisible now, nameplate replaces it */
 .hero-greeting {
-  font-family: var(--body); font-size: 16px; font-weight: 400;
-  color: rgba(0,0,0,0.6); letter-spacing: 0.01em;
-  opacity: 0; transform: translateY(20px);
+  display: none;
 }
 .hero-headline {
   font-family: var(--head); font-size: 48px; font-weight: 800; color: #000;
@@ -173,32 +190,39 @@ nav {
   transition: opacity 0.18s, transform 0.18s;
 }
 .hero-worked-in {
-  display: flex; align-items: center; gap: 0;
-  font-family: var(--body); font-size: 11px; font-weight: 500;
-  color: rgba(0,0,0,0.38); letter-spacing: 0.06em;
-  border-top: 1px solid rgba(0,0,0,0.1);
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  border-top: 1px solid rgba(0,0,0,0.08);
   padding-top: 14px; margin-bottom: -4px;
 }
-.hero-worked-in span { margin: 0 6px; opacity: 0.5; font-size: 9px; }
+.worked-label {
+  font-family: var(--body); font-size: 11px; font-weight: 500;
+  color: rgba(0,0,0,0.38); letter-spacing: 0.06em;
+  margin-right: 2px;
+}
+.worked-pill {
+  font-family: var(--body); font-size: 11px; font-weight: 600;
+  color: rgba(0,0,0,0.62); letter-spacing: 0.02em;
+  background: rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
 .hero-btn-primary:hover { opacity: 0.82; transform: translateY(-2px); }
 .hero-btn-primary .arrow { display: inline-block; transition: transform 0.2s; }
 .hero-btn-primary:hover .arrow { transform: translateX(3px); }
 
 .hero-btn-secondary {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 14px 22px; border-radius: 999px;
-  background: rgba(255,255,255,0.5); border: 1px solid rgba(0,0,0,0.12);
-  font-family: var(--head); font-size: 14px; font-weight: 600;
+  padding: 14px 28px; border-radius: 999px;
+  background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.14);
+  font-family: var(--head); font-size: 14px; font-weight: 700;
+  letter-spacing: 0.04em;
   color: #111; text-decoration: none; backdrop-filter: blur(8px);
   transition: background 0.18s, transform 0.18s;
 }
-.hero-btn-secondary:hover { background: rgba(255,255,255,0.85); transform: translateY(-2px); }
+.hero-btn-secondary:hover { background: rgba(255,255,255,0.92); transform: translateY(-2px); }
 
-.hero-location {
-  font-family: var(--body); font-size: 12px; color: rgba(0,0,0,0.45);
-  letter-spacing: 0.1em; text-transform: uppercase;
-  opacity: 0;
-}
+.hero-location { display: none; }
 .hero-photo {
   position: relative; z-index: 2; flex-shrink: 0;
   width: 343px; height: 359px; border-radius: 40px;
@@ -227,7 +251,7 @@ nav {
 /* ── PROJECT CARD (PREMIUM) ── */
 .project-card {
   border-radius: 24px; overflow: hidden;
-  opacity: 0; transform: translateY(60px);
+  opacity: 1; transform: translateY(0);
 }
 .card-inner {
   padding: 48px 48px 0;
@@ -585,15 +609,8 @@ nav {
 }
 
 /* ── SCROLL CUE ── */
-.scroll-cue {
-  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  opacity: 0; z-index: 3;
-}
-.scroll-cue span {
-  font-family: 'Satoshi', sans-serif; font-size: 10px;
-  letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,0,0,0.4);
-}
+.scroll-cue { display: none; }
+.scroll-cue span { font-size: 10px; }
 .scroll-line {
   width: 1px; height: 40px; background: rgba(0,0,0,0.2);
   transform-origin: top; overflow: hidden; position: relative;

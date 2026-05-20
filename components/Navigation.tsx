@@ -119,7 +119,7 @@ export default function Navigation() {
             >
               {musicPlaying ? (
                 <>
-                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
                     <rect x="1" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
                     <rect x="7.5" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
                   </svg>
@@ -127,7 +127,7 @@ export default function Navigation() {
                 </>
               ) : (
                 <>
-                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
                     <path d="M2 1.5L11 6L2 10.5V1.5Z" fill="rgba(20,28,50,0.35)" />
                   </svg>
                   <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'rgba(20,28,50,0.35)', letterSpacing: '-0.01em' }}>my current vibe</span>

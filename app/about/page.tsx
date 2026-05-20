@@ -338,7 +338,7 @@ export default function AboutPage() {
 
         {/* ── Hero ── */}
         <section className="about-page-hero-section" style={{
-          margin: '80px 20px 20px',
+          margin: '60px 20px 20px',
           borderRadius: 20,
           background: '#F7F3EE',
           overflow: 'hidden',

@@ -715,7 +715,7 @@ export default function HomePage() {
             >
               {musicPlaying ? (
                 <>
-                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
                     <rect x="1" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
                     <rect x="7.5" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
                   </svg>
@@ -723,7 +723,7 @@ export default function HomePage() {
                 </>
               ) : (
                 <>
-                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
                     <path d="M2 1.5L11 6L2 10.5V1.5Z" fill="rgba(20,28,50,0.35)" />
                   </svg>
                   <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'rgba(20,28,50,0.35)', letterSpacing: '-0.01em' }}>my current vibe</span>
@@ -785,17 +785,28 @@ export default function HomePage() {
       <section className="hero-section">
         <div className="hero-card">
           <div className="hero-text">
-            <p className="hero-greeting" id="hGreeting">Hello, I&apos;m a product designer who builds. Currently open to full-time.</p>
+            {/* Name + location — always visible at top */}
+            <div className="hero-nameplate" id="hGreeting">
+              <span className="hero-nameplate-name">Sanjana Gangishetty</span>
+              <span className="hero-nameplate-dot">·</span>
+              <span className="hero-nameplate-loc">Based in the US · CU Boulder MS &apos;25</span>
+            </div>
+            {/* Lead with the headline */}
             <h1 className="hero-headline" id="hHead">I don&apos;t wait until I know how. I build until I do.</h1>
             <p className="hero-body" id="hBody">I research how people think, then design around it. Especially when &ldquo;it&rdquo; is an AI that has to earn trust before anyone lets it do anything useful.</p>
-            <p className="hero-worked-in">
-              Previously in<span>·</span>AI<span>·</span>HR Tech<span>·</span>SaaS<span>·</span>EDU Tech<span>·</span>E-Commerce
-            </p>
+            {/* Industry tags as pills */}
+            <div className="hero-worked-in">
+              <span className="worked-label">Previously in</span>
+              <span className="worked-pill">AI</span>
+              <span className="worked-pill">HR Tech</span>
+              <span className="worked-pill">SaaS</span>
+              <span className="worked-pill">EDU Tech</span>
+              <span className="worked-pill">E-Commerce</span>
+            </div>
             <div className="hero-cta-row" id="hCta">
               <a href="#work" className="hero-btn-primary">See my work <span className="arrow">→</span></a>
               <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="hero-btn-secondary">Resume ↗</a>
             </div>
-            <p className="hero-location" id="hLoc">Based in the United States · CU Boulder MS &apos;25</p>
           </div>
           <div className="hero-photo" id="hPhoto">
             <img
