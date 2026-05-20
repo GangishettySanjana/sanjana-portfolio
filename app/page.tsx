@@ -694,8 +694,9 @@ export default function HomePage() {
           {/* Logo + music toggle */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
             <span className="nav-logo">Sanjana Gangishetty</span>
-            <span style={{ color: 'rgba(20,28,50,0.2)', margin: '0 10px', fontSize: 13 }}>·</span>
+            <span className="hidden md:inline" style={{ color: 'rgba(20,28,50,0.2)', margin: '0 10px', fontSize: 13 }}>·</span>
             <button
+              className="hidden md:flex"
               onClick={() => {
                 if (musicPlaying) {
                   audioRef.current?.pause()
@@ -706,7 +707,7 @@ export default function HomePage() {
                 }
               }}
               style={{
-                display: 'flex', alignItems: 'center', gap: 6,
+                alignItems: 'center', gap: 6,
                 background: 'none', border: 'none', cursor: 'pointer',
                 padding: '2px 4px', borderRadius: 6,
                 transition: 'opacity 0.15s', lineHeight: 1,
