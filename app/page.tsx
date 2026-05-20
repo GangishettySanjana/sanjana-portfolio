@@ -739,7 +739,7 @@ export default function HomePage() {
             <a href="#contact" className="nav-cta">Let&apos;s Connect</a>
           </div>
           {/* Mobile: music toggle + hamburger */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }} className="flex md:hidden">
+          <div className="flex md:hidden" style={{ alignItems: 'center', gap: 4 }}>
             <button
               onClick={() => {
                 if (musicPlaying) {
