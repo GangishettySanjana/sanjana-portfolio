@@ -41,6 +41,82 @@ nav {
 .nav-cta { background: #111; color: #fff; padding: 9px 20px; border-radius: 999px; font-family: var(--head); font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-decoration: none; transition: opacity 0.15s; }
 .nav-cta:hover { opacity: 0.8; }
 
+/* ── MOBILE HAMBURGER ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+.nav-hamburger:hover { background: rgba(0,0,0,0.05); }
+.nav-ham-bar {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: rgba(20,28,50,0.82);
+  border-radius: 2px;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+  transform-origin: center;
+}
+.nav-hamburger.is-open .nav-ham-bar:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
+.nav-hamburger.is-open .nav-ham-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.is-open .nav-ham-bar:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+
+/* ── MOBILE PILL MENU ── */
+.nav-pill-backdrop {
+  position: fixed; inset: 0; z-index: 198;
+  background: rgba(10,15,30,0.28);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  animation: nav-fade-in 0.2s ease forwards;
+}
+.nav-pill-card {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 199;
+  width: min(300px, 88vw);
+  background: rgba(255,255,255,0.98);
+  border-radius: 22px;
+  box-shadow: 0 20px 56px rgba(10,15,30,0.2), 0 1px 0 rgba(255,255,255,0.9) inset;
+  border: 1px solid rgba(20,28,50,0.07);
+  overflow: hidden;
+  padding: 6px 0;
+  animation: nav-scale-in 0.26s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.nav-pill-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 22px;
+  text-decoration: none;
+  color: rgba(20,28,50,0.78);
+  font-family: var(--body);
+  font-size: 15px;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(20,28,50,0.06);
+  transition: background 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-pill-item:last-child { border-bottom: none; }
+.nav-pill-item:hover, .nav-pill-item:active { background: rgba(20,28,50,0.05); }
+.nav-pill-cta { color: #2A3550; font-weight: 600; }
+.nav-pill-arrow { font-size: 16px; opacity: 0.32; }
+
+@keyframes nav-fade-in {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes nav-scale-in {
+  from { opacity: 0; transform: translate(-50%,-50%) scale(0.88); }
+  to   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+}
+
 /* ── HERO ── */
 .hero-section {
   min-height: 100vh;
@@ -802,9 +878,9 @@ nav {
 ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* Nav — hide middle links, keep logo + CTA */
-  .nav-links .nav-link:not(.nav-cta) { display: none; }
-  .nav-sep { display: none; }
+  /* Nav — hide all links, show hamburger */
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
 
   /* Hero — stack vertically */
   .hero-section { padding: 80px 20px 60px; }
@@ -828,11 +904,11 @@ nav {
   .work-title   { font-size: 32px; }
   .work-sub     { text-align: left; max-width: 100%; }
 
-  /* Project cards — stack image below text */
-  .card-inner        { padding: 32px 24px 0; }
+  /* Project cards — hide image on mobile, tighten padding */
+  .card-inner        { padding: 32px 24px 36px; }
   .card-content-row  { flex-direction: column; gap: 24px; min-height: unset; }
   .card-left         { flex: none; width: 100%; padding-bottom: 0; }
-  .card-right        { width: 100%; min-height: 220px; border-radius: 16px 16px 0 0; }
+  .card-right        { display: none; }
   .card-title        { font-size: 26px; }
   .card-subtitle     { font-size: 15px; }
   .card-desc         { font-size: 14px; }
@@ -880,12 +956,18 @@ nav {
   .connect-footer-row { flex-direction: column; gap: 6px; text-align: center; }
 
   /* Intro curtain */
-  #intro-name { font-size: clamp(24px, 7vw, 44px); }
-  .intro-label { font-size: 11px; padding: 5px 14px; }
-  /* 4 evenly-spread pills on mobile: upper-center, right, lower-left, upper-left */
-  #lbl-1,  #lbl-3,  #lbl-4,  #lbl-6,
-  #lbl-7,  #lbl-9,  #lbl-10 { display: none; }
-  #lbl-2, #lbl-5, #lbl-8, #lbl-11 { display: block; }
+  #intro-name { font-size: clamp(22px, 6.5vw, 44px); }
+  #intro-sub {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    white-space: normal;
+    width: 88vw;
+    text-align: center;
+    line-height: 2;
+    top: calc(50% + clamp(32px, 6vw, 56px));
+  }
+  /* No floating pills on mobile — just name + sub + sparkles */
+  .intro-label { display: none; }
 }
 
 /* ═══════════════════════════════════════════
@@ -895,7 +977,6 @@ nav {
   .hero-headline { font-size: 28px; }
   .hero-photo    { width: 180px; height: 190px; }
   .card-title    { font-size: 22px; }
-  .card-right    { min-height: 180px; }
   .about-headline { font-size: 28px; }
   .about-headline-italic { font-size: 20px; }
   .connect-headline { font-size: 28px; }
@@ -906,7 +987,7 @@ nav {
   .hero-btn-primary, .hero-btn-secondary { font-size: 13px; padding: 12px 20px; }
 
   /* Cards extra-small */
-  .card-inner { padding: 24px 16px 0; }
+  .card-inner { padding: 24px 16px 28px; }
   .card-stats { flex-wrap: wrap; }
   .stat + .stat { border-left: none; border-top: 1px solid currentColor; padding: 12px 0; }
 
@@ -914,7 +995,11 @@ nav {
   .recognition-card { padding: 32px 20px; }
   .rec-right { flex-direction: column; }
 
-  /* Intro — 2 short pills on very small screens: upper-right + lower-left */
-  #lbl-2, #lbl-8 { display: block; }
-  #lbl-5, #lbl-11 { display: none; }
+  /* Pills already hidden via 768px rule above */
+
+  #intro-sub {
+    font-size: 9.5px;
+    top: calc(50% + 34px);
+    width: 92vw;
+  }
 }

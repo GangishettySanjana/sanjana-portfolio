@@ -231,35 +231,6 @@ export default function Navigation() {
             </span>
           </Link>
           <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            {/* Mobile music toggle */}
-            <button
-              onClick={() => {
-                if (musicPlaying) {
-                  audioRef.current?.pause()
-                  setMusicPlaying(false)
-                } else {
-                  audioRef.current?.play()
-                  setMusicPlaying(true)
-                }
-              }}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 5,
-                background: 'none', border: 'none', cursor: 'pointer',
-                padding: '6px 8px', borderRadius: 6,
-              }}
-            >
-              {musicPlaying ? (
-                <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                  <rect x="1" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
-                  <rect x="7.5" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
-                </svg>
-              ) : (
-                <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 1.5L11 6L2 10.5V1.5Z" fill="rgba(20,28,50,0.35)" />
-                </svg>
-              )}
-              <span style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 11, color: musicPlaying ? 'rgba(20,28,50,0.55)' : 'rgba(20,28,50,0.35)', letterSpacing: '-0.01em' }}>vibe</span>
-            </button>
             {/* Hamburger */}
             <button
               id="mobile-menu-btn"

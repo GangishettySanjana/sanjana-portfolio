@@ -739,36 +739,8 @@ export default function HomePage() {
             <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="nav-link">Resume →</a>
             <a href="#contact" className="nav-cta">Let&apos;s Connect</a>
           </div>
-          {/* Mobile: music toggle + hamburger */}
+          {/* Mobile: hamburger only */}
           <div className="flex md:hidden" style={{ alignItems: 'center', gap: 4 }}>
-            <button
-              onClick={() => {
-                if (musicPlaying) {
-                  audioRef.current?.pause()
-                  setMusicPlaying(false)
-                } else {
-                  audioRef.current?.play()
-                  setMusicPlaying(true)
-                }
-              }}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 5,
-                background: 'none', border: 'none', cursor: 'pointer',
-                padding: '6px 8px', borderRadius: 6,
-              }}
-            >
-              {musicPlaying ? (
-                <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                  <rect x="1" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
-                  <rect x="7.5" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
-                </svg>
-              ) : (
-                <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 1.5L11 6L2 10.5V1.5Z" fill="rgba(20,28,50,0.35)" />
-                </svg>
-              )}
-              <span style={{ fontFamily: 'var(--font-body)', fontSize: 11, color: musicPlaying ? 'rgba(20,28,50,0.55)' : 'rgba(20,28,50,0.35)', letterSpacing: '-0.01em' }}>vibe</span>
-            </button>
             <button
               className={`nav-hamburger${menuOpen ? ' is-open' : ''}`}
               onClick={() => setMenuOpen(o => !o)}
