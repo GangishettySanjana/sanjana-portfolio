@@ -56,6 +56,7 @@ export default function Navigation() {
 
   const mobileNavItems = [
     { label: 'Work',           href: '/#work' },
+    { label: 'Explorations',   href: '/#explorations' },
     { label: 'About',          href: '/#about' },
     { label: "Let's Connect",  href: '/#contact' },
     { label: 'Resume',         href: '/resume.pdf', external: true },
@@ -140,6 +141,7 @@ export default function Navigation() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 2, flexShrink: 0 }}>
             {[
               { label: 'Work', href: '/#work' },
+              { label: 'Explorations', href: '/#explorations' },
               { label: 'About', href: '/#about' },
             ].map(({ label, href }) => (
               <a
