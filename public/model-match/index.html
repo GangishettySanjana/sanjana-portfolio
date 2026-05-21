@@ -42,7 +42,7 @@
   <section class="hero" id="hero">
     <div class="container">
 
-      <a class="back-link" href="/#explorations">← Back to explorations</a>
+      <a class="back-link" href="https://gangishettysanjana.com" target="_blank" rel="noopener">← Back to work</a>
 
       <p class="eyebrow">Product Design · Concept · OpenRouter</p>
       <h1 class="hero-title">OpenRouter has 500&nbsp;models.<br>I still couldn't pick one.</h1>
@@ -105,14 +105,75 @@
   <section class="sec sec-alt" id="story">
     <div class="container">
       <p class="sec-label">01 — The Story</p>
-      <h2 class="sec-title">Meet Arjun</h2>
+      <h2 class="sec-title">Meet Casey</h2>
+
+      <!-- Casey Persona Card -->
+      <div class="persona-wrap">
+        <div class="persona-card">
+          <div class="persona-header">
+            <div class="persona-avatar">👩‍💻</div>
+            <div>
+              <div class="persona-name">Casey</div>
+              <div class="persona-meta">
+                <div class="persona-meta-item"><span class="persona-meta-dot"></span><span>27 years old</span></div>
+                <div class="persona-meta-item"><span class="persona-meta-dot"></span><span>Full-Stack Engineer, Series A startup</span></div>
+                <div class="persona-meta-item"><span class="persona-meta-dot"></span><span>Austin, TX</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="persona-group-tags">
+            <span class="persona-tag primary">Building a side project or MVP</span>
+            <span class="persona-tag">Shipping AI features at a startup</span>
+          </div>
+          <div class="persona-context-box">
+            <div class="persona-context-label">The situation</div>
+            <ul class="persona-context-list">
+              <li>PM dropped a Jira ticket: "Add AI chat to the support flow. Sprint ends Friday."</li>
+              <li>Heard about OpenRouter — one API key, every model, automatic failover.</li>
+              <li>Landed on openrouter.ai/models. 503 models stared back.</li>
+              <li>Picked GPT-4o based on a Reddit thread. Cost $47 in week one.</li>
+            </ul>
+          </div>
+          <div class="persona-grid">
+            <div class="persona-grid-item">
+              <div class="persona-grid-header">
+                <div class="persona-grid-title">Frustrated</div>
+                <div class="persona-grid-icon">😤</div>
+              </div>
+              <div class="persona-grid-text">503 model IDs with no guidance. Pricing that's opaque until the bill arrives. <span class="highlight">Model IDs that change silently and break production at 2am.</span></div>
+            </div>
+            <div class="persona-grid-item">
+              <div class="persona-grid-header">
+                <div class="persona-grid-title">Touchpoints</div>
+                <div class="persona-grid-icon">🔍</div>
+              </div>
+              <div class="persona-grid-text">Reddit threads 8 months old. Hacker News comments. <span class="highlight">Trustpilot reviews warning about surprise costs.</span> GitHub issues about deprecated model IDs.</div>
+            </div>
+            <div class="persona-grid-item">
+              <div class="persona-grid-header">
+                <div class="persona-grid-title">Goals</div>
+                <div class="persona-grid-icon">🎯</div>
+              </div>
+              <div class="persona-grid-text">Ship the AI feature before Friday. <span class="highlight">Pick the right model without becoming an LLM expert.</span> Not get surprised by the bill next month.</div>
+            </div>
+            <div class="persona-grid-item">
+              <div class="persona-grid-header">
+                <div class="persona-grid-title">Motivation</div>
+                <div class="persona-grid-icon">⚡</div>
+              </div>
+              <div class="persona-grid-text">Wants to build fast and build right. <span class="highlight">Trusts tools that explain their reasoning.</span> Will pay for quality if the cost is predictable upfront.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="story-body">
-        <p>Arjun Mehta is a full-stack developer at a 40-person startup in Bengaluru. Last Tuesday his PM dropped a Jira ticket: "Add AI chat to the support flow. Sprint ends Friday." Not ML, not infra. Just Arjun, a deadline, and a blank file.</p>
-        <p>He'd heard about OpenRouter. One key, every model, automatic failover. He went to openrouter.ai/models.</p>
+        <p>Casey is a full-stack developer at a 40-person startup. Last Tuesday her PM dropped a Jira ticket: "Add AI chat to the support flow. Sprint ends Friday." Not ML, not infra. Just Casey, a deadline, and a blank file.</p>
+        <p>He'd heard about OpenRouter. One key, every model, automatic failover. She went to openrouter.ai/models.</p>
         <p>503 models.</p>
-        <p>He didn't know if he needed Claude or GPT-4o or Llama. He didn't know what a context window meant for a support bot running roughly 200 conversations a day. He didn't know if $3.50 per million tokens was cheap or ruinous at that volume.</p>
-        <p>He opened Reddit. Found a thread from 8 months ago. Someone said "just use GPT-4o." He used GPT-4o. Cost him $47 in the first week. His PM was not pleased.</p>
-        <p>Three weeks later, the model ID he'd hardcoded changed without warning. Feature broke in production. He found out at 2am from an error alert, not from OpenRouter.</p>
+        <p>She didn't know if she needed Claude or GPT-4o or Llama. She didn't know what a context window meant for a support bot running roughly 200 conversations a day. She didn't know if $3.50 per million tokens was cheap or ruinous at that volume.</p>
+        <p>She opened Reddit. Found a thread from 8 months ago. Someone said "just use GPT-4o." She used GPT-4o. Cost him $47 in the first week. His PM was not pleased.</p>
+        <p>Three weeks later, the model ID he'd hardcoded changed without warning. Feature broke in production. She found out at 2am from an error alert, not from OpenRouter.</p>
         <p>OpenRouter had the right answer the whole time. It just wasn't findable.</p>
       </div>
       <blockquote class="pull-quote">
@@ -155,14 +216,14 @@
       <h2 class="sec-title">A catalog isn't a recommendation</h2>
 
       <div class="prose">
-        <p>OpenRouter's own <a href="https://openrouter.ai/state-of-ai" target="_blank" rel="noopener">State of AI report</a> says programming is 40-60% of all paid-model traffic on the platform. The typical OpenRouter user is a developer building something with AI. And most of them are not ML engineers. They're Arjun.</p>
+        <p>OpenRouter's own <a href="https://openrouter.ai/state-of-ai" target="_blank" rel="noopener">State of AI report</a> says programming is 40-60% of all paid-model traffic on the platform. The typical OpenRouter user is a developer building something with AI. And most of them are not ML engineers. They're Casey.</p>
         <p>OpenRouter's models page is technically complete. Every model is there. The pricing is accurate. The filters exist. But it's designed for someone who already knows what they want.</p>
-        <p>Arjun doesn't know what he wants. He knows he needs "AI for a customer support bot." That's it. The gap between "I need AI" and "I need <code>anthropic/claude-haiku-4-5-20251001</code> with temperature 0.3 and these fallbacks configured" is enormous. Nothing bridges it.</p>
+        <p>Casey doesn't know what he wants. He knows he needs "AI for a customer support bot." That's it. The gap between "I need AI" and "I need <code>anthropic/claude-haiku-4-5-20251001</code> with temperature 0.3 and these fallbacks configured" is enormous. Nothing bridges it.</p>
       </div>
 
       <div class="objection-callout">
         <span class="objection-label">What about Auto Router?</span>
-        <p>OpenRouter already has an <a href="https://openrouter.ai/docs/guides/routing/routers/auto-router" target="_blank" rel="noopener">Auto Router</a>. It picks the cheapest provider that meets a quality threshold at runtime. That's an infrastructure decision. It happens after you've already chosen a model category. It doesn't tell Arjun what to build with, or why, or what his bill will look like next month. Model Match is for that earlier moment: before there's any code at all.</p>
+        <p>OpenRouter already has an <a href="https://openrouter.ai/docs/guides/routing/routers/auto-router" target="_blank" rel="noopener">Auto Router</a>. It picks the cheapest provider that meets a quality threshold at runtime. That's an infrastructure decision. It happens after you've already chosen a model category. It doesn't tell Casey what to build with, or why, or what her bill will look like next month. Model Match is for that earlier moment: before there's any code at all.</p>
       </div>
 
       <!-- Before mockup -->
@@ -256,7 +317,7 @@
       <!-- Journey diagram -->
       <div class="journey-label">Where Model Match fits</div>
       <div class="journey">
-        <div class="jnode">Arjun lands on OpenRouter</div>
+        <div class="jnode">Casey lands on OpenRouter</div>
         <div class="jarr">→</div>
         <div class="jnode">Sees 503 models</div>
         <div class="jarr">→</div>
@@ -298,7 +359,7 @@
           </div>
           <div class="ruled-out-item">
             <span class="ruled-out-name">Side-by-side comparison table</span>
-            <p>Show the top 10 models with specs. Rejected because it reproduces the original problem in a smaller box. If Arjun could evaluate a comparison table, he wouldn't need this tool.</p>
+            <p>Show the top 10 models with specs. Rejected because it reproduces the original problem in a smaller box. If Casey could evaluate a comparison table, she wouldn't need this tool.</p>
           </div>
         </div>
       </div>
@@ -334,7 +395,7 @@
             </div>
             <div class="decision-block">
               <span class="dblock-label">Why</span>
-              <p>Arjun doesn't know enough yet to evaluate a comparison. If I show him a table with 12 rows and 6 columns, I've reproduced the original problem in a smaller box. The recommendation has to be opinionated. "Use this one" is more useful than "here are your options."</p>
+              <p>Casey doesn't know enough yet to evaluate a comparison. If I show him a table with 12 rows and 6 columns, I've reproduced the original problem in a smaller box. The recommendation has to be opinionated. "Use this one" is more useful than "here are your options."</p>
             </div>
             <div class="decision-block">
               <span class="dblock-label">What I'd do differently</span>
@@ -643,7 +704,7 @@
                     <div class="rnode-sub">request completes normally</div>
                   </div>
                 </div>
-                <p class="arjun-callback">This is what happened to Arjun at 2am. Except he wasn't using OpenRouter yet.</p>
+                <p class="casey-callback">This is what happened to Casey at 2am. Except she wasn't using OpenRouter yet.</p>
               </div>
             </div>
           </div>
