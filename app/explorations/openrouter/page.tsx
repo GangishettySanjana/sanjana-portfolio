@@ -449,14 +449,75 @@ def support_bot(user_message, history):
         <section className="sec sec-alt" id="story">
           <div className="container">
             <p className="sec-label">01 — The Story</p>
-            <h2 className="sec-title">Meet Arjun</h2>
+            <h2 className="sec-title">Meet Casey</h2>
+
+            {/* Casey Persona Card */}
+            <div className="persona-wrap">
+              <div className="persona-card">
+                <div className="persona-header">
+                  <div className="persona-avatar">👩‍💻</div>
+                  <div>
+                    <div className="persona-name">Casey</div>
+                    <div className="persona-meta">
+                      <div className="persona-meta-item"><span className="persona-meta-dot"></span><span>27 years old</span></div>
+                      <div className="persona-meta-item"><span className="persona-meta-dot"></span><span>Full-Stack Engineer, Series A startup</span></div>
+                      <div className="persona-meta-item"><span className="persona-meta-dot"></span><span>Austin, TX</span></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="persona-group-tags">
+                  <span className="persona-tag primary">Building a side project or MVP</span>
+                  <span className="persona-tag">Shipping AI features at a startup</span>
+                </div>
+                <div className="persona-context-box">
+                  <div className="persona-context-label">The situation</div>
+                  <ul className="persona-context-list">
+                    <li>PM dropped a Jira ticket: &ldquo;Add AI chat to the support flow. Sprint ends Friday.&rdquo;</li>
+                    <li>Heard about OpenRouter — one API key, every model, automatic failover.</li>
+                    <li>Landed on openrouter.ai/models. 503 models stared back.</li>
+                    <li>Picked GPT-4o based on a Reddit thread. Cost $47 in week one.</li>
+                  </ul>
+                </div>
+                <div className="persona-grid">
+                  <div className="persona-grid-item">
+                    <div className="persona-grid-header">
+                      <div className="persona-grid-title">Frustrated</div>
+                      <div className="persona-grid-icon">😤</div>
+                    </div>
+                    <div className="persona-grid-text">503 model IDs with no guidance. Pricing that&apos;s opaque until the bill arrives. <span className="highlight">Model IDs that change silently and break production at 2am.</span></div>
+                  </div>
+                  <div className="persona-grid-item">
+                    <div className="persona-grid-header">
+                      <div className="persona-grid-title">Touchpoints</div>
+                      <div className="persona-grid-icon">🔍</div>
+                    </div>
+                    <div className="persona-grid-text">Reddit threads 8 months old. Hacker News comments. <span className="highlight">Trustpilot reviews warning about surprise costs.</span> GitHub issues about deprecated model IDs.</div>
+                  </div>
+                  <div className="persona-grid-item">
+                    <div className="persona-grid-header">
+                      <div className="persona-grid-title">Goals</div>
+                      <div className="persona-grid-icon">🎯</div>
+                    </div>
+                    <div className="persona-grid-text">Ship the AI feature before Friday. <span className="highlight">Pick the right model without becoming an LLM expert.</span> Not get surprised by the bill next month.</div>
+                  </div>
+                  <div className="persona-grid-item">
+                    <div className="persona-grid-header">
+                      <div className="persona-grid-title">Motivation</div>
+                      <div className="persona-grid-icon">⚡</div>
+                    </div>
+                    <div className="persona-grid-text">Wants to build fast and build right. <span className="highlight">Trusts tools that explain their reasoning.</span> Will pay for quality if the cost is predictable upfront.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="story-body">
-              <p>Arjun Mehta is a full-stack developer at a 40-person startup in Bengaluru. Last Tuesday his PM dropped a Jira ticket: &ldquo;Add AI chat to the support flow. Sprint ends Friday.&rdquo; Not ML, not infra. Just Arjun, a deadline, and a blank file.</p>
-              <p>He&apos;d heard about OpenRouter. One key, every model, automatic failover. He went to openrouter.ai/models.</p>
+              <p>Casey is a full-stack developer at a 40-person startup. Last Tuesday her PM dropped a Jira ticket: &ldquo;Add AI chat to the support flow. Sprint ends Friday.&rdquo; Not ML, not infra. Just Casey, a deadline, and a blank file.</p>
+              <p>She&apos;d heard about OpenRouter. One key, every model, automatic failover. She went to openrouter.ai/models.</p>
               <p>503 models.</p>
-              <p>He didn&apos;t know if he needed Claude or GPT-4o or Llama. He didn&apos;t know what a context window meant for a support bot running roughly 200 conversations a day. He didn&apos;t know if $3.50 per million tokens was cheap or ruinous at that volume.</p>
-              <p>He opened Reddit. Found a thread from 8 months ago. Someone said &ldquo;just use GPT-4o.&rdquo; He used GPT-4o. Cost him $47 in the first week. His PM was not pleased.</p>
-              <p>Three weeks later, the model ID he&apos;d hardcoded changed without warning. Feature broke in production. He found out at 2am from an error alert, not from OpenRouter.</p>
+              <p>She didn&apos;t know if she needed Claude or GPT-4o or Llama. She didn&apos;t know what a context window meant for a support bot running roughly 200 conversations a day. She didn&apos;t know if $3.50 per million tokens was cheap or ruinous at that volume.</p>
+              <p>She opened Reddit. Found a thread from 8 months ago. Someone said &ldquo;just use GPT-4o.&rdquo; She used GPT-4o. Cost her $47 in the first week. Her PM was not pleased.</p>
+              <p>Three weeks later, the model ID she&apos;d hardcoded changed without warning. Feature broke in production. She found out at 2am from an error alert, not from OpenRouter.</p>
               <p>OpenRouter had the right answer the whole time. It just wasn&apos;t findable.</p>
             </div>
             <blockquote className="pull-quote">&ldquo;The bottleneck isn&apos;t the model. It&apos;s knowing which model.&rdquo;</blockquote>
@@ -487,13 +548,13 @@ def support_bot(user_message, history):
             <p className="sec-label">02 — The Problem</p>
             <h2 className="sec-title">A catalog isn&apos;t a recommendation</h2>
             <div className="prose">
-              <p>OpenRouter&apos;s own <a href="https://openrouter.ai/state-of-ai" target="_blank" rel="noopener">State of AI report</a> says programming is 40-60% of all paid-model traffic on the platform. The typical OpenRouter user is a developer building something with AI. And most of them are not ML engineers. They&apos;re Arjun.</p>
+              <p>OpenRouter&apos;s own <a href="https://openrouter.ai/state-of-ai" target="_blank" rel="noopener">State of AI report</a> says programming is 40-60% of all paid-model traffic on the platform. The typical OpenRouter user is a developer building something with AI. And most of them are not ML engineers. They&apos;re Casey.</p>
               <p>OpenRouter&apos;s models page is technically complete. Every model is there. The pricing is accurate. The filters exist. But it&apos;s designed for someone who already knows what they want.</p>
-              <p>Arjun doesn&apos;t know what he wants. He knows he needs &ldquo;AI for a customer support bot.&rdquo; The gap between &ldquo;I need AI&rdquo; and &ldquo;I need <code>anthropic/claude-haiku-4-5-20251001</code> with temperature 0.3 and these fallbacks configured&rdquo; is enormous. Nothing bridges it.</p>
+              <p>Casey doesn&apos;t know what she wants. She knows she needs &ldquo;AI for a customer support bot.&rdquo; The gap between &ldquo;I need AI&rdquo; and &ldquo;I need <code>anthropic/claude-haiku-4-5-20251001</code> with temperature 0.3 and these fallbacks configured&rdquo; is enormous. Nothing bridges it.</p>
             </div>
             <div className="objection-callout">
               <span className="objection-label">What about Auto Router?</span>
-              <p>OpenRouter already has an <a href="https://openrouter.ai/docs/guides/routing/routers/auto-router" target="_blank" rel="noopener">Auto Router</a>. It picks the cheapest provider that meets a quality threshold at runtime. That&apos;s an infrastructure decision. It happens after you&apos;ve already chosen a model category. It doesn&apos;t tell Arjun what to build with, or why, or what his bill will look like next month. Model Match is for that earlier moment: before there&apos;s any code at all.</p>
+              <p>OpenRouter already has an <a href="https://openrouter.ai/docs/guides/routing/routers/auto-router" target="_blank" rel="noopener">Auto Router</a>. It picks the cheapest provider that meets a quality threshold at runtime. That&apos;s an infrastructure decision. It happens after you&apos;ve already chosen a model category. It doesn&apos;t tell Casey what to build with, or why, or what her bill will look like next month. Model Match is for that earlier moment: before there&apos;s any code at all.</p>
             </div>
             <div className="browser-frame">
               <div className="browser-chrome">
@@ -523,7 +584,7 @@ def support_bot(user_message, history):
             </div>
             <div className="journey-label">Where Model Match fits</div>
             <div className="journey">
-              <div className="jnode">Arjun lands on OpenRouter</div><div className="jarr">→</div>
+              <div className="jnode">Casey lands on OpenRouter</div><div className="jarr">→</div>
               <div className="jnode">Sees 503 models</div><div className="jarr">→</div>
               <div className="jnode jnode-gap"><span className="jnode-main">GAP: no guidance</span><span className="jnode-sub">← Model Match goes here</span></div><div className="jarr">→</div>
               <div className="jnode">Narrows to 3 options</div><div className="jarr">→</div>
@@ -545,13 +606,13 @@ def support_bot(user_message, history):
               <div className="ruled-out-grid">
                 <div className="ruled-out-item"><span className="ruled-out-name">Filter presets</span><p>One click for &ldquo;indie dev prototyping,&rdquo; one for &ldquo;production API.&rdquo; Rejected because it still requires the user to self-identify correctly, which has the same intent-mapping problem as the current filter UI.</p></div>
                 <div className="ruled-out-item"><span className="ruled-out-name">AI-powered recommendations</span><p>Let a model pick a model. Rejected because it&apos;s a black box. You can&apos;t explain the reasoning, you can&apos;t audit it. Deterministic is worse on edge cases but far better at building trust.</p></div>
-                <div className="ruled-out-item"><span className="ruled-out-name">Side-by-side comparison table</span><p>Show the top 10 models with specs. Rejected because it reproduces the original problem in a smaller box. If Arjun could evaluate a comparison table, he wouldn&apos;t need this tool.</p></div>
+                <div className="ruled-out-item"><span className="ruled-out-name">Side-by-side comparison table</span><p>Show the top 10 models with specs. Rejected because it reproduces the original problem in a smaller box. If Casey could evaluate a comparison table, he wouldn&apos;t need this tool.</p></div>
               </div>
             </div>
             <div className="decisions-list">
               {[
                 { num: '01', title: 'Four questions, not two or eight', what: 'I landed on four questions: use case, quality vs. speed, monthly volume, prompt length. Not three. Not six. Four.', why: 'Two questions don\'t give enough signal. Six starts feeling like a form. Four covers the variables that actually change which model I\'d recommend.', diff: 'I\'d want to validate these four against real user decision patterns. Maybe volume matters less than I think. Maybe there\'s a fifth variable: whether they need structured JSON output.' },
-                { num: '02', title: 'A recommendation, not a comparison', what: 'Model Match doesn\'t show you a side-by-side table. It picks one and tells you why.', why: 'Arjun doesn\'t know enough yet to evaluate a comparison. The recommendation has to be opinionated. "Use this one" is more useful than "here are your options."', diff: 'The current "Compare" button on each card is a bit of a cop-out. If someone clicks Compare, that means my recommendation didn\'t land. I\'d want to understand why.' },
+                { num: '02', title: 'A recommendation, not a comparison', what: 'Model Match doesn\'t show you a side-by-side table. It picks one and tells you why.', why: 'Casey doesn\'t know enough yet to evaluate a comparison. The recommendation has to be opinionated. "Use this one" is more useful than "here are your options."', diff: 'The current "Compare" button on each card is a bit of a cop-out. If someone clicks Compare, that means my recommendation didn\'t land. I\'d want to understand why.' },
                 { num: '03', title: 'Code output as part of the design', what: 'The last step isn\'t "here\'s your model." It\'s a pre-configured code block in Node.js, Python, or curl. Ready to copy.', why: 'The gap between "I picked a model" and "I\'m making API calls" is where most people drop off. Removing that friction is a design decision. Design owns the full journey, not just the screens.', diff: 'Right now the code is static. In a real product, the temperature, max_tokens, and system prompt would all be tuned to your use case.' },
                 { num: '04', title: 'Making the fallback chain visible', what: 'Under the recommendations, there\'s a fallback chain: Primary → Fallback 1 → Fallback 2.', why: 'Failover is OpenRouter\'s killer feature. But almost nobody knows it exists because it\'s invisible infrastructure. Making it visible builds trust and explains why OpenRouter is more than a proxy.', diff: 'The current fallback chain is static. In a real product, I\'d show real-time provider uptime next to each fallback option.' },
               ].map(d => (
@@ -731,7 +792,7 @@ def support_bot(user_message, history):
                         <div className="rarr">→</div>
                         <div className="rnode"><div className="rnode-icon"><i className="ti ti-circle-check"></i></div><div className="rnode-name">Your users see no error</div><div className="rnode-sub">request completes normally</div></div>
                       </div>
-                      <p className="arjun-callback">This is what happened to Arjun at 2am. Except he wasn&apos;t using OpenRouter yet.</p>
+                      <p className="arjun-callback">This is what happened to Casey at 2am. Except he wasn&apos;t using OpenRouter yet.</p>
                     </div>
                   </div>
                 </div>

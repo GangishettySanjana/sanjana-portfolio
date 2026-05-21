@@ -1311,3 +1311,28 @@ section[id] { scroll-margin-top: 68px; }
 @media (max-width: 640px) {
   .or-banner-label, .or-banner-sep { display: none !important; }
 }
+
+/* ── CASEY PERSONA CARD ──────────────────────────── */
+.persona-wrap { max-width: 520px; margin: 40px auto; }
+.persona-card { background: #EEF4EE; border: 1.5px dashed #A8C5A8; border-radius: 20px; padding: 28px; width: 100%; }
+.persona-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.persona-avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #7B9FE8, #4A6FA5); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(101,103,242,0.15); }
+.persona-name { font-size: 22px; font-weight: 800; color: #1a1a2e; margin-bottom: 5px; }
+.persona-meta { display: flex; flex-direction: column; gap: 3px; }
+.persona-meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #4a5568; font-weight: 500; }
+.persona-meta-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent, #6567F2); flex-shrink: 0; }
+.persona-context-box { background: #fff; border: 1.5px dashed #A8C5A8; border-radius: 12px; padding: 14px 16px; margin-bottom: 18px; }
+.persona-context-label { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent, #6567F2); margin-bottom: 8px; }
+.persona-context-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.persona-context-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; color: #2d3748; line-height: 1.45; }
+.persona-context-list li::before { content: '•'; color: var(--accent, #6567F2); font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+.persona-group-tags { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+.persona-tag { background: #fff; border: 1px solid #A8C5A8; border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 600; color: #2d5a2d; }
+.persona-tag.primary { background: var(--accent, #6567F2); border-color: var(--accent, #6567F2); color: #fff; }
+.persona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.persona-grid-item { background: #fff; border-radius: 14px; padding: 16px; border: 1px solid #E2EDE2; }
+.persona-grid-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.persona-grid-title { font-size: 14px; font-weight: 700; color: #1a1a2e; }
+.persona-grid-icon { font-size: 20px; }
+.persona-grid-text { font-size: 12px; color: #4a5568; line-height: 1.55; }
+.persona-grid-text .highlight { color: var(--accent, #6567F2); font-weight: 600; }
