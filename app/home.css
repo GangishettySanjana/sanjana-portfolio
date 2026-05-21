@@ -891,20 +891,24 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 @media (max-width: 768px) {
 
   /* Hero — stack vertically */
-  .hero-section { padding: 80px 20px 60px; }
+  .hero-section { padding: 72px 16px 56px; }
   .hero-card {
+    display: flex;
     flex-direction: column-reverse;
     align-items: center;
-    padding: 40px 28px 48px;
-    gap: 32px;
-    border-radius: 32px;
+    padding: 36px 24px 44px;
+    gap: 28px;
+    border-radius: 28px;
+    grid-template-columns: unset;
   }
   .hero-text { max-width: 100%; align-items: center; text-align: center; }
-  .hero-headline { font-size: 32px; }
+  .hero-headline { font-size: 30px; }
   .hero-body     { font-size: 15px; max-width: 100%; }
-  .hero-cta-row  { justify-content: center; flex-wrap: wrap; }
+  .hero-cta-row  { justify-content: center; flex-wrap: wrap; gap: 10px; }
   .hero-location { text-align: center; }
-  .hero-photo    { width: 220px; height: 232px; border-radius: 28px; }
+  .hero-photo    { width: 200px; height: 212px; border-radius: 24px; }
+  .hero-worked-in { justify-content: center; }
+  .hero-nameplate { justify-content: center; }
 
   /* Work section */
   .work-section { padding: 72px 0 56px; }
@@ -982,8 +986,10 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
    RESPONSIVE — Small mobile (≤ 480px)
 ═══════════════════════════════════════════ */
 @media (max-width: 480px) {
-  .hero-headline { font-size: 28px; }
-  .hero-photo    { width: 180px; height: 190px; }
+  .hero-section  { padding: 64px 12px 48px; }
+  .hero-card     { padding: 28px 18px 36px; border-radius: 22px; gap: 24px; }
+  .hero-headline { font-size: 26px; }
+  .hero-photo    { width: 160px; height: 170px; }
   .card-title    { font-size: 22px; }
   .about-headline { font-size: 28px; }
   .about-headline-italic { font-size: 20px; }
