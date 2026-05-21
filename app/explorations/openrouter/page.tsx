@@ -365,7 +365,14 @@ def support_bot(user_message, history):
 
   return (
     <>
-      <div className="or-page" style={{ paddingTop: '64px' }}>
+      {/* ── CONTEXT BANNER ──────────────────────────────── */}
+      <div style={{ background: '#F3F4F6', borderBottom: '1px solid #E5E7EB', padding: '10px 40px', display: 'flex', alignItems: 'center', gap: '16px', marginTop: '64px' }}>
+        <span className="or-banner-label" style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: '#6C47FF', whiteSpace: 'nowrap' as const }}>WHAT IS OPENROUTER?</span>
+        <div className="or-banner-sep" style={{ width: '1px', background: '#D1D5DB', height: '14px', flexShrink: 0 }} />
+        <span style={{ fontSize: '12px', color: '#6B7280', lineHeight: 1.5 }}>A single API giving developers access to 500+ AI models from 60+ providers. One key, one endpoint. Gives you access to everything but guides you on nothing. That&rsquo;s what this project is about.</span>
+      </div>
+
+      <div className="or-page" style={{ paddingTop: 0 }}>
 
         {/* ── VERTICAL SCROLLSPY NAV ──────────────────── */}
         <nav className="v-nav" aria-label="Page sections">

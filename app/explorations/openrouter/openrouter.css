@@ -1308,3 +1308,6 @@ section[id] { scroll-margin-top: 68px; }
 @media (max-width: 1100px) {
   .v-nav { display: none; }
 }
+@media (max-width: 640px) {
+  .or-banner-label, .or-banner-sep { display: none !important; }
+}
