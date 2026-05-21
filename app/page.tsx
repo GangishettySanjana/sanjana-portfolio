@@ -953,7 +953,7 @@ export default function HomePage() {
                 <span className="exp-num">01</span>
               </div>
               <h3 className="exp-title">500 models. I still couldn&apos;t pick one.</h3>
-              <p className="exp-desc">So I designed a wizard that does the picking. Four questions, one recommendation, copy-paste code to ship. A redesign of OpenRouter&apos;s model selection flow.</p>
+              <p className="exp-desc">OpenRouter gives developers access to 500+ AI models, but no guidance on which one to use. I designed a recommendation wizard that takes you from zero context to a working API call in four questions. Live prototype included.</p>
               <div className="exp-footer">
                 <span className="exp-status exp-status--live">Live prototype →</span>
               </div>
