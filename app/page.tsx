@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -7,18 +7,6 @@ import { CustomEase } from 'gsap/CustomEase'
 import './home.css'
 
 export default function HomePage() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [musicPlaying, setMusicPlaying] = useState(false)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
-
-  useEffect(() => {
-    const audio = new Audio('/music/luther.mp3')
-    audio.loop = true
-    audio.volume = 0.15
-    audioRef.current = audio
-    return () => { audio.pause(); audio.src = '' }
-  }, [])
-
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, CustomEase)
 
@@ -67,6 +55,13 @@ export default function HomePage() {
       const GOLD    = '#C9A84C'
       const introEl = document.getElementById('intro')
       if (!introEl) return
+
+      /* Skip intro when returning from a project page */
+      if (sessionStorage.getItem('skipIntro')) {
+        sessionStorage.removeItem('skipIntro')
+        introEl.style.display = 'none'
+        return
+      }
 
       /* --- Split name into chars --- */
       const nameEl = document.getElementById('intro-name') as HTMLElement
@@ -289,9 +284,6 @@ export default function HomePage() {
        3. HERO SEQUENCE (fires after intro)
     ───────────────────────────────────────────── */
     function runHero() {
-      // Nav drops in
-      gsap.to('#nav', { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' })
-
       // Headline: word-by-word clip reveal
       const hHead = document.getElementById('hHead')
       if (!hHead) return
@@ -688,99 +680,6 @@ export default function HomePage() {
 
       <div className="cursor-glow" id="glow"></div>
 
-      {/* NAV */}
-      <nav id="nav">
-        <div className="nav-inner">
-          {/* Logo + music toggle */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
-            <span className="nav-logo">Sanjana Gangishetty</span>
-            <span className="hidden md:inline" style={{ color: 'rgba(20,28,50,0.2)', margin: '0 10px', fontSize: 13 }}>·</span>
-            <button
-              className="hidden md:flex"
-              onClick={() => {
-                if (musicPlaying) {
-                  audioRef.current?.pause()
-                  setMusicPlaying(false)
-                } else {
-                  audioRef.current?.play()
-                  setMusicPlaying(true)
-                }
-              }}
-              style={{
-                alignItems: 'center', gap: 6,
-                background: 'none', border: 'none', cursor: 'pointer',
-                padding: '2px 4px', borderRadius: 6,
-                transition: 'opacity 0.15s', lineHeight: 1,
-              }}
-            >
-              {musicPlaying ? (
-                <>
-                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
-                    <rect x="1" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
-                    <rect x="7.5" y="1" width="3.5" height="10" rx="1.5" fill="rgba(20,28,50,0.55)" />
-                  </svg>
-                  <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'rgba(20,28,50,0.55)', letterSpacing: '-0.01em' }}>my current vibe</span>
-                </>
-              ) : (
-                <>
-                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
-                    <path d="M2 1.5L11 6L2 10.5V1.5Z" fill="rgba(20,28,50,0.35)" />
-                  </svg>
-                  <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'rgba(20,28,50,0.35)', letterSpacing: '-0.01em' }}>my current vibe</span>
-                </>
-              )}
-            </button>
-          </div>
-
-          <div className="nav-links">
-            <a href="#work" className="nav-link">Work</a>
-            <Link href="/about" className="nav-link">About</Link>
-            <div className="nav-sep"></div>
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="nav-link">Resume →</a>
-            <a href="#contact" className="nav-cta">Let&apos;s Connect</a>
-          </div>
-          {/* Mobile: hamburger only */}
-          <div className="flex md:hidden" style={{ alignItems: 'center', gap: 4 }}>
-            <button
-              className={`nav-hamburger${menuOpen ? ' is-open' : ''}`}
-              onClick={() => setMenuOpen(o => !o)}
-              aria-label="Menu"
-            >
-              <span className="nav-ham-bar" />
-              <span className="nav-ham-bar" />
-              <span className="nav-ham-bar" />
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Mobile pill menu */}
-      {menuOpen && (
-        <>
-          <div className="nav-pill-backdrop" onClick={() => setMenuOpen(false)} />
-          <div className="nav-pill-card">
-            {([
-              { label: 'Work',           href: '#work' },
-              { label: 'About',          href: '/about' },
-              { label: "Let's Connect",  href: '#contact' },
-              { label: 'Resume',         href: '/resume.pdf', external: true },
-            ] as { label: string; href: string; external?: boolean }[]).map(({ label, href, external }) => (
-              <a
-                key={label}
-                href={href}
-                target={external ? '_blank' : undefined}
-                rel={external ? 'noopener noreferrer' : undefined}
-                className={`nav-pill-item${label === "Let's Connect" ? ' nav-pill-cta' : ''}`}
-                onClick={() => setMenuOpen(false)}
-              >
-                <span>{label}</span>
-                <span className="nav-pill-arrow">→</span>
-              </a>
-            ))}
-          </div>
-        </>
-      )}
-
       {/* HERO */}
       <section className="hero-section">
         <div className="hero-card">
@@ -1030,6 +929,41 @@ export default function HomePage() {
               <a href="https://id-preview--e94c1759-cb49-4560-bae0-cee815c16b13.lovable.app" target="_blank" rel="noopener noreferrer" className="recognition-btn">View Project Deck</a>
               <a href="https://wip-spark-connect.lovable.app" target="_blank" rel="noopener noreferrer" className="recognition-btn">View Website</a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* EXPLORATIONS */}
+      <section className="explorations-section" id="explorations">
+        <div className="container">
+          <div className="work-header">
+            <div>
+              <p className="work-eyebrow">Explorations</p>
+              <h2 className="work-title">Use Cases &amp; POVs</h2>
+            </div>
+            <p className="work-sub">Takes on AI products: how they feel to use, where they fall short. More on the way.</p>
+          </div>
+
+          <div className="exp-grid">
+
+            {/* Exploration 01 — OpenRouter Model Match */}
+            <a className="exp-card exp-card--linked" href="/explorations/openrouter">
+              <div className="exp-card-top">
+                <span className="exp-tag">OpenRouter</span>
+                <span className="exp-num">01</span>
+              </div>
+              <h3 className="exp-title">500 models. I still couldn&apos;t pick one.</h3>
+              <p className="exp-desc">So I designed a wizard that does the picking. Four questions, one recommendation, copy-paste code to ship. A redesign of OpenRouter&apos;s model selection flow.</p>
+              <div className="exp-footer">
+                <span className="exp-status exp-status--live">Live prototype →</span>
+              </div>
+            </a>
+
+            {/* More coming */}
+            <div className="exp-card exp-card--more">
+              <p className="exp-more-text">More concepts in the works — currently exploring, currently building.</p>
+            </div>
+
           </div>
         </div>
       </section>

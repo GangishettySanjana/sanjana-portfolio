@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import Navigation from '@/components/Navigation'
 import CaseStudy from '@/components/CaseStudy'
 import Contact from '@/components/Contact'
 import { getProjectBySlug, projects } from '@/data/projects'
@@ -28,7 +27,6 @@ export default function ProjectPage({ params }: Props) {
 
   return (
     <>
-      <Navigation />
       <main>
         <CaseStudy project={project} />
         <Contact />

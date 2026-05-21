@@ -1,0 +1,425 @@
+/* ─────────────────────────────────────────────────────────────────
+   FlairX case study design system
+   Mirrors OpenRouter page visual patterns with FlairX palette:
+     Navy  #002448   Teal  #2BB5C2
+   ───────────────────────────────────────────────────────────────── */
+
+/* ── tokens ─────────────────────────────────────────────────────── */
+.fx-case {
+  --fx-navy:          #002448;
+  --fx-navy75:        rgba(0,36,72,0.75);
+  --fx-navy40:        rgba(0,36,72,0.4);
+  --fx-navy25:        rgba(0,36,72,0.25);
+  --fx-teal:          #2BB5C2;
+  --fx-teal50:        rgba(43,181,194,0.5);
+  --fx-teal20:        rgba(43,181,194,0.2);
+  --fx-teal12:        rgba(43,181,194,0.12);
+  --fx-teal08:        rgba(43,181,194,0.08);
+  --fx-teal03:        rgba(43,181,194,0.03);
+  --fx-surface:       rgba(0,36,72,0.025);
+  --fx-border:        rgba(43,181,194,0.14);
+  --fx-border-hi:     rgba(43,181,194,0.28);
+}
+
+/* ── alternating section surfaces ───────────────────────────────── */
+.fx-sec-alt {
+  background: var(--fx-surface);
+  border-radius: 16px;
+  padding: 36px 32px;
+  margin-left: -32px;
+  margin-right: -32px;
+}
+
+/* ── section label  "01 — OVERVIEW" ────────────────────────────── */
+.fx-sec-label {
+  font-family: var(--font-label), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fx-teal);
+  margin-bottom: 12px;
+}
+
+/* ── section heading ─────────────────────────────────────────────── */
+.fx-sec-title {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(22px, 2.8vw, 30px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--fx-navy);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 28px;
+}
+
+/* ── context row grid ────────────────────────────────────────────── */
+.fx-ctx-row {
+  display: flex;
+  gap: 24px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid var(--fx-border);
+}
+.fx-ctx-key {
+  width: 130px;
+  flex-shrink: 0;
+  font-family: var(--font-label), sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--fx-navy40);
+  padding-top: 3px;
+}
+.fx-ctx-val {
+  flex: 1;
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 16px;
+  color: var(--fx-navy75);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── evidence cards ──────────────────────────────────────────────── */
+.fx-evidence-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+.fx-evidence-card {
+  background: var(--fx-teal03);
+  border: 1px solid var(--fx-border);
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+.fx-evidence-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.fx-evidence-src {
+  font-family: var(--font-label), sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--fx-navy40);
+}
+.fx-evidence-tag {
+  font-family: var(--font-label), sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--fx-teal);
+  background: var(--fx-teal08);
+  border: 1px solid var(--fx-teal20);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+.fx-evidence-quote {
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 14.5px;
+  color: var(--fx-navy75);
+  line-height: 1.65;
+  font-style: italic;
+  margin: 0;
+}
+
+/* ── pull quote ──────────────────────────────────────────────────── */
+.fx-pull-quote {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 20px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--fx-navy);
+  border: 1px solid var(--fx-border-hi);
+  background: var(--fx-teal03);
+  padding: 20px 28px;
+  margin: 36px 0;
+  border-radius: 14px;
+  line-height: 1.5;
+}
+
+/* ── before-state row ────────────────────────────────────────────── */
+.fx-before-row {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+.fx-before-img {
+  width: 240px;
+  flex-shrink: 0;
+  display: block;
+  border-radius: 10px;
+  border: 1px solid var(--fx-border);
+}
+
+/* ── bullet list ─────────────────────────────────────────────────── */
+.fx-bullets {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.fx-bullets li {
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--fx-navy75);
+  line-height: 1.65;
+  padding-left: 18px;
+  position: relative;
+}
+.fx-bullets li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--fx-teal50);
+}
+
+/* ── ruled-out section ───────────────────────────────────────────── */
+.fx-ruled-out {
+  background: var(--fx-surface);
+  border-radius: 14px;
+  padding: 22px 24px;
+  border: 1px solid var(--fx-border);
+  margin-bottom: 48px;
+  padding-bottom: 28px;
+  border-bottom-width: 1px;
+}
+.fx-ruled-out-label {
+  display: block;
+  font-family: var(--font-label), sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--fx-navy40);
+  margin-bottom: 18px;
+}
+.fx-ruled-out-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.fx-ruled-out-item {
+  background: #ffffff;
+  border: 1px solid var(--fx-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.fx-ruled-out-item img {
+  width: 100%;
+  display: block;
+}
+.fx-ruled-out-body {
+  padding: 14px 16px;
+}
+.fx-ruled-out-name {
+  display: block;
+  font-family: var(--font-label), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fx-navy);
+  margin-bottom: 6px;
+  text-decoration: line-through;
+  text-decoration-color: var(--fx-teal50);
+  text-decoration-thickness: 1.5px;
+}
+.fx-ruled-out-desc {
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 13.5px;
+  color: var(--fx-navy75);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── decision list ───────────────────────────────────────────────── */
+.fx-decisions-list {
+  display: flex;
+  flex-direction: column;
+}
+.fx-decision {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 24px;
+  padding: 36px 0;
+  border-top: 1px solid var(--fx-border);
+}
+.fx-decision:last-child {
+  border-bottom: 1px solid var(--fx-border);
+}
+
+/* Outlined number — the most distinctive OpenRouter element */
+.fx-decision-num {
+  font-family: var(--font-label), sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--fx-border-hi);
+  line-height: 1;
+  padding-top: 6px;
+  letter-spacing: -0.02em;
+  user-select: none;
+}
+
+.fx-decision-body h3 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(17px, 1.8vw, 21px);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--fx-navy);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.fx-dblock {
+  margin-bottom: 16px;
+}
+.fx-dblock:last-child {
+  margin-bottom: 0;
+}
+.fx-dblock-label {
+  display: inline-block;
+  font-family: var(--font-label), sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fx-teal);
+  margin-bottom: 5px;
+}
+.fx-dblock p {
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 14.5px;
+  color: var(--fx-navy75);
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* ── final designs section ───────────────────────────────────────── */
+.fx-design-block {
+  margin-bottom: 52px;
+}
+.fx-design-block:last-child {
+  margin-bottom: 0;
+}
+.fx-design-title {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(18px, 1.9vw, 22px);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--fx-navy);
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--fx-border);
+}
+.fx-design-img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid var(--fx-border);
+}
+
+/* ── edge case subsection label ──────────────────────────────────── */
+.fx-sub-label {
+  font-family: var(--font-label), sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--fx-navy40);
+  margin-bottom: 14px;
+  display: block;
+}
+
+/* ── alerts grid ─────────────────────────────────────────────────── */
+.fx-alerts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.fx-alert-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  border: 1px solid var(--fx-border);
+}
+.fx-alert-title {
+  font-family: var(--font-label), sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fx-navy);
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+/* ── outcome list ────────────────────────────────────────────────── */
+.fx-outcomes {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+.fx-outcome-item {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 20px;
+  padding: 26px 0;
+  border-top: 1px solid var(--fx-border);
+}
+.fx-outcome-item:last-child {
+  border-bottom: 1px solid var(--fx-border);
+}
+.fx-outcome-num {
+  font-family: var(--font-label), sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--fx-teal50);
+  padding-top: 4px;
+  letter-spacing: -0.02em;
+}
+.fx-outcome-metric {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(19px, 2.1vw, 24px);
+  font-weight: 500;
+  color: var(--fx-navy);
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+.fx-outcome-desc {
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 14.5px;
+  color: var(--fx-navy75);
+  margin: 0;
+  line-height: 1.65;
+}
+
+/* ── responsive ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .fx-sec-alt {
+    margin-left: -16px;
+    margin-right: -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 0;
+  }
+  .fx-evidence-grid { grid-template-columns: 1fr; }
+  .fx-ruled-out-grid { grid-template-columns: 1fr; }
+  .fx-decision { grid-template-columns: 1fr; gap: 12px; }
+  .fx-decision-num { font-size: 22px; }
+  .fx-alerts-grid { grid-template-columns: 1fr; }
+  .fx-outcome-item { grid-template-columns: 40px 1fr; }
+  .fx-before-row { flex-direction: column; }
+  .fx-before-img { width: 100%; }
+}

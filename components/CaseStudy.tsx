@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { type Project } from '@/data/projects'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import '@/app/projects/flairx-case.css'
 
 // ── Type scale (Impeccable: 5 clear sizes, ~1.333 ratio, 16px base minimum)
 // xs  : 12px — legal, placeholder labels
@@ -240,6 +241,7 @@ export default function CaseStudy({ project }: { project: Project }) {
             color: 'rgba(0,36,72,0.45)', textDecoration: 'none',
             marginBottom: 28, transition: 'color 0.2s',
           }}
+            onClick={() => sessionStorage.setItem('skipIntro', '1')}
             onMouseEnter={e => (e.currentTarget.style.color = '#002448')}
             onMouseLeave={e => (e.currentTarget.style.color = 'rgba(0,36,72,0.45)')}
           >
@@ -310,6 +312,7 @@ export default function CaseStudy({ project }: { project: Project }) {
               fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase' as const,
               borderRadius: 999, textDecoration: 'none', transition: 'opacity 0.2s',
             }}
+              onClick={() => sessionStorage.setItem('skipIntro', '1')}
               onMouseEnter={e => (e.currentTarget.style.opacity = '0.6')}
               onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
             >
@@ -1474,383 +1477,280 @@ function FlairXFlowChart() {
 // ── FlairX case study ──
 function FlairXContent({ project: _project, sectionRefs }: { project: Project; sectionRefs: React.MutableRefObject<Record<string, HTMLElement | null>> }) {
   return (
-    <div>
-      {/* ── Section 1: Overview ── */}
-      <section id="overview" ref={el => { sectionRefs.current['overview'] = el }} style={{ marginBottom: 72 }}>
-        <p style={sLabel}>Overview</p>
-        <p style={sBody}>
-          Redesigned the candidate intake system for FlairX, a B2B interview platform, replacing a slow, manual workflow with an AI-powered upload system that handles résumé parsing, bulk intake, and CSV imports in a unified flow.
-        </p>
-        <div className="case-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 48, background: 'rgba(0,36,72,0.03)', borderRadius: 12, padding: '20px 24px', border: '1px solid rgba(43,181,194,0.12)' }}>
-          <div>
-            <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginBottom: 10 }}>Role</p>
-            <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 15, color: '#002448', lineHeight: 1.7 }}>
-              UX/UI/Product Designer<br />
-              Workflow design<br />
-              Interaction patterns<br />
-              AI-assisted automation<br />
-              Research &amp; validation
-            </p>
-          </div>
-          <div>
-            <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginBottom: 10 }}>Collaborated With</p>
-            <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 15, color: '#002448', lineHeight: 1.7 }}>
-              Founder/CEO<br />
-              Product Team<br />
-              Frontend Engineers<br />
-              Backend Engineers
-            </p>
-          </div>
-        </div>
-      </section>
+    <div className="fx-case">
 
-      {/* ── Section 2: Context ── */}
-      <section id="context" ref={el => { sectionRefs.current['context'] = el }} style={{ marginBottom: 72 }}>
-        <p style={sLabel}>Context</p>
-        <ul style={{ paddingLeft: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {/* ── 01 Overview ─────────────────────────────────── */}
+      <section id="overview" ref={el => { sectionRefs.current['overview'] = el }} style={{ marginBottom: 64 }}>
+        <p className="fx-sec-label">01 — Overview</p>
+        <h2 className="fx-sec-title">AI-powered candidate intake — résumé parsing, bulk uploads, and CSV in one flow.</h2>
+        <div className="case-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: 'rgba(43,181,194,0.14)', borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(43,181,194,0.14)', marginTop: 8 }}>
           {[
-            'Simplifying the entire candidate intake process and integrating AI to do it',
-            'Résumé parsing, bulk uploads, and ATS imports, all rethought from scratch',
-            'The workflow I inherited was slow, manual, and filled with repetitive steps',
-            'My job was to redesign it into an intelligent, automated system that reduced friction while keeping recruiters fully in control',
-          ].map((item, i) => (
-            <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, paddingLeft: 20, position: 'relative' }}>
-              <span style={{ position: 'absolute', left: 0, color: 'rgba(43,181,194,0.7)' }}>→</span>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* ── Section 3: Problem ── */}
-      <section id="problem" ref={el => { sectionRefs.current['problem'] = el }} style={{ marginBottom: 72 }}>
-        <p style={sLabel}>Problem</p>
-        <h2 style={sHeading}>Recruiters were spending hours before an interview could even be scheduled.</h2>
-        <ul style={{ paddingLeft: 0, margin: '0 0 28px', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
-          {[
-            'Recruiters spent hours typing candidate details by hand before interviews could even be scheduled',
-            'Résumés were uploaded one-by-one with no batch support',
-            'Data errors had to be found and fixed manually, with no inline guidance',
-            'The workflow was slow, repetitive, and mentally exhausting',
-          ].map((item, i) => (
-            <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, paddingLeft: 20, position: 'relative' }}>
-              <span style={{ position: 'absolute', left: 0, color: 'rgba(43,181,194,0.7)' }}>→</span>
-              {item}
-            </li>
-          ))}
-        </ul>
-        <div className="case-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginTop: 28, marginBottom: 28 }}>
-          {[
-            "Why am I entering the same information again and again?",
-            "Bulk uploads break or miss details. I don't trust it.",
-            "If I make one mistake, the entire flow collapses.",
-            "I wish the system would just do this for me.",
-          ].map((quote, i) => (
-            <div key={i} style={{ background: 'rgba(0,36,72,0.03)', borderRadius: 12, padding: '20px 24px', border: '1px solid rgba(43,181,194,0.12)' }}>
-              <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 15, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, fontStyle: 'italic', margin: 0 }}>"{quote}"</p>
+            { label: 'Role', lines: ['UX/UI/Product Designer', 'Workflow design', 'Interaction patterns', 'AI-assisted automation', 'Research & validation'] },
+            { label: 'Collaborated With', lines: ['Founder/CEO', 'Product Team', 'Frontend Engineers', 'Backend Engineers'] },
+          ].map(({ label, lines }) => (
+            <div key={label} style={{ background: 'rgba(250,250,248,1)', padding: '20px 22px' }}>
+              <p className="fx-sub-label" style={{ marginBottom: 10 }}>{label}</p>
+              {lines.map(l => <p key={l} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 15, color: '#002448', lineHeight: 1.65, margin: 0 }}>{l}</p>)}
             </div>
           ))}
         </div>
-        <div className="case-2col-discovery" style={{ display: 'flex', gap: 48, alignItems: 'flex-start' }}>
-          <div style={{ flex: 1 }}>
-            <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginBottom: 12 }}>Discoveries</p>
-            <ul style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {[
-                'Manual data entry for every candidate field, no automation',
-                'CSV uploads were unstable and frequently lost or scrambled data',
-                'No transparency into what the system was doing during processing',
-                'No duplicate detection, the same candidate could be added multiple times',
-                'Scheduling kicked off too early, before candidate data was complete',
-                'AI capabilities existed in the product but were completely unused',
-              ].map((item, i) => (
-                <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 16, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7 }}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <img
-            src={FX.beforeMockup}
-            alt="Before state. Upload your Talent Pool"
-            style={{ width: 260, flexShrink: 0, display: 'block', borderRadius: 10 }}
-          />
+      </section>
+
+      {/* ── 02 Context ─────────────────────────────────── */}
+      <section id="context" ref={el => { sectionRefs.current['context'] = el }} className="fx-sec-alt" style={{ marginBottom: 64 }}>
+        <p className="fx-sec-label">02 — Context</p>
+        <h2 className="fx-sec-title">Résumé parsing, bulk uploads, and ATS imports — rethought from scratch.</h2>
+        <div>
+          {[
+            { label: 'The ask', text: 'Simplify the entire candidate intake process and integrate AI throughout it.' },
+            { label: 'What I inherited', text: 'A workflow that was slow, manual, and filled with repetitive steps. Recruiters typed every field by hand before a single interview could be scheduled.' },
+            { label: 'The scope', text: 'Résumé parsing, bulk uploads, and ATS integrations — all three workflows redesigned in parallel.' },
+            { label: 'The constraint', text: 'Keep recruiters fully in control. Automation should reduce friction, not create new uncertainty.' },
+          ].map(({ label, text }) => (
+            <div key={label} className="fx-ctx-row">
+              <span className="fx-ctx-key">{label}</span>
+              <p className="fx-ctx-val">{text}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* ── Section 4: Ideation & Flow ── */}
-      <section id="ideation" ref={el => { sectionRefs.current['ideation'] = el }} style={{ marginBottom: 72 }}>
-        <p style={sLabel}>Ideation &amp; Flow</p>
-        <ul style={{ paddingLeft: 0, margin: '0 0 28px', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {/* ── 03 Problem ─────────────────────────────────── */}
+      <section id="problem" ref={el => { sectionRefs.current['problem'] = el }} style={{ marginBottom: 64 }}>
+        <p className="fx-sec-label">03 — Problem</p>
+        <h2 className="fx-sec-title">Recruiters were spending hours before an interview could even be scheduled.</h2>
+
+        <ul className="fx-bullets" style={{ marginBottom: 36 }}>
+          {[
+            'Manual data entry for every candidate field — no automation anywhere in the flow',
+            'Résumés uploaded one-by-one, no batch support',
+            'CSV uploads were unstable and frequently scrambled or lost data',
+            'No duplicate detection — the same candidate could be added multiple times',
+            'AI capabilities existed in the product but were completely unused',
+          ].map(item => <li key={item}>{item}</li>)}
+        </ul>
+
+        <div className="fx-evidence-grid case-2col">
+          {[
+            { quote: "Why am I entering the same information again and again?", tag: "Manual entry" },
+            { quote: "Bulk uploads break or miss details. I don't trust it.", tag: "Bulk uploads" },
+            { quote: "If I make one mistake, the entire flow collapses.", tag: "Error handling" },
+            { quote: "I wish the system would just do this for me.", tag: "Automation" },
+          ].map(({ quote, tag }) => (
+            <div key={tag} className="fx-evidence-card">
+              <div className="fx-evidence-head">
+                <span className="fx-evidence-src">Recruiter</span>
+                <span className="fx-evidence-tag">{tag}</span>
+              </div>
+              <p className="fx-evidence-quote">&ldquo;{quote}&rdquo;</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="fx-before-row case-2col-discovery" style={{ marginTop: 36 }}>
+          <img src={FX.beforeMockup} alt="Before state" className="fx-before-img" />
+          <div style={{ flex: 1 }}>
+            <span className="fx-sub-label" style={{ marginBottom: 12 }}>Before state</span>
+            <ul className="fx-bullets">
+              {[
+                'Scheduling kicked off before candidate data was complete',
+                'No transparency into what the system was doing during processing',
+                'Data errors found and fixed manually, no inline guidance',
+                'Every field typed by hand, every time',
+              ].map(item => <li key={item}>{item}</li>)}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 04 Ideation & Flow ─────────────────────────── */}
+      <section id="ideation" ref={el => { sectionRefs.current['ideation'] = el }} className="fx-sec-alt" style={{ marginBottom: 64 }}>
+        <p className="fx-sec-label">04 — Ideation &amp; Flow</p>
+        <h2 className="fx-sec-title">Three workflows. One system that ties them together.</h2>
+        <ul className="fx-bullets" style={{ marginBottom: 32 }}>
           {[
             'Mapped the three core workflow areas: CSV handling, AI résumé parsing, and ATS integrations',
             'Explored multiple solution paths before committing to a direction',
             'Identified what should be automated vs. what needed to stay in recruiter control',
             'Removed steps that added friction without adding value',
-          ].map((item, i) => (
-            <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, paddingLeft: 20, position: 'relative' }}>
-              <span style={{ position: 'absolute', left: 0, color: 'rgba(43,181,194,0.7)' }}>→</span>
-              {item}
-            </li>
-          ))}
+          ].map(item => <li key={item}>{item}</li>)}
         </ul>
-        <div style={{ marginTop: 28 }}>
-          <FlairXFlowChart />
+        <FlairXFlowChart />
+      </section>
+
+      {/* ── 05 Design Decisions ────────────────────────── */}
+      <section id="decisions" ref={el => { sectionRefs.current['decisions'] = el }} style={{ marginBottom: 64 }}>
+        <p className="fx-sec-label">05 — Design Decisions</p>
+        <h2 className="fx-sec-title">Four choices that shaped the final system.</h2>
+
+        <div className="fx-ruled-out">
+          <span className="fx-ruled-out-label">What I ruled out first</span>
+          <div className="fx-ruled-out-grid case-2col">
+            {[
+              { name: 'Early direction', img: FX.case1, desc: 'Simplified single upload and restructured intake steps. Organized fields more cleanly — but still relied on manual input and left AI capabilities completely unused.' },
+              { name: 'Multi-screen flow', img: FX.case2, desc: 'Split upload, validation, and review across separate pages. Internal testing showed it became visually chaotic. Users lost track of where they were in the process.' },
+            ].map(({ name, img, desc }) => (
+              <div key={name} className="fx-ruled-out-item">
+                <img src={img} alt={name} />
+                <div className="fx-ruled-out-body">
+                  <span className="fx-ruled-out-name">{name}</span>
+                  <p className="fx-ruled-out-desc">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="fx-decisions-list">
+          {[
+            {
+              num: '01',
+              title: 'AI-first, not manual-first',
+              what: 'Résumé upload triggers automatic field extraction immediately. Recruiters see a pre-filled form to review — never a blank one to fill in.',
+              why: 'The original pain was manual data entry. Starting with AI output and asking recruiters to verify is fundamentally different from asking them to type. The cognitive load shifts from creation to confirmation.',
+              diff: "I'd want to test how recruiters respond when AI gets a field wrong. Does a wrong pre-fill feel worse than a blank field? That confidence calibration needs real data before shipping.",
+            },
+            {
+              num: '02',
+              title: 'One unified flow over multiple screens',
+              what: 'Upload, review, and confirm all happen in a single page. No navigation between states, no losing your place mid-task.',
+              why: "Splitting into multiple screens failed internal testing — users couldn't track their progress. A linear single-page flow gives recruiters a clear sense of where they are and what's left.",
+              diff: "I'd test whether power users doing 100+ candidates find the single page too long. A stepper with clear progress indicators might work better at that scale.",
+            },
+            {
+              num: '03',
+              title: 'Bulk as a first-class workflow',
+              what: 'Bulk upload gets its own dedicated flow with real-time parsing progress, a summary table, and inline editing for missed fields.',
+              why: 'In the original system, bulk upload was an afterthought. It frequently lost data and gave no visibility into what was happening. Making it first-class meant building for the actual high-volume hiring reality.',
+              diff: "Synchronous parsing blocks the UI for large batches. I'd explore async processing with a notification when the job finishes — let recruiters do other work while files are being processed.",
+            },
+            {
+              num: '04',
+              title: 'Errors surfaced where they happen',
+              what: 'Inline validation flags missing or incorrect data in the review table itself. Nothing blocks submission until the recruiter has seen and addressed each issue.',
+              why: "Separate error screens break flow and force context switching. Inline warnings keep the recruiter in the task — they can fix a missing phone number without losing sight of the 20 other candidates.",
+              diff: "I'd add undo functionality for dismissed warnings. Recruiters sometimes close alerts by mistake, and right now there's no way to get that context back without reprocessing the file.",
+            },
+          ].map(({ num, title, what, why, diff }) => (
+            <div key={num} className="fx-decision">
+              <div className="fx-decision-num">{num}</div>
+              <div className="fx-decision-body">
+                <h3>{title}</h3>
+                {[
+                  { label: 'What I did', text: what },
+                  { label: 'Why', text: why },
+                  { label: "What I'd do differently", text: diff },
+                ].map(({ label, text }) => (
+                  <div key={label} className="fx-dblock">
+                    <span className="fx-dblock-label">{label}</span>
+                    <p>{text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* ── Section 5: Design Decisions ── */}
-      <section id="decisions" ref={el => { sectionRefs.current['decisions'] = el }} style={{ marginBottom: 72 }}>
-        <p style={sLabel}>Design Decisions</p>
+      {/* ── 06 Final Designs ───────────────────────────── */}
+      <section id="finals" ref={el => { sectionRefs.current['finals'] = el }} className="fx-sec-alt" style={{ marginBottom: 64 }}>
+        <p className="fx-sec-label">06 — Final Designs</p>
 
-        {/* Case 1 */}
-        <div style={{ marginBottom: 56 }}>
-          <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginBottom: 16 }}>Early Direction (Not Approved)</p>
-          <img src={FX.case1} alt="Early direction" style={{ width: '100%', display: 'block', borderRadius: 12, marginBottom: 24 }} />
-          <ul style={{ paddingLeft: 0, margin: '0 0 20px', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {[
-              'Focused on simplifying single upload and restructuring intake steps',
-              'Organized fields more cleanly but still relied heavily on manual input',
-              'Did not fully leverage the AI capabilities already in the product',
-            ].map((item, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, paddingLeft: 20, position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 0, color: 'rgba(43,181,194,0.7)' }}>→</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginTop: 20, marginBottom: 10 }}>Why it wasn't approved:</p>
-          <ul style={{ paddingLeft: 18, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {[
-              'Still too much manual data entry',
-              'Did not reduce steps meaningfully',
-              'No improvement in transparency for bulk uploads',
-              'Did not handle edge cases or parsing failures',
-            ].map((item, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 15, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.65 }}>{item}</li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Case 2 */}
-        <div style={{ marginBottom: 48 }}>
-          <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginBottom: 16 }}>Multi-Screen Flow (Not Selected)</p>
-          <img src={FX.case2} alt="Multi-screen flow" style={{ width: '100%', display: 'block', borderRadius: 12, marginBottom: 24 }} />
-          <ul style={{ paddingLeft: 0, margin: '0 0 20px', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {[
-              'Split the intake process across multiple screens: upload, validation, and review as separate pages',
-              'Internal testing showed the flow became visually chaotic and hard to follow',
-              'Users struggled to track where they were in the process',
-            ].map((item, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, paddingLeft: 20, position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 0, color: 'rgba(43,181,194,0.7)' }}>→</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginTop: 20, marginBottom: 10 }}>Why it wasn't selected:</p>
-          <ul style={{ paddingLeft: 18, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {[
-              'Too many screens for a single task',
-              'Cognitive load increased instead of decreasing',
-              'Users could not easily find the next actionable step',
-              'Risk of abandonment due to unclear progression',
-            ].map((item, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 15, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.65 }}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* ── Section 6: Final Designs ── */}
-      <section id="finals" ref={el => { sectionRefs.current['finals'] = el }} style={{ marginBottom: 72 }}>
-        <p style={sLabel}>Final Designs</p>
-
-        {/* Single upload */}
-        <div style={{ marginBottom: 48 }}>
-          <h3 style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 'clamp(20px, 2vw, 24px)', fontWeight: 500, fontStyle: 'italic', color: '#002448', margin: '0 0 16px' }}>Single Upload Happy Path</h3>
-          <img src={FX.singleUpload} alt="Single upload happy path" style={{ width: '100%', display: 'block', borderRadius: 12, marginBottom: 0 }} />
-          <ul style={{ paddingLeft: 0, margin: '16px 0 0', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {[
+        {[
+          {
+            title: 'Single Upload Happy Path',
+            img: FX.singleUpload, alt: 'Single upload happy path',
+            bullets: [
               'Optimized for adding one candidate at a time with minimal friction',
               'AI extracts fields from the résumé automatically on upload',
               'Recruiters only need to review and edit what the system missed',
               'Simple, linear flow: upload → review → confirm',
-            ].map((item, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, paddingLeft: 20, position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 0, color: 'rgba(43,181,194,0.7)' }}>→</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginTop: 20, marginBottom: 10 }}>Key improvements</p>
-          <ul style={{ paddingLeft: 18, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {[
-              'AI extracts core fields automatically',
-              'Only incomplete fields require editing',
-              'Clear state transitions: upload → review → confirmation',
-              'Reduced friction vs. original version',
-            ].map((item, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 15, color: 'rgba(0,36,72,0.75)', lineHeight: 1.65 }}>{item}</li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Bulk upload */}
-        <div style={{ marginBottom: 48 }}>
-          <h3 style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 'clamp(20px, 2vw, 24px)', fontWeight: 500, fontStyle: 'italic', color: '#002448', margin: '0 0 16px' }}>Bulk Upload Happy Path</h3>
-          <img src={FX.bulkUpload} alt="Bulk upload happy path" style={{ width: '100%', display: 'block', borderRadius: 12, marginBottom: 0 }} />
-          <ul style={{ paddingLeft: 0, margin: '16px 0 0', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {[
-              'Built for high-volume hiring, upload dozens of résumés at once',
+            ],
+          },
+          {
+            title: 'Bulk Upload Happy Path',
+            img: FX.bulkUpload, alt: 'Bulk upload happy path',
+            bullets: [
+              'Built for high-volume hiring — upload dozens of résumés at once',
               'System displays a real-time parsing summary as files are processed',
               'Missing fields are highlighted inline so nothing slips through',
               'Errors can be fixed directly in the table without opening separate forms',
-            ].map((item, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, paddingLeft: 20, position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 0, color: 'rgba(43,181,194,0.7)' }}>→</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginTop: 20, marginBottom: 10 }}>Key improvements</p>
-          <ul style={{ paddingLeft: 18, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {[
-              'Real-time parsing feedback',
-              'Missing-field indicators and inline editing',
-              'Duplicate detection for large datasets',
-              'Bulk confirmation controls',
-              'Reduces time from hours → minutes',
-            ].map((item, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 15, color: 'rgba(0,36,72,0.75)', lineHeight: 1.65 }}>{item}</li>
-            ))}
-          </ul>
-        </div>
-
-        {/* CSV upload */}
-        <div style={{ marginBottom: 0 }}>
-          <h3 style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 'clamp(20px, 2vw, 24px)', fontWeight: 500, fontStyle: 'italic', color: '#002448', margin: '0 0 16px' }}>CSV Upload Happy Path</h3>
-          <img src={FX.csvUpload} alt="CSV upload happy path" style={{ width: '100%', height: 'auto', borderRadius: 10, display: 'block' }} />
-          <ul style={{ paddingLeft: 0, margin: '16px 0 0', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {[
+            ],
+          },
+          {
+            title: 'CSV Upload Happy Path',
+            img: FX.csvUpload, alt: 'CSV upload happy path',
+            bullets: [
               'Designed for teams who prefer structured, spreadsheet-style data uploads',
               'System automatically maps CSV columns to candidate fields after upload',
               'Conflicts and mismatches are surfaced clearly before any data is committed',
               'Inline correction keeps users in flow without switching contexts',
-            ].map((item, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, paddingLeft: 20, position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 0, color: 'rgba(43,181,194,0.7)' }}>→</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginTop: 20, marginBottom: 10 }}>Key improvements</p>
-          <ul style={{ paddingLeft: 18, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {[
-              'Stable CSV upload experience',
-              'Field-mapping clarity',
-              'Conflict resolution flow',
-              'Eliminates unpredictable CSV failures',
-            ].map((item, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 15, color: 'rgba(0,36,72,0.75)', lineHeight: 1.65 }}>{item}</li>
-            ))}
-          </ul>
-        </div>
+            ],
+          },
+        ].map(({ title, img, alt, bullets }) => (
+          <div key={title} className="fx-design-block">
+            <h3 className="fx-design-title">{title}</h3>
+            <img src={img} alt={alt} className="fx-design-img" style={{ marginBottom: 16 }} />
+            <ul className="fx-bullets">
+              {bullets.map(item => <li key={item}>{item}</li>)}
+            </ul>
+          </div>
+        ))}
       </section>
 
-      {/* ── Section 7: Edge Cases ── */}
-      <section id="edgecases" ref={el => { sectionRefs.current['edgecases'] = el }} style={{ marginBottom: 72 }}>
-        <p style={sLabel}>Edge Cases</p>
+      {/* ── 07 Edge Cases ──────────────────────────────── */}
+      <section id="edgecases" ref={el => { sectionRefs.current['edgecases'] = el }} style={{ marginBottom: 64 }}>
+        <p className="fx-sec-label">07 — Edge Cases</p>
+        <h2 className="fx-sec-title">The system had to hold up when things went wrong.</h2>
 
-        {/* Edge Case 1 */}
         <div style={{ marginBottom: 48 }}>
-          <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginBottom: 16 }}>Mixed Uploading + Failed Uploads + Successful Uploads</p>
-          <img src={FX.edgeCase1} alt="Mixed upload states" style={{ width: '100%', height: 'auto', borderRadius: 10, display: 'block', marginBottom: 16 }} />
-          <ul style={{ paddingLeft: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <span className="fx-sub-label">Mixed Uploading + Failed + Successful</span>
+          <img src={FX.edgeCase1} alt="Mixed upload states" className="fx-design-img" style={{ marginBottom: 14, height: 'auto' }} />
+          <ul className="fx-bullets">
             {[
-              'Each file is handled independently, one failure does not block the rest',
-              'Files are separated into three buckets: Uploading, Failed, and Successfully Uploaded',
+              'Each file is handled independently — one failure does not block the rest',
+              'Files separated into three buckets: Uploading, Failed, and Successfully Uploaded',
               'Parse Résumés action is disabled while any file is still in progress',
-              'Cancelling only pauses files actively uploading, completed files stay intact',
-            ].map((item, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, paddingLeft: 20, position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 0, color: 'rgba(43,181,194,0.7)' }}>→</span>
-                {item}
-              </li>
-            ))}
+              'Cancelling only pauses active uploads; completed files stay intact',
+            ].map(item => <li key={item}>{item}</li>)}
           </ul>
         </div>
 
-        {/* Edge Case 2 */}
         <div style={{ marginBottom: 48 }}>
-          <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginBottom: 16 }}>Missing Fields After Parsing</p>
-          <img src={FX.edgeCase2} alt="Missing fields after parsing" style={{ width: '100%', height: 'auto', borderRadius: 10, display: 'block', marginBottom: 16 }} />
-          <ul style={{ paddingLeft: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <span className="fx-sub-label">Missing Fields After Parsing</span>
+          <img src={FX.edgeCase2} alt="Missing fields after parsing" className="fx-design-img" style={{ marginBottom: 14, height: 'auto' }} />
+          <ul className="fx-bullets">
             {[
-              'When mandatory fields cannot be extracted, they surface as inline warnings in the review table',
-              'Only incomplete fields are flagged, no noise for what was parsed correctly',
-              'Users can correct missing data directly in the table without opening separate forms',
+              'Mandatory fields that failed extraction surface as inline warnings in the review table',
+              'Only incomplete fields are flagged — no noise for what was parsed correctly',
+              'Users fix missing data directly in the table without opening separate forms',
               'Transforms a traditionally painful step into a fast, guided experience',
-            ].map((item, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, paddingLeft: 20, position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 0, color: 'rgba(43,181,194,0.7)' }}>→</span>
-                {item}
-              </li>
-            ))}
+            ].map(item => <li key={item}>{item}</li>)}
           </ul>
         </div>
 
-        {/* Alerts subsection */}
         <div>
-          <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginBottom: 12 }}>Edge Case Alerts &amp; Preventive Guidance</p>
-          <ul style={{ paddingLeft: 0, margin: '0 0 24px', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <span className="fx-sub-label">Preventive Alerts</span>
+          <ul className="fx-bullets" style={{ marginBottom: 24 }}>
             {[
-              'Designed a series of micro-alerts to support a safe and predictable workflow',
               'Prevents users from losing work mid-upload or navigating away accidentally',
               'Blocks incomplete jobs from being posted before data is ready',
               'Stops invalid or duplicate data from entering the system silently',
-            ].map((item, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, fontWeight: 500, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, paddingLeft: 20, position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 0, color: 'rgba(43,181,194,0.7)' }}>→</span>
-                {item}
-              </li>
-            ))}
+            ].map(item => <li key={item}>{item}</li>)}
           </ul>
-          <div className="case-alerts-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+          <div className="fx-alerts-grid case-alerts-grid">
             {[
-              { src: FX.alert1, title: 'Unsaved Files Warning', bullets: [
-                'Triggered when a user tries to navigate away mid-upload',
-                'Prompts users to confirm before losing unsaved progress',
-                'Prevents accidental data loss during bulk sessions',
-              ]},
-              { src: FX.alert2, title: 'Failed Files Notice', bullets: [
-                'Surfaces clearly which files failed or are still in progress',
-                'Failed files are excluded from the parsing step automatically',
-                'Sets honest expectations so users can retry before continuing',
-              ]},
-              { src: FX.alert3, title: 'Empty Pipeline Warning', bullets: [
-                'Fires when a job is posted with no candidates attached',
-                'Prevents recruiters from publishing roles with empty pipelines',
-                'Prompts users to add at least one candidate before posting',
-              ]},
-              { src: FX.alert4, title: 'Required Fields Block', bullets: [
-                'Submission is blocked until all mandatory fields are filled',
-                'Highlights exactly which fields are missing inline',
-                'Ensures clean, complete data enters the system every time',
-              ]},
-              { src: FX.alert5, title: 'Duplicate Detection', bullets: [
-                'Automatically checks if a candidate already exists in the database',
-                'Flags the duplicate before it is added to the pipeline',
-                'Keeps recruiter data clean and avoids redundant profiles',
-              ]},
+              { src: FX.alert1, title: 'Unsaved Files Warning', bullets: ['Triggered when a user tries to navigate away mid-upload', 'Prompts users to confirm before losing unsaved progress', 'Prevents accidental data loss during bulk sessions'] },
+              { src: FX.alert2, title: 'Failed Files Notice', bullets: ['Surfaces clearly which files failed or are still in progress', 'Failed files are excluded from the parsing step automatically', 'Sets honest expectations so users can retry before continuing'] },
+              { src: FX.alert3, title: 'Empty Pipeline Warning', bullets: ['Fires when a job is posted with no candidates attached', 'Prevents recruiters from publishing roles with empty pipelines', 'Prompts users to add at least one candidate before posting'] },
+              { src: FX.alert4, title: 'Required Fields Block', bullets: ['Submission is blocked until all mandatory fields are filled', 'Highlights exactly which fields are missing inline', 'Ensures clean, complete data enters the system every time'] },
+              { src: FX.alert5, title: 'Duplicate Detection', bullets: ['Automatically checks if a candidate already exists in the database', 'Flags the duplicate before it is added to the pipeline', 'Keeps recruiter data clean and avoids redundant profiles'] },
             ].map(({ src, title, bullets }) => (
-              <div key={title}>
-                <img src={src} alt={title} style={{ width: '100%', height: 'auto', borderRadius: 10, display: 'block' }} />
-                <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 13, letterSpacing: '0.07em', textTransform: 'uppercase' as const, color: '#002448', marginTop: 12, marginBottom: 8 }}>{title}</p>
-                <ul style={{ margin: 0, paddingLeft: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 5 }}>
-                  {bullets.map(b => (
-                    <li key={b} style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 14, color: 'rgba(0,36,72,0.65)', lineHeight: 1.6, paddingLeft: 16, position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0, color: 'rgba(43,181,194,0.7)' }}>→</span>
-                      {b}
-                    </li>
-                  ))}
+              <div key={title} className="fx-alert-card">
+                <img src={src} alt={title} />
+                <p className="fx-alert-title">{title}</p>
+                <ul className="fx-bullets">
+                  {bullets.map(b => <li key={b} style={{ fontSize: 13.5 }}>{b}</li>)}
                 </ul>
               </div>
             ))}
@@ -1858,24 +1758,28 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
         </div>
       </section>
 
-      {/* ── Section 8: Impact ── */}
-      <section id="impact" ref={el => { sectionRefs.current['impact'] = el }} style={{ marginBottom: 16 }}>
-        <p style={sLabel}>Impact</p>
-        <h2 style={sHeading}>It all worked out, and with an impact.</h2>
-        <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 0 }}>
+      {/* ── 08 Impact ──────────────────────────────────── */}
+      <section id="impact" ref={el => { sectionRefs.current['impact'] = el }} className="fx-sec-alt" style={{ marginBottom: 16 }}>
+        <p className="fx-sec-label">08 — Impact</p>
+        <h2 className="fx-sec-title">It all worked out, and with an impact.</h2>
+        <div className="fx-outcomes">
           {[
-            { metric: '↓ 4 hrs → ~30 mins', desc: 'Time to process résumés reduced dramatically' },
-            { metric: '↓ Duplicate Profiles', desc: 'System caught and prevented repeated entries' },
-            { metric: '↑ Data Accuracy',      desc: 'Inline validation improved completeness & quality' },
-            { metric: '↑ Recruiter Efficiency', desc: 'Bulk uploads became faster, predictable, and stress-free' },
-          ].map(({ metric, desc }) => (
-            <div key={metric} style={{ paddingLeft: 20, marginBottom: 28, borderLeft: '1.5px solid rgba(43,181,194,0.35)', position: 'relative' }}>
-              <p style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 'clamp(22px, 2.5vw, 28px)', fontWeight: 500, color: '#002448', margin: '0 0 6px' }}>{metric}</p>
-              <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 16, color: 'rgba(0,36,72,0.65)', margin: 0, lineHeight: 1.6 }}>{desc}</p>
+            { num: '01', metric: '4 hrs → ~30 mins', desc: 'Time to process a batch of résumés went from half a day to a coffee break.' },
+            { num: '02', metric: 'Duplicate profiles eliminated', desc: 'System caught repeated entries before they entered the pipeline.' },
+            { num: '03', metric: 'Data accuracy improved', desc: 'Inline validation meant fields were complete and correct before submission.' },
+            { num: '04', metric: 'Recruiter confidence up', desc: 'Bulk uploads became predictable — no more dreading high-volume intake days.' },
+          ].map(({ num, metric, desc }) => (
+            <div key={num} className="fx-outcome-item">
+              <div className="fx-outcome-num">{num}</div>
+              <div>
+                <p className="fx-outcome-metric">{metric}</p>
+                <p className="fx-outcome-desc">{desc}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
+
     </div>
   )
 }

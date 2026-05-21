@@ -2,7 +2,6 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useRef } from 'react'
-import Navigation from '@/components/Navigation'
 import Contact from '@/components/Contact'
 import { JourneyMap } from '@/components/JourneyMap'
 import { journeyData } from '@/components/journey-data'
@@ -333,7 +332,6 @@ function TimelineItem({ item, index, nextYear }: { item: typeof timeline[0]; ind
 export default function AboutPage() {
   return (
     <>
-      <Navigation />
       <main style={{ background: '#FFFFFF' }}>
 
         {/* ── Hero ── */}

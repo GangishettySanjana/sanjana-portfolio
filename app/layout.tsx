@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { Fraunces, Playfair_Display, Ysabeau_Infant, Space_Grotesk, Outfit } from 'next/font/google'
+import Navigation from '@/components/Navigation'
 import './globals.css'
 
 // DISPLAY — Fraunces: variable optical-size serif, expressive at large sizes, sturdy small
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap" rel="stylesheet"/>
       </head>
       <body className="bg-white text-roasted antialiased">
+        <Navigation />
         {children}
         <Analytics />
       </body>

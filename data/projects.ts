@@ -150,7 +150,7 @@ export const projects: Project[] = [
       { value: '4 events', label: 'Deployed at public science museums' },
     ],
 
-    tldr: 'A 3D topographic table that teaches wildfire science to families and school groups — without dumbing it down.',
+    tldr: 'A 3D topographic table that teaches wildfire science to families and school groups. Without dumbing it down.',
     problem: 'Wildfires are increasingly frequent and deadly, but traditional safety education (brochures, lectures) can\'t convey the dynamic, chaotic nature of how fires actually spread. People leave not understanding the variables that make fires unpredictable.',
     outcome: 'A three-mode interactive experience. Learn, Simulate, Act, displayed at public science events. Users could see fire spread in real time, adjust environmental variables, and deploy suppression tactics on a physical 3D terrain.',
     metrics: [
@@ -206,12 +206,12 @@ export const projects: Project[] = [
     coverTextColor: 'text-roasted',
     coverGradient: 'linear-gradient(135deg, #E8DEFF 0%, #C5A8E8 60%, #A880D4 100%)',
     stats: [
-      { value: '3 rounds', label: 'Usability testing — redesigned each time' },
-      { value: 'Preview 2×', label: 'Enlarged after round 1 — completion jumped' },
+      { value: '3 rounds', label: 'Usability testing, redesigned each time' },
+      { value: 'Preview 2×', label: 'Enlarged after round 1, completion jumped' },
       { value: 'Checkout reordered', label: 'Delivery date moved to step 1 after round 2' },
     ],
 
-    tldr: 'A mobile app for a Hyderabad florist after COVID — custom bouquets, live inventory, a checkout that feels helped, not processed.',
+    tldr: 'A mobile app for a Hyderabad florist after COVID. Custom bouquets, live inventory, a checkout that feels helped, not processed.',
     problem: 'Small florists had no way to let customers browse real inventory or customize orders online. COVID lockdowns made this urgent. Customers wanted personal floral experiences but couldn\'t visit in person.',
     outcome: 'A mobile app with real-time inventory browsing, a bouquet customization preview tool, and delivery scheduling (one-time and subscription). Took the florist from zero digital presence to a complete ordering flow.',
     metrics: [
@@ -271,7 +271,7 @@ export const projects: Project[] = [
       { value: 'Solo', label: 'Copy, visual direction, handoff' },
     ],
 
-    tldr: 'Three weeks. No copywriter, no brand guidelines, one celebrity backer. Derived the voice, wrote the copy, designed the pop-up — shipped on time.',
+    tldr: 'Three weeks. No copywriter, no brand guidelines, one celebrity backer. Derived the voice, wrote the copy, designed the pop-up. Shipped on time.',
     problem: 'GetUp needed a promotional pop-up to support an imminent product launch with limited time and incomplete brand information. The pop-up had to drive pre-orders while staying true to GetUp\'s outdoor, energetic brand voice.',
     outcome: 'A pop-up design that captured GetUp\'s adventurous brand, energetic visuals, punchy copy, clear CTA, delivered in three weeks as a Figma handoff ready for development.',
     metrics: [
