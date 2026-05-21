@@ -451,7 +451,8 @@ def support_bot(user_message, history):
             <p className="sec-label">01 — The Story</p>
             <h2 className="sec-title">Meet Casey</h2>
 
-            {/* Casey Persona Card */}
+            {/* Casey Persona Card + story side by side */}
+            <div className="persona-story-row">
             <div className="persona-wrap">
               <div className="persona-card">
                 <div className="persona-header">
@@ -510,6 +511,7 @@ def support_bot(user_message, history):
                 </div>
               </div>
             </div>
+            </div>{/* end persona-wrap */}
 
             <div className="story-body">
               <p>Casey is a full-stack developer at a 40-person startup. Last Tuesday her PM dropped a Jira ticket: &ldquo;Add AI chat to the support flow. Sprint ends Friday.&rdquo; Not ML, not infra. Just Casey, a deadline, and a blank file.</p>
@@ -520,6 +522,8 @@ def support_bot(user_message, history):
               <p>Three weeks later, the model ID she&apos;d hardcoded changed without warning. Feature broke in production. She found out at 2am from an error alert, not from OpenRouter.</p>
               <p>OpenRouter had the right answer the whole time. It just wasn&apos;t findable.</p>
             </div>
+            </div>{/* end persona-story-row */}
+
             <blockquote className="pull-quote">&ldquo;The bottleneck isn&apos;t the model. It&apos;s knowing which model.&rdquo;</blockquote>
             <div className="evidence-row">
               <div className="evidence-card">
