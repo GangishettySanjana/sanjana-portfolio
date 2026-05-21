@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Model Match — OpenRouter concept by Sanjana Gangishetty</title>
+  <meta name="description" content="I redesigned OpenRouter's model selection flow. Four questions. One recommendation. Copy-paste code to get started." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- CONTEXT BANNER -->
+  <div style="background:#F3F4F6;border-bottom:1px solid #E5E7EB;padding:10px 40px;display:flex;align-items:center;gap:16px;">
+    <span class="context-banner-label" style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#6C47FF;white-space:nowrap;">WHAT IS OPENROUTER?</span>
+    <div class="context-banner-sep" style="width:1px;background:#D1D5DB;height:14px;flex-shrink:0;"></div>
+    <span style="font-size:12px;color:#6B7280;line-height:1.5;">A single API giving developers access to 500+ AI models from 60+ providers. One key, one endpoint. Gives you access to everything but guides you on nothing. That&rsquo;s what this project is about.</span>
+  </div>
+  <style>
+    @media (max-width: 640px) {
+      .context-banner-label, .context-banner-sep { display: none !important; }
+    }
+  </style>
+
+  <!-- NAV -->
+  <header class="nav" id="top">
+    <nav class="nav-pill">
+      <a class="nav-brand" href="https://gangishettysanjana.com" target="_blank" rel="noopener">◆ Sanjana</a>
+      <div class="nav-links">
+        <a href="#problem">Problem</a>
+        <a href="#decisions">Process</a>
+        <a href="#prototype">Prototype</a>
+        <a href="#reflection">Reflection</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <section class="hero" id="hero">
+    <div class="container">
+
+      <a class="back-link" href="/#explorations">← Back to explorations</a>
+
+      <p class="eyebrow">Product Design · Concept · OpenRouter</p>
+      <h1 class="hero-title">OpenRouter has 500&nbsp;models.<br>I still couldn't pick one.</h1>
+      <p class="hero-sub">So I designed a wizard that does the picking. Four questions, one recommendation, copy-paste code to ship.</p>
+      <p class="hero-disclaimer">Design exploration based on observed patterns, not validated user research. I'm being upfront about that because it matters.</p>
+
+      <div style="border-left:3px solid #6C47FF;padding:10px 16px;margin:24px 0;background:#F8F8FF;">
+        <p style="font-size:13px;font-style:italic;color:#6B7280;line-height:1.6;margin:0;">Designed for developers building their first AI feature &mdash; not ML engineers, not researchers. Just engineers whose PM dropped a ticket that says &ldquo;add AI to this.&rdquo;</p>
+      </div>
+
+      <div class="hero-ctas">
+        <a href="#prototype" class="btn btn-primary">Try the prototype ↓</a>
+        <a href="#problem" class="btn btn-outline">Read the case study</a>
+      </div>
+
+      <!-- Summary card -->
+      <div class="summary-card">
+        <div class="summary-top">
+          <p class="summary-hmw"><strong>The challenge:</strong> Take a developer from "I need AI" to a working API call without requiring them to understand 503 model IDs, pricing tables, or fallback infrastructure.</p>
+          <span class="status-live">Live prototype</span>
+        </div>
+        <div class="summary-meta">
+          <div class="smeta-item"><span class="smeta-k">Role</span><span class="smeta-v">Product Designer</span></div>
+          <div class="smeta-item"><span class="smeta-k">Company</span><span class="smeta-v">OpenRouter (concept)</span></div>
+          <div class="smeta-item"><span class="smeta-k">Timeline</span><span class="smeta-v">8 days</span></div>
+          <div class="smeta-item"><span class="smeta-k">Tools</span><span class="smeta-v">Figma · Claude · HTML/CSS/JS</span></div>
+        </div>
+        <div class="summary-cols">
+          <div class="summary-col sum-problem">
+            <div class="sum-col-head"><span class="sum-icon"><i class="ti ti-sparkles"></i></span><span class="sum-label">Highlights</span></div>
+            <ul>
+              <li>503 model IDs, zero guidance on where to start</li>
+              <li>Pricing opaque until you get the bill</li>
+              <li>Production breaks when model IDs change</li>
+            </ul>
+          </div>
+          <div class="summary-col sum-approach">
+            <div class="sum-col-head"><span class="sum-icon"><i class="ti ti-list-check"></i></span><span class="sum-label">Approach</span></div>
+            <ul>
+              <li>4-question deterministic recommendation engine</li>
+              <li>3 ranked options with plain-language reasoning</li>
+              <li>Pre-configured code output with fallback chain</li>
+            </ul>
+          </div>
+          <div class="summary-col sum-result">
+            <div class="sum-col-head"><span class="sum-icon"><i class="ti ti-target-arrow"></i></span><span class="sum-label">Result</span></div>
+            <ul>
+              <li><strong>503 → 1</strong> models to a recommendation</li>
+              <li>Predicted cost shown before you commit</li>
+              <li>Copy-paste code on your first visit</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════ STORY ═══════════════════ -->
+  <section class="sec sec-alt" id="story">
+    <div class="container">
+      <p class="sec-label">01 — The Story</p>
+      <h2 class="sec-title">Meet Arjun</h2>
+      <div class="story-body">
+        <p>Arjun Mehta is a full-stack developer at a 40-person startup in Bengaluru. Last Tuesday his PM dropped a Jira ticket: "Add AI chat to the support flow. Sprint ends Friday." Not ML, not infra. Just Arjun, a deadline, and a blank file.</p>
+        <p>He'd heard about OpenRouter. One key, every model, automatic failover. He went to openrouter.ai/models.</p>
+        <p>503 models.</p>
+        <p>He didn't know if he needed Claude or GPT-4o or Llama. He didn't know what a context window meant for a support bot running roughly 200 conversations a day. He didn't know if $3.50 per million tokens was cheap or ruinous at that volume.</p>
+        <p>He opened Reddit. Found a thread from 8 months ago. Someone said "just use GPT-4o." He used GPT-4o. Cost him $47 in the first week. His PM was not pleased.</p>
+        <p>Three weeks later, the model ID he'd hardcoded changed without warning. Feature broke in production. He found out at 2am from an error alert, not from OpenRouter.</p>
+        <p>OpenRouter had the right answer the whole time. It just wasn't findable.</p>
+      </div>
+      <blockquote class="pull-quote">
+        "The bottleneck isn't the model. It's knowing which model."
+      </blockquote>
+      <div class="evidence-row">
+        <div class="evidence-card">
+          <div class="evidence-head">
+            <span class="evidence-src hn">Hacker News</span>
+            <span class="evidence-tag">Choice paralysis</span>
+          </div>
+          <p>"Just grab the top ~30 models on OpenRouter and test them all."</p>
+          <a class="evidence-link" href="https://news.ycombinator.com/item?id=46156941" target="_blank" rel="noopener">news.ycombinator.com ↗</a>
+        </div>
+        <div class="evidence-card">
+          <div class="evidence-head">
+            <span class="evidence-src tp">Trustpilot</span>
+            <span class="evidence-tag">Unexpected cost</span>
+          </div>
+          <p>"Costs 100 times higher than expected. Nearly $50 for less than 100 lines of output."</p>
+          <a class="evidence-link" href="https://www.trustpilot.com/review/openrouter.ai" target="_blank" rel="noopener">trustpilot.com ↗</a>
+        </div>
+        <div class="evidence-card">
+          <div class="evidence-head">
+            <span class="evidence-src tp">Trustpilot</span>
+            <span class="evidence-tag">IDs change silently</span>
+          </div>
+          <p>"OpenRouter keeps changing the model ID names, causing errors. Logs show an invalid ID model."</p>
+          <a class="evidence-link" href="https://www.trustpilot.com/review/openrouter.ai" target="_blank" rel="noopener">trustpilot.com ↗</a>
+        </div>
+      </div>
+      <p class="evidence-note">Real quotes from public sources. <a href="https://github.com/BerriAI/litellm/issues/20521" target="_blank" rel="noopener">39 OpenRouter models were silently deprecated in a single LiteLLM update ↗</a>, breaking live integrations with no warning.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ PROBLEM ═══════════════════ -->
+  <section class="sec" id="problem">
+    <div class="container">
+      <p class="sec-label">02 — The Problem</p>
+      <h2 class="sec-title">A catalog isn't a recommendation</h2>
+
+      <div class="prose">
+        <p>OpenRouter's own <a href="https://openrouter.ai/state-of-ai" target="_blank" rel="noopener">State of AI report</a> says programming is 40-60% of all paid-model traffic on the platform. The typical OpenRouter user is a developer building something with AI. And most of them are not ML engineers. They're Arjun.</p>
+        <p>OpenRouter's models page is technically complete. Every model is there. The pricing is accurate. The filters exist. But it's designed for someone who already knows what they want.</p>
+        <p>Arjun doesn't know what he wants. He knows he needs "AI for a customer support bot." That's it. The gap between "I need AI" and "I need <code>anthropic/claude-haiku-4-5-20251001</code> with temperature 0.3 and these fallbacks configured" is enormous. Nothing bridges it.</p>
+      </div>
+
+      <div class="objection-callout">
+        <span class="objection-label">What about Auto Router?</span>
+        <p>OpenRouter already has an <a href="https://openrouter.ai/docs/guides/routing/routers/auto-router" target="_blank" rel="noopener">Auto Router</a>. It picks the cheapest provider that meets a quality threshold at runtime. That's an infrastructure decision. It happens after you've already chosen a model category. It doesn't tell Arjun what to build with, or why, or what his bill will look like next month. Model Match is for that earlier moment: before there's any code at all.</p>
+      </div>
+
+      <!-- Before mockup -->
+      <div class="browser-frame">
+        <div class="browser-chrome">
+          <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+          <span class="browser-url">openrouter.ai/models</span>
+        </div>
+        <div class="browser-body">
+
+          <div class="anno">
+            <span class="anno-tag">Problem 1</span>
+            <span>503 model IDs. No way to know where to start.</span>
+          </div>
+
+          <div class="or-header">
+            <span class="or-title">Models</span>
+            <span class="or-count">503 models</span>
+          </div>
+          <div class="or-search">
+            <span class="or-search-icon">⌕</span>
+            <span class="or-search-ph">Search models by name, provider, capability…</span>
+          </div>
+
+          <div class="anno">
+            <span class="anno-tag">Problem 2</span>
+            <span>Filters don't map to user intent. "What should I use for a support bot?" has no answer here.</span>
+          </div>
+
+          <div class="or-chips">
+            <span class="chip chip-active">All</span>
+            <span class="chip">Free</span>
+            <span class="chip">Text</span>
+            <span class="chip">Vision</span>
+            <span class="chip">JSON</span>
+            <span class="chip">Function calling</span>
+            <span class="chip">128K+</span>
+            <span class="chip">OpenAI</span>
+            <span class="chip">Anthropic</span>
+            <span class="chip">Google</span>
+            <span class="chip">Meta</span>
+          </div>
+
+          <div class="or-rows">
+            <div class="or-row" style="opacity:1">
+              <span class="or-icon">🤖</span>
+              <span class="or-model-id">google/gemini-2.5-pro</span>
+              <span class="or-meta">1M ctx</span>
+              <span class="or-meta">$3.50/M in</span>
+              <span class="tag-paid">Paid</span>
+              <span class="tag-new">New</span>
+            </div>
+            <div class="or-row" style="opacity:1">
+              <span class="or-icon">🧠</span>
+              <span class="or-model-id">anthropic/claude-sonnet-4-6</span>
+              <span class="or-meta">200K ctx</span>
+              <span class="or-meta">$3.00/M in</span>
+              <span class="tag-paid">Paid</span>
+            </div>
+            <div class="or-row" style="opacity:0.65">
+              <span class="or-icon">⚡</span>
+              <span class="or-model-id">meta-llama/llama-3.3-70b-instruct</span>
+              <span class="or-meta">128K ctx</span>
+              <span class="or-meta">Free tier</span>
+              <span class="tag-free">Free</span>
+            </div>
+            <div class="or-row" style="opacity:0.4">
+              <span class="or-icon">🔮</span>
+              <span class="or-model-id">mistralai/mistral-large-2407</span>
+              <span class="or-meta">128K ctx</span>
+              <span class="or-meta">$2.00/M in</span>
+              <span class="tag-paid">Paid</span>
+            </div>
+            <div class="or-row" style="opacity:0.2">
+              <span class="or-icon">🌐</span>
+              <span class="or-model-id">openai/gpt-4o-mini</span>
+              <span class="or-meta">128K ctx</span>
+              <span class="or-meta">$0.15/M in</span>
+              <span class="tag-paid">Paid</span>
+            </div>
+          </div>
+
+          <div class="anno">
+            <span class="anno-tag">Problem 3</span>
+            <span>Model IDs change without warning. Free vs. paid behavior is undocumented. No cost prediction before you commit.</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Journey diagram -->
+      <div class="journey-label">Where Model Match fits</div>
+      <div class="journey">
+        <div class="jnode">Arjun lands on OpenRouter</div>
+        <div class="jarr">→</div>
+        <div class="jnode">Sees 503 models</div>
+        <div class="jarr">→</div>
+        <div class="jnode jnode-gap">
+          <span class="jnode-main">GAP: no guidance</span>
+          <span class="jnode-sub">← Model Match goes here</span>
+        </div>
+        <div class="jarr">→</div>
+        <div class="jnode">Narrows to 3 options</div>
+        <div class="jarr">→</div>
+        <div class="jnode jnode-tool">Compares</div>
+        <div class="jarr">→</div>
+        <div class="jnode">Picks one</div>
+        <div class="jarr">→</div>
+        <div class="jnode jnode-tool">Code output</div>
+        <div class="jarr">→</div>
+        <div class="jnode jnode-done"><i class="ti ti-check"></i> First API call</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════ DESIGN DECISIONS ═══════════════════ -->
+  <section class="sec sec-alt" id="decisions">
+    <div class="container">
+      <p class="sec-label">03 — Design Decisions</p>
+      <h2 class="sec-title">Four choices that shaped everything</h2>
+
+      <div class="ruled-out">
+        <p class="ruled-out-label">What I ruled out first</p>
+        <div class="ruled-out-grid">
+          <div class="ruled-out-item">
+            <span class="ruled-out-name">Filter presets</span>
+            <p>One click for "indie dev prototyping," one for "production API." I rejected this because it still requires the user to self-identify correctly, which has the same intent-mapping problem as the current filter UI. You're just moving the confusion upstream.</p>
+          </div>
+          <div class="ruled-out-item">
+            <span class="ruled-out-name">AI-powered recommendations</span>
+            <p>Let a model pick a model. Rejected because it's a black box. You can't explain the reasoning, you can't audit it, and it would change answers unpredictably. Deterministic is worse on edge cases but far better at building trust.</p>
+          </div>
+          <div class="ruled-out-item">
+            <span class="ruled-out-name">Side-by-side comparison table</span>
+            <p>Show the top 10 models with specs. Rejected because it reproduces the original problem in a smaller box. If Arjun could evaluate a comparison table, he wouldn't need this tool.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="decisions-list">
+
+        <div class="decision">
+          <div class="decision-num">01</div>
+          <div class="decision-body">
+            <h3>Four questions, not two or eight</h3>
+            <div class="decision-block">
+              <span class="dblock-label">What I did</span>
+              <p>I landed on four questions: use case, quality vs. speed, monthly volume, prompt length. Not three. Not six. Four.</p>
+            </div>
+            <div class="decision-block">
+              <span class="dblock-label">Why</span>
+              <p>Two questions don't give enough signal to meaningfully differentiate models. Six starts feeling like a form. Four covers the variables that actually change which model I'd recommend: how reliability-critical is it, how fast does it need to be, how much will it cost at scale, and how big is the context window you need.</p>
+            </div>
+            <div class="decision-block">
+              <span class="dblock-label">What I'd do differently</span>
+              <p>I'd want to validate these four against real user decision patterns. Maybe volume matters less than I think. Maybe there's a fifth variable: whether they need structured JSON output. That could change everything. I'd test this before building it for real.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="decision">
+          <div class="decision-num">02</div>
+          <div class="decision-body">
+            <h3>A recommendation, not a comparison</h3>
+            <div class="decision-block">
+              <span class="dblock-label">What I did</span>
+              <p>Model Match doesn't show you a side-by-side table. It picks one and tells you why.</p>
+            </div>
+            <div class="decision-block">
+              <span class="dblock-label">Why</span>
+              <p>Arjun doesn't know enough yet to evaluate a comparison. If I show him a table with 12 rows and 6 columns, I've reproduced the original problem in a smaller box. The recommendation has to be opinionated. "Use this one" is more useful than "here are your options."</p>
+            </div>
+            <div class="decision-block">
+              <span class="dblock-label">What I'd do differently</span>
+              <p>The current "Compare" button on each card is a bit of a cop-out. If someone clicks Compare, that means my recommendation didn't land. I'd want to understand why. Is the primary pick wrong, or does the user just need more reassurance? Those are different problems with different solutions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="decision">
+          <div class="decision-num">03</div>
+          <div class="decision-body">
+            <h3>Code output as part of the design</h3>
+            <div class="decision-block">
+              <span class="dblock-label">What I did</span>
+              <p>The last step isn't "here's your model." It's a pre-configured code block in Node.js, Python, or curl. Ready to copy.</p>
+            </div>
+            <div class="decision-block">
+              <span class="dblock-label">Why</span>
+              <p>The gap between "I picked a model" and "I'm making API calls" is where most people drop off. They have to go find the docs, figure out the right parameters, set up the fallback chain. That's 20–30 minutes of friction that kills momentum. Removing that friction is a design decision. Design owns the full journey, not just the screens.</p>
+            </div>
+            <div class="decision-block">
+              <span class="dblock-label">What I'd do differently</span>
+              <p>Right now the code is static. It doesn't change based on your answers. In a real product, the temperature, max_tokens, and system prompt would all be tuned to your use case. A support bot needs different defaults than a code generation tool.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="decision">
+          <div class="decision-num">04</div>
+          <div class="decision-body">
+            <h3>Making the fallback chain visible</h3>
+            <div class="decision-block">
+              <span class="dblock-label">What I did</span>
+              <p>Under the recommendations, there's a fallback chain: Primary → Fallback 1 → Fallback 2. It's explicitly designed to surface OpenRouter's automatic failover.</p>
+            </div>
+            <div class="decision-block">
+              <span class="dblock-label">Why</span>
+              <p>Failover is OpenRouter's killer feature. If Anthropic goes down, your app doesn't go down. That's genuinely remarkable. But almost nobody knows it exists because it's invisible infrastructure. Making it visible does two things: it builds trust in the recommendation (you're not locked in), and it explains why OpenRouter is more than just a proxy.</p>
+            </div>
+            <div class="decision-block">
+              <span class="dblock-label">What I'd do differently</span>
+              <p>The current fallback chain is static. In a real product, I'd want to show real-time provider uptime next to each fallback option. "Anthropic: 99.94% uptime last 30 days" makes the chain feel less theoretical and more like something you'd actually rely on.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ PROTOTYPE ═══════════════════ -->
+  <section class="sec" id="prototype">
+    <div class="container">
+      <p class="sec-label">04 — The Prototype</p>
+      <h2 class="sec-title">Try it yourself</h2>
+      <p class="sec-intro">This is what I actually built. It's a working wizard. Click through it. The recommendations are deterministic (not AI), but the model IDs, pricing, and code are real.</p>
+    </div>
+
+    <!-- Browser frame -->
+    <div class="proto-outer">
+      <div class="proto-frame">
+        <div class="proto-chrome">
+          <div class="chrome-left">
+            <span class="dot dot-r"></span>
+            <span class="dot dot-y"></span>
+            <span class="dot dot-g"></span>
+            <span class="proto-url">model-match.vercel.app</span>
+          </div>
+          <div class="proto-tabs" id="proto-tabs">
+            <button class="ptab active" data-tab="picker">The Picker</button>
+            <button class="ptab" data-tab="recs">Recommendations</button>
+            <button class="ptab" data-tab="code">Code + Cost</button>
+            <button class="ptab" data-tab="routing">Routing</button>
+          </div>
+        </div>
+
+        <div class="proto-body">
+
+          <!-- ── TAB: PICKER ── -->
+          <div class="pview active" id="pview-picker">
+            <div class="pview-inner">
+              <div class="picker-head">
+                <h3>Find your model in 4 questions</h3>
+                <p>Answer what you know. We'll handle the 503 IDs you don't.</p>
+              </div>
+
+              <div class="recap" id="recap-chips"></div>
+
+              <div class="stepper" id="stepper">
+                <div class="step" data-step="useCase">
+                  <span class="step-n">1</span>
+                  <span class="step-lbl">Use Case</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="quality">
+                  <span class="step-n">2</span>
+                  <span class="step-lbl">Quality</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="volume">
+                  <span class="step-n">3</span>
+                  <span class="step-lbl">Volume</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="promptLength">
+                  <span class="step-n">4</span>
+                  <span class="step-lbl">Prompt Length</span>
+                </div>
+              </div>
+
+              <div id="picker-qs"></div>
+
+              <div class="picker-foot">
+                <button class="btn btn-primary" id="picker-continue" disabled>See your recommendations →</button>
+                <span class="picker-hint" id="picker-hint">Answer all 4 questions to continue</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── TAB: RECOMMENDATIONS ── -->
+          <div class="pview" id="pview-recs">
+            <div class="pview-inner">
+              <div class="recs-head">
+                <h3>Your top 3 models</h3>
+                <p>Ranked for your answers. Each one comes with a reason, not just a spec sheet.</p>
+              </div>
+
+              <div class="recap recap-sm" id="rec-context"></div>
+
+              <div class="rec-grid">
+
+                <div class="rec-card rec-best">
+                  <span class="rec-badge badge-best"><i class="ti ti-rosette-discount-check"></i> Best match</span>
+                  <div class="rec-name">Claude Haiku 4.5</div>
+                  <div class="rec-id">anthropic/claude-haiku-4-5-20251001</div>
+                  <div class="rec-stats">
+                    <div class="rstat"><span class="rstat-k">Cost</span><span class="rstat-v">$0.80/M</span></div>
+                    <div class="rstat"><span class="rstat-k">Latency</span><span class="rstat-v">0.8s</span></div>
+                    <div class="rstat"><span class="rstat-k">Context</span><span class="rstat-v">200K</span></div>
+                    <div class="rstat"><span class="rstat-k">Est. monthly</span><span class="rstat-v green">~$4</span></div>
+                  </div>
+                  <div class="rec-why">
+                    <span class="rec-why-lbl">Why this model</span>
+                    <p>Haiku 4.5 is fast enough for live chat and handles multi-turn conversations well. At 10K requests a month you're looking at under $5 total. The 200K context window means long support threads won't get cut off mid-conversation.</p>
+                  </div>
+                  <div class="rec-actions">
+                    <button class="btn btn-primary btn-sm" data-switch="code">Use this model →</button>
+                    <button class="btn btn-outline btn-sm js-compare">Compare</button>
+                  </div>
+                </div>
+
+                <div class="rec-card rec-fast">
+                  <span class="rec-badge badge-fast"><i class="ti ti-bolt"></i> Fastest</span>
+                  <div class="rec-name">Llama 3.3 70B</div>
+                  <div class="rec-id">meta-llama/llama-3.3-70b-instruct</div>
+                  <div class="rec-stats">
+                    <div class="rstat"><span class="rstat-k">Cost</span><span class="rstat-v">Free tier</span></div>
+                    <div class="rstat"><span class="rstat-k">Latency</span><span class="rstat-v">0.4s</span></div>
+                    <div class="rstat"><span class="rstat-k">Context</span><span class="rstat-v">128K</span></div>
+                    <div class="rstat"><span class="rstat-k">Est. monthly</span><span class="rstat-v green">$0</span></div>
+                  </div>
+                  <div class="rec-why">
+                    <span class="rec-why-lbl">Why this model</span>
+                    <p>Free tier covers your volume: about 333 requests a day. It's slightly less nuanced than Claude on edge cases, but great for straightforward FAQ-style support. Best choice if you're still validating whether you need AI at all.</p>
+                  </div>
+                  <div class="rec-actions">
+                    <button class="btn btn-primary btn-sm" data-switch="code">Use this model →</button>
+                    <button class="btn btn-outline btn-sm js-compare">Compare</button>
+                  </div>
+                </div>
+
+                <div class="rec-card rec-budget">
+                  <span class="rec-badge badge-budget"><i class="ti ti-coin"></i> Budget pick</span>
+                  <div class="rec-name">GPT-4o Mini</div>
+                  <div class="rec-id">openai/gpt-4o-mini</div>
+                  <div class="rec-stats">
+                    <div class="rstat"><span class="rstat-k">Cost</span><span class="rstat-v">$0.15/M</span></div>
+                    <div class="rstat"><span class="rstat-k">Latency</span><span class="rstat-v">0.6s</span></div>
+                    <div class="rstat"><span class="rstat-k">Context</span><span class="rstat-v">128K</span></div>
+                    <div class="rstat"><span class="rstat-k">Est. monthly</span><span class="rstat-v green">~$0.80</span></div>
+                  </div>
+                  <div class="rec-why">
+                    <span class="rec-why-lbl">Why this model</span>
+                    <p>Cheapest option if you scale past free tier. Really strong on structured JSON output, good if your support bot needs to classify tickets or fill forms. Familiar API for teams already on OpenAI.</p>
+                  </div>
+                  <div class="rec-actions">
+                    <button class="btn btn-primary btn-sm" data-switch="code">Use this model →</button>
+                    <button class="btn btn-outline btn-sm js-compare">Compare</button>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="fallback-box">
+                <div class="fallback-title">
+                  Your fallback chain
+                  <span class="info-tip" tabindex="0" aria-label="If your primary model is down, OpenRouter automatically tries the next one. Your users never see an error.">ⓘ</span>
+                </div>
+                <div class="fallback-chain">
+                  <div class="fb-node fb-primary">
+                    <span class="fb-tier">Primary</span>
+                    <span class="fb-id">claude-haiku-4-5</span>
+                  </div>
+                  <span class="fb-arr">→</span>
+                  <div class="fb-node">
+                    <span class="fb-tier">Fallback 1</span>
+                    <span class="fb-id">gpt-4o-mini</span>
+                  </div>
+                  <span class="fb-arr">→</span>
+                  <div class="fb-node">
+                    <span class="fb-tier">Fallback 2</span>
+                    <span class="fb-id">llama-3.3-70b</span>
+                  </div>
+                </div>
+                <p class="fallback-note">If Claude Haiku is down or rate-limited, OpenRouter automatically falls back to GPT-4o Mini, then Llama. This is OpenRouter's killer feature. Most developers don't know it exists until their primary provider goes down at 2am.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── TAB: CODE + COST ── -->
+          <div class="pview" id="pview-code">
+            <div class="pview-inner">
+              <div class="code-head">
+                <h3>Ready to copy: Claude Haiku 4.5</h3>
+                <p>Pre-configured for a support bot. Change the model ID line to swap models. Nothing else changes.</p>
+              </div>
+
+              <div class="code-panel">
+                <div class="code-toolbar">
+                  <div class="lang-tabs" id="lang-tabs">
+                    <button class="ltab active" data-lang="node">Node.js</button>
+                    <button class="ltab" data-lang="python">Python</button>
+                    <button class="ltab" data-lang="curl">curl</button>
+                  </div>
+                  <button class="copy-btn" id="copy-btn">Copy</button>
+                </div>
+                <pre class="code-block"><code id="code-block"></code></pre>
+              </div>
+
+              <h4 class="cost-title">Cost projection</h4>
+              <div class="cost-table">
+                <div class="cost-row"><span class="cost-k">Monthly requests</span><span class="cost-v">10,000</span></div>
+                <div class="cost-row"><span class="cost-k">Avg tokens per request</span><span class="cost-v">~450 tokens</span></div>
+                <div class="cost-row"><span class="cost-k">Input cost ($0.80/M)</span><span class="cost-v">$2.40</span></div>
+                <div class="cost-row"><span class="cost-k">Output cost ($4.00/M)</span><span class="cost-v">$1.60</span></div>
+                <div class="cost-row cost-total"><span class="cost-k">Total monthly estimate</span><span class="cost-v green">~$4.00/month</span></div>
+                <div class="cost-row"><span class="cost-k">GPT-4o (not matched)</span><span class="cost-v"><s class="muted">~$25/month</s></span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── TAB: ROUTING ── -->
+          <div class="pview" id="pview-routing">
+            <div class="pview-inner">
+              <div class="routing-head">
+                <h3>How OpenRouter actually works</h3>
+                <p>One API call. Automatic failover. Cost optimization. Most people use it for months without realizing all of this is happening.</p>
+              </div>
+              <div class="routing-controls">
+                <button class="btn btn-primary" id="animate-btn"><i class="ti ti-player-play"></i> Animate</button>
+              </div>
+              <div class="routing-diagram" id="routing-diagram">
+                <div class="rnode" data-node="0">
+                  <div class="rnode-icon"><i class="ti ti-device-mobile"></i></div>
+                  <div class="rnode-name">Your App</div>
+                  <div class="rnode-sub">sends a request</div>
+                </div>
+                <div class="rarr">→</div>
+                <div class="rnode" data-node="1">
+                  <div class="rnode-icon"><i class="ti ti-route"></i></div>
+                  <div class="rnode-name">OpenRouter</div>
+                  <div class="rnode-sub">routes + optimizes</div>
+                </div>
+                <div class="rarr">→</div>
+                <div class="rnode" data-node="2">
+                  <div class="rnode-icon"><i class="ti ti-cpu"></i></div>
+                  <div class="rnode-name">Anthropic</div>
+                  <div class="rnode-sub">Claude Haiku 4.5</div>
+                </div>
+                <div class="rarr">→</div>
+                <div class="rnode" data-node="3">
+                  <div class="rnode-icon"><i class="ti ti-user"></i></div>
+                  <div class="rnode-name">Your User</div>
+                  <div class="rnode-sub">gets a response</div>
+                </div>
+              </div>
+
+              <div class="routing-fallback">
+                <div class="rf-title">When Anthropic goes down</div>
+                <div class="routing-diagram routing-diagram-sm">
+                  <div class="rnode rnode-down">
+                    <div class="rnode-icon"><i class="ti ti-cpu"></i></div>
+                    <div class="rnode-name">Anthropic</div>
+                    <div class="rnode-sub rnode-sub-down">Down</div>
+                  </div>
+                  <div class="rarr rarr-fallback">↓ auto-fallback</div>
+                  <div class="rnode rnode-up">
+                    <div class="rnode-icon"><i class="ti ti-world"></i></div>
+                    <div class="rnode-name">OpenAI GPT-4o Mini</div>
+                    <div class="rnode-sub rnode-sub-up">Active</div>
+                  </div>
+                  <div class="rarr">→</div>
+                  <div class="rnode">
+                    <div class="rnode-icon"><i class="ti ti-circle-check"></i></div>
+                    <div class="rnode-name">Your users see no error</div>
+                    <div class="rnode-sub">request completes normally</div>
+                  </div>
+                </div>
+                <p class="arjun-callback">This is what happened to Arjun at 2am. Except he wasn't using OpenRouter yet.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ REFLECTION ═══════════════════ -->
+  <section class="sec sec-alt" id="reflection">
+    <div class="container">
+      <p class="sec-label">05 — Reflection</p>
+      <h2 class="sec-title">What I'd do with 6 more weeks</h2>
+
+      <div class="prose">
+        <p>This is a concept. I built it in 8 days. Here's what I know is rough, and what I'd need to actually ship it.</p>
+        <p>The recommendation engine is a decision tree, not AI. I made that choice deliberately. Deterministic systems are easier to audit. But it means the recommendations are only as good as my assumptions about how use cases map to models. Real usage data would make it much better.</p>
+      </div>
+
+      <div class="hard-question">
+        <span class="hard-question-label">The uncomfortable question I haven't answered</span>
+        <p>Is a wizard even the right form? Wizards work when the problem space is stable. LLM capability and pricing change every few weeks. A static decision tree becomes stale fast. It could be actively misleading within a month if a better cheap model ships or a recommended one gets deprecated. A real version of this would need live model data or it would erode trust quickly. I don't have a good answer to that yet. It might mean the right product is a recommendation layer that pulls live data from the OpenRouter API, not a hardcoded picker. Or it might mean the whole premise is wrong and the real fix is better documentation. I don't know. That's worth saying out loud.</p>
+      </div>
+
+      <div class="outcomes-list">
+        <div class="outcome-item">
+          <div class="outcome-num">01</div>
+          <div class="outcome-body">
+            <div class="outcome-label">Primary metric</div>
+            <p><strong>What I'd measure:</strong> Time from landing on OpenRouter to first successful API call. That's the job. If Model Match doesn't cut that time significantly, the whole thing is wrong. I'd guess it goes from 2–3 hours to under 15 minutes. But that's a guess.</p>
+          </div>
+        </div>
+        <div class="outcome-item">
+          <div class="outcome-num">02</div>
+          <div class="outcome-body">
+            <div class="outcome-label">Usability test</div>
+            <p><strong>What I'd do:</strong> Sit with 5 developers who've never used OpenRouter. Watch them use the picker. Pay attention to where they pause, re-read, or pick wrong. The four questions feel right to me, but I designed them. That's not the same as them being right.</p>
+          </div>
+        </div>
+        <div class="outcome-item">
+          <div class="outcome-num">03</div>
+          <div class="outcome-body">
+            <div class="outcome-label">A/B test</div>
+            <p><strong>What I'd test:</strong> Wizard flow vs. current models page on new user cohorts. Measure time-to-first-API-call and 7-day retention. If the wizard doesn't improve both, it's adding friction, not removing it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <blockquote class="footer-quote">
+        "The details are not the details. They make the design."
+        <cite>— Charles Eames</cite>
+      </blockquote>
+      <div class="footer-links">
+        <a href="https://gangishettysanjana.com" target="_blank" rel="noopener">Portfolio</a>
+        <a href="https://linkedin.com/in/sanjana-gangishetty" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <p class="footer-note">Concept project · Not affiliated with OpenRouter · Designed &amp; built by Sanjana Gangishetty</p>
+    </div>
+  </footer>
+
+  <!-- FAB -->
+  <button class="fab" id="fab" aria-label="Try the prototype">
+    Try the prototype ↗
+  </button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
