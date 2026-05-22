@@ -959,6 +959,19 @@ export default function HomePage() {
               </div>
             </a>
 
+            {/* Exploration 02 — Alexa for Shopping Memory Layer */}
+            <a className="exp-card exp-card--linked" href="https://alexa-for-shopping.vercel.app" target="_blank" rel="noopener noreferrer">
+              <div className="exp-card-top">
+                <span className="exp-tag">Amazon</span>
+                <span className="exp-num">02</span>
+              </div>
+              <h3 className="exp-title">Alexa remembers your cart. Not you.</h3>
+              <p className="exp-desc">Alexa for Shopping treats every session as a blank slate. I designed a memory layer that carries context across sessions — past purchases, preferences, family patterns — so Alexa can give recommendations that actually fit your life. Live prototype included.</p>
+              <div className="exp-footer">
+                <span className="exp-status exp-status--live">Live prototype →</span>
+              </div>
+            </a>
+
             {/* More coming */}
             <div className="exp-card exp-card--more">
               <p className="exp-more-text">More concepts in the works — currently exploring, currently building.</p>
