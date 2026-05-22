@@ -510,7 +510,6 @@ def support_bot(user_message, history):
                   </div>
                 </div>
               </div>
-            </div>
             </div>{/* end persona-wrap */}
 
             <div className="story-body">
