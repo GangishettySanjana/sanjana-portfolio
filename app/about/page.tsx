@@ -833,7 +833,7 @@ export default function AboutPage() {
           <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.3, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
 
           {/* Rows — padded */}
-          <div style={{ position: 'relative', zIndex: 1, padding: 'clamp(72px, 8vw, 112px) clamp(32px, 7vw, 96px) 72px' }}>
+          <div style={{ position: 'relative', zIndex: 1, padding: 'clamp(72px, 8vw, 112px) clamp(32px, 7vw, 96px) 40px' }}>
             <motion.p
               style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.35)', marginBottom: 48, fontWeight: 700 }}
               initial={{ opacity: 0 }}
