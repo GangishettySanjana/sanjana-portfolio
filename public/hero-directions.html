@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Directions — Sanjana Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; font-family: 'Space Grotesk', sans-serif; color: #fff; }
+
+/* ── NAV LABEL ── */
+.direction-label {
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+  padding: 12px 40px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.direction-label strong { color: #fff; font-size: 13px; letter-spacing: 0; text-transform: none; }
+.pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pill-rec { background: rgba(168,128,212,0.25); color: #d4b0ff; border: 1px solid rgba(168,128,212,0.4); }
+.pill-alt { background: rgba(255,255,255,0.08); color: #888; border: 1px solid rgba(255,255,255,0.12); }
+
+/* ════════════════════════════════════
+   DIRECTION A — BENTO GRID
+════════════════════════════════════ */
+.hero-a {
+  min-height: 100vh;
+  background: #F2EDE6;
+  padding: 80px 48px 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* BIG headline card */
+.card-headline {
+  grid-column: 1 / 3;
+  background: #111;
+  border-radius: 24px;
+  padding: 48px 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+.card-headline::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: url('/hero-bg.png') center 30% / cover no-repeat;
+  opacity: 0.35;
+}
+.card-headline-inner { position: relative; z-index: 1; }
+.card-headline h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 56px; line-height: 1.0;
+  color: #fff;
+  font-weight: 400;
+}
+.card-headline h1 em { color: rgba(255,255,255,0.45); font-style: italic; }
+.card-eyebrow {
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 20px; font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+}
+.dot-green { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; display: inline-block; }
+
+/* Photo card */
+.card-photo {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  min-height: 520px;
+}
+.card-photo img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.card-photo-badge {
+  position: absolute; bottom: 20px; left: 16px; right: 16px;
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+  border-radius: 14px; padding: 12px 16px;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10px; color: #0d0d0d; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700;
+}
+
+/* Stat cards */
+.card-stat {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 32px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 52px; line-height: 1; color: #111;
+  font-weight: 400;
+}
+.stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #999; font-weight: 600; }
+.stat-accent { font-size: 10px; color: #A880D4; font-weight: 700; letter-spacing: 0.06em; }
+
+/* Bio card */
+.card-bio {
+  grid-column: 1 / 3;
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 36px;
+  display: flex; align-items: center; justify-content: space-between; gap: 40px;
+}
+.card-bio p {
+  font-size: 14px; color: #555; line-height: 1.72; max-width: 480px;
+}
+.card-bio-btns { display: flex; gap: 10px; flex-shrink: 0; }
+.btn-dark {
+  padding: 11px 22px; border-radius: 99px;
+  background: #111; color: #fff;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+  text-decoration: none; white-space: nowrap;
+}
+.btn-outline {
+  padding: 11px 22px; border-radius: 99px;
+  border: 1.5px solid rgba(0,0,0,0.2); color: #111;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+  text-decoration: none; white-space: nowrap;
+}
+
+/* ════════════════════════════════════
+   DIRECTION B — EDITORIAL DARK
+════════════════════════════════════ */
+.hero-b {
+  min-height: 100vh;
+  background: #0C0C0B;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.hero-b-bg {
+  position: absolute; inset: 0;
+  background: url('/hero-bg.png') center 25% / cover no-repeat;
+  opacity: 0.18;
+}
+.hero-b-grad {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 75% 40%, rgba(168,128,212,0.12) 0%, transparent 70%),
+              radial-gradient(ellipse 60% 40% at 20% 80%, rgba(43,181,194,0.08) 0%, transparent 60%);
+}
+.hero-b-inner {
+  position: relative; z-index: 1;
+  padding: 96px 56px 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.hero-b-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+.hero-b-tag {
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-b-year {
+  font-family: 'DM Serif Display', serif;
+  font-size: 13px; color: rgba(255,255,255,0.2); font-style: italic;
+}
+
+/* HUGE type */
+.hero-b-h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(64px, 8.5vw, 112px);
+  line-height: 0.95;
+  color: #fff;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 0;
+}
+.hero-b-h1 .line2 {
+  color: rgba(255,255,255,0.25);
+  font-style: italic;
+}
+.hero-b-h1 .accent-word {
+  position: relative;
+  display: inline-block;
+}
+.hero-b-h1 .accent-word::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 0; right: 0;
+  height: 3px;
+  background: #A880D4;
+  border-radius: 2px;
+}
+
+/* Split bottom row */
+.hero-b-bottom {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 0;
+  margin-top: auto;
+}
+.hero-b-left-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 36px 0 56px;
+}
+.hero-b-stats {
+  display: flex; gap: 48px; margin-bottom: 36px;
+}
+.hero-b-stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 44px; line-height: 1; color: #fff; font-weight: 400;
+}
+.hero-b-stat-label {
+  font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px;
+}
+.hero-b-bio {
+  font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.8; max-width: 440px; margin-bottom: 32px;
+}
+.hero-b-btns { display: flex; gap: 10px; }
+.btn-white {
+  padding: 12px 24px; border-radius: 99px;
+  background: #fff; color: #0d0d0d;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+  text-decoration: none;
+}
+.btn-ghost {
+  padding: 12px 24px; border-radius: 99px;
+  border: 1px solid rgba(255,255,255,0.22); color: #fff;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+  text-decoration: none; background: transparent;
+}
+
+/* Photo column */
+.hero-b-photo-col {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+.hero-b-photo-wrap {
+  width: 260px;
+  position: relative;
+}
+.hero-b-photo-inner {
+  width: 100%; aspect-ratio: 3/4;
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+  transform: rotate(-2deg);
+}
+.hero-b-photo-inner img { width: 100%; height: 100%; object-fit: cover; }
+.hero-b-badge {
+  position: absolute; bottom: -10px; left: 12px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px; padding: 8px 14px;
+  display: flex; align-items: center; gap: 7px;
+  font-size: 9px; color: #0d0d0d; letter-spacing: 0.07em; text-transform: uppercase; font-weight: 700;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* Ticker */
+.hero-b-ticker {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  height: 40px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  position: relative; z-index: 1;
+}
+.ticker-inner {
+  display: flex; gap: 0; align-items: center;
+  animation: marquee 18s linear infinite;
+  white-space: nowrap;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-item {
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0 20px; font-weight: 600;
+}
+.ticker-sep { color: rgba(255,255,255,0.15); font-size: 10px; }
+
+
+/* ════════════════════════════════════
+   DIRECTION C — SCRAPBOOK / JOURNAL
+════════════════════════════════════ */
+.hero-c {
+  min-height: 100vh;
+  background: #FDFAF5;
+  position: relative;
+  overflow: hidden;
+  padding: 80px 56px 64px;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 48px;
+  align-items: center;
+}
+
+/* Decorative blobs */
+.blob-purple {
+  position: absolute;
+  top: -80px; right: 30%;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(168,128,212,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.blob-teal {
+  position: absolute;
+  bottom: -60px; left: 20%;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(43,181,194,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Left content */
+.hero-c-left { position: relative; z-index: 1; }
+.hero-c-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 24px;
+}
+.hero-c-eyebrow-text {
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #999; font-weight: 700;
+}
+
+/* Headline with mixed font personality */
+.hero-c-h1 {
+  font-size: 68px; line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: #111; margin-bottom: 12px;
+}
+.hero-c-h1 .serif {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400; font-style: italic;
+  color: #A880D4;
+}
+.hero-c-h1 .sans {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+}
+.hero-c-h1-line2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 44px; line-height: 1.1;
+  color: rgba(0,0,0,0.3); font-style: italic; font-weight: 400;
+  margin-bottom: 40px; letter-spacing: -0.01em;
+}
+
+/* Handwritten annotation */
+.annotation {
+  font-family: 'Caveat', cursive;
+  font-size: 18px; color: #A880D4; font-weight: 600;
+  transform: rotate(-3deg);
+  display: inline-block;
+  position: relative;
+  margin-left: 12px;
+}
+.annotation-arrow {
+  font-family: 'Caveat', cursive;
+  font-size: 16px; color: rgba(168,128,212,0.6);
+  position: absolute; top: -18px; left: -8px;
+  transform: rotate(20deg);
+}
+
+/* Inline tag chips */
+.chip-row {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px;
+}
+.chip {
+  padding: 6px 14px; border-radius: 99px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+}
+.chip-purple { background: rgba(168,128,212,0.12); color: #9B5DE5; border: 1.5px solid rgba(168,128,212,0.25); }
+.chip-teal { background: rgba(43,181,194,0.1); color: #0BB4CC; border: 1.5px solid rgba(43,181,194,0.25); }
+.chip-amber { background: rgba(245,158,11,0.1); color: #D97706; border: 1.5px solid rgba(245,158,11,0.25); }
+.chip-green { background: rgba(74,222,128,0.1); color: #16A34A; border: 1.5px solid rgba(74,222,128,0.25); }
+
+.hero-c-bio {
+  font-size: 15px; color: #555; line-height: 1.78; max-width: 480px; margin-bottom: 36px;
+}
+.hero-c-bio strong { color: #111; font-weight: 600; }
+
+.hero-c-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-black {
+  padding: 12px 26px; border-radius: 99px;
+  background: #111; color: #fff;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+  text-decoration: none;
+}
+.btn-outline-dark {
+  padding: 12px 26px; border-radius: 99px;
+  border: 1.5px solid rgba(0,0,0,0.2); color: #111;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+  text-decoration: none;
+}
+
+/* Stats inline */
+.stats-inline {
+  display: flex; gap: 32px; margin-bottom: 32px;
+  padding: 20px 24px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.06);
+  max-width: 400px;
+}
+.stat-i-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 36px; line-height: 1; color: #111; font-weight: 400;
+}
+.stat-i-label { font-size: 10px; color: #999; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+
+/* Right: polaroid photo */
+.hero-c-right { position: relative; z-index: 1; }
+.polaroid {
+  background: #fff;
+  padding: 14px 14px 48px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.14), 0 4px 16px rgba(0,0,0,0.08);
+  border-radius: 4px;
+  transform: rotate(2.5deg);
+  position: relative;
+}
+.polaroid img {
+  width: 100%; aspect-ratio: 1;
+  object-fit: cover; display: block;
+}
+.polaroid-caption {
+  font-family: 'Caveat', cursive;
+  font-size: 17px; color: #555; font-weight: 600;
+  text-align: center; padding-top: 10px;
+}
+.polaroid-badge {
+  position: absolute; bottom: -16px; left: 16px;
+  background: #111; color: #fff;
+  border-radius: 99px; padding: 7px 14px;
+  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* Floating sticker */
+.sticker {
+  position: absolute;
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-size: 11px; font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  white-space: nowrap;
+}
+.sticker-1 {
+  top: -20px; right: -24px;
+  transform: rotate(6deg);
+  color: #A880D4;
+  border: 1.5px solid rgba(168,128,212,0.3);
+}
+.sticker-2 {
+  bottom: 60px; left: -40px;
+  transform: rotate(-5deg);
+  color: #0BB4CC;
+  border: 1.5px solid rgba(43,181,194,0.3);
+}
+
+/* ────────────────────────────────────
+   PAGE NAV
+──────────────────────────────────── */
+.page-nav {
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px; z-index: 999;
+  background: rgba(10,10,10,0.85); backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 99px;
+  padding: 8px 12px;
+}
+.nav-btn {
+  padding: 7px 16px; border-radius: 99px; cursor: pointer; border: none;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+  transition: all 0.2s; background: transparent; color: rgba(255,255,255,0.5);
+}
+.nav-btn:hover { color: #fff; }
+.nav-btn.active { background: rgba(255,255,255,0.15); color: #fff; }
+</style>
+</head>
+<body>
+
+<nav class="page-nav">
+  <button class="nav-btn active" onclick="show('a')">A · Bento</button>
+  <button class="nav-btn" onclick="show('b')">B · Editorial</button>
+  <button class="nav-btn" onclick="show('c')">C · Scrapbook ✦</button>
+</nav>
+
+<!-- ═══════════ DIRECTION A: BENTO ═══════════ -->
+<div id="hero-a">
+  <div class="direction-label">
+    <strong>Direction A — Bento Grid</strong>
+    <span class="pill pill-alt">Alternative</span>
+    <span>Info broken into cards. Trendy, structured, clean.</span>
+  </div>
+  <div class="hero-a">
+    <div class="card-headline">
+      <div class="card-headline-inner">
+        <div class="card-eyebrow"><span class="dot-green"></span> Product Designer · AI/UX · Boulder '25</div>
+        <h1>I design<br><em>products.</em><br><span style="font-size:0.7em;color:rgba(255,255,255,0.3)">I used to design rooms.</span></h1>
+      </div>
+    </div>
+    <div class="card-photo">
+      <img src="/images/sanjana.jpg" alt="Sanjana" />
+      <div class="card-photo-badge">
+        <span class="dot-green"></span> Open to work · CU Boulder MS '25
+      </div>
+    </div>
+    <div class="card-stat" style="background: rgba(168,128,212,0.08); border: 1.5px solid rgba(168,128,212,0.2);">
+      <div class="stat-num" style="color: #A880D4">4</div>
+      <div class="stat-accent">YEARS</div>
+      <div class="stat-label">of design</div>
+    </div>
+    <div class="card-stat" style="background: rgba(43,181,194,0.08); border: 1.5px solid rgba(43,181,194,0.2);">
+      <div class="stat-num" style="color: #2BB5C2">10+</div>
+      <div class="stat-accent" style="color:#2BB5C2">PRODUCTS</div>
+      <div class="stat-label">shipped</div>
+    </div>
+    <div class="card-bio">
+      <p>I studied interior design for four years. My first UX internship felt like the same problem on a different surface. Two years later I'd shipped an AI recruiter workflow, a wildfire exhibit, and a celebrity launch.</p>
+      <div class="card-bio-btns">
+        <a href="#" class="btn-dark">Get in touch →</a>
+        <a href="#" class="btn-outline">Resume ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ DIRECTION B: EDITORIAL ═══════════ -->
+<div id="hero-b" style="display:none">
+  <div class="direction-label" style="background:#111; border-color:#222;">
+    <strong>Direction B — Editorial Dark</strong>
+    <span class="pill pill-alt">Alternative</span>
+    <span>Big serif type, dramatic scale contrast, moodboard energy.</span>
+  </div>
+  <div class="hero-b">
+    <div class="hero-b-bg"></div>
+    <div class="hero-b-grad"></div>
+    <div class="hero-b-inner">
+      <div class="hero-b-top">
+        <div class="hero-b-tag"><span class="dot-green"></span> Product Designer · AI/UX · Boulder '25</div>
+        <div class="hero-b-year">Portfolio 2025</div>
+      </div>
+      <h1 class="hero-b-h1">
+        I design <span class="accent-word">products.</span><br>
+        <span class="line2">I used to design rooms.</span>
+      </h1>
+      <div class="hero-b-bottom">
+        <div class="hero-b-left-bottom">
+          <div class="hero-b-stats">
+            <div>
+              <div class="hero-b-stat-num">4</div>
+              <div class="hero-b-stat-label">Years of design</div>
+            </div>
+            <div>
+              <div class="hero-b-stat-num">10+</div>
+              <div class="hero-b-stat-label">Products shipped</div>
+            </div>
+            <div>
+              <div class="hero-b-stat-num">2</div>
+              <div class="hero-b-stat-label">Countries</div>
+            </div>
+          </div>
+          <p class="hero-b-bio">I studied interior design for four years. My first UX internship felt like the same problem on a different surface. I'm looking for a team that cares about the difference between technically works and actually good.</p>
+          <div class="hero-b-btns">
+            <a href="#" class="btn-white">Get in touch →</a>
+            <a href="#" class="btn-ghost">Resume ↗</a>
+          </div>
+        </div>
+        <div class="hero-b-photo-col">
+          <div class="hero-b-photo-wrap">
+            <div class="hero-b-photo-inner"><img src="/images/sanjana.jpg" alt="Sanjana"></div>
+            <div class="hero-b-badge"><span class="dot-green"></span> Open to work</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-b-ticker">
+      <div class="ticker-inner">
+        <span class="ticker-item" style="color:#A880D4">UX Research</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item" style="color:rgba(255,255,255,0.5)">Figma</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item" style="color:#2BB5C2">Interior Design → Product</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item" style="color:rgba(255,255,255,0.5)">AI-augmented workflows</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item" style="color:#F59E0B">Boulder CO</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item" style="color:rgba(255,255,255,0.5)">Open to work</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item" style="color:#A880D4">UX Research</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item" style="color:rgba(255,255,255,0.5)">Figma</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item" style="color:#2BB5C2">Interior Design → Product</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item" style="color:rgba(255,255,255,0.5)">AI-augmented workflows</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item" style="color:#F59E0B">Boulder CO</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item" style="color:rgba(255,255,255,0.5)">Open to work</span><span class="ticker-sep">✦</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ DIRECTION C: SCRAPBOOK ═══════════ -->
+<div id="hero-c" style="display:none">
+  <div class="direction-label" style="background:#1a1a1a; border-color:#2a2a2a; color:#888;">
+    <strong>Direction C — Scrapbook / Journal</strong>
+    <span class="pill pill-rec">Recommended ✦</span>
+    <span>Serif + handwriting mix, polaroid photo, personality-first.</span>
+  </div>
+  <div class="hero-c">
+    <div class="blob-purple"></div>
+    <div class="blob-teal"></div>
+    <div class="hero-c-left">
+      <div class="hero-c-eyebrow">
+        <span class="dot-green" style="width:8px;height:8px;box-shadow:0 0 0 3px rgba(74,222,128,0.2)"></span>
+        <span class="hero-c-eyebrow-text">Product Designer · AI/UX · Boulder '25</span>
+      </div>
+
+      <div class="hero-c-h1">
+        <span class="sans">I design</span><br>
+        <span class="serif">products.</span>
+      </div>
+      <div class="hero-c-h1-line2">I used to design rooms.</div>
+
+      <div class="chip-row">
+        <span class="chip chip-purple">✦ UX / Product</span>
+        <span class="chip chip-teal">AI-native workflows</span>
+        <span class="chip chip-amber">Interior design background</span>
+        <span class="chip chip-green">Open to work</span>
+      </div>
+
+      <div class="stats-inline">
+        <div>
+          <div class="stat-i-num">4</div>
+          <div class="stat-i-label">Years design</div>
+        </div>
+        <div style="width:1px;background:rgba(0,0,0,0.08)"></div>
+        <div>
+          <div class="stat-i-num">10+</div>
+          <div class="stat-i-label">Products shipped</div>
+        </div>
+        <div style="width:1px;background:rgba(0,0,0,0.08)"></div>
+        <div>
+          <div class="stat-i-num">2</div>
+          <div class="stat-i-label">Countries</div>
+        </div>
+      </div>
+
+      <p class="hero-c-bio">
+        I studied <strong>interior design</strong> for four years — figuring out what someone wants a space to feel like before they have words for it. My first UX internship felt like <strong>the same problem on a different surface.</strong>
+      </p>
+
+      <div class="hero-c-btns">
+        <a href="#" class="btn-black">Get in touch →</a>
+        <a href="#" class="btn-outline-dark">Resume ↗</a>
+      </div>
+    </div>
+
+    <div class="hero-c-right">
+      <div class="polaroid">
+        <img src="/images/sanjana.jpg" alt="Sanjana">
+        <div class="polaroid-caption">that's me @ CU Boulder ✌️</div>
+        <div class="polaroid-badge"><span class="dot-green" style="width:6px;height:6px"></span> Open to work</div>
+      </div>
+      <div class="sticker sticker-1">✦ Figma wizard</div>
+      <div class="sticker sticker-2">AI-native ⚡</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(id) {
+  ['a','b','c'].forEach(x => {
+    document.getElementById('hero-'+x).style.display = x === id ? 'block' : 'none';
+  });
+  document.querySelectorAll('.nav-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', ['a','b','c'][i] === id);
+  });
+}
+</script>
+</body>
+</html>

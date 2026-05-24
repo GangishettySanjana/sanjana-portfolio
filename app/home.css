@@ -632,9 +632,27 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 
 /* ── ABOUT SECTION ── */
 .about-section {
-  background: var(--page-bg);
+  background: url('/hero-bg.png') center 40% / cover no-repeat;
   padding: 120px 0 100px;
 }
+
+/* card wrapper — same treatment as .hero-card */
+.about-card {
+  width: 100%; max-width: var(--max-w);
+  margin: 0 auto; padding: 0 var(--gutter);
+  background-color: rgba(240,236,228,0.88);
+  border-radius: 60px; padding: 72px 72px;
+  position: relative; overflow: hidden;
+  opacity: 0; transform: translateY(32px);
+}
+.about-card::before {
+  content: ''; position: absolute; inset: 0; border-radius: 60px;
+  pointer-events: none; z-index: 0; opacity: 0.55;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 200px 200px;
+}
+.about-card > * { position: relative; z-index: 1; }
+
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 400px;
@@ -663,9 +681,14 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   font-size: clamp(28px, 3.2vw, 44px);
   font-weight: 700; font-style: italic;
   color: rgba(13,13,13,0.6);
-  letter-spacing: -0.025em; line-height: 1.1;
+  letter-spacing: -0.025em; line-height: 1.3;
   margin-bottom: 40px;
-  overflow: hidden;
+  overflow: visible;
+}
+/* give word-reveal spans extra room for italic descenders */
+.about-headline-italic .word {
+  overflow: visible !important;
+  padding-bottom: 6px;
 }
 .about-body {
   font-family: var(--body); font-size: 18px; font-weight: 400;
@@ -744,6 +767,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   padding: 16px 18px;
   border-right: 1px solid rgba(0,0,0,0.08);
   border-bottom: 1px solid rgba(0,0,0,0.08);
+  opacity: 0; transform: translateY(12px);
 }
 /* remove right border on right column */
 .about-info-cell:nth-child(2n) { border-right: none; }
@@ -940,6 +964,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 
   /* About */
   .about-section { padding: 80px 0 72px; }
+  .about-card    { padding: 48px 36px; border-radius: 36px; }
   .about-grid    { grid-template-columns: 1fr; gap: 40px; }
   .about-right   { max-width: 320px; margin: 0 auto; }
   .about-headline { font-size: 32px; }

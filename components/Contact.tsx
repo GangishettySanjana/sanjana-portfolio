@@ -30,7 +30,7 @@ export default function Contact() {
         {/* Email block */}
         <div style={{ marginBottom: 48 }}>
           <p style={{
-            fontFamily: 'var(--font-display), Georgia, serif',
+            fontFamily: "'Cabinet Grotesk', sans-serif",
             fontSize: 'clamp(32px, 5vw, 60px)',
             fontWeight: 400,
             color: '#111827',
@@ -38,15 +38,17 @@ export default function Contact() {
             letterSpacing: '-0.02em',
             marginBottom: 20,
           }}>
-            If the experience you&apos;re building deserves to feel more human,{' '}
-            <em style={{ fontStyle: 'italic', fontWeight: 300 }}>let&apos;s talk.</em>
+            Looking for a team that cares about the difference between{' '}
+            <em style={{ fontStyle: 'italic', fontWeight: 300 }}>technically works</em>{' '}
+            and <em style={{ fontStyle: 'italic', fontWeight: 300 }}>actually good.</em>{' '}
+            If that sounds like you, let&apos;s talk.
           </p>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
             <a
               href={`mailto:${email}`}
               style={{
-                fontFamily: 'var(--font-body), Georgia, serif',
+                fontFamily: "'Satoshi', sans-serif",
                 fontSize: 15,
                 fontWeight: 500,
                 color: '#111827',
@@ -72,7 +74,7 @@ export default function Contact() {
                 border: `1px solid ${copied ? 'rgba(34,197,94,0.3)' : '#111827'}`,
                 borderRadius: 999,
                 padding: '7px 16px',
-                fontFamily: 'var(--font-label), sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
                 fontSize: 10,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
@@ -118,7 +120,7 @@ export default function Contact() {
               style={{
                 display: 'flex', alignItems: 'center', gap: 12,
                 textDecoration: 'none',
-                fontFamily: 'var(--font-label), sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
                 fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase',
                 color: '#111827',
                 transition: 'opacity 0.2s',
@@ -142,19 +144,19 @@ export default function Contact() {
           gap: 24,
         }} className="footer-bottom">
           <div>
-            <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 13, color: '#111827', margin: '0 0 4px' }}>
-              © 2026 Sanjana Gangishetty
+            <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 13, color: '#111827', margin: '0 0 4px' }}>
+              © 2025 Sanjana Gangishetty
             </p>
-            <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 13, color: '#6B7280', margin: 0 }}>
+            <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 13, color: '#6B7280', margin: 0 }}>
               &ldquo;The details are not the details. They make the design.&rdquo; — Charles Eames
             </p>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 13, color: '#111827', margin: '0 0 4px' }}>
+            <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 13, color: '#111827', margin: '0 0 4px' }}>
               Made in the US, by yours truly.
             </p>
-            <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 13, color: '#6B7280', margin: 0 }}>
-              Last updated on May 2026
+            <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 13, color: '#6B7280', margin: 0 }}>
+              Last updated May 2025
             </p>
           </div>
         </div>

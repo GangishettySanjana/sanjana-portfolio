@@ -262,15 +262,15 @@ export function JourneyMap({
 
       <style jsx>{`
         .jm-root {
-          --jm-bg:      #334EAC;
-          --jm-bg-2:    #2a4299;
+          --jm-bg:      #111110;
+          --jm-bg-2:    #1a1a19;
           --jm-fg:      #F7F3EE;
           --jm-fg-dim:  rgba(247,243,238,0.65);
-          --jm-fg-faint:rgba(247,243,238,0.35);
-          --jm-line:    rgba(247,243,238,0.08);
-          --jm-line-2:  rgba(247,243,238,0.22);
-          --jm-display: var(--font-display, "Georgia", serif);
-          --jm-sans:    var(--font-label, "Helvetica Neue", sans-serif);
+          --jm-fg-faint:rgba(247,243,238,0.3);
+          --jm-line:    rgba(247,243,238,0.07);
+          --jm-line-2:  rgba(247,243,238,0.18);
+          --jm-display: "Cabinet Grotesk", sans-serif;
+          --jm-sans:    "Satoshi", sans-serif;
           --jm-mono:    ui-monospace, "SF Mono", Menlo, monospace;
 
           position: relative;
@@ -397,7 +397,7 @@ export function JourneyMap({
 
         /* ── Hover card ── */
         .jm-hover-card {
-          background: rgba(20, 30, 80, 0.92);
+          background: rgba(18, 18, 17, 0.95);
           backdrop-filter: blur(16px);
           border: 1px solid rgba(247,243,238,0.15);
           border-radius: 14px;
@@ -495,7 +495,7 @@ export function JourneyMap({
           align-items: center;
           gap: 20px;
           border-top: 1px solid var(--jm-line-2);
-          background: rgba(30, 50, 130, 0.4);
+          background: rgba(10, 10, 10, 0.7);
           backdrop-filter: blur(8px);
         }
         .jm-bar-year {

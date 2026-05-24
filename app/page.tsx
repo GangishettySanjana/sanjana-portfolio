@@ -525,12 +525,18 @@ export default function HomePage() {
     ───────────────────────────────────────────── */
     const aboutST = { start: 'top 86%', toggleActions: 'play none none none' }
 
+    // Card entry — same feel as project cards
+    gsap.to('#aboutCard', {
+      opacity: 1, y: 0, duration: 1.0, ease: 'power3.out',
+      scrollTrigger: { trigger: '#aboutCard', start: 'top 88%', toggleActions: 'play none none none' },
+    })
+
     gsap.to('#aboutEye', {
       opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
       scrollTrigger: { trigger: '#aboutEye', ...aboutST },
     })
 
-    // Word clip reveal
+    // Word clip reveal on headlines
     ScrollTrigger.create({
       trigger: '#aboutH1', ...aboutST,
       onEnter() {
@@ -557,18 +563,69 @@ export default function HomePage() {
       opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
       scrollTrigger: { trigger: '#aboutB2', ...aboutST },
     })
-    gsap.set('#aboutInfo', { opacity: 0, y: 20 })
-    gsap.to('#aboutInfo', {
-      opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
+
+    // Info cells cascade in one by one
+    gsap.to('.about-info-cell', {
+      opacity: 1, y: 0, duration: 0.45, ease: 'power3.out',
+      stagger: 0.08,
       scrollTrigger: { trigger: '#aboutInfo', ...aboutST },
     })
+
     gsap.to('#aboutBtns', {
       opacity: 1, y: 0, duration: 0.55, ease: 'spring',
       scrollTrigger: { trigger: '#aboutBtns', ...aboutST },
     })
+
+    // Photo slides in from right
     gsap.to('#aboutRight', {
       opacity: 1, x: 0, duration: 0.85, ease: 'power3.out',
       scrollTrigger: { trigger: '#aboutRight', start: 'top 88%', toggleActions: 'play none none none' },
+    })
+
+    // Photo parallax — drifts up slowly as you scroll past (like hero photo)
+    gsap.to('#aboutRight', {
+      y: -40,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.about-section',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.2,
+      },
+    })
+
+    // Photo 3D tilt on hover — same as project cards
+    const aboutPhotoWrap = document.querySelector<HTMLElement>('.about-photo-wrap')
+    if (aboutPhotoWrap) {
+      aboutPhotoWrap.addEventListener('mousemove', (e: MouseEvent) => {
+        const r = aboutPhotoWrap.getBoundingClientRect()
+        const x = (e.clientX - r.left) / r.width  - 0.5
+        const y = (e.clientY - r.top)  / r.height - 0.5
+        gsap.to(aboutPhotoWrap, {
+          rotateY: x * 8, rotateX: -y * 6,
+          duration: 0.4, ease: 'power2.out',
+          transformPerspective: 1000,
+        })
+      })
+      aboutPhotoWrap.addEventListener('mouseleave', () => {
+        gsap.to(aboutPhotoWrap, {
+          rotateY: 0, rotateX: 0,
+          duration: 0.9, ease: 'elastic.out(1, 0.5)',
+        })
+      })
+    }
+
+    // Magnetic pull on about buttons
+    document.querySelectorAll<HTMLElement>('.about-btn-dark, .about-btn-outline').forEach(btn => {
+      btn.addEventListener('mousemove', (e: MouseEvent) => {
+        const r  = btn.getBoundingClientRect()
+        const dx = (e.clientX - r.left - r.width  / 2) * 0.3
+        const dy = (e.clientY - r.top  - r.height / 2) * 0.3
+        gsap.to(btn, { x: dx, y: dy, duration: 0.25, ease: 'power2.out' })
+      })
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' })
+      })
     })
 
     /* ─────────────────────────────────────────────
@@ -984,6 +1041,7 @@ export default function HomePage() {
       {/* ABOUT */}
       <section className="about-section" id="about">
         <div className="container">
+          <div className="about-card" id="aboutCard">
           <div className="about-grid">
 
             {/* LEFT: narrative copy + info grid */}
@@ -992,9 +1050,9 @@ export default function HomePage() {
               <h2 className="about-headline" id="aboutH1">I started in rooms.</h2>
               <p className="about-headline-italic" id="aboutH2">Turns out software has the same problems.</p>
 
-              <p className="about-body" id="aboutB1">Interior design first, product design second. The switch made sense: same questions, different material. CU Boulder MS, 2025.</p>
+              <p className="about-body" id="aboutB1">Interior design trained me to obsess over how a space makes you feel before you can explain why. Same obsession, different material. The questions didn&apos;t change — just the rooms got smaller and moved to screens.</p>
 
-              <p className="about-body" id="aboutB2">Shipped AI tools, fintech products, e-commerce. I do my best work in the gap before the wireframe exists, when you&apos;re still figuring out what you&apos;re actually trying to solve. If your team cares about that part, we&apos;d probably get along.</p>
+              <p className="about-body" id="aboutB2">Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists — in the messy middle where nobody&apos;s sure what they&apos;re actually solving yet. That&apos;s the part most designers skip. I don&apos;t.</p>
 
               {/* Info grid */}
               <div className="about-info-bar" id="aboutInfo">
@@ -1022,7 +1080,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* RIGHT: photo only */}
+            {/* RIGHT: photo */}
             <div className="about-right" id="aboutRight">
               <div className="about-photo-wrap">
                 <img
@@ -1036,13 +1094,10 @@ export default function HomePage() {
                   }}
                 />
                 <span className="about-photo-ph" style={{display:'none'}}>Your photo here</span>
-                <div className="about-status-badge">
-                  <span className="status-dot"></span>
-                  Looking for Full Time
-                </div>
               </div>
             </div>
 
+          </div>
           </div>
         </div>
       </section>

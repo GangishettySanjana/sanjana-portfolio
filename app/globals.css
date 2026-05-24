@@ -2,8 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'NCL Gasdrifo';
+  src: url('/fonts/NCLGasdrifo-Demo.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @keyframes ping {
   75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes float-a {
+  0%, 100% { transform: translateY(0px) rotate(-6deg); }
+  50% { transform: translateY(-8px) rotate(-6deg); }
+}
+@keyframes float-b {
+  0%, 100% { transform: translateY(0px) rotate(4deg); }
+  50% { transform: translateY(-6px) rotate(4deg); }
+}
+@keyframes float-c {
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50% { transform: translateY(-10px) rotate(-3deg); }
 }
 
 /* ─────────────────────────────────────────────────
@@ -441,16 +467,55 @@ aside::-webkit-scrollbar { display: none; }
     left: 74px !important;
   }
 }
+/* About page — editorial row grids */
+.about-work-row {
+  display: grid;
+  grid-template-columns: 72px 1fr 2fr;
+  gap: 0 48px;
+  align-items: start;
+}
+.about-now-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 0 48px;
+  align-items: start;
+}
+
+@media (max-width: 680px) {
+  .about-work-row {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  .about-work-row-number {
+    display: none !important;
+  }
+  .about-work-row-title {
+    padding-top: 0 !important;
+    margin-bottom: 8px !important;
+  }
+  .about-now-row {
+    grid-template-columns: 1fr !important;
+    gap: 6px 0 !important;
+  }
+  .about-dark-block {
+    width: 100vw !important;
+    position: relative !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin-left: 0 !important;
+  }
+}
+
 @media (max-width: 600px) {
   .about-page-section {
     padding: 48px 24px !important;
-    margin: 0 12px 12px !important;
-    border-radius: 16px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
   }
   .about-page-hero-section {
-    margin-top: 64px !important;
-    padding: 48px 24px !important;
-    border-radius: 16px !important;
+    padding: 96px 24px 56px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
   }
   .about-skills-grid {
     grid-template-columns: 1fr !important;
