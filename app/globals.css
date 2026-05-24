@@ -498,11 +498,8 @@ aside::-webkit-scrollbar { display: none; }
     gap: 6px 0 !important;
   }
   .about-dark-block {
-    width: 100vw !important;
-    position: relative !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    margin-left: 0 !important;
+    margin-left: -24px !important;
+    width: calc(100% + 48px) !important;
   }
 }
 

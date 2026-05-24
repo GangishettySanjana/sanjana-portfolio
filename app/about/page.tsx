@@ -876,7 +876,7 @@ export default function AboutPage() {
             {/* What I'm looking for — closing statement */}
             <motion.div
               className="about-dark-block"
-              style={{ borderRadius: 0, background: '#111827', padding: 'clamp(40px, 5vw, 64px) clamp(32px, 7vw, 96px)', position: 'relative', overflow: 'hidden', width: '100vw', left: '50%', transform: 'translateX(-50%)' }}
+              style={{ borderRadius: 0, background: '#111827', padding: 'clamp(40px, 5vw, 64px) clamp(32px, 7vw, 96px)', position: 'relative', overflow: 'hidden', marginLeft: 'calc(-1 * clamp(32px, 7vw, 96px))', width: 'calc(100% + clamp(32px, 7vw, 96px) * 2)' }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
