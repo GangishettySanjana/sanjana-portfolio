@@ -829,9 +829,11 @@ export default function AboutPage() {
         </section>
 
         {/* ── Right now + What I'm looking for ── */}
-        <section className="about-page-section" style={{ background: '#FDFAF5', padding: 'clamp(72px, 8vw, 112px) clamp(32px, 7vw, 96px)', position: 'relative', overflow: 'hidden' }}>
+        <section style={{ background: '#FDFAF5', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.3, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
-          <div style={{ position: 'relative', zIndex: 1 }}>
+
+          {/* Rows — padded */}
+          <div style={{ position: 'relative', zIndex: 1, padding: 'clamp(72px, 8vw, 112px) clamp(32px, 7vw, 96px) 72px' }}>
             <motion.p
               style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.35)', marginBottom: 48, fontWeight: 700 }}
               initial={{ opacity: 0 }}
@@ -840,9 +842,7 @@ export default function AboutPage() {
             >
               Right now
             </motion.p>
-
-            {/* Three rows */}
-            <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 72 }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               {[
                 { label: 'Reading', value: "Clock In by Emily the Recruiter. Genuinely a little funny that I'm reading a career book mid-job-search, but here we are. It's making me think harder about what I actually want, not just what I think I'm supposed to want.", color: '#D97706' },
                 { label: 'Building', value: "Learning to build real things with Claude Code. I'm a designer who can now ship her own ideas without waiting on anyone. Still wrapping my head around that one.", color: '#0BB4CC' },
@@ -872,41 +872,39 @@ export default function AboutPage() {
               ))}
               <div style={{ borderTop: '1px solid rgba(13,13,13,0.08)' }} />
             </div>
-
-            {/* What I'm looking for — closing statement */}
-            <motion.div
-              className="about-dark-block"
-              style={{ borderRadius: 0, background: '#111827', padding: 'clamp(40px, 5vw, 64px) clamp(32px, 7vw, 96px)', position: 'relative', overflow: 'hidden', marginLeft: 'calc(-1 * clamp(32px, 7vw, 96px))', width: 'calc(100% + clamp(32px, 7vw, 96px) * 2)' }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.4, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
-              {/* Decorative quote mark */}
-              <div style={{ position: 'absolute', top: -10, right: 32, fontSize: 'clamp(120px, 16vw, 200px)', lineHeight: 1, fontFamily: "'NCL Gasdrifo', Georgia, serif", color: 'rgba(255,255,255,0.05)', pointerEvents: 'none', userSelect: 'none', zIndex: 0 }}>
-                &rdquo;
-              </div>
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: 24, fontWeight: 700 }}>
-                  What I&apos;m looking for
-                </p>
-                <p style={{ fontFamily: "'Cabinet Grotesk', sans-serif", fontSize: 'clamp(22px, 2.8vw, 38px)', fontWeight: 800, color: '#fff', lineHeight: 1.35, letterSpacing: '-0.02em', margin: '0 0 16px' }}>
-                  I want to work somewhere that starts with the person, not the feature list.
-                </p>
-                <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 'clamp(15px, 1.3vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, margin: '0 0 36px', maxWidth: 600 }}>
-                  The kind of place where someone can say &ldquo;this works but it doesn&apos;t feel right&rdquo; and the room takes it seriously. I&apos;ve been in rooms like that. I want back in.
-                </p>
-                <motion.a
-                  href="mailto:gangishettysanjana084@gmail.com"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontFamily: "'Satoshi', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: '#111827', background: '#fff', padding: '13px 26px', borderRadius: 999, textDecoration: 'none', transition: 'opacity 0.2s' }}
-                  whileHover={{ opacity: 0.85 }}
-                >
-                  Let&apos;s talk →
-                </motion.a>
-              </div>
-            </motion.div>
           </div>
+
+          {/* What I'm looking for — full-width dark block, direct child of section */}
+          <motion.div
+            style={{ background: '#111827', padding: 'clamp(40px, 5vw, 64px) clamp(32px, 7vw, 96px)', position: 'relative', overflow: 'hidden' }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.4, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', top: -10, right: 32, fontSize: 'clamp(120px, 16vw, 200px)', lineHeight: 1, fontFamily: "'NCL Gasdrifo', Georgia, serif", color: 'rgba(255,255,255,0.05)', pointerEvents: 'none', userSelect: 'none', zIndex: 0 }}>
+              &rdquo;
+            </div>
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: 24, fontWeight: 700 }}>
+                What I&apos;m looking for
+              </p>
+              <p style={{ fontFamily: "'Cabinet Grotesk', sans-serif", fontSize: 'clamp(22px, 2.8vw, 38px)', fontWeight: 800, color: '#fff', lineHeight: 1.35, letterSpacing: '-0.02em', margin: '0 0 16px' }}>
+                I want to work somewhere that starts with the person, not the feature list.
+              </p>
+              <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 'clamp(15px, 1.3vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, margin: '0 0 36px', maxWidth: 600 }}>
+                The kind of place where someone can say &ldquo;this works but it doesn&apos;t feel right&rdquo; and the room takes it seriously. I&apos;ve been in rooms like that. I want back in.
+              </p>
+              <motion.a
+                href="mailto:gangishettysanjana084@gmail.com"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontFamily: "'Satoshi', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: '#111827', background: '#fff', padding: '13px 26px', borderRadius: 999, textDecoration: 'none', transition: 'opacity 0.2s' }}
+                whileHover={{ opacity: 0.85 }}
+              >
+                Let&apos;s talk →
+              </motion.a>
+            </div>
+          </motion.div>
         </section>
 
         <Contact />
