@@ -145,10 +145,10 @@ export default function Contact() {
         }} className="footer-bottom">
           <div>
             <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 13, color: '#111827', margin: '0 0 4px' }}>
-              © 2025 Sanjana Gangishetty
+              © 2026 Sanjana Gangishetty
             </p>
-            <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 13, color: '#6B7280', margin: 0 }}>
-              &ldquo;The details are not the details. They make the design.&rdquo; — Charles Eames
+            <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 13, color: '#6B7280', margin: 0, fontStyle: 'italic' }}>
+              Still thinking about why seamlessness is so rare.
             </p>
           </div>
           <div style={{ textAlign: 'right' }}>
@@ -156,7 +156,7 @@ export default function Contact() {
               Made in the US, by yours truly.
             </p>
             <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 13, color: '#6B7280', margin: 0 }}>
-              Last updated May 2025
+              Last updated May 2026
             </p>
           </div>
         </div>
