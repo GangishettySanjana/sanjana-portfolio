@@ -827,7 +827,7 @@ export default function HomePage() {
                     <Link href="/projects/flairx" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
                   </div>
                   <div className="card-right">
-                    <img src="https://www.figma.com/api/mcp/asset/8a7e1e23-785c-4b7e-a7ec-e2be0900c06e" alt="FlairX"/>
+                    <img src="/images/cover-flairx.jpg" alt="FlairX" style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
                   </div>
                 </div>
               </div>
@@ -863,7 +863,7 @@ export default function HomePage() {
                     <Link href="/projects/fireside" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
                   </div>
                   <div className="card-right">
-                    <img src="https://www.figma.com/api/mcp/asset/57a65d9e-f855-41f9-8995-b1df203fecb7" alt="Fireside"/>
+                    <img src="/projects/fireside/exhibit-in-use.png" alt="Fireside" style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
                   </div>
                 </div>
               </div>
