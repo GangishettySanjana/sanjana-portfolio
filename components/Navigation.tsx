@@ -58,7 +58,7 @@ export default function Navigation() {
     { label: 'Work',           href: '/#work' },
     { label: 'Explorations',   href: '/#explorations' },
     { label: 'About',          href: '/#about' },
-    { label: "Let's Connect",  href: 'mailto:gangishettysanjana084@gmail.com' },
+    { label: "Let's Connect",  href: 'https://www.linkedin.com/in/sanjana-gangishetty' },
     { label: 'Resume',         href: '/resume.pdf', external: true },
   ]
 
@@ -178,7 +178,7 @@ export default function Navigation() {
               Resume →
             </a>
             <a
-              href="mailto:gangishettysanjana084@gmail.com"
+              href="https://www.linkedin.com/in/sanjana-gangishetty"
               style={{
                 fontFamily: 'var(--font-label), sans-serif',
                 fontSize: 11,
