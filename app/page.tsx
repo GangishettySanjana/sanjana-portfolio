@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -700,6 +700,44 @@ export default function HomePage() {
     }
   }, [])
 
+  useEffect(() => {
+    const video = document.getElementById('hero-video') as HTMLVideoElement | null
+    if (!video) return
+    const FADE_DUR = 0.5
+    let rafId = 0
+    const tick = () => {
+      const { currentTime, duration } = video
+      if (duration && !Number.isNaN(duration)) {
+        let opacity = 1
+        if (currentTime < FADE_DUR) opacity = currentTime / FADE_DUR
+        else if (currentTime > duration - FADE_DUR) opacity = Math.max(0, (duration - currentTime) / FADE_DUR)
+        video.style.opacity = String(opacity)
+      }
+      rafId = requestAnimationFrame(tick)
+    }
+    const onEnded = () => {
+      video.style.opacity = '0'
+      setTimeout(() => { video.currentTime = 0; void video.play() }, 100)
+    }
+    const tryPlay = () => { void video.play().catch(() => {}) }
+
+    video.addEventListener('ended', onEnded)
+    tryPlay()
+    rafId = requestAnimationFrame(tick)
+
+    // Safari blocks autoplay until first user interaction
+    const onInteract = () => { tryPlay(); document.removeEventListener('click', onInteract); document.removeEventListener('touchstart', onInteract) }
+    document.addEventListener('click', onInteract)
+    document.addEventListener('touchstart', onInteract)
+
+    return () => {
+      cancelAnimationFrame(rafId)
+      video.removeEventListener('ended', onEnded)
+      document.removeEventListener('click', onInteract)
+      document.removeEventListener('touchstart', onInteract)
+    }
+  }, [])
+
   return (
     <>
       {/* Intro curtain */}
@@ -739,7 +777,18 @@ export default function HomePage() {
 
       {/* HERO */}
       <section className="hero-section">
-        <div className="hero-card">
+        {/* Video background */}
+        <video
+          id="hero-video"
+          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
+          muted
+          playsInline
+          autoPlay
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0, transition: 'opacity 0.05s linear', zIndex: 0 }}
+        />
+        {/* Gradient overlay top + bottom */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, var(--page-bg) 0%, transparent 30%, transparent 70%, var(--page-bg) 100%)', zIndex: 1, pointerEvents: 'none' }} />
+        <div className="hero-card" style={{ position: 'relative', zIndex: 2 }}>
           <div className="hero-text">
             {/* Name + location — always visible at top */}
             <div className="hero-nameplate" id="hGreeting">
@@ -1029,6 +1078,19 @@ export default function HomePage() {
               </div>
             </a>
 
+            {/* Exploration 03 — The AI Trust Meter */}
+            <a className="exp-card exp-card--linked" href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer">
+              <div className="exp-card-top">
+                <span className="exp-tag">Intercom Fin</span>
+                <span className="exp-num">03</span>
+              </div>
+              <h3 className="exp-title">AI sounds just as sure when it&apos;s guessing.</h3>
+              <p className="exp-desc">AI support tools present wrong answers with the same confidence as right ones. Inspired by Intercom Fin, I designed a confidence-state system that visibly changes how an answer looks based on how grounded it is — and routes uncertainty to a human instead of a customer. Live demo included.</p>
+              <div className="exp-footer">
+                <span className="exp-status exp-status--live">Live demo →</span>
+              </div>
+            </a>
+
             {/* More coming */}
             <div className="exp-card exp-card--more">
               <p className="exp-more-text">More concepts in the works — currently exploring, currently building.</p>
@@ -1050,9 +1112,9 @@ export default function HomePage() {
               <h2 className="about-headline" id="aboutH1">I started in rooms.</h2>
               <p className="about-headline-italic" id="aboutH2">Turns out software has the same problems.</p>
 
-              <p className="about-body" id="aboutB1">Interior design trained me to obsess over how a space makes you feel before you can explain why. Same obsession, different material. The questions didn&apos;t change — just the rooms got smaller and moved to screens.</p>
+              <p className="about-body" id="aboutB1">Interior design trained me to obsess over how a space makes you feel before you can explain why. Same obsession, different material. The questions didn&apos;t change. Just the rooms got smaller and moved to screens.</p>
 
-              <p className="about-body" id="aboutB2">Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists — in the messy middle where nobody&apos;s sure what they&apos;re actually solving yet. That&apos;s the part most designers skip. I don&apos;t.</p>
+              <p className="about-body" id="aboutB2">Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re actually solving yet. That&apos;s the part most designers skip. I don&apos;t.</p>
 
               {/* Info grid */}
               <div className="about-info-bar" id="aboutInfo">
