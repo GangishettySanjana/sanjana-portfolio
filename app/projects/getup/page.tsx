@@ -381,7 +381,7 @@ export default function GetUpPage() {
 
             <img
               src="/projects/getup/popup.png"
-              alt="GetUp Energy Bites pre-order pop-up — final design"
+              alt="GetUp Energy Bites pre-order pop-up, final design"
               style={{ width: '100%', display: 'block', borderRadius: 16, border: '1px solid var(--border)', marginBottom: 36 }}
             />
             <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-xs)', color: 'var(--dim)', textAlign: 'center', margin: '-28px 0 36px', textTransform: 'uppercase', letterSpacing: '0.09em' }}>Final design · dev-ready Figma handoff</p>
@@ -471,10 +471,10 @@ export default function GetUpPage() {
                 </thead>
                 <tbody>
                   {[
-                    { draft: 'v1', headline: 'Feel the energy. Pre-order now.', status: 'Cut — could be any brand. Nothing specific to GetUp or Energy Bites.', highlight: false },
-                    { draft: 'v2', headline: 'New drop. Caffeinated bites, real ingredients.', status: 'Cut — informational, not motivating. Reads like a press release.', highlight: false },
-                    { draft: 'v3', headline: 'Energy Bites are here. Grab yours early.', status: 'Closer — has urgency. But "Energy Bites are here" is circular. No reason to care.', highlight: false },
-                    { draft: 'v4', headline: 'Fuel your day. GetUp Energy Bites, pre-order now.', status: '✓ Selected — short, active, product-named, action-forward. Matches the brand voice.', highlight: true },
+                    { draft: 'v1', headline: 'Feel the energy. Pre-order now.', status: 'Cut: could be any brand. Nothing specific to GetUp or Energy Bites.', highlight: false },
+                    { draft: 'v2', headline: 'New drop. Caffeinated bites, real ingredients.', status: 'Cut: informational, not motivating. Reads like a press release.', highlight: false },
+                    { draft: 'v3', headline: 'Energy Bites are here. Grab yours early.', status: 'Closer: has urgency. But "Energy Bites are here" is circular. No reason to care.', highlight: false },
+                    { draft: 'v4', headline: 'Fuel your day. GetUp Energy Bites, pre-order now.', status: '✓ Selected: short, active, product-named, action-forward. Matches the brand voice.', highlight: true },
                   ].map(({ draft, headline, status, highlight }) => (
                     <tr key={draft} style={{
                       borderBottom: '1px solid var(--border)',
@@ -504,7 +504,7 @@ export default function GetUpPage() {
 
             <div className="fx-reflection-callout">
               <span className="fx-reflection-label">What I&apos;d do differently</span>
-              <p>I&apos;d push for at least a 48-hour review window with the client on copy before Figma handoff. We moved fast enough that the copy and the visual went out together — which worked, but meant any copy change would have required reopening the design file. Separating copy sign-off from design sign-off is a small process change that prevents a painful late-stage rework.</p>
+              <p>I&apos;d push for at least a 48-hour review window with the client on copy before Figma handoff. We moved fast enough that the copy and the visual went out together, which worked, but meant any copy change would have required reopening the design file. Separating copy sign-off from design sign-off is a small process change that prevents a painful late-stage rework.</p>
             </div>
           </div>
         </section>

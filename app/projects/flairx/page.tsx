@@ -378,7 +378,7 @@ function ATSPrototype() {
       </div>
 
       <p style={{ ...bodyText, fontSize: 12, marginTop: 14, textAlign: 'center' as const }}>
-        Stage 3 · ATS Integration · interactive prototype — click through the full flow
+        Stage 3 · ATS Integration · interactive prototype, click through the full flow
       </p>
     </div>
   )
@@ -567,7 +567,7 @@ export default function FlairXPage() {
                 },
                 {
                   label: 'Timeline',
-                  text: 'Month 1: discovery sprint (6 recruiter interviews, flow mapping, competitive audit). Month 2: design — wireframes, prototypes, 3 rounds of testing with internal users. Month 3: final designs, edge case coverage, dev handoff.',
+                  text: 'Month 1: discovery sprint (6 recruiter interviews, flow mapping, competitive audit). Month 2: design, wireframes, prototypes, 3 rounds of testing with internal users. Month 3: final designs, edge case coverage, dev handoff.',
                 },
               ].map(({ label, text }) => (
                 <div key={label} className="fx-ctx-row">
@@ -926,7 +926,7 @@ export default function FlairXPage() {
                 {
                   num: '02',
                   metric: '+130 hires attributed',
-                  desc: '130 candidates hired through roles that were sourced and processed entirely through the redesigned intake flow in the first six months — tracked via pipeline stage data in the FlairX system.',
+                  desc: '130 candidates hired through roles that were sourced and processed entirely through the redesigned intake flow in the first six months, tracked via pipeline stage data in the FlairX system.',
                 },
                 {
                   num: '03',
@@ -958,7 +958,7 @@ export default function FlairXPage() {
             <h2 className="fx-sec-title">What the engineers actually received.</h2>
 
             <div className="fx-prose">
-              <p>The design handoff covered all three upload paths, every edge case, and the full alert system. Engineers received a Figma file with component-level annotations, interaction states documented in Notion, and a Jira ticket per feature with acceptance criteria written against observed user behavior — not against design spec.</p>
+              <p>The design handoff covered all three upload paths, every edge case, and the full alert system. Engineers received a Figma file with component-level annotations, interaction states documented in Notion, and a Jira ticket per feature with acceptance criteria written against observed user behavior, not against design spec.</p>
             </div>
 
             <div className="fx-decisions-list">
@@ -976,7 +976,7 @@ export default function FlairXPage() {
                 {
                   num: '03',
                   title: 'Edge case matrix',
-                  text: 'A documented matrix of every failure mode we designed for — mixed upload states, AI misses, unsaved files warning, empty pipeline — with the expected behavior for each.',
+                  text: 'A documented matrix of every failure mode we designed for: mixed upload states, AI misses, unsaved files warning, empty pipeline. Expected behavior for each.',
                 },
               ].map(({ num, title, text }) => (
                 <div key={num} className="fx-decision">

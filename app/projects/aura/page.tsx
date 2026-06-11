@@ -382,7 +382,7 @@ export default function AuraPage() {
             <h2 className="fx-sec-title">Sole UX designer, research through final prototype.</h2>
 
             <div className="fx-prose">
-              <p>As the only designer, I owned every phase — research, IA, wireframes, testing, and visual design. What was hard about that wasn&apos;t the workload. It was having no one to pressure-test decisions. When I moved delivery scheduling to step 1 of checkout, there was no design lead to tell me whether that was right or overengineered. I had to run the test and find out. Every major call had that same shape: form a hypothesis, expose it to real users, throw it out or keep it based on what they actually did. There was no shortcut to that process, and no one to defer to when it got uncomfortable.</p>
+              <p>As the only designer, I owned every phase: research, IA, wireframes, testing, and visual design. What was hard about that wasn&apos;t the workload. It was having no one to pressure-test decisions. When I moved delivery scheduling to step 1 of checkout, there was no design lead to tell me whether that was right or overengineered. I had to run the test and find out. Every major call had that same shape: form a hypothesis, expose it to real users, throw it out or keep it based on what they actually did. There was no shortcut to that process, and no one to defer to when it got uncomfortable.</p>
             </div>
           </div>
         </section>
@@ -636,7 +636,7 @@ export default function AuraPage() {
             <h2 className="fx-sec-title">Try the full gifting flow yourself.</h2>
 
             <div className="fx-prose" style={{ marginBottom: 32 }}>
-              <p>This is the core loop: browse inventory, pick your delivery date first, customize your bouquet, confirm. The key design decision is visible in step 1 — you choose your date before you build anything, so you can&apos;t invest in a bouquet and then discover it can&apos;t arrive in time.</p>
+              <p>This is the core loop: browse inventory, pick your delivery date first, customize your bouquet, confirm. The key design decision is visible in step 1: you choose your date before you build anything, so you can&apos;t invest in a bouquet and then discover it can&apos;t arrive in time.</p>
             </div>
 
             <AuraPrototype />
@@ -650,7 +650,7 @@ export default function AuraPage() {
             <h2 className="fx-sec-title">The thing you think is the feature is sometimes not the hardest design problem.</h2>
 
             <div className="fx-prose">
-              <p>I came into this project thinking I&apos;d design a bouquet customizer. I ended up redesigning the checkout sequence after round 2 completely broke the flow — users were building full bouquets only to find their delivery date unavailable. Moving the date picker to step 1 felt obvious in retrospect, but it wasn&apos;t. I had to watch three real users hit that wall before I was willing to restructure the whole checkout.</p>
+              <p>I came into this project thinking I&apos;d design a bouquet customizer. I ended up redesigning the checkout sequence after round 2 completely broke the flow. Users were building full bouquets only to find their delivery date unavailable. Moving the date picker to step 1 felt obvious in retrospect, but it wasn&apos;t. I had to watch three real users hit that wall before I was willing to restructure the whole checkout.</p>
               <p>The hard problem was not the picker. It was learning to let what I observed override what I&apos;d assumed. Round one: preview too small. Round two: checkout sequence wrong. Round three: it worked. Each fix came from watching people use the prototype, not from design intuition.</p>
             </div>
 
