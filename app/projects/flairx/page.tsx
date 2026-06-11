@@ -107,241 +107,268 @@ function FlairXFlowChart() {
 function ATSPrototype() {
   const [step, setStep] = useState(0)
   const [connected, setConnected] = useState('')
-  const [mappings, setMappings] = useState<Record<string, string>>({})
   const [selected, setSelected] = useState<number[]>([])
 
+  const s: React.CSSProperties = { fontFamily: 'var(--fx-sans)' }
+  const eyebrow: React.CSSProperties = { ...s, fontSize: 'var(--type-xs)', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.09em', color: 'var(--accent)', margin: 0 }
+  const bodyText: React.CSSProperties = { ...s, fontSize: 'var(--type-sm)', color: 'var(--muted)', lineHeight: 'var(--lh-normal)', margin: 0 }
+  const headText: React.CSSProperties = { ...s, fontSize: 'var(--type-base)', fontWeight: 700, color: 'var(--text)', margin: 0 }
+
   const atsSystems = [
-    { name: 'Greenhouse', logo: '🌿' },
-    { name: 'Lever', logo: '⚙️' },
-    { name: 'Workday', logo: '☁️' },
-    { name: 'BambooHR', logo: '🎋' },
+    { name: 'Greenhouse', abbr: 'GH', color: '#24a148' },
+    { name: 'Lever', abbr: 'LV', color: '#5b4fff' },
+    { name: 'Workday', abbr: 'WD', color: '#0875e1' },
+    { name: 'BambooHR', abbr: 'BB', color: '#73c41d' },
   ]
 
   const fieldMap = [
-    { ats: 'Full Name', flairx: 'Candidate Name' },
-    { ats: 'Email Address', flairx: 'Email' },
-    { ats: 'Phone', flairx: 'Contact Number' },
-    { ats: 'Current Role', flairx: 'Job Title' },
-    { ats: 'Applied Position', flairx: 'Role Applied For' },
+    { ats: 'Full Name',        flairx: 'Candidate Name',    ok: true  },
+    { ats: 'Email Address',    flairx: 'Email',             ok: true  },
+    { ats: 'Phone',            flairx: 'Contact Number',    ok: true  },
+    { ats: 'Current Role',     flairx: 'Job Title',         ok: true  },
+    { ats: 'Applied Position', flairx: 'Role Applied For',  ok: false },
   ]
 
   const candidates = [
-    { name: 'Priya Nair', role: 'Senior Product Designer', match: '94%', status: 'Ready' },
-    { name: 'Arjun Mehta', role: 'UX Researcher', match: '87%', status: 'Ready' },
-    { name: 'Sakura Tanaka', role: 'Product Designer', match: '81%', status: 'Missing: Phone' },
-    { name: 'Daniel Park', role: 'UX Lead', match: '76%', status: 'Ready' },
-    { name: 'Aisha Bello', role: 'Visual Designer', match: '70%', status: 'Ready' },
+    { name: 'Priya Nair',    role: 'Senior Product Designer', score: 94, issue: null         },
+    { name: 'Arjun Mehta',   role: 'UX Researcher',           score: 87, issue: null         },
+    { name: 'Sakura Tanaka', role: 'Product Designer',        score: 81, issue: 'Missing: Phone' },
+    { name: 'Daniel Park',   role: 'UX Lead',                 score: 76, issue: null         },
+    { name: 'Aisha Bello',   role: 'Visual Designer',         score: 70, issue: null         },
   ]
 
-  const mono: React.CSSProperties = { fontFamily: 'var(--fx-sans)', }
-  const label: React.CSSProperties = { ...mono, fontSize: 9, fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.1em', color: 'rgba(43,181,194,0.9)', marginBottom: 4 }
-  const muted: React.CSSProperties = { ...mono, fontSize: 11, color: 'rgba(0,36,72,0.45)' }
+  const panelStyle: React.CSSProperties = {
+    background: 'var(--card)',
+    border: '1px solid var(--border)',
+    borderRadius: 16,
+    overflow: 'hidden',
+  }
 
+  const thStyle: React.CSSProperties = {
+    ...s, fontSize: 'var(--type-xs)', fontWeight: 700,
+    textTransform: 'uppercase' as const, letterSpacing: '0.09em',
+    color: 'var(--dim)', padding: '10px 18px', textAlign: 'left' as const,
+  }
+
+  const tdStyle: React.CSSProperties = {
+    ...bodyText, padding: '12px 18px', borderTop: '1px solid var(--border)',
+  }
+
+  /* ── screens ── */
   const screens = [
-    /* ── Step 0: Connect ── */
-    <div key="connect" style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#F7FAFA' }}>
-      <div style={{ padding: '18px 20px 14px', borderBottom: '1px solid rgba(43,181,194,0.15)', background: '#fff' }}>
-        <p style={{ ...label, margin: 0 }}>Stage 3 · ATS Integration</p>
-        <p style={{ ...mono, fontSize: 15, fontWeight: 700, color: '#002448', margin: '4px 0 0' }}>Connect your ATS</p>
+
+    /* 0 · Connect */
+    <div key="connect">
+      <div style={{ padding: '20px 24px 16px', borderBottom: '1px solid var(--border)' }}>
+        <p style={eyebrow}>Stage 3 · ATS Integration</p>
+        <p style={{ ...headText, fontSize: 'var(--type-lg)', marginTop: 6 }}>Connect your ATS</p>
+        <p style={{ ...bodyText, marginTop: 8 }}>Select the system you use. FlairX pulls your existing candidate records and maps fields automatically.</p>
       </div>
-      <div style={{ padding: '16px 20px', flex: 1, overflowY: 'auto' as const }}>
-        <p style={{ ...muted, marginBottom: 16, lineHeight: 1.5 }}>Select the system you use. FlairX will pull your existing candidate data and map fields automatically.</p>
-        {atsSystems.map(({ name, logo }) => (
+      <div style={{ padding: '20px 24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        {atsSystems.map(({ name, abbr, color }) => (
           <button key={name} onClick={() => setConnected(name)} style={{
-            width: '100%', display: 'flex', alignItems: 'center', gap: 12,
-            padding: '13px 16px', marginBottom: 8, borderRadius: 12, cursor: 'pointer',
-            border: `2px solid ${connected === name ? 'rgba(43,181,194,0.7)' : 'rgba(0,36,72,0.1)'}`,
-            background: connected === name ? 'rgba(43,181,194,0.06)' : '#fff',
-            transition: 'all 0.15s',
+            display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px',
+            borderRadius: 12, cursor: 'pointer', textAlign: 'left' as const,
+            border: `2px solid ${connected === name ? 'rgba(43,181,194,0.6)' : 'var(--border)'}`,
+            background: connected === name ? 'rgba(43,181,194,0.05)' : 'var(--page-bg)',
+            transition: 'border-color 0.15s, background 0.15s',
           }}>
-            <span style={{ fontSize: 18 }}>{logo}</span>
-            <span style={{ ...mono, fontSize: 13, fontWeight: 600, color: '#002448' }}>{name}</span>
-            {connected === name && <span style={{ marginLeft: 'auto', fontSize: 10, color: 'rgba(43,181,194,0.9)', fontWeight: 700 }}>SELECTED</span>}
+            <span style={{
+              width: 34, height: 34, borderRadius: 8, background: color,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              flexShrink: 0, color: '#fff', fontSize: 11, fontWeight: 800, fontFamily: 'var(--fx-sans)',
+            }}>{abbr}</span>
+            <div>
+              <p style={{ ...headText, fontSize: 'var(--type-sm)' }}>{name}</p>
+              {connected === name && <p style={{ ...eyebrow, fontSize: 9, marginTop: 2 }}>Selected</p>}
+            </div>
           </button>
         ))}
       </div>
-      <div style={{ padding: '14px 20px', borderTop: '1px solid rgba(43,181,194,0.12)', background: '#fff' }}>
+      <div style={{ padding: '0 24px 24px' }}>
         <button onClick={() => connected && setStep(1)} style={{
-          width: '100%', padding: '12px', borderRadius: 12, border: 'none',
-          background: connected ? '#002448' : 'rgba(0,36,72,0.12)',
-          color: connected ? '#fff' : 'rgba(0,36,72,0.35)',
-          fontSize: 12, fontWeight: 600, cursor: connected ? 'pointer' : 'not-allowed',
-          ...mono, transition: 'all 0.15s',
+          ...s, width: '100%', padding: '12px', borderRadius: 12, border: 'none', cursor: connected ? 'pointer' : 'not-allowed',
+          background: connected ? 'var(--text)' : 'var(--border)',
+          color: connected ? '#fff' : 'var(--dim)',
+          fontSize: 'var(--type-sm)', fontWeight: 600, transition: 'background 0.15s',
         }}>{connected ? `Connect ${connected} →` : 'Select a system to continue'}</button>
       </div>
     </div>,
 
-    /* ── Step 1: Field Mapping ── */
-    <div key="mapping" style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#F7FAFA' }}>
-      <div style={{ padding: '18px 20px 14px', borderBottom: '1px solid rgba(43,181,194,0.15)', background: '#fff', display: 'flex', alignItems: 'center', gap: 10 }}>
-        <button onClick={() => setStep(0)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(0,36,72,0.4)', fontSize: 14 }}>←</button>
-        <div>
-          <p style={{ ...label, margin: 0 }}>Step 2 · Field Mapping</p>
-          <p style={{ ...mono, fontSize: 14, fontWeight: 700, color: '#002448', margin: '3px 0 0' }}>{connected} → FlairX</p>
+    /* 1 · Field mapping */
+    <div key="mapping">
+      <div style={{ padding: '20px 24px 16px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <button onClick={() => setStep(0)} style={{ ...s, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--dim)', fontSize: 18, lineHeight: 1, padding: 0 }}>←</button>
+        <div style={{ flex: 1 }}>
+          <p style={eyebrow}>Step 2 · Field Mapping</p>
+          <p style={{ ...headText, fontSize: 'var(--type-base)', marginTop: 4 }}>{connected} → FlairX</p>
         </div>
-        <div style={{ marginLeft: 'auto', background: 'rgba(43,181,194,0.1)', borderRadius: 20, padding: '3px 10px' }}>
-          <span style={{ ...muted, fontSize: 10 }}>Auto-mapped</span>
-        </div>
+        <span style={{ ...bodyText, fontSize: 'var(--type-xs)', background: 'rgba(43,181,194,0.1)', color: 'var(--accent)', borderRadius: 20, padding: '3px 10px', fontWeight: 600 }}>
+          Auto-mapped
+        </span>
       </div>
-      <div style={{ flex: 1, overflowY: 'auto' as const }}>
-        <div style={{ padding: '10px 20px 4px' }}>
-          <p style={{ ...muted, lineHeight: 1.5 }}>Fields mapped automatically. Review and adjust if needed.</p>
-        </div>
-        {fieldMap.map(({ ats, flairx }, i) => {
-          const key = `${ats}`
-          const override = mappings[key]
-          return (
-            <div key={ats} style={{
-              display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px',
-              borderBottom: '1px solid rgba(0,36,72,0.06)',
-              background: i % 2 === 0 ? '#fff' : 'transparent',
-            }}>
-              <div style={{ flex: 1 }}>
-                <p style={{ ...muted, fontSize: 10, margin: '0 0 2px' }}>{connected}</p>
-                <p style={{ ...mono, fontSize: 12, fontWeight: 600, color: '#002448', margin: 0 }}>{ats}</p>
-              </div>
-              <span style={{ color: 'rgba(43,181,194,0.6)', fontSize: 14 }}>→</span>
-              <div style={{ flex: 1 }}>
-                <p style={{ ...muted, fontSize: 10, margin: '0 0 2px' }}>FlairX</p>
-                <p style={{ ...mono, fontSize: 12, fontWeight: 600, color: override ? 'rgba(43,181,194,0.9)' : '#002448', margin: 0 }}>{override || flairx}</p>
-              </div>
-              <button onClick={() => setMappings(prev => ({ ...prev, [key]: prev[key] ? '' : flairx + ' ✓' }))} style={{
-                background: 'none', border: '1px solid rgba(0,36,72,0.12)', borderRadius: 6,
-                padding: '3px 8px', cursor: 'pointer', fontSize: 9, color: 'rgba(0,36,72,0.4)', ...mono,
-              }}>Edit</button>
-            </div>
-          )
-        })}
+      <div style={{ overflowX: 'auto' as const }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse' as const }}>
+          <thead>
+            <tr style={{ background: 'var(--page-bg)' }}>
+              <th style={thStyle}>{connected} field</th>
+              <th style={{ ...thStyle, color: 'var(--accent)' }}>FlairX field</th>
+              <th style={thStyle}>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fieldMap.map(({ ats, flairx, ok }) => (
+              <tr key={ats} style={{ background: 'var(--card)' }}>
+                <td style={{ ...tdStyle, color: 'var(--text)', fontWeight: 500 }}>{ats}</td>
+                <td style={{ ...tdStyle, color: 'var(--text)', fontWeight: 500 }}>{flairx}</td>
+                <td style={{ ...tdStyle }}>
+                  {ok
+                    ? <span style={{ color: 'var(--accent)', fontWeight: 700, fontSize: 'var(--type-xs)' }}>✓ Mapped</span>
+                    : <span style={{ color: '#e07040', fontWeight: 700, fontSize: 'var(--type-xs)' }}>⚠ Review</span>
+                  }
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      <div style={{ padding: '14px 20px', borderTop: '1px solid rgba(43,181,194,0.12)', background: '#fff' }}>
-        <p style={{ ...muted, fontSize: 10, marginBottom: 8, textAlign: 'center' as const }}>5 of 5 fields mapped · 0 conflicts</p>
+      <div style={{ padding: '16px 24px', borderTop: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <p style={{ ...bodyText, fontSize: 'var(--type-xs)' }}>4 of 5 mapped automatically · 1 needs review</p>
         <button onClick={() => setStep(2)} style={{
-          width: '100%', padding: '12px', borderRadius: 12, border: 'none',
-          background: '#002448', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer', ...mono,
+          ...s, padding: '10px 22px', borderRadius: 10, border: 'none', cursor: 'pointer',
+          background: 'var(--text)', color: '#fff', fontSize: 'var(--type-sm)', fontWeight: 600,
         }}>Pull candidates →</button>
       </div>
     </div>,
 
-    /* ── Step 2: Review & Import ── */
-    <div key="review" style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#F7FAFA' }}>
-      <div style={{ padding: '18px 20px 14px', borderBottom: '1px solid rgba(43,181,194,0.15)', background: '#fff', display: 'flex', alignItems: 'center', gap: 10 }}>
-        <button onClick={() => setStep(1)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(0,36,72,0.4)', fontSize: 14 }}>←</button>
-        <div>
-          <p style={{ ...label, margin: 0 }}>Step 3 · Review</p>
-          <p style={{ ...mono, fontSize: 14, fontWeight: 700, color: '#002448', margin: '3px 0 0' }}>5 candidates found</p>
+    /* 2 · Review & select */
+    <div key="review">
+      <div style={{ padding: '20px 24px 16px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <button onClick={() => setStep(1)} style={{ ...s, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--dim)', fontSize: 18, lineHeight: 1, padding: 0 }}>←</button>
+        <div style={{ flex: 1 }}>
+          <p style={eyebrow}>Step 3 · Review Candidates</p>
+          <p style={{ ...headText, fontSize: 'var(--type-base)', marginTop: 4 }}>5 candidates found in {connected}</p>
         </div>
-        <div style={{ marginLeft: 'auto' }}>
-          <span style={{ ...muted, fontSize: 10 }}>{selected.length} selected</span>
-        </div>
+        <span style={{ ...bodyText, fontSize: 'var(--type-xs)', fontWeight: 600, color: 'var(--accent)' }}>
+          {selected.length} selected
+        </span>
       </div>
-      <div style={{ flex: 1, overflowY: 'auto' as const }}>
-        {candidates.map(({ name, role, match, status }, i) => {
-          const isSelected = selected.includes(i)
-          const hasIssue = status.startsWith('Missing')
-          return (
-            <div key={name} onClick={() => setSelected(prev => isSelected ? prev.filter(x => x !== i) : [...prev, i])} style={{
-              padding: '12px 20px', borderBottom: '1px solid rgba(0,36,72,0.06)',
-              background: isSelected ? 'rgba(43,181,194,0.05)' : '#fff',
-              cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 12, transition: 'background 0.15s',
-            }}>
-              <div style={{
-                width: 18, height: 18, borderRadius: 4, flexShrink: 0,
-                border: `2px solid ${isSelected ? 'rgba(43,181,194,0.8)' : 'rgba(0,36,72,0.2)'}`,
-                background: isSelected ? 'rgba(43,181,194,0.8)' : 'transparent',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                {isSelected && <span style={{ color: '#fff', fontSize: 11, lineHeight: 1 }}>✓</span>}
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ ...mono, fontSize: 12, fontWeight: 600, color: '#002448', margin: 0 }}>{name}</p>
-                <p style={{ ...muted, fontSize: 10, margin: '2px 0 0', whiteSpace: 'nowrap' as const, overflow: 'hidden', textOverflow: 'ellipsis' }}>{role}</p>
-              </div>
-              <div style={{ textAlign: 'right' as const, flexShrink: 0 }}>
-                <p style={{ ...mono, fontSize: 11, fontWeight: 700, color: 'rgba(43,181,194,0.9)', margin: 0 }}>{match}</p>
-                <p style={{ ...mono, fontSize: 9, margin: '2px 0 0', color: hasIssue ? '#e07040' : 'rgba(0,36,72,0.3)' }}>{status}</p>
-              </div>
-            </div>
-          )
-        })}
-      </div>
-      <div style={{ padding: '14px 20px', borderTop: '1px solid rgba(43,181,194,0.12)', background: '#fff' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse' as const }}>
+        <thead>
+          <tr style={{ background: 'var(--page-bg)' }}>
+            <th style={{ ...thStyle, width: 40 }}></th>
+            <th style={thStyle}>Candidate</th>
+            <th style={thStyle}>Match</th>
+            <th style={thStyle}>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {candidates.map(({ name, role, score, issue }, i) => {
+            const on = selected.includes(i)
+            return (
+              <tr key={name} onClick={() => setSelected(p => on ? p.filter(x => x !== i) : [...p, i])}
+                style={{ cursor: 'pointer', background: on ? 'rgba(43,181,194,0.04)' : 'var(--card)', transition: 'background 0.12s' }}>
+                <td style={{ ...tdStyle, textAlign: 'center' as const }}>
+                  <div style={{
+                    width: 16, height: 16, borderRadius: 4, margin: '0 auto',
+                    border: `2px solid ${on ? 'var(--accent)' : 'var(--border)'}`,
+                    background: on ? 'var(--accent)' : 'transparent',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: '#fff', fontSize: 10,
+                  }}>{on ? '✓' : ''}</div>
+                </td>
+                <td style={tdStyle}>
+                  <p style={{ ...s, fontSize: 'var(--type-sm)', fontWeight: 600, color: 'var(--text)', margin: 0 }}>{name}</p>
+                  <p style={{ ...bodyText, fontSize: 12, marginTop: 2 }}>{role}</p>
+                </td>
+                <td style={{ ...tdStyle, fontWeight: 700, color: score >= 85 ? 'var(--accent)' : score >= 75 ? 'var(--text)' : 'var(--muted)' }}>
+                  {score}%
+                </td>
+                <td style={tdStyle}>
+                  {issue
+                    ? <span style={{ ...s, fontSize: 12, color: '#e07040', fontWeight: 600 }}>{issue}</span>
+                    : <span style={{ ...s, fontSize: 12, color: 'var(--accent)', fontWeight: 600 }}>Ready</span>
+                  }
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+      <div style={{ padding: '16px 24px', borderTop: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <p style={{ ...bodyText, fontSize: 'var(--type-xs)' }}>Duplicates checked automatically before import</p>
         <button onClick={() => selected.length > 0 && setStep(3)} style={{
-          width: '100%', padding: '12px', borderRadius: 12, border: 'none',
-          background: selected.length > 0 ? '#002448' : 'rgba(0,36,72,0.12)',
-          color: selected.length > 0 ? '#fff' : 'rgba(0,36,72,0.35)',
-          fontSize: 12, fontWeight: 600, cursor: selected.length > 0 ? 'pointer' : 'not-allowed', ...mono,
-        }}>{selected.length > 0 ? `Import ${selected.length} candidate${selected.length > 1 ? 's' : ''} →` : 'Select candidates to import'}</button>
+          ...s, padding: '10px 22px', borderRadius: 10, border: 'none',
+          cursor: selected.length > 0 ? 'pointer' : 'not-allowed',
+          background: selected.length > 0 ? 'var(--text)' : 'var(--border)',
+          color: selected.length > 0 ? '#fff' : 'var(--dim)',
+          fontSize: 'var(--type-sm)', fontWeight: 600, transition: 'background 0.15s',
+        }}>{selected.length > 0 ? `Import ${selected.length} →` : 'Select candidates'}</button>
       </div>
     </div>,
 
-    /* ── Step 3: Done ── */
-    <div key="done" style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#F7FAFA', padding: '28px 24px', textAlign: 'center' as const }}>
-      <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(43,181,194,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
-        <span style={{ color: 'rgba(43,181,194,0.9)', fontSize: 24 }}>✓</span>
-      </div>
-      <p style={{ ...mono, fontSize: 16, fontWeight: 700, color: '#002448', margin: '0 0 6px' }}>{selected.length} candidate{selected.length > 1 ? 's' : ''} imported</p>
-      <p style={{ ...muted, margin: '0 0 20px', lineHeight: 1.6 }}>Fields mapped from {connected}. Ready for review in the candidate pipeline.</p>
-      <div style={{ background: '#fff', border: '1px solid rgba(43,181,194,0.2)', borderRadius: 12, padding: '14px 18px', width: '100%', marginBottom: 20 }}>
+    /* 3 · Done */
+    <div key="done" style={{ padding: '32px 24px', textAlign: 'center' as const }}>
+      <div style={{
+        width: 52, height: 52, borderRadius: '50%', background: 'rgba(43,181,194,0.1)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px',
+        color: 'var(--accent)', fontSize: 22,
+      }}>✓</div>
+      <p style={{ ...headText, fontSize: 'var(--type-xl)', marginBottom: 6 }}>{selected.length} candidate{selected.length !== 1 ? 's' : ''} imported</p>
+      <p style={{ ...bodyText, marginBottom: 24 }}>Fields mapped from {connected}. All records are in the candidate pipeline, ready for review.</p>
+      <div style={{ background: 'var(--page-bg)', border: '1px solid var(--border)', borderRadius: 12, padding: '16px 20px', marginBottom: 24, textAlign: 'left' as const }}>
         {[
-          { k: 'Source', v: connected },
-          { k: 'Fields mapped', v: '5 of 5' },
-          { k: 'Duplicates found', v: '0' },
-          { k: 'Imported', v: `${selected.length} candidates` },
-        ].map(({ k, v }) => (
-          <div key={k} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-            <p style={{ ...muted, margin: 0 }}>{k}</p>
-            <p style={{ ...mono, fontSize: 11, fontWeight: 600, color: '#002448', margin: 0 }}>{v}</p>
+          ['Source', connected],
+          ['Fields mapped', '4 of 5 auto · 1 manual'],
+          ['Duplicates caught', '0'],
+          ['Candidates imported', `${selected.length}`],
+        ].map(([k, v]) => (
+          <div key={k} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
+            <p style={bodyText}>{k}</p>
+            <p style={{ ...s, fontSize: 'var(--type-sm)', fontWeight: 600, color: 'var(--text)', margin: 0 }}>{v}</p>
           </div>
         ))}
       </div>
-      <button onClick={() => { setStep(0); setConnected(''); setSelected([]); setMappings({}) }} style={{
-        padding: '11px 28px', borderRadius: 12, border: 'none',
-        background: '#002448', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer', ...mono,
+      <button onClick={() => { setStep(0); setConnected(''); setSelected([]) }} style={{
+        ...s, padding: '11px 28px', borderRadius: 10, border: 'none', cursor: 'pointer',
+        background: 'var(--text)', color: '#fff', fontSize: 'var(--type-sm)', fontWeight: 600,
       }}>Import another source</button>
     </div>,
   ]
 
-  const stepLabels = ['Connect', 'Map fields', 'Review', 'Done']
+  const stepLabels = ['Connect', 'Map fields', 'Review candidates', 'Done']
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
-      {/* Step indicator */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
+    <div>
+      {/* Stepper */}
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24, gap: 0 }}>
         {stepLabels.map((l, i) => (
-          <div key={l} style={{ display: 'flex', alignItems: 'center' }}>
+          <div key={l} style={{ display: 'flex', alignItems: 'center', flex: i < stepLabels.length - 1 ? 1 : undefined }}>
             <button onClick={() => setStep(i)} style={{
-              display: 'flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 20,
-              border: `1.5px solid ${step === i ? 'rgba(43,181,194,0.7)' : 'rgba(0,36,72,0.12)'}`,
-              background: step === i ? 'rgba(43,181,194,0.08)' : 'transparent',
-              color: step === i ? 'rgba(43,181,194,0.95)' : 'rgba(0,36,72,0.3)',
-              fontSize: 11, fontWeight: step === i ? 700 : 400, cursor: 'pointer',
-              fontFamily: 'var(--fx-sans)', transition: 'all 0.15s',
+              ...s, display: 'flex', alignItems: 'center', gap: 8, padding: '7px 0',
+              background: 'none', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' as const,
             }}>
               <span style={{
-                width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                background: step > i ? 'rgba(43,181,194,0.8)' : step === i ? 'rgba(43,181,194,0.15)' : 'rgba(0,36,72,0.08)',
-                fontSize: 9, fontWeight: 700, color: step > i ? '#fff' : step === i ? 'rgba(43,181,194,0.9)' : 'rgba(0,36,72,0.3)',
+                width: 22, height: 22, borderRadius: '50%', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: step > i ? 'var(--accent)' : step === i ? 'var(--text)' : 'var(--border)',
+                color: step >= i ? '#fff' : 'var(--dim)', fontSize: 11, fontWeight: 700,
               }}>{step > i ? '✓' : i + 1}</span>
-              {l}
+              <span style={{ fontSize: 'var(--type-sm)', fontWeight: step === i ? 700 : 400, color: step === i ? 'var(--text)' : 'var(--dim)' }}>{l}</span>
             </button>
             {i < stepLabels.length - 1 && (
-              <div style={{ width: 20, height: 1, background: step > i ? 'rgba(43,181,194,0.4)' : 'rgba(0,36,72,0.1)', margin: '0 2px' }} />
+              <div style={{ flex: 1, height: 1, background: step > i ? 'var(--accent)' : 'var(--border)', margin: '0 12px', minWidth: 20, opacity: step > i ? 0.5 : 1 }} />
             )}
           </div>
         ))}
       </div>
 
-      {/* Phone frame */}
-      <div style={{
-        width: 300, height: 580, borderRadius: 36,
-        border: '8px solid #1a2a3a',
-        overflow: 'hidden', boxShadow: '0 24px 64px rgba(0,36,72,0.18)', flexShrink: 0,
-      }}>
+      {/* Screen panel */}
+      <div style={panelStyle}>
         {screens[step]}
       </div>
 
-      <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 11, color: 'var(--dim)', margin: 0 }}>
-        Stage 3 · ATS Integration · interactive prototype
+      <p style={{ ...bodyText, fontSize: 12, marginTop: 14, textAlign: 'center' as const }}>
+        Stage 3 · ATS Integration · interactive prototype — click through the full flow
       </p>
     </div>
   )
