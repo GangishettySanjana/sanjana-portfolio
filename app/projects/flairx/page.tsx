@@ -256,7 +256,17 @@ function ATSPrototype() {
       <table style={{ width: '100%', borderCollapse: 'collapse' as const }}>
         <thead>
           <tr style={{ background: 'var(--page-bg)' }}>
-            <th style={{ ...thStyle, width: 40 }}></th>
+            <th style={{ ...thStyle, width: 40 }}>
+              <div
+                onClick={() => setSelected(selected.length === candidates.length ? [] : candidates.map((_, i) => i))}
+                style={{
+                  width: 16, height: 16, borderRadius: 4, margin: '0 auto',
+                  border: `2px solid ${selected.length === candidates.length ? 'var(--accent)' : 'var(--border)'}`,
+                  background: selected.length === candidates.length ? 'var(--accent)' : selected.length > 0 ? 'rgba(43,181,194,0.3)' : 'transparent',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: '#fff', fontSize: 10, cursor: 'pointer',
+                }}>{selected.length === candidates.length ? '✓' : selected.length > 0 ? '—' : ''}</div>
+            </th>
             <th style={thStyle}>Candidate</th>
             <th style={thStyle}>Match</th>
             <th style={thStyle}>Status</th>
