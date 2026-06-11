@@ -84,8 +84,7 @@ export default function FiresidePage() {
             <p className="fx-eyebrow">Academic Project · CU Boulder · UX Design</p>
             <h1 className="fx-hero-title">Designing a Wildfire Exhibit Anyone Could Use</h1>
             <p className="fx-hero-sub">
-              Wildfires are becoming more frequent and harder to predict. Most education still looks like a pamphlet.
-              I designed the interface for a 3D topographic exhibit that lets visitors experience how fire spreads, not just read about it.
+              This was the first project where the interface wasn&apos;t a screen. It was a 3D topographic table with a projected display on top of physical terrain. I designed the interaction language for a wildfire exhibit that taught fire behavior to anyone who walked up, without instructions, in under 10 seconds.
             </p>
 
             <div className="fx-summary-card">
@@ -286,7 +285,7 @@ export default function FiresidePage() {
                 bullets: [
                   'A fire is already burning. Deploy suppression resources: firebreaks, water drops, evacuation routes.',
                   'High urgency, constrained resources, real tradeoffs.',
-                  'Designed to work for 8-year-olds and retired firefighters simultaneously.',
+                  'The controls are large and forgiving. The scenarios are layered enough that someone with professional fire knowledge still finds them meaningful.',
                 ],
               },
             ].map(({ barColor, modeLabel, title, img, bullets }) => (
@@ -481,8 +480,8 @@ export default function FiresidePage() {
             </div>
 
             <div className="fx-reflection-callout">
-              <span className="fx-reflection-label">What I&apos;m most proud of</span>
-              <p>The exhibit works for an 8-year-old and a retired firefighter in the same room, at the same time, without requiring either of them to compromise. That&apos;s hard. We got there by testing obsessively with real people and being willing to throw out work that didn&apos;t survive contact with actual visitors.</p>
+              <span className="fx-reflection-label">One thing from a real event</span>
+              <p>At the first public deployment — a family science night at CU Boulder — a kid rotated the wind dial all the way up in Simulation Mode and watched the fire spread across the whole table in about 15 seconds. He turned to his parent and said &ldquo;oh, that&apos;s why it goes that direction.&rdquo; That was the whole design goal, delivered in 30 seconds by a 9-year-old who had never seen the exhibit before. We didn&apos;t change anything after that session.</p>
             </div>
           </div>
         </section>

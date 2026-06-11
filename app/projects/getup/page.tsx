@@ -375,9 +375,16 @@ export default function GetUpPage() {
             <p className="fx-sec-label">04 · The Design</p>
             <h2 className="fx-sec-title">One product. One moment. One shot.</h2>
 
-            <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-base)', color: 'var(--muted)', lineHeight: 'var(--lh-relaxed)', margin: '0 0 36px' }}>
+            <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-base)', color: 'var(--muted)', lineHeight: 'var(--lh-relaxed)', margin: '0 0 24px' }}>
               The whole pop-up is built around a single constraint: you get one second. The product image is the hero. The headline does one job, make someone want to know more. The CTA is the only interactive element in the viewport.
             </p>
+
+            <img
+              src="/projects/getup/popup.png"
+              alt="GetUp Energy Bites pre-order pop-up — final design"
+              style={{ width: '100%', display: 'block', borderRadius: 16, border: '1px solid var(--border)', marginBottom: 36 }}
+            />
+            <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-xs)', color: 'var(--dim)', textAlign: 'center', margin: '-28px 0 36px', textTransform: 'uppercase', letterSpacing: '0.09em' }}>Final design · dev-ready Figma handoff</p>
 
             <div className="fx-decisions-list">
               {[
@@ -422,6 +429,11 @@ export default function GetUpPage() {
             <p className="fx-sec-label">05 · Copy Process</p>
             <h2 className="fx-sec-title">How I wrote the campaign copy without a copywriter.</h2>
 
+            <div className="fx-reflection-callout" style={{ marginBottom: 32 }}>
+              <span className="fx-reflection-label">The principle that made everything faster</span>
+              <p>Locking down the brand voice before touching the product meant I always knew what &apos;wrong&apos; sounded like. Every copy decision became faster because there was a filter to run it through. I&apos;d do this first on every project now.</p>
+            </div>
+
             <blockquote className="fx-pull-quote">
               &ldquo;Brand immersion first. Copy second. Never the other way around.&rdquo;
             </blockquote>
@@ -459,10 +471,10 @@ export default function GetUpPage() {
                 </thead>
                 <tbody>
                   {[
-                    { draft: 'v1', headline: 'Feel the energy. Pre-order now.', status: '✕ Generic', highlight: false },
-                    { draft: 'v2', headline: 'New drop. Caffeinated bites, real ingredients.', status: '✕ Flat', highlight: false },
-                    { draft: 'v3', headline: 'Energy Bites are here. Grab yours early.', status: '~ Getting there', highlight: false },
-                    { draft: 'v4', headline: 'Fuel your day. GetUp Energy Bites, pre-order now.', status: '✓ Selected', highlight: true },
+                    { draft: 'v1', headline: 'Feel the energy. Pre-order now.', status: 'Cut — could be any brand. Nothing specific to GetUp or Energy Bites.', highlight: false },
+                    { draft: 'v2', headline: 'New drop. Caffeinated bites, real ingredients.', status: 'Cut — informational, not motivating. Reads like a press release.', highlight: false },
+                    { draft: 'v3', headline: 'Energy Bites are here. Grab yours early.', status: 'Closer — has urgency. But "Energy Bites are here" is circular. No reason to care.', highlight: false },
+                    { draft: 'v4', headline: 'Fuel your day. GetUp Energy Bites, pre-order now.', status: '✓ Selected — short, active, product-named, action-forward. Matches the brand voice.', highlight: true },
                   ].map(({ draft, headline, status, highlight }) => (
                     <tr key={draft} style={{
                       borderBottom: '1px solid var(--border)',
@@ -492,7 +504,7 @@ export default function GetUpPage() {
 
             <div className="fx-reflection-callout">
               <span className="fx-reflection-label">What I&apos;d do differently</span>
-              <p>The copy process was the most useful discovery. Having a brand voice clearly articulated before touching the product made every creative decision faster. I knew what &apos;wrong&apos; sounded like, which meant I could get to &apos;right&apos; without looping. I&apos;d do that exercise first on every project now.</p>
+              <p>I&apos;d push for at least a 48-hour review window with the client on copy before Figma handoff. We moved fast enough that the copy and the visual went out together — which worked, but meant any copy change would have required reopening the design file. Separating copy sign-off from design sign-off is a small process change that prevents a painful late-stage rework.</p>
             </div>
           </div>
         </section>

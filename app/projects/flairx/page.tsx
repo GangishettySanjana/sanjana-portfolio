@@ -116,6 +116,7 @@ export default function FlairXPage() {
       { id: 'finals',     num: '05', label: 'Finals'     },
       { id: 'edgecases',  num: '06', label: 'Edge Cases' },
       { id: 'impact',     num: '07', label: 'Impact'     },
+      { id: 'handoff',    num: '07.5', label: 'Handoff'  },
       { id: 'reflection', num: '08', label: 'Reflection' },
     ]
 
@@ -169,6 +170,7 @@ export default function FlairXPage() {
               { href: '#finals',     label: 'Finals'     },
               { href: '#edgecases',  label: 'Edge Cases' },
               { href: '#impact',     label: 'Impact'     },
+              { href: '#handoff',    label: 'Handoff'    },
               { href: '#reflection', label: 'Reflection' },
             ].map(({ href, label }) => (
               <a key={href} href={href} className="fx-v-link">{label}</a>
@@ -280,6 +282,10 @@ export default function FlairXPage() {
                   label: 'Collaborators',
                   text: 'Founder/CEO, product team, frontend and backend engineers.',
                 },
+                {
+                  label: 'Timeline',
+                  text: 'Month 1: discovery sprint (6 recruiter interviews, flow mapping, competitive audit). Month 2: design — wireframes, prototypes, 3 rounds of testing with internal users. Month 3: final designs, edge case coverage, dev handoff.',
+                },
               ].map(({ label, text }) => (
                 <div key={label} className="fx-ctx-row">
                   <span className="fx-ctx-key">{label}</span>
@@ -309,6 +315,10 @@ export default function FlairXPage() {
             <blockquote className="fx-pull-quote">
               &ldquo;Why am I entering the same information again and again?&rdquo;
             </blockquote>
+
+            <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-sm)', color: 'var(--dim)', lineHeight: 'var(--lh-normal)', margin: '0 0 20px', fontStyle: 'italic' }}>
+              These quotes came from structured interviews with 6 recruiters at FlairX during a 2-week discovery sprint at the start of the project, before any design work began.
+            </p>
 
             <div className="fx-evidence-row">
               {[
@@ -619,7 +629,7 @@ export default function FlairXPage() {
                 {
                   num: '02',
                   metric: '+130 hires attributed',
-                  desc: '130 hires tracked back to the new workflow in the first six months after launch.',
+                  desc: '130 candidates hired through roles that were sourced and processed entirely through the redesigned intake flow in the first six months — tracked via pipeline stage data in the FlairX system.',
                 },
                 {
                   num: '03',
@@ -637,6 +647,48 @@ export default function FlairXPage() {
                   <div>
                     <p className="fx-outcome-metric">{metric}</p>
                     <p className="fx-outcome-desc">{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 07.5 HANDOFF ────────────────────────────────── */}
+        <section className="fx-sec" id="handoff">
+          <div className="fx-container">
+            <p className="fx-sec-label">07.5 · Handoff</p>
+            <h2 className="fx-sec-title">What the engineers actually received.</h2>
+
+            <div className="fx-prose">
+              <p>The design handoff covered all three upload paths, every edge case, and the full alert system. Engineers received a Figma file with component-level annotations, interaction states documented in Notion, and a Jira ticket per feature with acceptance criteria written against observed user behavior — not against design spec.</p>
+            </div>
+
+            <div className="fx-decisions-list">
+              {[
+                {
+                  num: '01',
+                  title: 'Figma component library',
+                  text: 'Every screen in the intake flow built from reusable components with explicit state coverage: default, hover, loading, error, success, disabled.',
+                },
+                {
+                  num: '02',
+                  title: 'Interaction annotations',
+                  text: 'Inline notes on every non-obvious behavior: what triggers the duplicate detection, what cancels an in-progress upload, how the AI confidence threshold maps to the review table display.',
+                },
+                {
+                  num: '03',
+                  title: 'Edge case matrix',
+                  text: 'A documented matrix of every failure mode we designed for — mixed upload states, AI misses, unsaved files warning, empty pipeline — with the expected behavior for each.',
+                },
+              ].map(({ num, title, text }) => (
+                <div key={num} className="fx-decision">
+                  <div className="fx-decision-num">{num}</div>
+                  <div className="fx-decision-body">
+                    <h3>{title}</h3>
+                    <div className="fx-dblock">
+                      <p>{text}</p>
+                    </div>
                   </div>
                 </div>
               ))}
