@@ -788,10 +788,10 @@ export default function FlairXPage() {
         <section className="fx-sec fx-sec-alt" id="ats-prototype">
           <div className="fx-container">
             <p className="fx-sec-label">05.5 · Stage 3 · ATS Integration</p>
-            <h2 className="fx-sec-title">What connecting to an existing ATS actually looks like.</h2>
+            <h2 className="fx-sec-title">What connecting to an ATS would look like.</h2>
 
             <div className="fx-prose" style={{ marginBottom: 36 }}>
-              <p>Stage 3 was the most technically opaque part of the flow for recruiters. They knew they needed their ATS data in FlairX, but had no mental model for how that transfer worked. The design had to make it feel safe — you could see exactly what was being pulled, which fields mapped where, and confirm before anything landed in the pipeline.</p>
+              <p>Stage 3 was the most technically opaque part of the flow for recruiters. They knew they needed their ATS data in FlairX, but had no mental model for how that transfer would work. This is what I designed for it: a flow where you can see exactly what&apos;s being pulled, which fields map where, and confirm before anything lands in the pipeline.</p>
             </div>
 
             <ATSPrototype />
