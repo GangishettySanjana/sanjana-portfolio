@@ -1,12 +1,17 @@
 'use client'
 import { useEffect, useRef } from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CustomEase } from 'gsap/CustomEase'
+import IntroCurtain from '@/components/IntroCurtain'
 import './home.css'
 
+const BirdScene = dynamic(() => import('@/components/BirdScene'), { ssr: false })
+
 export default function HomePage() {
+  const runHeroRef = useRef<(() => void) | null>(null)
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, CustomEase)
 
@@ -49,238 +54,6 @@ export default function HomePage() {
     window.addEventListener('mousemove', handleMouseMove)
 
     /* ─────────────────────────────────────────────
-       2. INTRO CURTAIN — mind map + gold sparkles
-    ───────────────────────────────────────────── */
-    function initIntro() {
-      const GOLD    = '#C9A84C'
-      const introEl = document.getElementById('intro')
-      if (!introEl) return
-
-      /* Skip intro when returning from a project page */
-      if (sessionStorage.getItem('skipIntro')) {
-        sessionStorage.removeItem('skipIntro')
-        introEl.style.display = 'none'
-        return
-      }
-
-      /* --- Split name into chars --- */
-      const nameEl = document.getElementById('intro-name') as HTMLElement
-      if (!nameEl) return
-      const nameChars = splitChars(nameEl, 'ichar')
-      gsap.set(nameChars, { y: '110%', opacity: 0 })
-
-      /* --- Labels — elliptical orbit positioning --- */
-      const labels = [1,2,3,4,5,6,7,8,9,10,11]
-        .map(n => document.getElementById(`lbl-${n}`))
-        .filter(Boolean) as HTMLElement[]
-
-      const _tilts    = [-6, 4, -3, 7, -5, 3, -7, 4, -4, 5, -3]
-      const _startDeg = -100
-      const _step     = 360 / 11
-
-      function positionLabelsOnOrbit() {
-        const W  = window.innerWidth
-        const H  = window.innerHeight
-        const isSmall  = W <= 480
-        const isMobile = W <= 768
-        const aX = isSmall  ? Math.min(W * 0.40, 145) :
-                   isMobile ? Math.min(W * 0.32, 230) :
-                              Math.min(W * 0.37, 535)
-        const aY = isSmall  ? Math.min(H * 0.26, 185) :
-                   isMobile ? Math.min(H * 0.17, 148) :
-                              Math.min(H * 0.28, 300)
-        labels.forEach((lbl, i) => {
-          const ang = (_startDeg + i * _step) * Math.PI / 180
-          gsap.set(lbl, {
-            left:     W / 2 + aX * Math.cos(ang),
-            top:      H / 2 + aY * Math.sin(ang),
-            xPercent: -50,
-            yPercent: -50,
-            rotation: _tilts[i],
-          })
-        })
-      }
-
-      const _isMobileDevice = window.innerWidth <= 768
-
-      if (!_isMobileDevice) {
-        positionLabelsOnOrbit()
-        window.addEventListener('resize', positionLabelsOnOrbit)
-        gsap.set(labels, { opacity: 0, y: 12, scale: 0.88 })
-        labels.forEach(lbl => {
-          lbl.addEventListener('mouseenter', () =>
-            gsap.to(lbl, { scale: 1.08, duration: 0.18, ease: 'power2.out', overwrite: 'auto' }))
-          lbl.addEventListener('mouseleave', () =>
-            gsap.to(lbl, { scale: 1,    duration: 0.18, ease: 'power2.out', overwrite: 'auto' }))
-        })
-      } else {
-        // Keep labels hidden on mobile — just name + sparkles
-        gsap.set(labels, { opacity: 0 })
-      }
-
-      /* --- Gold star SVG --- */
-      function goldStar(size: number) {
-        const h = size / 2
-        return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg"><path d="M${h} 0 C${h-1} ${h-1} ${h-1} ${h-1} ${size} ${h} C${h-1} ${h+1} ${h-1} ${h+1} ${h} ${size} C${h+1} ${h+1} ${h+1} ${h+1} 0 ${h} C${h+1} ${h-1} ${h+1} ${h-1} ${h} 0Z" fill="${GOLD}"/></svg>`
-      }
-
-      /* --- Build sparkles --- */
-      const sparkPos = [
-        { x:-260,y:-70 },{ x:-190,y:50  },{ x:-280,y:10  },{ x:-220,y:-30 },
-        { x: 265,y:-70 },{ x: 195,y:50  },{ x: 285,y:10  },{ x: 225,y:-30 },
-        { x: -90,y:-96 },{ x:  90,y:-96 },{ x:-110,y: 80 },{ x: 110,y: 80 },
-        { x:   0,y:-110},{ x:   0,y:100 },{ x:-150,y:-85 },{ x: 150,y:-85 },
-      ]
-      const sparkSizes = [12,8,16,7,11,14,8,12,9,16,7,10,13,8,9,14]
-      // Scale sparkle spread so they stay visible on smaller screens
-      const _sw = window.innerWidth
-      const sparkScale = _sw <= 480 ? 0.38 : _sw <= 768 ? 0.62 : 1.0
-      const sparkEls = sparkPos.map((p, i) => {
-        const el = document.createElement('div')
-        el.className = 'sparkle'
-        el.innerHTML = goldStar(sparkSizes[i])
-        const sx = Math.round(p.x * sparkScale)
-        const sy = Math.round(p.y * sparkScale)
-        el.style.cssText = `left:calc(50% + ${sx}px);top:calc(50% + ${sy}px);margin-left:-${sparkSizes[i]/2}px;margin-top:-${sparkSizes[i]/2}px;`
-        introEl.appendChild(el)
-        return el
-      })
-
-      /* --- Sub-label --- */
-      gsap.set('#intro-sub', { opacity: 0, y: 8 })
-
-      /* --- Total duration for progress bar --- */
-      const TOTAL_DUR = 8.0
-      gsap.to('#intro-progress-fill', { width: '100%', duration: TOTAL_DUR, ease: 'none' })
-
-      /* --- Countdown timer --- */
-      const countdownEl = document.getElementById('intro-countdown')
-      let remaining = Math.ceil(TOTAL_DUR)
-      if (countdownEl) countdownEl.textContent = remaining + 's'
-      const countInterval = setInterval(() => {
-        remaining = Math.max(0, remaining - 1)
-        if (countdownEl) countdownEl.textContent = remaining > 0 ? remaining + 's' : ''
-      }, 1000)
-
-      /* --- Skip button --- */
-      const skipBtn  = document.getElementById('intro-skip')
-      const skipWrap = document.getElementById('intro-skip-wrap')
-      let skipped = false
-      function doSkip() {
-        if (skipped) return
-        skipped = true
-        clearInterval(countInterval)
-        gsap.killTweensOf('#intro-progress-fill')
-        gsap.to('#intro-progress-fill', { width: '100%', duration: 0.3, ease: 'power2.out' })
-        tl.progress(1).kill()
-        labels.forEach(l => gsap.killTweensOf(l))
-        introEl!.removeEventListener('mousemove', onMouseMove)
-        runHero()
-        gsap.to(introEl!, { yPercent: -100, duration: 0.55, ease: 'power4.inOut',
-          onComplete: () => { introEl!.style.display = 'none' }
-        })
-      }
-      if (skipBtn) skipBtn.addEventListener('click', doSkip)
-
-      /* --- Sparkle mouse parallax --- */
-      function onMouseMove(e: MouseEvent) {
-        const cx = window.innerWidth  / 2
-        const cy = window.innerHeight / 2
-        const dx = (e.clientX - cx) / cx
-        const dy = (e.clientY - cy) / cy
-        sparkEls.forEach((el, i) => {
-          const depth = 0.2 + (i % 5) * 0.12
-          gsap.to(el, { x: dx * 28 * depth, y: dy * 20 * depth, duration: 0.9, ease: 'power2.out', overwrite: 'auto' })
-        })
-      }
-      introEl.addEventListener('mousemove', onMouseMove)
-
-      /* --- Label idle float (starts after labels appear) --- */
-      function startLabelFloat() {
-        labels.forEach((lbl, i) => {
-          const amp = 4 + (i % 3) * 2
-          const dur = 2.4 + i * 0.28
-          gsap.to(lbl, { y: `-=${amp}`, duration: dur, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: i * 0.15 })
-          gsap.to(lbl, { rotation: (i % 2 === 0 ? 1.5 : -1.5), duration: dur * 1.4, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: i * 0.2 + 0.1 })
-        })
-      }
-
-      /* --- Main timeline --- */
-      const tl = gsap.timeline()
-
-      if (skipWrap) tl.to(skipWrap, { opacity: 1, duration: 0.4, ease: 'power2.out' }, 0.5)
-      tl.call(() => { if (skipBtn) skipBtn.classList.add('skip-pulse') }, undefined, 0.9)
-
-      // 1. Name chars rise up
-      tl.to(nameChars, { y: '0%', opacity: 1, duration: 0.7, ease: 'power4.out', stagger: 0.032, delay: 0.2 })
-
-      // 1b. Sub-label
-      .to('#intro-sub', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.1')
-
-      // 2. Gold sparkles burst in
-      .to(sparkEls, {
-        opacity: 1,
-        scale: gsap.utils.wrap([1, 0.75, 1.25, 0.85, 1.1, 0.9, 1.2]),
-        rotation: gsap.utils.wrap([0, 45, 22, -22, 15, -15, 30, -45]),
-        duration: 0.45, ease: 'back.out(2.5)',
-        stagger: { amount: 0.35, from: 'random' },
-      }, '-=0.1')
-
-      // 3. Labels: anticipation dip THEN bounce up (desktop only)
-      if (!_isMobileDevice) {
-        tl.to(labels, { y: '+=6', scale: 0.94, duration: 0.18, ease: 'power2.in', stagger: 0.1 })
-          .to(labels, { opacity: 1, y: 0, scale: 1, duration: 0.52, ease: 'back.out(2.2)', stagger: 0.12, onComplete: startLabelFloat }, '-=0.4')
-      }
-      tl
-
-      // 4. Sparkles twinkle pulse
-      .to(sparkEls, {
-        scale: gsap.utils.wrap([1.4, 0.65, 1.55, 0.8, 1.3, 0.7, 1.4]),
-        rotation: '+=30',
-        duration: 0.45, ease: 'sine.inOut',
-        stagger: { amount: 0.3, from: 'random' },
-        yoyo: true, repeat: 1,
-      })
-
-      // 5. Hold
-      .to({}, { duration: 0.55 })
-
-      // 6. Everything exits
-      .add(() => {
-        clearInterval(countInterval)
-        labels.forEach(l => gsap.killTweensOf(l))
-        gsap.to('#intro-sub', { opacity: 0, y: -6, duration: 0.25, ease: 'power2.in' })
-        gsap.to(labels, { opacity: 0, y: -10, scale: 0.88, duration: 0.32, ease: 'power2.in', stagger: 0.05 })
-        const _exitScale = window.innerWidth <= 480 ? 0.4 : window.innerWidth <= 768 ? 0.65 : 1.0
-        gsap.to(sparkEls, {
-          opacity: 0, scale: 0,
-          x: gsap.utils.wrap([-80,70,-60,90,-70,60,-50,80,-65,75,-55,85,0,0,-70,70].map(v => v * _exitScale)),
-          y: gsap.utils.wrap([-70,-80,-55,40,55,-75,75,-45,65,55,-85,70,-100,110,-60,90].map(v => v * _exitScale)),
-          duration: 0.5, ease: 'power2.in',
-          stagger: { amount: 0.25, from: 'random' },
-        })
-        introEl.removeEventListener('mousemove', onMouseMove)
-      })
-      .to({}, { duration: 0.35 })
-
-      // 7. Name + sub exit upward
-      .to(nameChars, { y: '-110%', opacity: 0, duration: 0.48, ease: 'power3.in', stagger: 0.018 })
-
-      // 8. Curtain slides up — fire hero + follow-through
-      .to(introEl, {
-        yPercent: -100, duration: 1.0, ease: 'power4.inOut',
-        onStart: () => {
-          runHero()
-          gsap.fromTo('.hero-card', { scale: 0.97 }, { scale: 1, duration: 1.1, ease: 'power3.out', delay: 0.2 })
-        },
-      }, '-=0.15')
-
-      .call(() => { introEl.style.display = 'none' })
-    }
-
-    initIntro()
-
-    /* ─────────────────────────────────────────────
        3. HERO SEQUENCE (fires after intro)
     ───────────────────────────────────────────── */
     function runHero() {
@@ -313,6 +86,8 @@ export default function HomePage() {
           opacity: 1, duration: 0.5, ease: 'power2.out',
         }, '-=0.2')
     }
+    // expose runHero so the intro curtain can fire it when it lifts
+    runHeroRef.current = runHero
 
     /* ─────────────────────────────────────────────
        4. SCROLL PROGRESS BAR
@@ -740,35 +515,9 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Intro curtain */}
-      <div id="intro">
-        {/* Center name */}
-        <div id="intro-name">Sanjana Gangishetty</div>
-        {/* Sub-label */}
-        <p id="intro-sub">Product Designer<span>·</span>CU Boulder &apos;25<span>·</span>Looking for full time</p>
-
-        {/* Floating labels — JS positions these on an ellipse around the name */}
-        <div className="intro-label" id="lbl-1">Thinks about your business<span className="lbl-tip">Stakeholder-first design</span></div>
-        <div className="intro-label" id="lbl-2">Pre-wireframe thinker<span className="lbl-tip">Strategy before pixels</span></div>
-        <div className="intro-label" id="lbl-3">Can vibecode<span className="lbl-tip">React · Next.js · Figma → Code</span></div>
-        <div className="intro-label" id="lbl-4">Figma<span className="lbl-tip">Variables, components, dev mode</span></div>
-        <div className="intro-label" id="lbl-5">Loves to cook<span className="lbl-tip">Has strong opinions on pasta</span></div>
-        <div className="intro-label" id="lbl-6">Comfortable in the messy middle<span className="lbl-tip">Discovery phase is my zone</span></div>
-        <div className="intro-label" id="lbl-7">Can make amazing Coffee<span className="lbl-tip">V60, pour-over, oat milk</span></div>
-        <div className="intro-label" id="lbl-8">Builds with AI<span className="lbl-tip">Shipped 3 products in Lovable</span></div>
-        <div className="intro-label" id="lbl-9">Sweats the details<span className="lbl-tip">Spacing, hierarchy, micro-copy</span></div>
-        <div className="intro-label" id="lbl-10">Asks the boring questions<span className="lbl-tip">Why? For whom? What&apos;s success?</span></div>
-        <div className="intro-label" id="lbl-11">Runs on coffee<span className="lbl-tip">Morning ritual, non-negotiable</span></div>
-
-        {/* Progress bar */}
-        <div id="intro-progress"><div id="intro-progress-fill"></div></div>
-
-        {/* Skip + countdown */}
-        <div id="intro-skip-wrap">
-          <span id="intro-countdown"></span>
-          <button id="intro-skip">Skip intro</button>
-        </div>
-      </div>
+      <BirdScene />
+      {/* Intro curtain — built-live experience, lifts to reveal the hero */}
+      <IntroCurtain onComplete={() => runHeroRef.current?.()} />
 
       {/* Scroll progress */}
       <div id="progress-bar"></div>

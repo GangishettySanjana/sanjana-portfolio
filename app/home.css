@@ -138,7 +138,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 .photo-placeholder { font-size: 11px; color: rgba(0,0,0,0.4); text-align: center; line-height: 1.8; letter-spacing: 0.06em; text-transform: uppercase; }
 
 /* ── WORK SECTION ── */
-.work-section { background: var(--page-bg); padding: 100px 0 80px; }
+.work-section { background: var(--page-bg); padding: 100px 0 80px; position: relative; z-index: 1; }
 .work-header {
   display: flex; align-items: flex-end; justify-content: space-between;
   padding-bottom: 56px; border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -309,7 +309,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 }
 
 /* ── RECOGNITION ── */
-.recognition-section { background: var(--page-bg); padding: 0 0 100px; }
+.recognition-section { background: var(--page-bg); padding: 0 0 100px; position: relative; z-index: 1; }
 .recognition-eyebrow {
   font-family: var(--body); font-size: 11px; font-weight: 600;
   letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,0,0,0.4);
@@ -358,149 +358,155 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   transform: translate(-50%,-50%); z-index: 9999; mix-blend-mode: screen;
 }
 
-/* ── INTRO CURTAIN ── */
+/* ── INTRO CURTAIN — light cinematic ── */
 #intro {
   position: fixed; inset: 0; z-index: 9000;
-  background: #fdfcfa;
-  display: flex; align-items: center; justify-content: center;
+  background: #faf8f4;
   will-change: transform; overflow: hidden;
 }
 
-/* Subtle grain texture on intro curtain */
+/* Video background — washed bright */
+#intro-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  filter: brightness(1.35) saturate(0.7) contrast(0.95);
+  z-index: 0;
+}
+
+/* Bright wash overlay — keeps it light & airy */
+#intro-overlay {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 80% at 50% 40%, rgba(255,255,255,0.35) 0%, rgba(250,248,244,0.78) 55%, #faf8f4 100%),
+    linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(255,255,255,0.5) 100%);
+  z-index: 1;
+}
+
+/* Light bloom sweep */
+#intro-bloom {
+  position: absolute; top: -20%; bottom: -20%;
+  left: -40%; width: 50%;
+  background: linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0.85) 55%, transparent 100%);
+  filter: blur(28px);
+  z-index: 5; pointer-events: none;
+  opacity: 0;
+}
+
+/* Subtle grain */
 #intro::after {
   content: ''; position: absolute; inset: 0;
-  pointer-events: none; z-index: 1; opacity: 0.35;
+  pointer-events: none; z-index: 2; opacity: 0.28;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
   background-repeat: repeat; background-size: 200px 200px;
 }
 
-/* Center name */
-#intro-name {
+/* Cinematic letterbox bars */
+.intro-bar {
+  position: absolute; left: 0; right: 0;
+  height: 16vh; background: #f2efe9;
+  z-index: 7; pointer-events: none;
+}
+#intro-bar-top    { top: 0; }
+#intro-bar-bottom { bottom: 0; }
+
+/* Scanner line */
+#intro-scan {
+  position: absolute; top: 0; bottom: 0;
+  left: -3px; width: 1px;
+  background: linear-gradient(180deg, transparent 0%, rgba(13,13,13,0.18) 50%, transparent 100%);
+  z-index: 6; pointer-events: none;
+}
+
+/* Bottom-left editorial block */
+#intro-bottom {
   position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
+  left: clamp(32px, 6vw, 96px);
+  bottom: clamp(52px, 9vh, 108px);
+  z-index: 4;
+}
+
+/* Eyebrow */
+#intro-eyebrow {
   font-family: 'Cabinet Grotesk', sans-serif;
-  font-size: clamp(32px, 5.5vw, 72px);
-  font-weight: 900; color: #0d0d0d;
-  letter-spacing: -0.03em;
-  line-height: 1; white-space: nowrap;
-  text-align: center;
-  z-index: 2; overflow: hidden;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.26em;
+  color: rgba(13,13,13,0.32);
+  margin-bottom: 12px;
+  opacity: 0;
+}
+
+/* Thin line */
+#intro-line {
+  height: 1px;
+  background: rgba(13,13,13,0.14);
+  width: 0;
+  margin-bottom: 14px;
+}
+
+/* Name */
+#intro-name {
+  font-family: 'NCL Gasdrifo', Georgia, serif;
+  font-size: clamp(48px, 7.5vw, 104px);
+  font-weight: 400; color: #0d0d0d;
+  letter-spacing: 0.005em;
+  line-height: 1.0; white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 14px;
 }
 .ichar { display: inline-block; }
 
-/* Floating pill labels — orbital ring */
-.intro-label {
-  position: absolute;
-  font-family: 'Caveat', cursive;
+/* Role line */
+#intro-sub {
+  font-family: 'Satoshi', sans-serif;
   font-size: clamp(13px, 1.3vw, 17px);
-  font-weight: 700; color: #1a1a1a;
+  font-weight: 400; font-style: italic;
+  letter-spacing: 0.01em;
+  color: rgba(13,13,13,0.4);
   opacity: 0;
-  z-index: 3; line-height: 1.3;
-  text-align: center;
-  padding: 7px 18px;
-  border-radius: 999px;
-  border: 1.5px solid rgba(0,0,0,0.1);
-  white-space: nowrap;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  cursor: default;
 }
-/* 11 pill colours — provided palette */
-#lbl-1  { background: #FFEBE8; border-color: #e8c4be; color: #5a2828; }
-#lbl-2  { background: #C9DAE9; border-color: #a4c0d8; color: #1e3d58; }
-#lbl-3  { background: #D6CFEB; border-color: #b4a8d8; color: #3a2870; }
-#lbl-4  { background: #E4EFD2; border-color: #bcd498; color: #2a4818; }
-#lbl-5  { background: #BFCE9A; border-color: #98b068; color: #1e3808; }
-#lbl-6  { background: #FFF2F0; border-color: #e8c4bc; color: #5a2820; }
-#lbl-7  { background: #E4F0FF; border-color: #b4cef0; color: #1e3860; }
-#lbl-8  { background: #F4BAA2; border-color: #d89078; color: #4a1808; }
-#lbl-9  { background: #E2E5C7; border-color: #bcc898; color: #303818; }
-#lbl-10 { background: #BCB984; border-color: #989860; color: #282808; }
-#lbl-11 { background: #827E51; border-color: #686438; color: #f8f4e8; }
 
-/* Gold progress bar — TOP */
+/* Tags — top right */
+.intro-tag {
+  position: absolute;
+  right: clamp(32px, 6vw, 96px);
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(13,13,13,0.3);
+  z-index: 4; opacity: 0;
+  white-space: nowrap;
+}
+#itag-1 { top: clamp(56px, 9vh, 120px); }
+#itag-2 { top: calc(clamp(56px, 9vh, 120px) + 28px); }
+#itag-3 { top: calc(clamp(56px, 9vh, 120px) + 56px); }
+
+/* Progress bar */
 #intro-progress {
   position: absolute; top: 0; left: 0; right: 0;
-  height: 3px; background: rgba(0,0,0,0.06); z-index: 10;
+  height: 1px; background: rgba(13,13,13,0.06); z-index: 10;
 }
 #intro-progress-fill {
   height: 100%; width: 0%;
-  background: linear-gradient(90deg, #C9A84C, #E8C96A, #C9A84C);
-  background-size: 200% 100%;
-  animation: shimmer-bar 2s linear infinite;
-}
-@keyframes shimmer-bar {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  background: rgba(13,13,13,0.3);
 }
 
-/* Sub-label under name */
-#intro-sub {
-  position: absolute;
-  top: calc(50% + clamp(28px, 4.5vw, 56px));
-  left: 50%; transform: translateX(-50%);
-  font-family: 'Satoshi', sans-serif;
-  font-size: clamp(11px, 1.2vw, 14px);
-  font-weight: 500; letter-spacing: 0.18em;
-  text-transform: uppercase; color: rgba(0,0,0,0.35);
-  white-space: nowrap; opacity: 0;
-  z-index: 2;
-}
-#intro-sub span { color: #C9A84C; margin: 0 6px; }
-
-/* Skip button + countdown */
+/* Skip button */
 #intro-skip-wrap {
-  position: absolute; bottom: 32px;
-  left: 50%; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 10px;
+  position: absolute; bottom: clamp(24px, 4vh, 48px);
+  left: clamp(32px, 6vw, 96px);
   opacity: 0; z-index: 10;
 }
 #intro-skip {
   font-family: 'Satoshi', sans-serif;
-  font-size: 12px; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(0,0,0,0.38); cursor: pointer;
-  background: none; border: 1px solid rgba(0,0,0,0.12);
-  padding: 8px 18px; border-radius: 99px;
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
-}
-#intro-skip:hover { color: #111; border-color: #111; background: rgba(0,0,0,0.04); }
-#intro-countdown {
-  font-family: 'Satoshi', sans-serif;
   font-size: 11px; font-weight: 500;
-  letter-spacing: 0.08em; color: rgba(0,0,0,0.28);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(13,13,13,0.3); cursor: pointer;
+  background: none; border: none; padding: 0;
+  transition: color 0.2s;
 }
-@keyframes pulse-skip {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); }
-  50%       { box-shadow: 0 0 0 5px rgba(201,168,76,0.2); }
-}
-.skip-pulse { animation: pulse-skip 2.2s ease-in-out infinite; }
-
-/* Label tooltip on hover */
-.intro-label .lbl-tip {
-  position: absolute; bottom: calc(100% + 8px); left: 50%;
-  transform: translateX(-50%) translateY(4px);
-  background: #0d0d0d; color: #fff;
-  font-family: 'Satoshi', sans-serif;
-  font-size: 11px; font-weight: 500;
-  letter-spacing: 0.04em; white-space: nowrap;
-  padding: 5px 12px; border-radius: 6px;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.18s, transform 0.18s;
-}
-.intro-label .lbl-tip::after {
-  content: ''; position: absolute;
-  top: 100%; left: 50%; transform: translateX(-50%);
-  border: 5px solid transparent;
-  border-top-color: #0d0d0d;
-}
-.intro-label:hover .lbl-tip { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-/* Sparkles — gold */
-.sparkle {
-  position: absolute; pointer-events: none;
-  opacity: 0; will-change: transform, opacity;
-}
+#intro-skip:hover { color: rgba(13,13,13,0.75); }
 
 /* ── SCROLL PROGRESS ── */
 #progress-bar {
@@ -537,6 +543,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 .explorations-section {
   background: var(--page-bg);
   padding: 100px 0 80px;
+  position: relative; z-index: 1;
 }
 .explorations-section .work-header {
   opacity: 1;
@@ -631,8 +638,9 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 
 /* ── ABOUT SECTION ── */
 .about-section {
-  background: url('/hero-bg.png') center 40% / cover no-repeat;
+  background: var(--page-bg);
   padding: 120px 0 100px;
+  position: relative; z-index: 1;
 }
 
 /* card wrapper — same treatment as .hero-card */
@@ -788,6 +796,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 .connect-section {
   background: var(--page-bg);
   padding: 140px 0 80px;
+  position: relative; z-index: 1;
   border-top: 1px solid rgba(0,0,0,0.07);
   overflow: hidden;
 }
@@ -992,18 +1001,9 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   .connect-footer-row { flex-direction: column; gap: 6px; text-align: center; }
 
   /* Intro curtain */
-  #intro-name { font-size: clamp(22px, 6.5vw, 44px); }
-  #intro-sub {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    white-space: normal;
-    width: 88vw;
-    text-align: center;
-    line-height: 2;
-    top: calc(50% + clamp(32px, 6vw, 56px));
-  }
-  /* No floating pills on mobile — just name + sub + sparkles */
-  .intro-label { display: none; }
+  #intro-name { font-size: clamp(28px, 8vw, 52px); }
+  .intro-tag { display: none; }
+  #intro-bottom { left: 24px; bottom: 48px; }
 }
 
 /* ═══════════════════════════════════════════
