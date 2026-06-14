@@ -75,9 +75,6 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
     const tl = gsap.timeline()
     tlRef.current = tl
 
-    const v = q('.scenery-video')[0] as HTMLVideoElement | undefined
-    if (v) { v.muted = true; v.playsInline = true; const p = v.play(); if (p && p.catch) p.catch(() => {}) }
-
     // reset
     gsap.set(q('.scenery-video'), { opacity: 0, scale: 1.12 })
     gsap.set(q('.scenery-overlay'), { opacity: 1 })
@@ -188,9 +185,11 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
         }
       `}</style>
 
-      <video className="scenery-video" muted playsInline autoPlay loop
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0, opacity: 0, filter: 'brightness(1.25) saturate(0.78) contrast(0.96)' }} />
+      {/* Static misty-scenery — no <video>, so no play-button glyph ever */}
+      <div className="scenery-video" style={{
+        position: 'absolute', inset: 0, zIndex: 0, opacity: 0, pointerEvents: 'none',
+        background: 'linear-gradient(168deg, #eef1f0 0%, #e8eee9 38%, #e4ece0 62%, #efece4 100%), radial-gradient(120% 90% at 50% 8%, rgba(190,205,220,0.5) 0%, transparent 55%)',
+      }} />
       <div className="scenery-overlay" style={{
         position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
         background: 'radial-gradient(120% 80% at 50% 38%, rgba(255,255,255,0.4) 0%, rgba(250,248,244,0.82) 55%, #faf8f4 100%)',
