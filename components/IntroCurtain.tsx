@@ -2,26 +2,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 
-/* ─── synthesized intro sound (no audio file) ─── */
-function tone(ctx: AudioContext, t: number, freq: number, dur: number, vol: number, type: OscillatorType = 'sine', slideTo?: number) {
-  const o = ctx.createOscillator(); o.type = type
-  o.frequency.setValueAtTime(freq, t)
-  if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t + dur)
-  const g = ctx.createGain()
-  g.gain.setValueAtTime(0.0001, t)
-  g.gain.exponentialRampToValueAtTime(vol, t + 0.02)
-  g.gain.exponentialRampToValueAtTime(0.0001, t + dur)
-  o.connect(g).connect(ctx.destination)
-  o.start(t); o.stop(t + dur + 0.05)
-}
-function playIntroSound(ctx: AudioContext) {
-  const now = ctx.currentTime
-  // soft, gentle welcome — low volumes, all sine, slow fades
-  tone(ctx, now, 329.63, 2.4, 0.055, 'sine')          // E4 pad
-  tone(ctx, now + 0.12, 392.00, 2.2, 0.045, 'sine')   // G4
-  tone(ctx, now + 0.24, 587.33, 2.0, 0.038, 'sine')   // D5 shimmer
-}
-
 /* everything she brings — auto-rotating right rail */
 const STRENGTHS = [
   'Designs that win the room',
@@ -87,8 +67,6 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
   const onCompleteRef = useRef(onComplete)
   onCompleteRef.current = onComplete
   const [visible, setVisible] = useState(true)
-  const [soundOn, setSoundOn] = useState(false)
-  const audioRef = useRef<AudioContext | null>(null)
   const startedRef = useRef(false)
 
   function run() {
@@ -176,31 +154,10 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
       return
     }
 
-    // first user gesture anywhere → soft sound (browsers block audio until then)
-    const playSound = () => {
-      if (audioRef.current) return
-      try {
-        const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
-        const ctx = new Ctx()
-        audioRef.current = ctx
-        const play = () => { playIntroSound(ctx); setSoundOn(true) }
-        if (ctx.state === 'suspended') ctx.resume().then(play).catch(play)
-        else play()
-      } catch { /* audio unavailable — visuals still run */ }
-      window.removeEventListener('pointerdown', playSound)
-      window.removeEventListener('keydown', playSound)
-    }
-    window.addEventListener('pointerdown', playSound)
-    window.addEventListener('keydown', playSound)
-
     // auto-start the experience — no gate, no friction
     run()
 
-    return () => {
-      if (tlRef.current) tlRef.current.kill()
-      window.removeEventListener('pointerdown', playSound)
-      window.removeEventListener('keydown', playSound)
-    }
+    return () => { if (tlRef.current) tlRef.current.kill() }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -320,18 +277,6 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
         textTransform: 'uppercase', color: 'rgba(13,13,13,0.32)', background: 'none', border: 'none', cursor: 'pointer',
       }}>Skip</button>
 
-      {/* Sound hint — fades once sound is on */}
-      {!soundOn && (
-        <div style={{
-          position: 'absolute', bottom: 'clamp(20px, 3vh, 34px)', right: 'clamp(32px, 6vw, 96px)', zIndex: 30,
-          display: 'flex', alignItems: 'center', gap: 7,
-          fontFamily: "'Satoshi', sans-serif", fontSize: 10, fontWeight: 500, letterSpacing: '0.12em',
-          textTransform: 'uppercase', color: 'rgba(13,13,13,0.3)', pointerEvents: 'none',
-        }}>
-          <span style={{ width: 7, height: 7, borderRadius: '50%', border: '1px solid rgba(13,13,13,0.35)', display: 'block' }} />
-          tap for sound
-        </div>
-      )}
     </div>
   )
 }
