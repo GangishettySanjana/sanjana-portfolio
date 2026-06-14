@@ -480,6 +480,11 @@ export default function AuraPage() {
                 </div>
               ))}
             </div>
+
+            <div className="fx-reflection-callout" style={{ marginTop: 32 }}>
+              <span className="fx-reflection-label">What the gap told me</span>
+              <p>Every competitor failed at the same two things: customization and trust that the real product matches what is shown. FNP buries customization in a long flow, local florists have no way to preview, and grocery stores only sell ready-made. That overlap is exactly where research landed too, &lsquo;fear the real product will not match.&rsquo; So customization and a live preview did not become features in Aura. They became the spine of the product, which is why the bouquet builder and the real-inventory signals carry the whole design.</p>
+            </div>
           </div>
         </section>
 
@@ -526,6 +531,10 @@ export default function AuraPage() {
                 style={{ width: '100%', display: 'block', borderRadius: 12 }}
               />
               <span className="fx-img-caption">Paper wireframes</span>
+            </div>
+
+            <div className="fx-prose" style={{ marginTop: 28 }}>
+              <p>Paper let me move fast and throw a lot away. Once the structure held, I moved to mid-fidelity digital wireframes and ran round 1 of testing on those, grayscale, no real photography, just the skeleton of the flow. That round is where two problems surfaced that paper had hidden: the bouquet preview read as decoration instead of the main task, and the checkout order felt fine on paper but broke the moment people actually scheduled a delivery. Both fed straight into the screens below. The jump you see from rough paper to polished final is really three rounds of testing compressed into one image.</p>
             </div>
           </div>
         </section>

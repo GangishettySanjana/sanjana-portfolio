@@ -1,10 +1,223 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './fireside.css'
+
+/* ── Interactive fire-spread simulation ───────────────────────────── */
+const SIM_COLS = 30
+const SIM_ROWS = 17
+const SIM_CELL = 18
+
+type Cell = { fuel: number; type: 'veg' | 'dry' | 'rock'; state: 0 | 1 | 2; age: number }
+
+function makeTerrain(): Cell[] {
+  const cells: Cell[] = []
+  for (let j = 0; j < SIM_ROWS; j++) {
+    for (let i = 0; i < SIM_COLS; i++) {
+      let f = 0.5 + 0.36 * Math.sin(i * 0.45 + j * 0.3) * Math.cos(j * 0.5)
+      f = Math.max(0.22, Math.min(0.95, f + 0.25))
+      let type: Cell['type'] = 'veg'
+      // a dry, fast-burning belt across the lower third
+      if (j > SIM_ROWS * 0.6 && f > 0.55) { type = 'dry'; f = Math.min(0.98, f + 0.15) }
+      // a rock firebreak — vertical strip with a gap fire must flow around
+      const inStrip = i >= 19 && i <= 20
+      const gap = j >= 6 && j <= 9
+      if (inStrip && !gap) { type = 'rock'; f = 0 }
+      cells.push({ fuel: f, type, state: 0, age: 0 })
+    }
+  }
+  return cells
+}
+
+function fuelColor(c: Cell): string {
+  if (c.type === 'rock') return '#bdb9b0'
+  if (c.type === 'dry') return `hsl(44, 46%, ${66 - c.fuel * 16}%)`
+  return `hsl(96, 34%, ${60 - c.fuel * 20}%)`
+}
+
+function FiresidePrototype() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const cellsRef = useRef<Cell[]>(makeTerrain())
+  const igniteRef = useRef<number>(SIM_ROWS * SIM_COLS / 2 - SIM_COLS + 4 | 0)
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const [wind, setWind] = useState(70)       // degrees, direction wind blows toward (0 = up)
+  const [speed, setSpeed] = useState(3)       // 1–5
+  const [running, setRunning] = useState(false)
+  const [done, setDone] = useState(false)
+
+  const windRef = useRef(wind); windRef.current = wind
+  const speedRef = useRef(speed); speedRef.current = speed
+
+  function draw() {
+    const cv = canvasRef.current; if (!cv) return
+    const ctx = cv.getContext('2d'); if (!ctx) return
+    const cells = cellsRef.current
+    for (let j = 0; j < SIM_ROWS; j++) {
+      for (let i = 0; i < SIM_COLS; i++) {
+        const c = cells[j * SIM_COLS + i]
+        let color: string
+        if (c.state === 1) color = c.age === 0 ? '#ffb02e' : '#ff4d1c'
+        else if (c.state === 2) color = '#2c2420'
+        else color = fuelColor(c)
+        ctx.fillStyle = color
+        ctx.fillRect(i * SIM_CELL, j * SIM_CELL, SIM_CELL - 1, SIM_CELL - 1)
+      }
+    }
+    // ignition marker when idle
+    if (!running && !done) {
+      const idx = igniteRef.current
+      const ix = idx % SIM_COLS, iy = (idx / SIM_COLS) | 0
+      ctx.strokeStyle = '#ff3d00'; ctx.lineWidth = 2
+      ctx.strokeRect(ix * SIM_CELL, iy * SIM_CELL, SIM_CELL - 1, SIM_CELL - 1)
+    }
+  }
+
+  function step() {
+    const cells = cellsRef.current
+    const θ = windRef.current * Math.PI / 180
+    const wdx = Math.sin(θ), wdy = -Math.cos(θ)
+    const s = speedRef.current
+    const next = cells.map(c => ({ ...c }))
+    let anyBurning = false
+    for (let j = 0; j < SIM_ROWS; j++) {
+      for (let i = 0; i < SIM_COLS; i++) {
+        const c = cells[j * SIM_COLS + i]
+        if (c.state === 1) {
+          anyBurning = true
+          // age the fire; burn out after 2 steps
+          if (c.age >= 1) next[j * SIM_COLS + i].state = 2
+          else next[j * SIM_COLS + i].age = c.age + 1
+          // try to ignite neighbours
+          for (let dj = -1; dj <= 1; dj++) {
+            for (let di = -1; di <= 1; di++) {
+              if (!di && !dj) continue
+              const ni = i + di, nj = j + dj
+              if (ni < 0 || nj < 0 || ni >= SIM_COLS || nj >= SIM_ROWS) continue
+              const nIdx = nj * SIM_COLS + ni
+              const n = cells[nIdx]
+              if (n.state !== 0 || n.fuel <= 0) continue
+              const len = Math.hypot(di, dj)
+              const align = (di / len) * wdx + (dj / len) * wdy
+              const windFactor = Math.max(0.05, 1 + align * s * 0.32)
+              const p = 0.2 * n.fuel * windFactor
+              if (Math.random() < p) { next[nIdx].state = 1; next[nIdx].age = 0 }
+            }
+          }
+        }
+      }
+    }
+    cellsRef.current = next
+    draw()
+    if (!anyBurning) { stop(true) }
+  }
+
+  function stop(finished = false) {
+    if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
+    setRunning(false)
+    if (finished) setDone(true)
+  }
+
+  function ignite() {
+    if (running) return
+    const cells = cellsRef.current
+    // if a previous run finished, reset terrain first
+    if (done || cells.some(c => c.state !== 0)) {
+      cellsRef.current = makeTerrain()
+      setDone(false)
+    }
+    const idx = igniteRef.current
+    if (cellsRef.current[idx].fuel > 0) cellsRef.current[idx].state = 1
+    draw()
+    setRunning(true)
+    timerRef.current = setInterval(step, 220)
+  }
+
+  function reset() {
+    stop(false)
+    cellsRef.current = makeTerrain()
+    setDone(false)
+    draw()
+  }
+
+  function onCanvasClick(e: React.MouseEvent<HTMLCanvasElement>) {
+    if (running) return
+    const cv = canvasRef.current; if (!cv) return
+    const rect = cv.getBoundingClientRect()
+    const i = Math.floor((e.clientX - rect.left) / rect.width * SIM_COLS)
+    const j = Math.floor((e.clientY - rect.top) / rect.height * SIM_ROWS)
+    if (i < 0 || j < 0 || i >= SIM_COLS || j >= SIM_ROWS) return
+    if (cellsRef.current[j * SIM_COLS + i].type === 'rock') return
+    if (done || cellsRef.current.some(c => c.state !== 0)) { cellsRef.current = makeTerrain(); setDone(false) }
+    igniteRef.current = j * SIM_COLS + i
+    draw()
+  }
+
+  function onDial(e: React.MouseEvent<SVGSVGElement>) {
+    const r = (e.currentTarget as SVGSVGElement).getBoundingClientRect()
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2
+    let deg = Math.atan2(e.clientX - cx, -(e.clientY - cy)) * 180 / Math.PI
+    if (deg < 0) deg += 360
+    setWind(Math.round(deg))
+  }
+
+  useEffect(() => { draw(); return () => { if (timerRef.current) clearInterval(timerRef.current) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const arrowθ = wind * Math.PI / 180
+  const ax = 26 + 17 * Math.sin(arrowθ), ay = 26 - 17 * Math.cos(arrowθ)
+  const tx = 26 - 12 * Math.sin(arrowθ), ty = 26 + 12 * Math.cos(arrowθ)
+
+  return (
+    <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: 'clamp(16px, 3vw, 28px)' }}>
+      <canvas
+        ref={canvasRef}
+        width={SIM_COLS * SIM_CELL}
+        height={SIM_ROWS * SIM_CELL}
+        onClick={onCanvasClick}
+        style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 10, cursor: running ? 'default' : 'crosshair', imageRendering: 'auto' }}
+      />
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'clamp(16px, 3vw, 32px)', marginTop: 20 }}>
+        {/* Wind dial */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <svg width={52} height={52} viewBox="0 0 52 52" onClick={onDial} style={{ cursor: 'pointer', flexShrink: 0 }}>
+            <circle cx={26} cy={26} r={24} fill="none" stroke="var(--border)" strokeWidth={2} />
+            <circle cx={26} cy={26} r={2.5} fill="var(--muted)" />
+            <line x1={tx} y1={ty} x2={ax} y2={ay} stroke="var(--accent)" strokeWidth={2.5} strokeLinecap="round" />
+            <circle cx={ax} cy={ay} r={3.5} fill="var(--accent)" />
+          </svg>
+          <div>
+            <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-xs)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.09em', color: 'var(--muted)', margin: '0 0 2px' }}>Wind direction</p>
+            <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-sm)', color: 'var(--text)', margin: 0 }}>{wind}° · click the dial</p>
+          </div>
+        </div>
+        {/* Wind speed */}
+        <div style={{ minWidth: 160 }}>
+          <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-xs)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.09em', color: 'var(--muted)', margin: '0 0 6px' }}>Wind speed · {speed}</p>
+          <input type="range" min={1} max={5} step={1} value={speed} onChange={e => setSpeed(+e.target.value)} style={{ width: '100%', accentColor: 'var(--accent)' }} />
+        </div>
+        {/* Buttons */}
+        <div style={{ display: 'flex', gap: 10, marginLeft: 'auto' }}>
+          <button onClick={ignite} disabled={running} style={{
+            fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-sm)', fontWeight: 700, color: '#fff',
+            background: running ? 'var(--muted)' : 'var(--accent)', border: 'none', borderRadius: 999,
+            padding: '10px 22px', cursor: running ? 'default' : 'pointer',
+          }}>{running ? 'Spreading…' : done ? 'Ignite again' : 'Ignite'}</button>
+          <button onClick={reset} style={{
+            fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-sm)', fontWeight: 700, color: 'var(--text)',
+            background: 'transparent', border: '1px solid var(--border)', borderRadius: 999, padding: '10px 20px', cursor: 'pointer',
+          }}>Reset</button>
+        </div>
+      </div>
+      <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-xs)', color: 'var(--muted)', margin: '14px 0 0', lineHeight: 'var(--lh-normal)' }}>
+        Click the terrain to drop an ignition point, set the wind, then ignite. Greener cells hold more fuel, the tan belt is dry grass that runs fast, and the grey strip is a rock firebreak the fire has to flow around, exactly the kind of cause-and-effect the table was built to make visible.
+      </p>
+    </div>
+  )
+}
 
 /* ── Page ─────────────────────────────────────────────────────────── */
 export default function FiresidePage() {
@@ -16,6 +229,7 @@ export default function FiresidePage() {
       { id: 'role',       num: '02', label: 'My Role'        },
       { id: 'solution',   num: '03', label: 'The Solution'   },
       { id: 'experience', num: '04', label: 'User Experience'},
+      { id: 'simulation', num: '04.5', label: 'Try the Table' },
       { id: 'prototype',  num: '05', label: 'iPad Prototype' },
       { id: 'spatial',    num: '06', label: 'Spatial Design' },
       { id: 'reflection', num: '07', label: 'Reflection'     },
@@ -68,6 +282,7 @@ export default function FiresidePage() {
               { href: '#role',       label: 'Role'       },
               { href: '#solution',   label: 'Solution'   },
               { href: '#experience', label: 'Experience' },
+              { href: '#simulation', label: 'Simulation' },
               { href: '#prototype',  label: 'Prototype'  },
               { href: '#spatial',    label: 'Spatial'    },
               { href: '#reflection', label: 'Reflection' },
@@ -318,7 +533,7 @@ export default function FiresidePage() {
             <h2 className="fx-sec-title">Designed for everyone who walks through the door.</h2>
 
             <div className="fx-prose" style={{ marginBottom: 32 }}>
-              <p>The hardest constraint: the exhibit had to be immediately usable without instructions, engaging for a curious 8-year-old, and credible enough for a fire behavior researcher.</p>
+              <p>The hardest constraint was the audience range. The same ten seconds of interaction had to land for a kid who can&apos;t read the labels yet and for someone who fights fires for a living, with no instructions and no facilitator standing in between.</p>
             </div>
 
             <img
@@ -363,7 +578,20 @@ export default function FiresidePage() {
         </section>
 
         {/* ── 05 IPAD PROTOTYPE ───────────────────────────── */}
-        <section className="fx-sec" id="prototype">
+        {/* ── 04.5 LIVE SIMULATION ────────────────────────── */}
+        <section className="fx-sec" id="simulation">
+          <div className="fx-container">
+            <p className="fx-sec-label">04.5 · Try the table</p>
+            <h2 className="fx-sec-title">The interaction the whole exhibit was built around.</h2>
+            <div className="fx-prose" style={{ marginBottom: 28 }}>
+              <p>The physical table projected fire spreading across 3D terrain. You couldn&apos;t ship that in a portfolio, so here is the model it ran on, playable. Drop an ignition point, turn the wind, and watch the same cause-and-effect a nine-year-old read in fifteen seconds at the exhibit: fire runs with the wind, races through dry grass, and stalls at the firebreak.</p>
+            </div>
+            <FiresidePrototype />
+          </div>
+        </section>
+
+        {/* ── 05 iPAD PROTOTYPE ───────────────────────────── */}
+        <section className="fx-sec fx-sec-alt" id="prototype">
           <div className="fx-container">
             <p className="fx-sec-label">05 · iPad Prototype</p>
             <h2 className="fx-sec-title">The companion interface, for facilitators and deeper learners.</h2>
@@ -425,7 +653,7 @@ export default function FiresidePage() {
         </section>
 
         {/* ── 06 SPATIAL DESIGN ───────────────────────────── */}
-        <section className="fx-sec fx-sec-alt" id="spatial">
+        <section className="fx-sec" id="spatial">
           <div className="fx-container">
             <p className="fx-sec-label">06 · Spatial Design</p>
             <h2 className="fx-sec-title">The table is the interface.</h2>
@@ -475,13 +703,13 @@ export default function FiresidePage() {
             <h2 className="fx-sec-title">The hardest design problem was the one I didn&apos;t expect.</h2>
 
             <div className="fx-prose">
-              <p>This was the first time I had to design for a non-screen medium. The projection-on-terrain constraint was genuinely hard, and genuinely interesting. I&apos;d never thought about how pixel density changes meaning when your canvas has hills.</p>
+              <p>Everything I knew about interface design quietly assumed a flat rectangle. Here the canvas had hills. The projection-on-terrain constraint was genuinely hard and genuinely interesting, I&apos;d never had to think about how pixel density changes meaning when your surface isn&apos;t flat, or how a button reads when it&apos;s cast across a slope.</p>
               <p>Or how a control feels intuitive not because of its label but because of where it sits relative to the effect. Designing for physical space forced me to think spatially in a way that screen design never had.</p>
             </div>
 
             <div className="fx-reflection-callout">
               <span className="fx-reflection-label">One thing from a real event</span>
-              <p>At the first public deployment — a family science night at CU Boulder — a kid rotated the wind dial all the way up in Simulation Mode and watched the fire spread across the whole table in about 15 seconds. He turned to his parent and said &ldquo;oh, that&apos;s why it goes that direction.&rdquo; That was the whole design goal, delivered in 30 seconds by a 9-year-old who had never seen the exhibit before. We didn&apos;t change anything after that session.</p>
+              <p>At the first public deployment, a family science night at CU Boulder, a kid rotated the wind dial all the way up in Simulation Mode and watched the fire spread across the whole table in about 15 seconds. He turned to his parent and said &ldquo;oh, that&apos;s why it goes that direction.&rdquo; That was the whole design goal, delivered in 30 seconds by a 9-year-old who had never seen the exhibit before. We didn&apos;t change anything after that session.</p>
             </div>
           </div>
         </section>

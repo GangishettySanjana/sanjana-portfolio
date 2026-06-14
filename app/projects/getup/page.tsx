@@ -395,16 +395,21 @@ export default function GetUpPage() {
                 },
                 {
                   num: '02',
+                  title: 'Color pulled from the product, not invented',
+                  text: "With no brand guidelines, I sampled the palette straight from the packaging and GetUp's social presence, warm natural tones with a single high-energy accent. The point was for the pop-up to read as GetUp at a glance, not as a generic launch promo. Full-bleed photography only works if the surrounding color agrees with it.",
+                },
+                {
+                  num: '03',
                   title: 'Headline over subline',
                   text: "Punchy headline does the lifting. One short subline for context. No paragraph copy. People don't read pop-ups, they decide in milliseconds.",
                 },
                 {
-                  num: '03',
+                  num: '04',
                   title: 'Single CTA, maximum contrast',
                   text: "One button. High contrast. Copy tested through multiple drafts, action-forward, low anxiety. 'Pre-order now' beat every other variant.",
                 },
                 {
-                  num: '04',
+                  num: '05',
                   title: 'Mobile-first scaling',
                   text: 'Designed at 390px first, then scaled to 1280px desktop. Most pop-up traffic on a celebrity launch comes from social, which means mobile.',
                 },
