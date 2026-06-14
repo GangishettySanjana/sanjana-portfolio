@@ -16,11 +16,10 @@ function tone(ctx: AudioContext, t: number, freq: number, dur: number, vol: numb
 }
 function playIntroSound(ctx: AudioContext) {
   const now = ctx.currentTime
-  tone(ctx, now, 660, 0.10, 0.26, 'triangle')           // instant tap blip
-  tone(ctx, now + 0.04, 247, 1.9, 0.20, 'sine')          // boot swell B3
-  tone(ctx, now + 0.04, 330, 1.7, 0.10, 'sine', 392)     // E4 → G4 lift
-  tone(ctx, now + 3.40, 587.33, 0.7, 0.24, 'triangle')   // ship chime D5
-  tone(ctx, now + 3.62, 880.00, 1.0, 0.28, 'triangle')   // ship chime A5
+  // soft, gentle welcome — low volumes, all sine, slow fades
+  tone(ctx, now, 329.63, 2.4, 0.055, 'sine')          // E4 pad
+  tone(ctx, now + 0.12, 392.00, 2.2, 0.045, 'sine')   // G4
+  tone(ctx, now + 0.24, 587.33, 2.0, 0.038, 'sine')   // D5 shimmer
 }
 
 /* everything she brings — auto-rotating right rail */
@@ -87,10 +86,10 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
   const tlRef = useRef<gsap.core.Timeline | null>(null)
   const onCompleteRef = useRef(onComplete)
   onCompleteRef.current = onComplete
-  const [entered, setEntered] = useState(false)
   const [visible, setVisible] = useState(true)
+  const [soundOn, setSoundOn] = useState(false)
   const audioRef = useRef<AudioContext | null>(null)
-  const skippedRef = useRef(false)
+  const startedRef = useRef(false)
 
   function run() {
     if (tlRef.current) tlRef.current.kill()
@@ -167,38 +166,48 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
   }
 
   useEffect(() => {
+    if (startedRef.current) return
+    startedRef.current = true
+
     // returning from a project page → skip the curtain
     if (typeof window !== 'undefined' && sessionStorage.getItem('skipIntro')) {
       sessionStorage.removeItem('skipIntro')
-      if (!skippedRef.current) { skippedRef.current = true; setVisible(false); onCompleteRef.current?.() }
+      setVisible(false); onCompleteRef.current?.()
       return
     }
-    const v = rootRef.current?.querySelector('.scenery-video') as HTMLVideoElement | null
-    if (v) {
-      v.muted = true; v.defaultMuted = true; v.playsInline = true
-      const tryPlay = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}) }
-      tryPlay()
-      v.addEventListener('canplay', tryPlay, { once: true })
+
+    // first user gesture anywhere → soft sound (browsers block audio until then)
+    const playSound = () => {
+      if (audioRef.current) return
+      try {
+        const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
+        const ctx = new Ctx()
+        audioRef.current = ctx
+        const play = () => { playIntroSound(ctx); setSoundOn(true) }
+        if (ctx.state === 'suspended') ctx.resume().then(play).catch(play)
+        else play()
+      } catch { /* audio unavailable — visuals still run */ }
+      window.removeEventListener('pointerdown', playSound)
+      window.removeEventListener('keydown', playSound)
     }
-    const q = gsap.utils.selector(rootRef)
-    gsap.set(q('.name-cover'), { scaleX: 1 })
-    gsap.set([q('.real-eyebrow'), q('.real-sub'), q('.tag-rail'), q('.shipped'), q('.log-line'), q('.wf-box'), q('.color-bloom')], { opacity: 0 })
-    return () => { if (tlRef.current) tlRef.current.kill() }
+    window.addEventListener('pointerdown', playSound)
+    window.addEventListener('keydown', playSound)
+
+    // auto-start the experience — no gate, no friction
+    run()
+
+    return () => {
+      if (tlRef.current) tlRef.current.kill()
+      window.removeEventListener('pointerdown', playSound)
+      window.removeEventListener('keydown', playSound)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const enter = () => {
-    if (entered) return
-    try {
-      const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
-      const ctx = new Ctx()
-      audioRef.current = ctx
-      const play = () => playIntroSound(ctx)
-      if (ctx.state === 'suspended') ctx.resume().then(play).catch(play)
-      else play()
-    } catch { /* audio unavailable — visuals still run */ }
-    setEntered(true)
-    run()
+  const skip = () => {
+    if (tlRef.current) tlRef.current.kill()
+    onCompleteRef.current?.()
+    setVisible(false)
   }
 
   if (!visible) return null
@@ -212,6 +221,14 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
         .sk-shimmer { background: linear-gradient(100deg, #EFEBE1 25%, #FBFAF6 50%, #EFEBE1 75%); background-size: 220% 100%; animation: skShimmer 1.4s linear infinite; }
         .sk-anim { animation: skShimmer 1.4s linear infinite; }
         @keyframes skShimmer { 0% { background-position: 220% 0 } 100% { background-position: -220% 0 } }
+        @media (max-width: 700px) {
+          .intro-log { font-size: 9px !important; gap: 3px !important; top: 28px !important; left: 20px !important; }
+          .tag-rail { display: none !important; }
+          .intro-bottom { left: 20px !important; right: 20px !important; bottom: 16vh !important; }
+          .intro-name-real { font-size: 34px !important; white-space: normal !important; line-height: 1.06 !important; }
+          .wf-name-box { width: 70vw !important; height: 64px !important; }
+          .wf-dim-tick { width: 70vw !important; }
+        }
       `}</style>
 
       <video className="scenery-video" muted playsInline autoPlay loop
@@ -231,7 +248,7 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
       }} />
 
       {/* Build log */}
-      <div style={{
+      <div className="intro-log" style={{
         position: 'absolute', top: 'clamp(40px, 7vh, 90px)', left: 'clamp(32px, 6vw, 96px)', zIndex: 5,
         display: 'flex', flexDirection: 'column', gap: 5,
         fontFamily: "ui-monospace, 'SF Mono', Menlo, monospace", fontSize: 11, color: 'rgba(13,13,13,0.4)', letterSpacing: '0.02em',
@@ -249,7 +266,7 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
       </div>
 
       {/* Bottom-left block */}
-      <div style={{ position: 'absolute', left: 'clamp(32px, 6vw, 96px)', bottom: 'clamp(56px, 10vh, 120px)', zIndex: 4 }}>
+      <div className="intro-bottom" style={{ position: 'absolute', left: 'clamp(32px, 6vw, 96px)', bottom: 'clamp(56px, 10vh, 120px)', zIndex: 4 }}>
         <div style={{ position: 'relative', height: 16, marginBottom: 14 }}>
           <div className="wf-box wf-eyebrow" style={wfStyle(150, 12, 'rgba(13,13,13,0.18)')} />
           <span className="wf-label" style={lbl('rgba(13,13,13,0.35)')}>eyebrow</span>
@@ -260,11 +277,11 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
         </div>
         <div className="real-line" style={{ height: 1, background: 'rgba(13,13,13,0.22)', marginBottom: 16, width: 0 }} />
         <div style={{ position: 'relative', marginBottom: 16 }}>
-          <div className="wf-box wf-name" style={{ ...wfStyle(560, 86, 'rgba(13,13,13,0.18)'), position: 'relative' }}>
+          <div className="wf-box wf-name wf-name-box" style={{ ...wfStyle(560, 86, 'rgba(13,13,13,0.18)'), position: 'relative' }}>
             <span className="wf-label" style={lbl('rgba(13,13,13,0.35)', -18)}>h1.name</span>
           </div>
           <div style={{ position: 'absolute', top: 0, left: 0, overflow: 'hidden' }}>
-            <div className="real-name" style={{
+            <div className="real-name intro-name-real" style={{
               fontFamily: "'NCL Gasdrifo', Georgia, serif", fontSize: 'clamp(48px, 7.5vw, 104px)',
               fontWeight: 400, color: '#0d0d0d', letterSpacing: '0.005em', lineHeight: 1, whiteSpace: 'nowrap',
             }}>Sanjana Gangishetty</div>
@@ -279,7 +296,7 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
             fontSize: 'clamp(13px, 1.3vw, 17px)', fontWeight: 400, fontStyle: 'italic', color: 'rgba(13,13,13,0.5)',
           }}>Product designer</div>
         </div>
-        <div className="wf-dim" style={{
+        <div className="wf-dim wf-dim-tick" style={{
           position: 'absolute', left: 0, bottom: -2, width: 560, height: 1,
           background: 'repeating-linear-gradient(90deg, rgba(13,13,13,0.3) 0 4px, transparent 4px 8px)', transformOrigin: 'left center',
         }} />
@@ -296,27 +313,23 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
         SHIPPED
       </div>
 
-      {/* ENTER GATE */}
-      {!entered && (
-        <div onClick={enter} className="enter-gate" style={{
-          position: 'absolute', inset: 0, zIndex: 60, cursor: 'pointer', background: '#faf8f4',
-          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 26,
+      {/* Skip — quiet, bottom center */}
+      <button onClick={skip} style={{
+        position: 'absolute', bottom: 'clamp(20px, 3vh, 34px)', left: '50%', transform: 'translateX(-50%)', zIndex: 30,
+        fontFamily: "'Satoshi', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: '0.14em',
+        textTransform: 'uppercase', color: 'rgba(13,13,13,0.32)', background: 'none', border: 'none', cursor: 'pointer',
+      }}>Skip</button>
+
+      {/* Sound hint — fades once sound is on */}
+      {!soundOn && (
+        <div style={{
+          position: 'absolute', bottom: 'clamp(20px, 3vh, 34px)', right: 'clamp(32px, 6vw, 96px)', zIndex: 30,
+          display: 'flex', alignItems: 'center', gap: 7,
+          fontFamily: "'Satoshi', sans-serif", fontSize: 10, fontWeight: 500, letterSpacing: '0.12em',
+          textTransform: 'uppercase', color: 'rgba(13,13,13,0.3)', pointerEvents: 'none',
         }}>
-          <div style={{
-            fontFamily: "'NCL Gasdrifo', Georgia, serif", fontSize: 'clamp(40px, 6vw, 88px)',
-            color: '#0d0d0d', letterSpacing: '0.01em', lineHeight: 1, textAlign: 'center',
-          }}>Sanjana Gangishetty</div>
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: 11, fontFamily: "'Satoshi', sans-serif",
-            fontSize: 12, fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.45)',
-          }}>
-            <span className="enter-pulse" style={{ width: 9, height: 9, borderRadius: '50%', background: 'rgba(13,13,13,0.45)', display: 'block' }} />
-            tap anywhere to begin
-          </div>
-          <style>{`
-            @keyframes enterPulse { 0%,100% { transform: scale(1); opacity: 1 } 50% { transform: scale(1.5); opacity: 0.45 } }
-            .enter-pulse { animation: enterPulse 1.6s ease-in-out infinite; }
-          `}</style>
+          <span style={{ width: 7, height: 7, borderRadius: '50%', border: '1px solid rgba(13,13,13,0.35)', display: 'block' }} />
+          tap for sound
         </div>
       )}
     </div>
