@@ -1481,8 +1481,8 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
 
       {/* ── 01 Overview ─────────────────────────────────── */}
       <section id="overview" ref={el => { sectionRefs.current['overview'] = el }} style={{ marginBottom: 64 }}>
-        <p className="fx-sec-label">01 — Overview</p>
-        <h2 className="fx-sec-title">AI-powered candidate intake — résumé parsing, bulk uploads, and CSV in one flow.</h2>
+        <p className="fx-sec-label">01 · Overview</p>
+        <h2 className="fx-sec-title">AI-powered candidate intake: résumé parsing, bulk uploads, and CSV in one flow.</h2>
         <div className="case-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: 'rgba(43,181,194,0.14)', borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(43,181,194,0.14)', marginTop: 8 }}>
           {[
             { label: 'Role', lines: ['UX/UI/Product Designer', 'Workflow design', 'Interaction patterns', 'AI-assisted automation', 'Research & validation'] },
@@ -1498,13 +1498,13 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
 
       {/* ── 02 Context ─────────────────────────────────── */}
       <section id="context" ref={el => { sectionRefs.current['context'] = el }} className="fx-sec-alt" style={{ marginBottom: 64 }}>
-        <p className="fx-sec-label">02 — Context</p>
-        <h2 className="fx-sec-title">Résumé parsing, bulk uploads, and ATS imports — rethought from scratch.</h2>
+        <p className="fx-sec-label">02 · Context</p>
+        <h2 className="fx-sec-title">Résumé parsing, bulk uploads, and ATS imports, rethought from scratch.</h2>
         <div>
           {[
             { label: 'The ask', text: 'Simplify the entire candidate intake process and integrate AI throughout it.' },
             { label: 'What I inherited', text: 'A workflow that was slow, manual, and filled with repetitive steps. Recruiters typed every field by hand before a single interview could be scheduled.' },
-            { label: 'The scope', text: 'Résumé parsing, bulk uploads, and ATS integrations — all three workflows redesigned in parallel.' },
+            { label: 'The scope', text: 'Résumé parsing, bulk uploads, and ATS integrations, all three workflows redesigned in parallel.' },
             { label: 'The constraint', text: 'Keep recruiters fully in control. Automation should reduce friction, not create new uncertainty.' },
           ].map(({ label, text }) => (
             <div key={label} className="fx-ctx-row">
@@ -1517,15 +1517,15 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
 
       {/* ── 03 Problem ─────────────────────────────────── */}
       <section id="problem" ref={el => { sectionRefs.current['problem'] = el }} style={{ marginBottom: 64 }}>
-        <p className="fx-sec-label">03 — Problem</p>
+        <p className="fx-sec-label">03 · Problem</p>
         <h2 className="fx-sec-title">Recruiters were spending hours before an interview could even be scheduled.</h2>
 
         <ul className="fx-bullets" style={{ marginBottom: 36 }}>
           {[
-            'Manual data entry for every candidate field — no automation anywhere in the flow',
+            'Manual data entry for every candidate field, with no automation anywhere in the flow',
             'Résumés uploaded one-by-one, no batch support',
             'CSV uploads were unstable and frequently scrambled or lost data',
-            'No duplicate detection — the same candidate could be added multiple times',
+            'No duplicate detection, so the same candidate could be added multiple times',
             'AI capabilities existed in the product but were completely unused',
           ].map(item => <li key={item}>{item}</li>)}
         </ul>
@@ -1565,7 +1565,7 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
 
       {/* ── 04 Ideation & Flow ─────────────────────────── */}
       <section id="ideation" ref={el => { sectionRefs.current['ideation'] = el }} className="fx-sec-alt" style={{ marginBottom: 64 }}>
-        <p className="fx-sec-label">04 — Ideation &amp; Flow</p>
+        <p className="fx-sec-label">04 · Ideation &amp; Flow</p>
         <h2 className="fx-sec-title">Three workflows. One system that ties them together.</h2>
         <ul className="fx-bullets" style={{ marginBottom: 32 }}>
           {[
@@ -1580,14 +1580,14 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
 
       {/* ── 05 Design Decisions ────────────────────────── */}
       <section id="decisions" ref={el => { sectionRefs.current['decisions'] = el }} style={{ marginBottom: 64 }}>
-        <p className="fx-sec-label">05 — Design Decisions</p>
+        <p className="fx-sec-label">05 · Design Decisions</p>
         <h2 className="fx-sec-title">Four choices that shaped the final system.</h2>
 
         <div className="fx-ruled-out">
           <span className="fx-ruled-out-label">What I ruled out first</span>
           <div className="fx-ruled-out-grid case-2col">
             {[
-              { name: 'Early direction', img: FX.case1, desc: 'Simplified single upload and restructured intake steps. Organized fields more cleanly — but still relied on manual input and left AI capabilities completely unused.' },
+              { name: 'Early direction', img: FX.case1, desc: 'Simplified single upload and restructured intake steps. Organized fields more cleanly, but still relied on manual input and left AI capabilities completely unused.' },
               { name: 'Multi-screen flow', img: FX.case2, desc: 'Split upload, validation, and review across separate pages. Internal testing showed it became visually chaotic. Users lost track of where they were in the process.' },
             ].map(({ name, img, desc }) => (
               <div key={name} className="fx-ruled-out-item">
@@ -1606,7 +1606,7 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
             {
               num: '01',
               title: 'AI-first, not manual-first',
-              what: 'Résumé upload triggers automatic field extraction immediately. Recruiters see a pre-filled form to review — never a blank one to fill in.',
+              what: 'Résumé upload triggers automatic field extraction immediately. Recruiters see a pre-filled form to review, never a blank one to fill in.',
               why: 'The original pain was manual data entry. Starting with AI output and asking recruiters to verify is fundamentally different from asking them to type. The cognitive load shifts from creation to confirmation.',
               diff: "I'd want to test how recruiters respond when AI gets a field wrong. Does a wrong pre-fill feel worse than a blank field? That confidence calibration needs real data before shipping.",
             },
@@ -1614,7 +1614,7 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
               num: '02',
               title: 'One unified flow over multiple screens',
               what: 'Upload, review, and confirm all happen in a single page. No navigation between states, no losing your place mid-task.',
-              why: "Splitting into multiple screens failed internal testing — users couldn't track their progress. A linear single-page flow gives recruiters a clear sense of where they are and what's left.",
+              why: "Splitting into multiple screens failed internal testing because users could not track their progress. A linear single-page flow gives recruiters a clear sense of where they are and what's left.",
               diff: "I'd test whether power users doing 100+ candidates find the single page too long. A stepper with clear progress indicators might work better at that scale.",
             },
             {
@@ -1622,13 +1622,13 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
               title: 'Bulk as a first-class workflow',
               what: 'Bulk upload gets its own dedicated flow with real-time parsing progress, a summary table, and inline editing for missed fields.',
               why: 'In the original system, bulk upload was an afterthought. It frequently lost data and gave no visibility into what was happening. Making it first-class meant building for the actual high-volume hiring reality.',
-              diff: "Synchronous parsing blocks the UI for large batches. I'd explore async processing with a notification when the job finishes — let recruiters do other work while files are being processed.",
+              diff: "Synchronous parsing blocks the UI for large batches. I'd explore async processing with a notification when the job finishes, letting recruiters do other work while files are being processed.",
             },
             {
               num: '04',
               title: 'Errors surfaced where they happen',
               what: 'Inline validation flags missing or incorrect data in the review table itself. Nothing blocks submission until the recruiter has seen and addressed each issue.',
-              why: "Separate error screens break flow and force context switching. Inline warnings keep the recruiter in the task — they can fix a missing phone number without losing sight of the 20 other candidates.",
+              why: "Separate error screens break flow and force context switching. Inline warnings keep the recruiter in the task, so they can fix a missing phone number without losing sight of the 20 other candidates.",
               diff: "I'd add undo functionality for dismissed warnings. Recruiters sometimes close alerts by mistake, and right now there's no way to get that context back without reprocessing the file.",
             },
           ].map(({ num, title, what, why, diff }) => (
@@ -1654,7 +1654,7 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
 
       {/* ── 06 Final Designs ───────────────────────────── */}
       <section id="finals" ref={el => { sectionRefs.current['finals'] = el }} className="fx-sec-alt" style={{ marginBottom: 64 }}>
-        <p className="fx-sec-label">06 — Final Designs</p>
+        <p className="fx-sec-label">06 · Final Designs</p>
 
         {[
           {
@@ -1671,7 +1671,7 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
             title: 'Bulk Upload Happy Path',
             img: FX.bulkUpload, alt: 'Bulk upload happy path',
             bullets: [
-              'Built for high-volume hiring — upload dozens of résumés at once',
+              'Built for high-volume hiring: upload dozens of résumés at once',
               'System displays a real-time parsing summary as files are processed',
               'Missing fields are highlighted inline so nothing slips through',
               'Errors can be fixed directly in the table without opening separate forms',
@@ -1700,7 +1700,7 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
 
       {/* ── 07 Edge Cases ──────────────────────────────── */}
       <section id="edgecases" ref={el => { sectionRefs.current['edgecases'] = el }} style={{ marginBottom: 64 }}>
-        <p className="fx-sec-label">07 — Edge Cases</p>
+        <p className="fx-sec-label">07 · Edge Cases</p>
         <h2 className="fx-sec-title">The system had to hold up when things went wrong.</h2>
 
         <div style={{ marginBottom: 48 }}>
@@ -1708,7 +1708,7 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
           <img src={FX.edgeCase1} alt="Mixed upload states" className="fx-design-img" style={{ marginBottom: 14, height: 'auto' }} />
           <ul className="fx-bullets">
             {[
-              'Each file is handled independently — one failure does not block the rest',
+              'Each file is handled independently, so one failure does not block the rest',
               'Files separated into three buckets: Uploading, Failed, and Successfully Uploaded',
               'Parse Résumés action is disabled while any file is still in progress',
               'Cancelling only pauses active uploads; completed files stay intact',
@@ -1722,7 +1722,7 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
           <ul className="fx-bullets">
             {[
               'Mandatory fields that failed extraction surface as inline warnings in the review table',
-              'Only incomplete fields are flagged — no noise for what was parsed correctly',
+              'Only incomplete fields are flagged, so there is no noise for what was parsed correctly',
               'Users fix missing data directly in the table without opening separate forms',
               'Transforms a traditionally painful step into a fast, guided experience',
             ].map(item => <li key={item}>{item}</li>)}
@@ -1760,14 +1760,14 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
 
       {/* ── 08 Impact ──────────────────────────────────── */}
       <section id="impact" ref={el => { sectionRefs.current['impact'] = el }} className="fx-sec-alt" style={{ marginBottom: 16 }}>
-        <p className="fx-sec-label">08 — Impact</p>
+        <p className="fx-sec-label">08 · Impact</p>
         <h2 className="fx-sec-title">It all worked out, and with an impact.</h2>
         <div className="fx-outcomes">
           {[
             { num: '01', metric: '4 hrs → ~30 mins', desc: 'Time to process a batch of résumés went from half a day to a coffee break.' },
             { num: '02', metric: 'Duplicate profiles eliminated', desc: 'System caught repeated entries before they entered the pipeline.' },
             { num: '03', metric: 'Data accuracy improved', desc: 'Inline validation meant fields were complete and correct before submission.' },
-            { num: '04', metric: 'Recruiter confidence up', desc: 'Bulk uploads became predictable — no more dreading high-volume intake days.' },
+            { num: '04', metric: 'Recruiter confidence up', desc: 'Bulk uploads became predictable, no more dreading high-volume intake days.' },
           ].map(({ num, metric, desc }) => (
             <div key={num} className="fx-outcome-item">
               <div className="fx-outcome-num">{num}</div>

@@ -94,7 +94,7 @@ export default function ResumePage() {
                   period="Jun 2024 – Aug 2024"
                   location="Chicago, IL"
                   bullets={[
-                    'Redesigned AI recruiter screening flow — cut candidate review time by 87.5% and improved diversity-hire rate by 14%.',
+                    'Redesigned AI recruiter screening flow, cutting candidate review time by 87.5% and improving diversity-hire rate by 14%.',
                     'Ran 12 structured interviews with recruiters and candidates; distilled findings into a design system that scaled across 3 product teams.',
                     'Mapped complete end-to-end journey for AI-assisted review, surfacing 6 critical friction points that were prioritised in the next sprint.',
                   ]}
@@ -116,7 +116,7 @@ export default function ResumePage() {
                   period="Aug 2023 – Dec 2023"
                   location="Boulder, CO"
                   bullets={[
-                    'Designed ATLAS — a wildfire simulation exhibit for the Denver Museum — from concept through fabrication-ready deliverables.',
+                    'Designed ATLAS, a wildfire simulation exhibit for the Denver Museum, from concept through fabrication-ready deliverables.',
                     'Conducted contextual research with 15 museum visitors; insights shaped spatial layout and interaction model.',
                     'Delivered interactive prototype and brand identity across exhibit touchpoints.',
                   ]}
@@ -212,7 +212,7 @@ export default function ResumePage() {
           margin: '28px auto 0',
           lineHeight: 1.7,
         }}>
-          If the résumé you received looks slightly different from this one, that&apos;s intentional — I tailored it to what mattered most for your role. Consider this the full picture.
+          If the résumé you received looks slightly different from this one, that&apos;s intentional. I tailored it to what mattered most for your role. Consider this the full picture.
         </p>
 
       </div>

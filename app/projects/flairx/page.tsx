@@ -265,7 +265,7 @@ function ATSPrototype() {
                   background: selected.length === candidates.length ? 'var(--accent)' : selected.length > 0 ? 'rgba(43,181,194,0.3)' : 'transparent',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: '#fff', fontSize: 10, cursor: 'pointer',
-                }}>{selected.length === candidates.length ? '✓' : selected.length > 0 ? '—' : ''}</div>
+                }}>{selected.length === candidates.length ? '✓' : selected.length > 0 ? '–' : ''}</div>
             </th>
             <th style={thStyle}>Candidate</th>
             <th style={thStyle}>Match</th>

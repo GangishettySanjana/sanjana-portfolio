@@ -21,7 +21,7 @@ export function generateMetadata({ params }: Props): Metadata {
   const project = getProjectBySlug(params.slug)
   if (!project) return { title: 'Project Not Found' }
   return {
-    title: `${project.title} — Sanjana Gangishetty`,
+    title: `${project.title} · Sanjana Gangishetty`,
     description: project.tldr,
   }
 }

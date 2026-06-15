@@ -821,7 +821,7 @@ export default function HomePage() {
                 <span className="exp-num">02</span>
               </div>
               <h3 className="exp-title">Alexa remembers your cart. Not you.</h3>
-              <p className="exp-desc">Alexa for Shopping treats every session as a blank slate. I designed a memory layer that carries context across sessions — past purchases, preferences, family patterns — so Alexa can give recommendations that actually fit your life. Live prototype included.</p>
+              <p className="exp-desc">Alexa for Shopping treats every session as a blank slate. I designed a memory layer that carries context across sessions: past purchases, preferences, family patterns. With it, Alexa can give recommendations that actually fit your life. Live prototype included.</p>
               <div className="exp-footer">
                 <span className="exp-status exp-status--live">Live prototype →</span>
               </div>
@@ -834,7 +834,7 @@ export default function HomePage() {
                 <span className="exp-num">03</span>
               </div>
               <h3 className="exp-title">AI sounds just as sure when it&apos;s guessing.</h3>
-              <p className="exp-desc">AI support tools present wrong answers with the same confidence as right ones. Inspired by Intercom Fin, I designed a confidence-state system that visibly changes how an answer looks based on how grounded it is — and routes uncertainty to a human instead of a customer. Live demo included.</p>
+              <p className="exp-desc">AI support tools present wrong answers with the same confidence as right ones. Inspired by Intercom Fin, I designed a confidence-state system that visibly changes how an answer looks based on how grounded it is, then routes uncertainty to a human instead of a customer. Live demo included.</p>
               <div className="exp-footer">
                 <span className="exp-status exp-status--live">Live demo →</span>
               </div>
@@ -842,7 +842,7 @@ export default function HomePage() {
 
             {/* More coming */}
             <div className="exp-card exp-card--more">
-              <p className="exp-more-text">More concepts in the works — currently exploring, currently building.</p>
+              <p className="exp-more-text">More concepts in the works. Currently exploring, currently building.</p>
             </div>
 
           </div>

@@ -40,7 +40,7 @@ const labelFont = Outfit({
 })
 
 export const metadata: Metadata = {
-  title: 'Sanjana Gangishetty — Product Designer',
+  title: 'Sanjana Gangishetty · Product Designer',
   manifest: '/manifest.json',
   icons: {
     icon: [
@@ -52,13 +52,13 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   description:
-    'Product Designer and UX Designer based in the United States. I make complex things feel obvious — currently open to full-time roles.',
+    'Product Designer and UX Designer based in the United States. I make complex things feel obvious, and I am currently open to full-time roles.',
   keywords: [
     'Product Designer', 'UX Designer', 'AI Product Designer',
     'Sanjana Gangishetty', 'Portfolio', 'CU Boulder', 'Design',
   ],
   openGraph: {
-    title: 'Sanjana Gangishetty — Product Designer',
+    title: 'Sanjana Gangishetty · Product Designer',
     description: 'Product Designer who makes the complex feel obvious.',
     url: 'https://gangishettysanjana.com',
     siteName: 'Sanjana Gangishetty',
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sanjana Gangishetty — Product Designer',
+    title: 'Sanjana Gangishetty · Product Designer',
     description: 'Product Designer who makes the complex feel obvious.',
   },
   robots: { index: true, follow: true },

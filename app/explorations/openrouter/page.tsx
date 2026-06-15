@@ -448,7 +448,7 @@ def support_bot(user_message, history):
         {/* ── STORY ───────────────────────────────────── */}
         <section className="sec sec-alt" id="story">
           <div className="container">
-            <p className="sec-label">01 — The Story</p>
+            <p className="sec-label">01 · The Story</p>
             <h2 className="sec-title">Meet Casey</h2>
 
             {/* Casey Persona Card + story side by side */}
@@ -474,7 +474,7 @@ def support_bot(user_message, history):
                   <div className="persona-context-label">The situation</div>
                   <ul className="persona-context-list">
                     <li>PM dropped a Jira ticket: &ldquo;Add AI chat to the support flow. Sprint ends Friday.&rdquo;</li>
-                    <li>Heard about OpenRouter — one API key, every model, automatic failover.</li>
+                    <li>Heard about OpenRouter: one API key, every model, automatic failover.</li>
                     <li>Landed on openrouter.ai/models. 503 models stared back.</li>
                     <li>Picked GPT-4o based on a Reddit thread. Cost $47 in week one.</li>
                   </ul>
@@ -548,7 +548,7 @@ def support_bot(user_message, history):
         {/* ── PROBLEM ─────────────────────────────────── */}
         <section className="sec" id="problem">
           <div className="container">
-            <p className="sec-label">02 — The Problem</p>
+            <p className="sec-label">02 · The Problem</p>
             <h2 className="sec-title">A catalog isn&apos;t a recommendation</h2>
             <div className="prose">
               <p>OpenRouter&apos;s own <a href="https://openrouter.ai/state-of-ai" target="_blank" rel="noopener">State of AI report</a> says programming is 40-60% of all paid-model traffic on the platform. The typical OpenRouter user is a developer building something with AI. And most of them are not ML engineers. They&apos;re Casey.</p>
@@ -602,7 +602,7 @@ def support_bot(user_message, history):
         {/* ── DESIGN DECISIONS ────────────────────────── */}
         <section className="sec sec-alt" id="decisions">
           <div className="container">
-            <p className="sec-label">03 — Design Decisions</p>
+            <p className="sec-label">03 · Design Decisions</p>
             <h2 className="sec-title">Four choices that shaped everything</h2>
             <div className="ruled-out">
               <p className="ruled-out-label">What I ruled out first</p>
@@ -636,7 +636,7 @@ def support_bot(user_message, history):
         {/* ── PROTOTYPE ───────────────────────────────── */}
         <section className="sec" id="prototype">
           <div className="container">
-            <p className="sec-label">04 — The Prototype</p>
+            <p className="sec-label">04 · The Prototype</p>
             <h2 className="sec-title">Try it yourself</h2>
             <p className="sec-intro">This is what I actually built. Click through it. The recommendations are deterministic (not AI), but the model IDs, pricing, and code are real.</p>
           </div>
@@ -807,7 +807,7 @@ def support_bot(user_message, history):
         {/* ── REFLECTION ──────────────────────────────── */}
         <section className="sec sec-alt" id="reflection">
           <div className="container">
-            <p className="sec-label">05 — Reflection</p>
+            <p className="sec-label">05 · Reflection</p>
             <h2 className="sec-title">What I&apos;d do with 6 more weeks</h2>
             <div className="prose">
               <p>This is a concept. I built it in 8 days. Here&apos;s what I know is rough, and what I&apos;d need to actually ship it.</p>
@@ -839,7 +839,7 @@ def support_bot(user_message, history):
           <div className="container footer-inner">
             <blockquote className="footer-quote">
               &ldquo;The details are not the details. They make the design.&rdquo;
-              <cite>— Charles Eames</cite>
+              <cite>Charles Eames</cite>
             </blockquote>
             <div className="footer-links">
               <Link href="/">Portfolio</Link>
