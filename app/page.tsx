@@ -493,38 +493,49 @@ export default function HomePage() {
   useEffect(() => {
     const video = document.getElementById('hero-video') as HTMLVideoElement | null
     if (!video) return
+    video.muted = true; video.defaultMuted = true; video.playsInline = true
     const FADE_DUR = 0.5
     let rafId = 0
+    const tryPlay = () => { const p = video.play(); if (p && p.catch) p.catch(() => {}) }
+    // only reveal the video while it's genuinely playing — never a frozen frame (so Safari
+    // can't slap its play-button glyph on a paused frame)
     const tick = () => {
-      const { currentTime, duration } = video
-      if (duration && !Number.isNaN(duration)) {
+      const { currentTime, duration, paused } = video
+      if (!paused && currentTime > 0) {
+        video.style.transition = 'opacity 0.6s ease'
         let opacity = 1
-        if (currentTime < FADE_DUR) opacity = currentTime / FADE_DUR
-        else if (currentTime > duration - FADE_DUR) opacity = Math.max(0, (duration - currentTime) / FADE_DUR)
+        if (duration && !Number.isNaN(duration) && currentTime > duration - FADE_DUR) {
+          opacity = Math.max(0, (duration - currentTime) / FADE_DUR)
+        }
         video.style.opacity = String(opacity)
       }
       rafId = requestAnimationFrame(tick)
     }
     const onEnded = () => {
       video.style.opacity = '0'
-      setTimeout(() => { video.currentTime = 0; void video.play() }, 100)
+      setTimeout(() => { video.currentTime = 0; tryPlay() }, 80)
     }
-    const tryPlay = () => { void video.play().catch(() => {}) }
 
     video.addEventListener('ended', onEnded)
+    video.addEventListener('canplay', tryPlay)
+    video.addEventListener('loadeddata', tryPlay)
     tryPlay()
     rafId = requestAnimationFrame(tick)
 
-    // Safari blocks autoplay until first user interaction
-    const onInteract = () => { tryPlay(); document.removeEventListener('click', onInteract); document.removeEventListener('touchstart', onInteract) }
-    document.addEventListener('click', onInteract)
-    document.addEventListener('touchstart', onInteract)
+    // Safari / Low Power Mode blocks autoplay — keep retrying on any interaction
+    const onInteract = () => tryPlay()
+    document.addEventListener('pointerdown', onInteract)
+    document.addEventListener('touchstart', onInteract, { passive: true })
+    document.addEventListener('scroll', onInteract, { passive: true })
 
     return () => {
       cancelAnimationFrame(rafId)
       video.removeEventListener('ended', onEnded)
-      document.removeEventListener('click', onInteract)
+      video.removeEventListener('canplay', tryPlay)
+      video.removeEventListener('loadeddata', tryPlay)
+      document.removeEventListener('pointerdown', onInteract)
       document.removeEventListener('touchstart', onInteract)
+      document.removeEventListener('scroll', onInteract)
     }
   }, [])
 
