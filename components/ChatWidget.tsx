@@ -208,37 +208,45 @@ export default function ChatWidget() {
       {/* Floating button */}
       <motion.button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-roasted text-lace shadow-stamp flex items-center justify-center hover:bg-roasted-dark transition-colors"
+        className="chat-fab fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.94 }}
+        whileHover={{ scale: 1.04 }}
         aria-label={open ? 'Close chat' : 'Chat with Sanju'}
       >
+        {/* "online" pulse dot when closed */}
+        {!open && (
+          <span className="absolute top-1 right-1">
+            <span className="absolute inline-flex h-2.5 w-2.5 rounded-full bg-green-500 opacity-50 animate-ping" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500 border-2 border-[#e8e8e8]" />
+          </span>
+        )}
         <AnimatePresence mode="wait">
           {open ? (
-            <motion.span
+            <motion.svg
               key="close"
+              width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"
               initial={{ rotate: -90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: 90, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="text-lg"
             >
-              ✕
-            </motion.span>
+              <path d="M18 6 6 18M6 6l12 12" />
+            </motion.svg>
           ) : (
-            <motion.span
+            <motion.svg
               key="chat"
-              initial={{ rotate: 90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: -90, opacity: 0 }}
+              width="23" height="23" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="text-xl"
             >
-              💬
-            </motion.span>
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+            </motion.svg>
           )}
         </AnimatePresence>
       </motion.button>

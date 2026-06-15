@@ -16,6 +16,20 @@ video::-webkit-media-controls-overlay-play-button {
 }
 video { pointer-events: none; }
 
+/* Neumorphic chat button (soft UI, Uiverse-style) */
+.chat-fab {
+  background: #e8e8e8;
+  border: 1px solid #e8e8e8;
+  color: #090909;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+  transition: box-shadow 0.28s ease, color 0.2s ease;
+}
+.chat-fab:hover { box-shadow: 8px 8px 18px #c5c5c5, -8px -8px 18px #ffffff; }
+.chat-fab:active {
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
 @font-face {
   font-family: 'NCL Gasdrifo';
   src: url('/fonts/NCLGasdrifo-Demo.otf') format('opentype');
