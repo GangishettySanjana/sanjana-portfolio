@@ -155,10 +155,25 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
     // mark as seen up front so navigating away mid-curtain still won't replay it
     try { sessionStorage.setItem('introSeen', '1') } catch { /* storage unavailable */ }
 
+    // force the scenery video to play (muted autoplay); retry on events + interaction
+    const vid = rootRef.current?.querySelector('.scenery-video') as HTMLVideoElement | null
+    const tryPlay = () => { if (vid && vid.tagName === 'VIDEO') { const p = vid.play(); if (p && p.catch) p.catch(() => {}) } }
+    if (vid && vid.tagName === 'VIDEO') {
+      vid.muted = true; vid.defaultMuted = true; vid.playsInline = true
+      tryPlay()
+      vid.addEventListener('canplay', tryPlay)
+      vid.addEventListener('loadeddata', tryPlay)
+      document.addEventListener('pointerdown', tryPlay)
+    }
+
     // auto-start the experience — no gate, no friction
     run()
 
-    return () => { if (tlRef.current) tlRef.current.kill() }
+    return () => {
+      if (tlRef.current) tlRef.current.kill()
+      if (vid) { vid.removeEventListener('canplay', tryPlay); vid.removeEventListener('loadeddata', tryPlay) }
+      document.removeEventListener('pointerdown', tryPlay)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -189,11 +204,13 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
         }
       `}</style>
 
-      {/* Static misty-scenery — no <video>, so no play-button glyph ever */}
-      <div className="scenery-video" style={{
-        position: 'absolute', inset: 0, zIndex: 0, opacity: 0, pointerEvents: 'none',
-        background: 'linear-gradient(168deg, #eef1f0 0%, #e8eee9 38%, #e4ece0 62%, #efece4 100%), radial-gradient(120% 90% at 50% 8%, rgba(190,205,220,0.5) 0%, transparent 55%)',
-      }} />
+      {/* Green-landscape scenery, washed bright; GSAP fades/Ken-Burns it via .scenery-video */}
+      <video className="scenery-video" muted playsInline autoPlay loop preload="auto"
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
+        style={{
+          position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+          zIndex: 0, opacity: 0, pointerEvents: 'none', filter: 'brightness(1.25) saturate(0.78) contrast(0.96)',
+        }} />
       <div className="scenery-overlay" style={{
         position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
         background: 'radial-gradient(120% 80% at 50% 38%, rgba(255,255,255,0.4) 0%, rgba(250,248,244,0.82) 55%, #faf8f4 100%)',
