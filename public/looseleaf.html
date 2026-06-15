@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Looseleaf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep:#0d0d0d;--tide:#2b2b2b;--surf:#ffffff;--foam:#fafafa;
+    --glow:#0d0d0d;--coral:#444444;--whisper:#9a9a9a;--line:#e4e4e4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden}
+  body{
+    background:
+      radial-gradient(circle at 15% 10%, #f6f6f6, transparent 45%),
+      radial-gradient(circle at 85% 90%, #f0f0f0, transparent 50%),
+      var(--surf);
+    color:var(--deep);font-family:'Space Grotesk',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;position:relative;
+  }
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:30;
+    display:flex;justify-content:space-between;align-items:center;padding:22px 30px;
+  }
+  .wordmark{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:var(--whisper)}
+  .top-right{display:flex;gap:18px;align-items:center}
+  .reset{font-size:12px;letter-spacing:.06em;color:var(--whisper);background:none;border:none;cursor:pointer;opacity:0;transition:opacity .5s,color .2s;font-family:inherit}
+  .reset:hover{color:var(--deep)}
+  .reset.show{opacity:1}
+
+  /* top prompt — stays pinned */
+  .prompt{
+    position:fixed;top:76px;left:50%;transform:translateX(-50%);z-index:16;
+    text-align:center;max-width:560px;width:90%;transition:opacity .5s;
+  }
+  .prompt h1{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:clamp(22px,2.8vw,30px);margin-bottom:8px}
+  .prompt p{color:var(--whisper);font-size:13.5px;line-height:1.6}
+
+  /* visible writing box */
+  .writer{
+    position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:15;
+    width:min(78vw,720px);transition:opacity .5s;
+  }
+  #pad{
+    width:100%;min-height:34vh;resize:none;border:none;outline:none;background:transparent;
+    font-family:'Caveat',cursive;font-size:clamp(26px,3.6vw,40px);line-height:1.4;color:var(--deep);
+    text-align:center;caret-color:var(--coral);padding:18px;
+    border-radius:18px;transition:background .3s,box-shadow .3s;
+  }
+  #pad::placeholder{color:var(--line)}
+  #pad:focus{background:var(--foam);box-shadow:0 1px 30px rgba(14,42,50,.05)}
+
+  #field{position:fixed;inset:0;z-index:14;display:none;cursor:crosshair}
+
+  .controls{position:fixed;left:50%;bottom:42px;transform:translateX(-50%);z-index:25;display:flex;gap:14px;align-items:center}
+  .mic{width:50px;height:50px;border-radius:50%;border:1px solid var(--line);background:var(--foam);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:opacity .5s,border-color .25s,background .25s,transform .2s}
+  .mic:hover{border-color:var(--glow);transform:translateY(-2px)}
+  .mic svg{width:20px;height:20px;stroke:var(--tide);fill:none;stroke-width:1.6}
+  .mic.live{background:var(--coral);border-color:var(--coral);animation:pulse 1.4s ease-in-out infinite}
+  .mic.live svg{stroke:#fff}
+  .mic.hide{opacity:0;pointer-events:none}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,145,124,.4)}50%{box-shadow:0 0 0 10px rgba(232,145,124,0)}}
+
+  .btn{
+    font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--whisper);background:var(--foam);border:1px solid var(--line);border-radius:40px;padding:14px 30px;cursor:pointer;
+    transition:opacity .5s,color .25s,border-color .25s,transform .2s;opacity:0;pointer-events:none;
+  }
+  .btn.show{opacity:1;pointer-events:auto}
+  .btn:hover{color:var(--deep);border-color:var(--glow);transform:translateY(-2px)}
+  .btn:disabled{opacity:.3;pointer-events:none}
+
+  .hint{position:fixed;left:50%;bottom:108px;transform:translateX(-50%);z-index:25;font-size:12px;letter-spacing:.08em;color:var(--whisper);opacity:0;transition:opacity .6s;pointer-events:none}
+  .hint.show{opacity:1}
+
+  .ring-wrap{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:20;width:180px;height:180px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .5s;pointer-events:none}
+  .ring-wrap.show{opacity:1}
+  .ring-wrap svg{position:absolute;inset:0;transform:rotate(-90deg)}
+  .ring-bg{fill:none;stroke:var(--line);stroke-width:1.2}
+  .ring-fg{fill:none;stroke:var(--glow);stroke-width:1.4;stroke-linecap:round;transition:stroke-dashoffset .15s linear}
+  .ring-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--whisper)}
+
+  .calm-line{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);z-index:18;text-align:center;max-width:760px;padding:0 6vw;font-family:'Caveat',cursive;font-size:clamp(30px,4.4vw,50px);line-height:1.3;color:var(--deep);opacity:0;transition:opacity 1s ease,transform 1s cubic-bezier(.16,1,.3,1)}
+  .calm-line.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+</style>
+</head>
+<body>
+  <header>
+    <span class="wordmark">Looseleaf</span>
+    <div class="top-right">
+      <button class="reset" id="reset">start over</button>
+    </div>
+  </header>
+
+  <div class="prompt" id="prompt">
+    <h1>What&rsquo;s weighing on you?</h1>
+    <p>Write it out, messy and unsorted. Then break it apart and knock the words around. When you&rsquo;re ready, let it go.</p>
+  </div>
+
+  <div class="writer" id="writer">
+    <textarea id="pad" placeholder="start typing here, or tap the mic" spellcheck="false" aria-label="Write your thoughts"></textarea>
+  </div>
+
+  <canvas id="field"></canvas>
+  <div class="hint" id="hint">click or drag to knock the words around</div>
+
+  <div class="ring-wrap" id="ring">
+    <svg viewBox="0 0 180 180"><circle class="ring-bg" cx="90" cy="90" r="84"></circle><circle class="ring-fg" id="ringFg" cx="90" cy="90" r="84"></circle></svg>
+    <span class="ring-label" id="ringLabel">deep breaths</span>
+  </div>
+
+  <div class="calm-line" id="calm"></div>
+
+  <div class="controls">
+    <button class="mic" id="mic" aria-label="Speak your words" title="Speak your words">
+      <svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><line x1="12" y1="18" x2="12" y2="21"/></svg>
+    </button>
+    <button class="btn" id="break" disabled>Break it up</button>
+    <button class="btn" id="release" disabled>Let it go</button>
+  </div>
+
+<script>
+(function(){
+  const pad=document.getElementById('pad');
+  const prompt=document.getElementById('prompt');
+  const writer=document.getElementById('writer');
+  const breakBtn=document.getElementById('break');
+  const release=document.getElementById('release');
+  const mic=document.getElementById('mic');
+  const hint=document.getElementById('hint');
+  const ring=document.getElementById('ring');
+  const ringFg=document.getElementById('ringFg');
+  const ringLabel=document.getElementById('ringLabel');
+  const calm=document.getElementById('calm');
+  const reset=document.getElementById('reset');
+  const canvas=document.getElementById('field');
+  const ctx=canvas.getContext('2d');
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const fallbacks=[
+    "you carried all of that and still showed up. that takes more strength than you give yourself credit for.",
+    "the weight was real, and so is the part of you that keeps going anyway.",
+    "you just made room for yourself. that's not small.",
+    "whatever today asked of you, you answered it. rest now.",
+    "you're allowed to set it down. it isn't yours to hold tonight.",
+    "the fact that you wrote it out means you're already finding your way through.",
+    "you are steadier than the storm you described. it passes; you remain.",
+    "kinder to yourself, starting now. you've earned that."
+  ];
+  function pick(a){return a[Math.floor(Math.random()*a.length)];}
+
+  const C=2*Math.PI*84;
+  ringFg.style.strokeDasharray=C;ringFg.style.strokeDashoffset=C;
+
+  /* ============ input phase ============ */
+  function syncControls(){
+    const has=pad.value.trim().length>0;
+    breakBtn.disabled=!has;breakBtn.classList.toggle('show',has);
+  }
+  pad.addEventListener('input',syncControls);
+  window.addEventListener('load',()=>pad.focus());
+
+  /* mic */
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  let recog=null,listening=false,baseText='';
+  if(SR){
+    recog=new SR();recog.continuous=true;recog.interimResults=true;recog.lang='en-US';
+    recog.onresult=(e)=>{let str='';for(let i=0;i<e.results.length;i++)str+=e.results[i][0].transcript;
+      pad.value=(baseText?baseText+' ':'')+str.trim();syncControls();};
+    recog.onend=()=>{listening=false;mic.classList.remove('live');};
+    mic.addEventListener('click',()=>{
+      if(listening){recog.stop();return;}
+      baseText=pad.value.trim();
+      try{recog.start();listening=true;mic.classList.add('live');pad.focus();}catch(err){}
+    });
+  }else{
+    mic.title="Voice input needs Chrome — typing still works";
+    mic.addEventListener('click',()=>{pad.focus();mic.style.opacity='.4';});
+  }
+
+  /* ============ physics phase ============ */
+  let bodies=[],raf=null,phase='input',savedText='';
+  let W=0,H=0,DPR=Math.min(2,window.devicePixelRatio||1);
+  function sizeCanvas(){W=innerWidth;H=innerHeight;canvas.width=W*DPR;canvas.height=H*DPR;canvas.style.width=W+'px';canvas.style.height=H+'px';ctx.setTransform(DPR,0,0,DPR,0,0);}
+
+  function startBreak(){
+    savedText=pad.value.trim();
+    const words=savedText.split(/\s+/).filter(Boolean);
+    if(!words.length) return;
+    if(listening&&recog) recog.stop();
+    phase='play';
+    writer.style.opacity='0';writer.style.pointerEvents='none';
+    prompt.style.opacity='0';
+    breakBtn.classList.remove('show');breakBtn.disabled=true;
+    mic.classList.add('hide');
+    sizeCanvas();canvas.style.display='block';
+    ctx.font="600 38px Caveat, cursive";
+    bodies=words.map((w,i)=>{
+      const tw=ctx.measureText(w).width;const r=Math.max(34,tw/2+14);
+      const ang=(i/words.length)*Math.PI*2;const spread=60+Math.random()*40;
+      return{word:w,r,x:W/2+Math.cos(ang)*spread,y:H/2+Math.sin(ang)*spread,vx:0,vy:0,rot:(Math.random()-.5)*0.4,vr:(Math.random()-.5)*0.02};
+    });
+    const edge=Math.random()*Math.PI*2;
+    const bx=W/2+Math.cos(edge)*Math.max(W,H);const by=H/2+Math.sin(edge)*Math.max(W,H);
+    setTimeout(()=>kick(bx,by,26),250);
+    hint.classList.add('show');
+    release.disabled=false;release.classList.add('show');
+    loop();
+  }
+  function kick(px,py,power){bodies.forEach(b=>{const dx=b.x-px,dy=b.y-py,d=Math.hypot(dx,dy)||1;const f=power*(1/(1+d/300));b.vx+=(dx/d)*f+(Math.random()-.5)*3;b.vy+=(dy/d)*f+(Math.random()-.5)*3;b.vr+=(Math.random()-.5)*0.15;});}
+  function poke(px,py,power){bodies.forEach(b=>{const dx=b.x-px,dy=b.y-py,d=Math.hypot(dx,dy)||1;if(d<260){const f=power*(1-d/260);b.vx+=(dx/d)*f;b.vy+=(dy/d)*f;b.vr+=(Math.random()-.5)*0.1;}});}
+
+  function stepPhysics(){
+    const fr=0.985,wall=0.72;
+    for(const b of bodies){
+      b.x+=b.vx;b.y+=b.vy;b.rot+=b.vr;b.vx*=fr;b.vy*=fr;b.vr*=0.96;
+      if(b.x<b.r){b.x=b.r;b.vx=-b.vx*wall;}if(b.x>W-b.r){b.x=W-b.r;b.vx=-b.vx*wall;}
+      if(b.y<b.r){b.y=b.r;b.vy=-b.vy*wall;}if(b.y>H-b.r){b.y=H-b.r;b.vy=-b.vy*wall;}
+    }
+    for(let i=0;i<bodies.length;i++)for(let j=i+1;j<bodies.length;j++){
+      const a=bodies[i],b=bodies[j];const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1,min=a.r+b.r;
+      if(d<min){const nx=dx/d,ny=dy/d,ov=(min-d)/2;a.x-=nx*ov;a.y-=ny*ov;b.x+=nx*ov;b.y+=ny*ov;
+        const dvx=b.vx-a.vx,dvy=b.vy-a.vy,p=(dvx*nx+dvy*ny);if(p<0){a.vx+=p*nx;a.vy+=p*ny;b.vx-=p*nx;b.vy-=p*ny;}}
+    }
+  }
+  function drawBodies(alpha){
+    ctx.clearRect(0,0,W,H);ctx.font="600 38px Caveat, cursive";ctx.textAlign="center";ctx.textBaseline="middle";
+    ctx.fillStyle=alpha==null?"#0d0d0d":"rgba(13,13,13,"+alpha+")";
+    for(const b of bodies){ctx.save();ctx.translate(b.x,b.y);ctx.rotate(b.rot);ctx.fillText(b.word,0,0);ctx.restore();}
+  }
+  function loop(){if(phase!=='play')return;stepPhysics();drawBodies();raf=requestAnimationFrame(loop);}
+
+  let dragging=false;
+  canvas.addEventListener('pointerdown',e=>{dragging=true;poke(e.clientX,e.clientY,16);});
+  canvas.addEventListener('pointermove',e=>{if(dragging)poke(e.clientX,e.clientY,7);});
+  window.addEventListener('pointerup',()=>{dragging=false;});
+  window.addEventListener('resize',()=>{if(phase==='play')sizeCanvas();});
+
+  /* ============ release phase ============ */
+  function letGo(){
+    if(phase!=='play')return;phase='release';
+    hint.classList.remove('show');release.classList.remove('show');release.disabled=true;
+    bodies.forEach(b=>{const cx=b.x<W/2?-1:1,cy=b.y<H/2?-1:1;b.vx+=cx*(14+Math.random()*8);b.vy+=cy*(14+Math.random()*8);});
+    let frames=0;
+    (function fade(){stepPhysics();drawBodies(Math.max(0,1-frames/45));frames++;if(frames<46)requestAnimationFrame(fade);else canvas.style.display='none';})();
+    ring.classList.add('show');
+    let pct=0,message=null,done=false;
+    getKindMessage(savedText).then(m=>{message=m;});
+    const tick=setInterval(()=>{
+      pct=Math.min(100,pct+(2+Math.random()*4));ringFg.style.strokeDashoffset=C*(1-pct/100);
+      ringLabel.textContent=pct<100?'deep breaths':'settled';
+      if(pct>=100&&!done){done=true;clearInterval(tick);const finish=()=>setTimeout(()=>bloom(message||pick(fallbacks)),300);if(message)finish();else setTimeout(finish,700);}
+    },90);
+  }
+  function bloom(message){ring.classList.remove('show');calm.textContent=message;calm.classList.add('show');setTimeout(()=>reset.classList.add('show'),600);}
+
+  async function getKindMessage(userText){
+    try{
+      const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,messages:[{role:"user",content:
+          "A person just wrote down something heavy they're carrying, in a journaling app, in order to let it go. "+
+          "Read it and reply with ONE warm, grounded sentence (max 22 words) that gently lifts the heaviness and helps them feel good about themselves. "+
+          "Speak directly to them as 'you'. No emojis, no quotation marks, no preamble, lowercase is fine. Just the sentence.\n\nWhat they wrote:\n"+userText}]})});
+      if(!res.ok)throw new Error("api");
+      const data=await res.json();
+      const txt=(data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join(" ").trim();
+      if(!txt)throw new Error("empty");
+      return txt.replace(/^["']|["']$/g,"");
+    }catch(e){return pick(fallbacks);}
+  }
+
+  breakBtn.addEventListener('click',startBreak);
+  release.addEventListener('click',letGo);
+  reset.addEventListener('click',()=>{
+    if(raf)cancelAnimationFrame(raf);phase='input';bodies=[];canvas.style.display='none';
+    calm.classList.remove('show');reset.classList.remove('show');hint.classList.remove('show');
+    pad.value='';writer.style.opacity='1';writer.style.pointerEvents='auto';prompt.style.opacity='1';
+    mic.classList.remove('hide');release.classList.remove('show');ringFg.style.strokeDashoffset=C;
+    syncControls();setTimeout(()=>pad.focus(),200);
+  });
+})();
+</script>
+</body>
+</html>

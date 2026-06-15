@@ -144,12 +144,16 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
     if (startedRef.current) return
     startedRef.current = true
 
-    // returning from a project page → skip the curtain
-    if (typeof window !== 'undefined' && sessionStorage.getItem('skipIntro')) {
+    // Play the curtain only ONCE per session. Skip it if it has already played,
+    // or if a project page explicitly asked to skip on the way back.
+    if (typeof window !== 'undefined' && (sessionStorage.getItem('introSeen') || sessionStorage.getItem('skipIntro'))) {
       sessionStorage.removeItem('skipIntro')
-      setVisible(false); onCompleteRef.current?.()
+      setVisible(false)  // curtain unmounts; the homepage reveals its own hero
       return
     }
+
+    // mark as seen up front so navigating away mid-curtain still won't replay it
+    try { sessionStorage.setItem('introSeen', '1') } catch { /* storage unavailable */ }
 
     // auto-start the experience — no gate, no friction
     run()

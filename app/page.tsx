@@ -89,6 +89,21 @@ export default function HomePage() {
     // expose runHero so the intro curtain can fire it when it lifts
     runHeroRef.current = runHero
 
+    // If the curtain didn't render (already seen this session → it skipped and
+    // unmounted), reveal the hero ourselves. On the play path the curtain stays
+    // on screen for several seconds, so this check finds it and does nothing —
+    // the curtain reveals the hero itself when it lifts.
+    setTimeout(() => {
+      // Curtain is on screen (first visit) → let it reveal the hero when it lifts.
+      if (document.querySelector('.scenery-video')) return
+      // Curtain skipped (already seen this session) → reveal the hero instantly.
+      // gsap.set is idempotent, so StrictMode/double-calls just re-assert the final state.
+      const hHead = document.getElementById('hHead')
+      if (hHead && !hHead.querySelector('.word-inner')) splitWords(hHead)
+      gsap.set('#hHead .word-inner', { y: '0%', opacity: 1 })
+      gsap.set(['#hGreeting', '#hBody', '#hCta', '#hLoc', '#hPhoto', '#scrollCue'], { opacity: 1, y: 0, x: 0 })
+    }, 150)
+
     /* ─────────────────────────────────────────────
        4. SCROLL PROGRESS BAR
     ───────────────────────────────────────────── */
