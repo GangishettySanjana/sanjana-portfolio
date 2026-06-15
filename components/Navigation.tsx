@@ -181,39 +181,9 @@ export default function Navigation() {
             </a>
             <a
               href="https://www.linkedin.com/in/sanjana-gangishetty"
-              style={{
-                fontFamily: 'var(--font-label), sans-serif',
-                fontSize: 11,
-                fontWeight: 800,
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                color: '#fff',
-                textDecoration: 'none',
-                background: 'linear-gradient(135deg, #2A3550 0%, #1a2236 100%)',
-                backgroundColor: '#2A3550',
-                borderRadius: 999,
-                padding: '9px 20px',
-                boxShadow: '0 2px 12px rgba(20,28,50,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                transition: 'box-shadow 0.12s, transform 0.12s',
-                flexShrink: 0,
-                isolation: 'isolate' as const,
-                willChange: 'transform',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = 'scale(1.04)'
-                e.currentTarget.style.background = 'linear-gradient(135deg, #1e2840 0%, #111828 100%)'
-                e.currentTarget.style.color = '#fff'
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(20,28,50,0.45), inset 0 1px 0 rgba(255,255,255,0.1)'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = 'scale(1)'
-                e.currentTarget.style.background = 'linear-gradient(135deg, #2A3550 0%, #1a2236 100%)'
-                e.currentTarget.style.color = '#fff'
-                e.currentTarget.style.boxShadow = '0 2px 12px rgba(20,28,50,0.3), inset 0 1px 0 rgba(255,255,255,0.1)'
-              }}
+              className="fancy"
             >
-              Let&apos;s Connect
+              <span className="fancy-text">Let&apos;s Connect</span>
             </a>
           </div>
         </nav>
