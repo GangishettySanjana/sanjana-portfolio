@@ -74,11 +74,6 @@ export default function CreativeProjectsPage() {
           />
         </section>
 
-        {/* More coming */}
-        <p style={{ fontFamily: BODY, fontSize: 14, fontWeight: 400, color: 'rgba(0,0,0,0.4)', fontStyle: 'italic', marginTop: 'clamp(48px, 6vw, 72px)' }}>
-          More in the works. I keep a running list of small things to build.
-        </p>
-
       </div>
     </main>
   )

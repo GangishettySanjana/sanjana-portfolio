@@ -34,7 +34,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   background-color: rgba(255,255,255,0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-radius: 60px; padding: 72px 72px;
+  border-radius: 80px; padding: 76px 72px;
   display: grid; grid-template-columns: 1fr auto;
   align-items: center; gap: 64px;
   position: relative; overflow: hidden;
@@ -46,8 +46,30 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 }
 /* Name + location plate at top of hero */
 .hero-nameplate {
-  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
   opacity: 0; transform: translateY(16px);
+}
+.hero-eyebrow-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.hero-role {
+  font-family: var(--body); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,0,0,0.5);
+}
+.hero-name-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.hero-status {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--body); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: #16a34a;
+  background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3);
+  border-radius: 999px; padding: 5px 12px;
+}
+.hero-status-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #4ade80; display: inline-block;
+  box-shadow: 0 0 0 0 rgba(74,222,128,0.6); animation: heroPulse 1.8s ease-out infinite;
+}
+@keyframes heroPulse {
+  0% { box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
+  70% { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+  100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
 }
 .hero-nameplate-name {
   font-family: var(--body); font-size: 14px; font-weight: 600;
@@ -66,8 +88,8 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   display: none;
 }
 .hero-headline {
-  font-family: var(--head); font-size: 48px; font-weight: 800; color: #000;
-  line-height: 1.06; letter-spacing: -0.025em;
+  font-family: var(--head); font-size: 52px; font-weight: 800; color: #000;
+  line-height: 1.04; letter-spacing: -0.028em;
   overflow: visible;
 }
 .word-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; }
@@ -78,6 +100,15 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   opacity: 0; transform: translateY(24px);
 }
 
+/* "What I'm drawn to" — quieter than the body, sits just beneath it */
+.hero-drawn {
+  font-family: var(--body); font-size: 15.5px; font-weight: 400;
+  color: rgba(0,0,0,0.5); line-height: 1.6; max-width: 500px;
+  margin-top: 14px; padding-left: 14px;
+  border-left: 2px solid rgba(189,94,58,0.45);
+  opacity: 0; transform: translateY(20px);
+}
+
 /* Hero CTA — matches page system */
 .hero-cta-row {
   display: flex; align-items: center; gap: 16px;
@@ -85,11 +116,13 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 }
 .hero-btn-primary {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 28px; border-radius: 10px;
-  background: #111; color: #fff;
-  font-family: var(--head); font-size: 14px; font-weight: 700;
+  padding: 15px 34px; border-radius: 50px;
+  background: #bd5e3a; color: #fff;
+  border: 2px solid #bd5e3a;
+  box-shadow: 0 10px 26px -10px rgba(140,60,30,0.5);
+  font-family: var(--head); font-size: 15px; font-weight: 700;
   letter-spacing: 0.04em; text-decoration: none;
-  transition: opacity 0.18s, transform 0.18s;
+  transition: all 0.2s ease-in-out;
 }
 .hero-worked-in {
   display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
@@ -109,25 +142,34 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   border-radius: 999px;
   padding: 3px 10px;
 }
-.hero-btn-primary:hover { opacity: 0.82; transform: translateY(-2px); }
+.hero-btn-primary:hover, .hero-btn-primary:focus {
+  outline: none;
+  filter: brightness(0.94);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px -10px rgba(140,60,30,0.55);
+}
 .hero-btn-primary .arrow { display: inline-block; transition: transform 0.2s; }
 .hero-btn-primary:hover .arrow { transform: translateX(3px); }
 
 .hero-btn-secondary {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 14px 28px; border-radius: 999px;
-  background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.14);
-  font-family: var(--head); font-size: 14px; font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #111; text-decoration: none; backdrop-filter: blur(8px);
-  transition: background 0.18s, transform 0.18s;
+  padding: 15px 34px; border-radius: 50px;
+  background-color: #efe9e0; color: #57534b;
+  border: 2px solid rgba(0,0,0,0.05);
+  box-shadow: inset 4px 4px 10px #d6cfc3, inset -4px -4px 10px #ffffff;
+  font-family: var(--head); font-size: 15px; font-weight: 700;
+  letter-spacing: 0.04em; text-decoration: none;
+  transition: all 0.2s ease-in-out;
 }
-.hero-btn-secondary:hover { background: rgba(255,255,255,0.92); transform: translateY(-2px); }
+.hero-btn-secondary:hover, .hero-btn-secondary:focus {
+  outline: none;
+  box-shadow: inset 2px 2px 5px #d6cfc3, inset -2px -2px 5px #ffffff, 2px 2px 5px #d6cfc3, -2px -2px 5px #ffffff;
+}
 
 .hero-location { display: none; }
 .hero-photo {
   position: relative; z-index: 2; flex-shrink: 0;
-  width: 343px; height: 359px; border-radius: 40px;
+  width: 343px; height: 359px; border-radius: 45px;
   border: 1px solid #000; overflow: hidden;
   background: #c8d8c0;
   display: flex; align-items: center; justify-content: center;
@@ -136,6 +178,37 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 
 .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
 .photo-placeholder { font-size: 11px; color: rgba(0,0,0,0.4); text-align: center; line-height: 1.8; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* whole-product loop strip — proves the positioning, reads as a cycle */
+.hero-loop {
+  display: flex; align-items: center; gap: 9px; flex-wrap: wrap;
+  opacity: 0; transform: translateY(20px);
+}
+.hero-loop-step {
+  font-family: var(--body); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.6);
+}
+.hero-loop-arrow {
+  color: rgba(43,181,194,0.6); font-size: 12px; font-weight: 700;
+  transform: translateY(-0.5px);
+}
+.hero-loop-cycle {
+  display: inline-flex; align-items: center; gap: 5px; margin-left: 4px;
+  padding: 4px 11px 4px 9px; border-radius: 999px;
+  background: rgba(43,181,194,0.1); border: 1px solid rgba(43,181,194,0.28);
+  color: #1f8e9b; font-family: var(--body); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.hero-loop-cycle svg { display: block; }
+.hero-loop-cycle svg path,
+.hero-loop-cycle svg polyline { animation: heroLoopSpin 9s linear infinite; transform-origin: 12px 12px; }
+@keyframes heroLoopSpin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-loop-cycle svg path, .hero-loop-cycle svg polyline { animation: none; }
+}
+
+/* button press feedback (Emil: pressable elements respond) */
+.hero-btn-primary:active, .hero-btn-secondary:active { transform: scale(0.97); }
 
 /* ── WORK SECTION ── */
 .work-section { background: var(--page-bg); padding: 100px 0 80px; position: relative; z-index: 1; }
@@ -235,14 +308,27 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   font-family: var(--body); font-size: 11px; font-weight: 500;
   letter-spacing: 0.04em; opacity: 0.6; text-transform: uppercase;
 }
+/* Neumorphic work-card button (Uiverse by adamgiebl) — carved from each card's surface */
 .card-btn {
+  /* per-card themes set these vars so the button reads as carved from the card */
+  --neu-bg: #e0e0e0;
+  --neu-dark: #bcbcbc;
+  --neu-light: #ffffff;
+  --neu-text: #4d4d4d;
+  --neu-border: rgba(0,0,0,0.06);
   display: inline-flex; align-items: center; justify-content: space-between;
-  width: 100%; height: 54px; border-radius: 10px; padding: 0 22px;
-  font-family: var(--head); font-size: 14px; font-weight: 700;
+  width: 100%; height: 54px; border-radius: 50px; padding: 0 28px;
+  font-family: var(--head); font-size: 16px; font-weight: 700;
   letter-spacing: 0.03em; text-decoration: none;
-  transition: opacity 0.15s, transform 0.2s;
+  background-color: var(--neu-bg); color: var(--neu-text);
+  border: 2px solid var(--neu-border);
+  box-shadow: inset 4px 4px 10px var(--neu-dark), inset -4px -4px 10px var(--neu-light);
+  transition: all 0.2s ease-in-out;
 }
-.card-btn:hover { opacity: 0.8; transform: translateY(-2px); }
+.card-btn:hover, .card-btn:focus {
+  outline: none;
+  box-shadow: inset 2px 2px 5px var(--neu-dark), inset -2px -2px 5px var(--neu-light), 3px 3px 6px var(--neu-dark), -3px -3px 6px var(--neu-light);
+}
 .card-btn .btn-arrow { font-size: 18px; transition: transform 0.2s; }
 .card-btn:hover .btn-arrow { transform: translateX(4px); }
 .card-right {
@@ -264,29 +350,29 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 /* ── COLOR THEMES ── */
 .card-flairx { background: var(--blue); color: var(--cream-text); }
 .card-flairx .card-category { border-color: var(--cream-text); color: var(--cream-text); }
-.card-flairx .card-btn { background: var(--cream-text); color: #000; }
 .card-flairx .card-right { background: #1a4a8a; }
 .card-flairx .card-right img { border: none; }
+.card-flairx .card-btn { --neu-bg: #2e6cc0; --neu-dark: #1a4f99; --neu-light: #4382d8; --neu-text: #eaf2fc; --neu-border: rgba(255,255,255,0.18); }
 
 .card-fireside { background: var(--peach); color: var(--blue); }
 .card-fireside .card-category { border-color: var(--blue); color: var(--blue); }
-.card-fireside .card-btn { background: var(--blue); color: var(--peach); }
 .card-fireside .card-right { background: #c4a98a; }
+.card-fireside .card-btn { --neu-bg: #f3e4d5; --neu-dark: #d2bca5; --neu-light: #fffdf8; --neu-text: #1e5dac; --neu-border: rgba(0,0,0,0.05); }
 
 .card-getup { background: #2d4a2d; color: #d4e8c2; }
 .card-getup .card-category { border-color: #d4e8c2; color: #d4e8c2; }
-.card-getup .card-btn { background: #d4e8c2; color: #2d4a2d; }
 .card-getup .card-right { background: #3a5c3a; }
+.card-getup .card-btn { --neu-bg: #3d603d; --neu-dark: #284228; --neu-light: #517f51; --neu-text: #e3f0d5; --neu-border: rgba(255,255,255,0.16); }
 
 .card-aura { background: #c9c2d4; color: #2a1f3d; }
 .card-aura .card-category { border-color: #2a1f3d; color: #2a1f3d; }
-.card-aura .card-btn { background: #2a1f3d; color: #c9c2d4; }
 .card-aura .card-right { background: #b8b0c8; }
+.card-aura .card-btn { --neu-bg: #d9d2e7; --neu-dark: #b3aac8; --neu-light: #f1ecfa; --neu-text: #2a1f3d; --neu-border: rgba(0,0,0,0.06); }
 
 .card-sparkconnect { background: #1E1438; color: #E8D8FF; }
 .card-sparkconnect .card-category { border-color: #9F7AEA; color: #C4B5FD; }
-.card-sparkconnect .card-btn { background: #9F7AEA; color: #fff; }
 .card-sparkconnect .card-right { background: #2D1F54; display: flex; align-items: center; justify-content: center; }
+.card-sparkconnect .card-btn { --neu-bg: #2c1f54; --neu-dark: #170e30; --neu-light: #3f2d72; --neu-text: #ECDDFF; --neu-border: rgba(255,255,255,0.16); }
 .card-sparkconnect .card-num-bg { color: rgba(159,122,234,0.10); }
 .card-sparkconnect .card-subtitle { color: rgba(232,216,255,0.65); }
 .card-sparkconnect .card-desc { color: rgba(232,216,255,0.80); }
@@ -889,7 +975,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 ═══════════════════════════════════════════ */
 @media (max-width: 1024px) {
   /* Hero */
-  .hero-card { padding: 60px 40px; gap: 48px; border-radius: 40px; }
+  .hero-card { padding: 60px 40px; gap: 48px; border-radius: 64px; }
   .hero-headline { font-size: 38px; }
   .hero-body     { font-size: 16px; }
   .hero-photo    { width: 280px; height: 296px; }
@@ -1040,4 +1126,10 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
     top: calc(50% + 34px);
     width: 92vw;
   }
+}
+
+/* Hero enhancements — mobile centering for new elements */
+@media (max-width: 768px) {
+  .hero-nameplate { align-items: center; }
+  .hero-loop      { justify-content: center; }
 }

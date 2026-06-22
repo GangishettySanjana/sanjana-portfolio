@@ -73,6 +73,12 @@ export default function HomePage() {
         .to('#hBody', {
           opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
         }, '-=0.3')
+        .to('#hDrawn', {
+          opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
+        }, '-=0.4')
+        .to('#hLoop', {
+          opacity: 1, y: 0, duration: 0.5, ease: 'power3.out',
+        }, '-=0.25')
         .to('#hCta', {
           opacity: 1, y: 0, duration: 0.55, ease: 'spring',
         }, '-=0.25')
@@ -101,7 +107,7 @@ export default function HomePage() {
       const hHead = document.getElementById('hHead')
       if (hHead && !hHead.querySelector('.word-inner')) splitWords(hHead)
       gsap.set('#hHead .word-inner', { y: '0%', opacity: 1 })
-      gsap.set(['#hGreeting', '#hBody', '#hCta', '#hLoc', '#hPhoto', '#scrollCue'], { opacity: 1, y: 0, x: 0 })
+      gsap.set(['#hGreeting', '#hBody', '#hDrawn', '#hLoop', '#hCta', '#hLoc', '#hPhoto', '#scrollCue'], { opacity: 1, y: 0, x: 0 })
     }, 150)
 
     /* ─────────────────────────────────────────────
@@ -565,15 +571,40 @@ export default function HomePage() {
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, var(--page-bg) 0%, transparent 30%, transparent 70%, var(--page-bg) 100%)', zIndex: 1, pointerEvents: 'none' }} />
         <div className="hero-card" style={{ position: 'relative', zIndex: 2 }}>
           <div className="hero-text">
-            {/* Name + location — always visible at top */}
+            {/* Status + name + location */}
             <div className="hero-nameplate" id="hGreeting">
-              <span className="hero-nameplate-name">Sanjana Gangishetty</span>
-              <span className="hero-nameplate-dot">·</span>
-              <span className="hero-nameplate-loc">Based in the US · CU Boulder MS &apos;25</span>
+              <span className="hero-eyebrow-row">
+                <span className="hero-status"><span className="hero-status-dot" />Open to work</span>
+                <span className="hero-role">Product Designer · AI &amp; 0→1</span>
+              </span>
+              <span className="hero-name-row">
+                <span className="hero-nameplate-name">Sanjana Gangishetty</span>
+                <span className="hero-nameplate-dot">·</span>
+                <span className="hero-nameplate-loc">Based in the US · Authorized to work · CU Boulder MS &apos;25</span>
+              </span>
             </div>
             {/* Lead with the headline */}
-            <h1 className="hero-headline" id="hHead">I don&apos;t wait until I know how. I build until I do.</h1>
-            <p className="hero-body" id="hBody">I research how people think, then design around it. Especially when &ldquo;it&rdquo; is an AI that has to earn trust before anyone lets it do anything useful.</p>
+            <h1 className="hero-headline" id="hHead">I think about the whole product, not just the screen.</h1>
+            <p className="hero-body" id="hBody">From the first user interview to the shipped build, and everything in between. I care about all of it.</p>
+            {/* Evergreen "what I'm drawn to" signal — reads as growth/conversion intent without naming a company */}
+            <p className="hero-drawn" id="hDrawn">Lately I&apos;m drawn to the messy middle of growth: onboarding, conversion, the moments where a product earns its keep.</p>
+            {/* Whole-product loop — proves the positioning at a glance */}
+            <div className="hero-loop" id="hLoop">
+              <span className="hero-loop-step">Research</span>
+              <span className="hero-loop-arrow" aria-hidden>→</span>
+              <span className="hero-loop-step">Design</span>
+              <span className="hero-loop-arrow" aria-hidden>→</span>
+              <span className="hero-loop-step">The feel</span>
+              <span className="hero-loop-arrow" aria-hidden>→</span>
+              <span className="hero-loop-step">Build and deliver</span>
+              <span className="hero-loop-cycle" title="A product is never done. It loops back to the person.">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+                  <polyline points="21 3 21 9 15 9" />
+                </svg>
+                Loops back
+              </span>
+            </div>
             {/* Industry tags as pills */}
             <div className="hero-worked-in">
               <span className="worked-label">Previously in</span>
@@ -584,8 +615,9 @@ export default function HomePage() {
               <span className="worked-pill">E-Commerce</span>
             </div>
             <div className="hero-cta-row" id="hCta">
-              <a href="#work" className="hero-btn-primary">See my work <span className="arrow">→</span></a>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="hero-btn-secondary">Resume ↗</a>
+              <a href="https://www.linkedin.com/in/sanjana-gangishetty" target="_blank" rel="noopener noreferrer" className="hero-btn-primary">Let&apos;s connect <span className="arrow">→</span></a>
+              <a href="#work" className="hero-btn-secondary">See my work</a>
+              <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="hero-btn-secondary">Resume ↗</a>
             </div>
           </div>
           <div className="hero-photo" id="hPhoto">
@@ -616,7 +648,7 @@ export default function HomePage() {
               <p className="work-eyebrow">Selected Work</p>
               <h2 className="work-title">Case Studies</h2>
             </div>
-            <p className="work-sub">Four projects. Different problems, same question: why does this feel harder than it should?</p>
+            <p className="work-sub">Five projects. Different problems, same question: why does this feel harder than it should?</p>
           </div>
 
           <div className="cards-wrap">
@@ -626,7 +658,7 @@ export default function HomePage() {
               <div className="card-inner">
                 <div className="card-num-bg">01</div>
                 <div className="card-top-row">
-                  <span className="card-index">01 / 04</span>
+                  <span className="card-index">01 / 05</span>
                   <span className="card-category">Product Design · AI Recruiting</span>
                 </div>
                 <div className="card-content-row">
@@ -636,7 +668,7 @@ export default function HomePage() {
                     <p className="card-desc">Designed the upload and review experience so recruiters could filter hundreds of applicants down to the ones worth an interview, without losing their minds.</p>
                     <div className="card-stats">
                       <div className="stat">
-                        <span className="stat-val">4h→30m</span>
+                        <span className="stat-val">2h→30m</span>
                         <span className="stat-label">Workflow time</span>
                       </div>
                       <div className="stat">
@@ -657,12 +689,59 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* 02 Fireside */}
-            <div className="project-card card-fireside">
+            {/* 02 AI Trust Meter — self-initiated AI exploration */}
+            <div className="project-card card-sparkconnect">
               <div className="card-inner">
                 <div className="card-num-bg">02</div>
                 <div className="card-top-row">
-                  <span className="card-index">02 / 04</span>
+                  <span className="card-index">02 / 05</span>
+                  <span className="card-category">AI Product · Self-Initiated</span>
+                </div>
+                <div className="card-content-row">
+                  <div className="card-left">
+                    <h3 className="card-title">The AI Trust Meter</h3>
+                    <p className="card-subtitle">Confidence states for AI answers</p>
+                    <p className="card-desc">AI support tools present wrong answers with the same confidence as right ones. I designed a confidence-state system that changes how an answer looks based on how grounded it is, and routes uncertainty to a human instead of the customer.</p>
+                    <div className="card-stats">
+                      <div className="stat">
+                        <span className="stat-val">Live</span>
+                        <span className="stat-label">Working demo</span>
+                      </div>
+                      <div className="stat">
+                        <span className="stat-val">AI</span>
+                        <span className="stat-label">Trust &amp; confidence</span>
+                      </div>
+                      <div className="stat">
+                        <span className="stat-val">Solo</span>
+                        <span className="stat-label">Self-initiated</span>
+                      </div>
+                    </div>
+                    <a href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer" className="card-btn">View Live Demo <span className="btn-arrow">→</span></a>
+                  </div>
+                  <div className="card-right">
+                    <img
+                      src="/images/ai-trust-meter.png?v=2"
+                      alt="The AI Trust Meter confidence-state demo"
+                      style={{width:'100%',height:'100%',objectFit:'contain',background:'#F6F6F8'}}
+                      onError={(e) => {
+                        const img = e.target as HTMLImageElement
+                        img.style.display = 'none'
+                        const next = img.nextElementSibling as HTMLElement
+                        if (next) next.style.display = 'flex'
+                      }}
+                    />
+                    <div className="img-placeholder" style={{display:'none'}}>AI Trust Meter — live demo</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 03 Fireside */}
+            <div className="project-card card-fireside">
+              <div className="card-inner">
+                <div className="card-num-bg">03</div>
+                <div className="card-top-row">
+                  <span className="card-index">03 / 05</span>
                   <span className="card-category">Web Design · Education</span>
                 </div>
                 <div className="card-content-row">
@@ -693,12 +772,12 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* 03 GetUp */}
+            {/* 04 GetUp */}
             <div className="project-card card-getup">
               <div className="card-inner">
-                <div className="card-num-bg">03</div>
+                <div className="card-num-bg">04</div>
                 <div className="card-top-row">
-                  <span className="card-index">03 / 04</span>
+                  <span className="card-index">04 / 05</span>
                   <span className="card-category">Brand Design · E-Commerce</span>
                 </div>
                 <div className="card-content-row">
@@ -740,31 +819,31 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* 04 Aura */}
+            {/* 05 Aura */}
             <div className="project-card card-aura">
               <div className="card-inner">
-                <div className="card-num-bg">04</div>
+                <div className="card-num-bg">05</div>
                 <div className="card-top-row">
-                  <span className="card-index">04 / 04</span>
-                  <span className="card-category">Mobile App · E-commerce</span>
+                  <span className="card-index">05 / 05</span>
+                  <span className="card-category">UX Design · E-Commerce · Mobile App</span>
                 </div>
                 <div className="card-content-row">
                   <div className="card-left">
                     <h3 className="card-title">Aura</h3>
-                    <p className="card-subtitle">Gifting Experience Platform</p>
-                    <p className="card-desc">A personalized floral and gifting app that cuts through decision fatigue and long queues. Designed end-to-end for a Hyderabad florist as part of the Google UX Certificate.</p>
+                    <p className="card-subtitle">An Online Florist Built Around the Gift</p>
+                    <p className="card-desc">An end-to-end UX project for a local florist with no digital presence. Research through final prototype, sole designer. The hard problem turned out to be scheduling, not the bouquet picker.</p>
                     <div className="card-stats">
                       <div className="stat">
-                        <span className="stat-val">Mobile</span>
-                        <span className="stat-label">Platform</span>
+                        <span className="stat-val">Solo</span>
+                        <span className="stat-label">UX Designer</span>
                       </div>
                       <div className="stat">
-                        <span className="stat-val">3×</span>
-                        <span className="stat-label">Usability rounds</span>
+                        <span className="stat-val">3 rounds</span>
+                        <span className="stat-label">Usability testing</span>
                       </div>
                       <div className="stat">
-                        <span className="stat-val">Google</span>
-                        <span className="stat-label">UX Certificate</span>
+                        <span className="stat-val">0→1</span>
+                        <span className="stat-label">Research to prototype</span>
                       </div>
                     </div>
                     <Link href="/projects/aura" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
@@ -781,7 +860,7 @@ export default function HomePage() {
                         if (next) next.style.display = 'flex'
                       }}
                     />
-                    <div className="img-placeholder" style={{display:'none'}}>Aura app screenshots</div>
+                    <div className="img-placeholder" style={{display:'none'}}>Aura project image</div>
                   </div>
                 </div>
               </div>
@@ -822,7 +901,7 @@ export default function HomePage() {
               <p className="work-eyebrow">Explorations</p>
               <h2 className="work-title">Use Cases &amp; POVs</h2>
             </div>
-            <p className="work-sub">Takes on AI products: how they feel to use, where they fall short. More on the way.</p>
+            <p className="work-sub">Takes on AI products: how they feel to use, where they fall short.</p>
           </div>
 
           <div className="exp-grid">
@@ -853,22 +932,9 @@ export default function HomePage() {
               </div>
             </a>
 
-            {/* Exploration 03 — The AI Trust Meter */}
-            <a className="exp-card exp-card--linked" href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer">
-              <div className="exp-card-top">
-                <span className="exp-tag">Intercom Fin</span>
-                <span className="exp-num">03</span>
-              </div>
-              <h3 className="exp-title">AI sounds just as sure when it&apos;s guessing.</h3>
-              <p className="exp-desc">AI support tools present wrong answers with the same confidence as right ones. Inspired by Intercom Fin, I designed a confidence-state system that visibly changes how an answer looks based on how grounded it is, then routes uncertainty to a human instead of a customer. Live demo included.</p>
-              <div className="exp-footer">
-                <span className="exp-status exp-status--live">Live demo →</span>
-              </div>
-            </a>
-
             {/* More coming */}
             <div className="exp-card exp-card--more">
-              <p className="exp-more-text">More concepts in the works. Currently exploring, currently building.</p>
+              <p className="exp-more-text">Currently exploring, currently building.</p>
             </div>
 
           </div>
@@ -913,7 +979,7 @@ export default function HomePage() {
 
               <div className="about-btns" id="aboutBtns">
                 <Link href="/about" className="about-btn-dark">Full Story →</Link>
-                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="about-btn-outline">Resume ↗</a>
+                <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="about-btn-outline">Resume ↗</a>
               </div>
             </div>
 
@@ -965,7 +1031,7 @@ export default function HomePage() {
             <div className="connect-btns" id="conBtns">
               <a href="mailto:gangishettysanjana084@gmail.com" className="con-btn-primary">Email me ↗</a>
               <a href="https://www.linkedin.com/in/sanjana-gangishetty" target="_blank" rel="noopener noreferrer" className="con-btn-ghost">LinkedIn ↗</a>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="con-btn-ghost">Resume ↗</a>
+              <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="con-btn-ghost">Resume ↗</a>
             </div>
 
           </div>

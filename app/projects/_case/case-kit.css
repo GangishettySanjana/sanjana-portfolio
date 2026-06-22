@@ -1,0 +1,90 @@
+/* ─────────────────────────────────────────────────────────────────
+   Shared case-study kit
+   One image treatment, one type hierarchy, one rhythm across all four
+   case studies. Imported by each page AFTER its own stylesheet so these
+   rules win where they overlap.
+   ───────────────────────────────────────────────────────────────── */
+
+/* ── Elevated, captioned image treatment ─────────────────────────── */
+.cs-figure {
+  margin: 0 0 40px;
+}
+.cs-figure-frame {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(43, 181, 194, 0.18);
+  background: #fff;
+  box-shadow: 0 22px 54px -26px rgba(0, 36, 72, 0.30);
+}
+.cs-figure-img {
+  width: 100%;
+  display: block;
+}
+.cs-figure-hero .cs-figure-img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* browser chrome for product screenshots */
+.cs-browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 16px;
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 36, 72, 0.07);
+}
+.cs-browser-bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 36, 72, 0.12);
+}
+
+.cs-figcaption {
+  font-family: 'Instrument Sans', system-ui, sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(0, 36, 72, 0.4);
+  text-align: center;
+  margin-top: 14px;
+}
+
+/* ── Hierarchy: upright Cormorant display, italic reserved for quotes ── */
+.fx-page .fx-sec-title,
+.fx-page .fx-design-title,
+.fx-page .fx-decision-body h3 {
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* ── Section entrance (subtle fade + rise) ───────────────────────── */
+.cs-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.cs-reveal-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-reveal {
+    transition: opacity 0.4s ease;
+    transform: none;
+  }
+}
+
+/* ── Hero visual sits a touch wider and grander than body figures ──── */
+.cs-hero-figure {
+  margin-top: 44px;
+  margin-bottom: 8px;
+}
+.cs-hero-figure .cs-figure-frame {
+  box-shadow: 0 30px 70px -30px rgba(0, 36, 72, 0.38);
+}

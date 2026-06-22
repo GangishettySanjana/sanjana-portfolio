@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Reveal, CaseFigure } from '@/components/case/CaseKit'
 import './aura.css'
+import '@/app/projects/_case/case-kit.css'
+import '@/app/projects/_case/buildnative.css'
 
 /* ── Inline Prototype ─────────────────────────────────────────────── */
 function AuraPrototype() {
@@ -199,8 +202,8 @@ export default function AuraPage() {
       { id: 'research',   num: '03', label: 'Research'     },
       { id: 'direction',  num: '04', label: 'Direction'    },
       { id: 'design',     num: '05', label: 'Final Design' },
-      { id: 'prototype',  num: '05.5', label: 'Prototype'  },
-      { id: 'reflection', num: '06', label: 'Reflection'   },
+      { id: 'prototype',  num: '06', label: 'Prototype'  },
+      { id: 'reflection', num: '07', label: 'Reflection'   },
     ]
 
     const sections   = NAV.map(n => document.getElementById(n.id)).filter(Boolean) as HTMLElement[]
@@ -212,12 +215,7 @@ export default function AuraPage() {
       if (fill) {
         gsap.to(fill, { height: `${((index + 1) / total) * 100}%`, duration: 0.55, ease: 'power3.out' })
       }
-      vLinks.forEach((link, i) => {
-        gsap.to(link, {
-          color: i === index ? 'rgba(0,36,72,0.75)' : 'rgba(0,36,72,0.22)',
-          duration: 0.3, ease: 'power2.out',
-        })
-      })
+      vLinks.forEach((link, i) => link.classList.toggle('fx-v-on', i === index))
     }
 
     sections.forEach((sec, i) => {
@@ -246,15 +244,18 @@ export default function AuraPage() {
           </div>
           <div className="fx-v-items">
             {[
-              { href: '#context',    label: 'Context'    },
-              { href: '#role',       label: 'Role'       },
-              { href: '#research',   label: 'Research'   },
-              { href: '#direction',  label: 'Direction'  },
-              { href: '#design',     label: 'Design'     },
-              { href: '#prototype',  label: 'Prototype'  },
-              { href: '#reflection', label: 'Reflection' },
-            ].map(({ href, label }) => (
-              <a key={href} href={href} className="fx-v-link">{label}</a>
+              { href: '#context',    n: '01', label: 'Context'    },
+              { href: '#role',       n: '02', label: 'Role'       },
+              { href: '#research',   n: '03', label: 'Research'   },
+              { href: '#direction',  n: '04', label: 'Direction'  },
+              { href: '#design',     n: '05', label: 'Design'     },
+              { href: '#prototype',  n: '06', label: 'Prototype'  },
+              { href: '#reflection', n: '07', label: 'Reflection' },
+            ].map(({ href, n, label }) => (
+              <a key={href} href={href} className="fx-v-link">
+                <span className="fx-v-num">{n}</span>
+                <span className="fx-v-label">{label}</span>
+              </a>
             ))}
           </div>
         </nav>
@@ -262,6 +263,7 @@ export default function AuraPage() {
         {/* ── HERO ────────────────────────────────────────── */}
         <section className="fx-hero" id="hero">
           <div className="fx-container">
+            <Reveal>
             <Link href="/#work" className="fx-back-link" onClick={() => sessionStorage.setItem('skipIntro', '1')}>
               ← Back to work
             </Link>
@@ -333,12 +335,14 @@ export default function AuraPage() {
                 </div>
               </div>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 01 CONTEXT ──────────────────────────────────── */}
         <section className="fx-sec" id="context">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">01 · Context</p>
             <h2 className="fx-sec-title">A florist with no digital presence, in the middle of a lockdown.</h2>
 
@@ -372,24 +376,28 @@ export default function AuraPage() {
               <p>Small florists in Hyderabad were entirely foot-traffic dependent. No app, no website, no way to take orders online. When COVID-19 hit and in-person shopping stopped, loyal customers had nowhere to go. Aura was designed to fix that.</p>
               <p>The project was completed as part of the Google UX Design Professional Certificate. A local florist, a real customer base, and no digital solution. I took it from zero.</p>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 02 MY ROLE ──────────────────────────────────── */}
         <section className="fx-sec fx-sec-alt" id="role">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">02 · My Role</p>
             <h2 className="fx-sec-title">Sole UX designer, research through final prototype.</h2>
 
             <div className="fx-prose">
               <p>As the only designer, I owned every phase: research, IA, wireframes, testing, and visual design. What was hard about that wasn&apos;t the workload. It was having no one to pressure-test decisions. When I moved delivery scheduling to step 1 of checkout, there was no design lead to tell me whether that was right or overengineered. I had to run the test and find out. Every major call had that same shape: form a hypothesis, expose it to real users, throw it out or keep it based on what they actually did. There was no shortcut to that process, and no one to defer to when it got uncomfortable.</p>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 03 RESEARCH ─────────────────────────────────── */}
         <section className="fx-sec" id="research">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">03 · Research</p>
             <h2 className="fx-sec-title">What people actually do when they buy flowers.</h2>
 
@@ -485,12 +493,14 @@ export default function AuraPage() {
               <span className="fx-reflection-label">What the gap told me</span>
               <p>Every competitor failed at the same two things: customization and trust that the real product matches what is shown. FNP buries customization in a long flow, local florists have no way to preview, and grocery stores only sell ready-made. That overlap is exactly where research landed too, &lsquo;fear the real product will not match.&rsquo; So customization and a live preview did not become features in Aura. They became the spine of the product, which is why the bouquet builder and the real-inventory signals carry the whole design.</p>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 04 DIRECTION ────────────────────────────────── */}
         <section className="fx-sec fx-sec-alt" id="direction">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">04 · Direction</p>
             <h2 className="fx-sec-title">One question that reframed everything.</h2>
 
@@ -524,24 +534,25 @@ export default function AuraPage() {
               ))}
             </div>
 
-            <div style={{ marginTop: 40 }}>
-              <img
-                src="/projects/aura/paper-wireframes.png"
-                alt="Paper wireframes"
-                style={{ width: '100%', display: 'block', borderRadius: 12 }}
-              />
-              <span className="fx-img-caption">Paper wireframes</span>
-            </div>
+            <CaseFigure
+              src="/projects/aura/paper-wireframes.png"
+              alt="Paper wireframes"
+              caption="Paper wireframes"
+              variant="plain"
+              style={{ marginTop: 40 }}
+            />
 
             <div className="fx-prose" style={{ marginTop: 28 }}>
               <p>Paper let me move fast and throw a lot away. Once the structure held, I moved to mid-fidelity digital wireframes and ran round 1 of testing on those, grayscale, no real photography, just the skeleton of the flow. That round is where two problems surfaced that paper had hidden: the bouquet preview read as decoration instead of the main task, and the checkout order felt fine on paper but broke the moment people actually scheduled a delivery. Both fed straight into the screens below. The jump you see from rough paper to polished final is really three rounds of testing compressed into one image.</p>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 05 FINAL DESIGN ─────────────────────────────── */}
         <section className="fx-sec" id="design">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">05 · Final Design</p>
             <h2 className="fx-sec-title">Four screens that do the work.</h2>
 
@@ -574,10 +585,11 @@ export default function AuraPage() {
               <span className="fx-screen-num">02</span>
               <h3 className="fx-screen-title">Create Your Own, bouquet builder</h3>
               <p className="fx-screen-body">A live preview updates as users add stems. Selection is limited to current inventory. Round 2 of testing: the preview was too small. We made it take up 60% of the screen. Completion rates jumped.</p>
-              <img
+              <CaseFigure
                 src="/projects/aura/Bouquet customizer flow.png"
                 alt="Bouquet customizer flow"
-                style={{ width: '100%', display: 'block', borderRadius: 16 }}
+                caption="Bouquet customizer flow"
+                variant="browser"
               />
             </div>
 
@@ -610,10 +622,11 @@ export default function AuraPage() {
                 This reversal was tested in round 3 with 5 participants. No one reached the confirmation screen in round 2 without hitting a dead end. All 5 completed the flow in round 3.
               </p>
 
-              <img
+              <CaseFigure
                 src="/projects/aura/Checkout flow.png"
                 alt="Checkout flow with delivery scheduling"
-                style={{ width: '100%', display: 'block', borderRadius: 16 }}
+                caption="Checkout flow with delivery scheduling up front"
+                variant="browser"
               />
             </div>
 
@@ -635,13 +648,15 @@ export default function AuraPage() {
                 />
               </div>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 05.5 PROTOTYPE ──────────────────────────────── */}
         <section className="fx-sec" id="prototype">
           <div className="fx-container">
-            <p className="fx-sec-label">05.5 · Live Prototype</p>
+            <Reveal>
+            <p className="fx-sec-label">06 · Live Prototype</p>
             <h2 className="fx-sec-title">Try the full gifting flow yourself.</h2>
 
             <div className="fx-prose" style={{ marginBottom: 32 }}>
@@ -649,13 +664,15 @@ export default function AuraPage() {
             </div>
 
             <AuraPrototype />
+            </Reveal>
           </div>
         </section>
 
         {/* ── 06 REFLECTION ───────────────────────────────── */}
         <section className="fx-sec fx-sec-alt" id="reflection">
           <div className="fx-container">
-            <p className="fx-sec-label">06 · Reflection</p>
+            <Reveal>
+            <p className="fx-sec-label">07 · Reflection</p>
             <h2 className="fx-sec-title">The thing you think is the feature is sometimes not the hardest design problem.</h2>
 
             <div className="fx-prose">
@@ -667,6 +684,7 @@ export default function AuraPage() {
               <span className="fx-reflection-label">What I&apos;d do differently</span>
               <p>I&apos;d run a mental simulation of the full gifting scenario before building a single screen: someone buying flowers for another person, under deadline pressure, on a day with limited delivery slots. That scenario would have surfaced the date-selection issue before any prototype existed. I learned to think about pressure cases first, not happy path first.</p>
             </div>
+            </Reveal>
           </div>
         </section>
 

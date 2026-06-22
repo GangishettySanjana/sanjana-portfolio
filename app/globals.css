@@ -783,3 +783,17 @@ aside::-webkit-scrollbar { display: none; }
     padding-right: 24px !important;
   }
 }
+
+/* About timeline — accordion row feedback (Emil: pressable elements respond) */
+.tl-acc-btn {
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), opacity 150ms ease;
+  border-radius: 8px;
+}
+.tl-acc-btn:active {
+  transform: scale(0.992);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tl-acc-btn:hover {
+    opacity: 0.82;
+  }
+}

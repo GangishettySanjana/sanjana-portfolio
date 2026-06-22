@@ -1,10 +1,8 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
 import Contact from '@/components/Contact'
-import { JourneyMap } from '@/components/JourneyMap'
-import { journeyData } from '@/components/journey-data'
 
 const timeline = [
   {
@@ -124,408 +122,215 @@ const principles = [
   },
 ]
 
-// ── GSAP Timeline Item ──
-function TimelineItem({ item, index, nextYear }: { item: typeof timeline[0]; index: number; nextYear?: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    let gsap: typeof import('gsap').gsap
-    let ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger
-
-    async function init() {
-      const g = await import('gsap')
-      const st = await import('gsap/ScrollTrigger')
-      gsap = g.gsap
-      ScrollTrigger = st.ScrollTrigger
-      gsap.registerPlugin(ScrollTrigger)
-
-      if (!ref.current) return
-
-      const el = ref.current
-      const year = el.querySelector('.tl-year')
-      const dot = el.querySelector('.tl-dot')
-      const title = el.querySelector('.tl-title')
-      const whisper = el.querySelector('.tl-whisper')
-      const detail = el.querySelector('.tl-detail')
-      const photo = el.querySelector('.tl-photo')
-      const badge = el.querySelector('.tl-badge')
-
-      gsap.set([year, dot, title, whisper, detail, photo, badge].filter(Boolean), { opacity: 0 })
-      gsap.set(year, { x: -20 })
-      gsap.set(dot, { scale: 0 })
-      gsap.set(title, { y: 18, x: 10 })
-      gsap.set(whisper, { y: 10, opacity: 0 })
-      gsap.set(detail, { y: 14 })
-      gsap.set(badge, { scale: 0.7, x: -8 })
-      if (photo) gsap.set(photo, { y: 20, rotateX: 8 })
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 82%',
-          once: true,
-        },
-      })
-
-      tl.to(dot, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' })
-        .to(year, { opacity: 1, x: 0, duration: 0.4, ease: 'power3.out' }, '<0.05')
-        .to(badge, { opacity: 1, scale: 1, x: 0, duration: 0.35, ease: 'back.out(1.5)' }, '<0.1')
-        .to(title, { opacity: 1, y: 0, x: 0, duration: 0.5, ease: 'power3.out' }, '<0.05')
-        .to(whisper, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '<0.1')
-        .to(detail, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '<0.08')
-
-      if (photo) {
-        tl.to(photo, { opacity: 0.88, y: 0, rotateX: 0, duration: 0.6, ease: 'power3.out' }, '<0.1')
-      }
-    }
-
-    init()
-
-    return () => {
-      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-        ScrollTrigger.getAll().forEach(t => {
-          if (ref.current && t.trigger === ref.current) t.kill()
-        })
-      })
-    }
-  }, [])
-
-  const tagBg =
-    item.tag === 'Open' ? 'rgba(74,222,128,0.12)' :
-    item.tag === 'Work' ? 'rgba(43,181,194,0.12)' :
-    'rgba(168,128,212,0.12)'
-
-  return (
-    <div
-      ref={ref}
-      className="about-timeline-grid"
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '120px 1fr',
-        gap: 48,
-        alignItems: 'start',
-        paddingBottom: 48,
-        borderBottom: index < timeline.length - 1 && !(item.year === '2022' && nextYear === '2022') ? '1px solid rgba(255,255,255,0.12)' : 'none',
-      }}
-    >
-      {/* Year + dot */}
-      <div className="about-timeline-year" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-end', gap: 12, paddingTop: 6 }}>
-        <span
-          className="tl-year"
-          style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.1em', color: 'rgba(255,255,255,0.35)', fontWeight: 700 }}
-        >
-          {item.year}
-        </span>
-        <div
-          className="tl-dot"
-          style={{
-            width: 11, height: 11, borderRadius: '50%',
-            background: item.color,
-            flexShrink: 0, marginTop: 2,
-            boxShadow: `0 0 12px ${item.color}66`,
-          }}
-        />
-      </div>
-
-      {/* Content */}
-      <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6, flexWrap: 'wrap' }}>
-          <h3
-            className="tl-title"
-            style={{
-              fontFamily: "'Cabinet Grotesk', sans-serif",
-              fontSize: 'clamp(16px, 1.5vw, 20px)',
-              fontWeight: 700, color: '#F7F3EE', margin: 0,
-              letterSpacing: '-0.01em',
-            }}
-          >
-            {item.title}
-          </h3>
-          <span
-            className="tl-badge"
-            style={{
-              fontFamily: "'Satoshi', sans-serif",
-              fontSize: 9, letterSpacing: '0.1em',
-              textTransform: 'uppercase', padding: '3px 10px',
-              borderRadius: 999, flexShrink: 0,
-              background: tagBg, color: item.color,
-              display: 'inline-block',
-            }}
-          >
-            {item.tag}
-          </span>
-        </div>
-
-        {/* Photo above text */}
-        {'photo' in item && item.photo && (
-          <img
-            className="tl-photo"
-            src={item.photo as string}
-            alt={item.title}
-            style={{
-              width: '100%', maxWidth: 340, height: 200,
-              objectFit: 'cover', borderRadius: 14,
-              display: 'block',
-              marginBottom: 16,
-              boxShadow: '0 12px 40px rgba(0,0,0,0.35)',
-              transformOrigin: 'bottom center',
-            }}
-          />
-        )}
-
-        {/* Whistledown whisper line */}
-        <p
-          className="tl-whisper"
-          style={{
-            fontFamily: "'Satoshi', sans-serif",
-            fontSize: 13,
-            fontStyle: 'italic',
-            color: item.color,
-            opacity: 0.75,
-            margin: '0 0 10px',
-            letterSpacing: '0.01em',
-          }}
-        >
-          {item.whisper}
-        </p>
-
-        <p
-          className="tl-detail"
-          style={{
-            fontFamily: "'Satoshi', sans-serif",
-            fontSize: 16,
-            fontWeight: 500,
-            color: 'rgba(247,243,238,0.72)',
-            lineHeight: 1.75,
-            margin: '0 0 16px',
-          }}
-        >
-          {item.detail}
-        </p>
-
-        {/* Pivot callout */}
-        {item.pivot && (
-          <div style={{
-            marginTop: 16,
-            padding: '12px 18px',
-            borderRadius: 10,
-            background: 'rgba(168,128,212,0.1)',
-            border: '1px solid rgba(168,128,212,0.2)',
-            display: 'inline-flex', alignItems: 'center', gap: 10,
-          }}>
-            <span style={{ fontSize: 16 }}>↩</span>
-            <span style={{
-              fontFamily: "'Satoshi', sans-serif",
-              fontSize: 10, letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: '#A880D4',
-            }}>
-              Interior Design → UX Design. The pivot, formalized.
-            </span>
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
-
 const GRAIN = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E\")"
 
 const CARD_COLORS = ['#A880D4', '#2BB5C2', '#F59E0B', '#4ade80', '#F472B6', '#60A5FA']
-const CARD_BG_HOVER = [
-  'rgba(168,128,212,0.1)', 'rgba(43,181,194,0.1)', 'rgba(245,158,11,0.1)',
-  'rgba(74,222,128,0.1)', 'rgba(244,114,182,0.1)', 'rgba(96,165,250,0.1)',
-]
-const CARD_BORDER_HOVER = [
-  'rgba(168,128,212,0.35)', 'rgba(43,181,194,0.35)', 'rgba(245,158,11,0.35)',
-  'rgba(74,222,128,0.35)', 'rgba(244,114,182,0.35)', 'rgba(96,165,250,0.35)',
-]
 
-// ── Horizontal Scroll Timeline ──
-function HorizontalTimeline() {
-  const outerRef = useRef<HTMLDivElement>(null)
-  const stickyRef = useRef<HTMLDivElement>(null)
-  const trackRef = useRef<HTMLDivElement>(null)
-  const progressRef = useRef<HTMLDivElement>(null)
+// Strong ease-out curve (Emil): starts fast, settles soft. Used for every reveal.
+const EASE_OUT = [0.16, 1, 0.3, 1] as const
 
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let ctx: any = null
+const tagRgb = (tag: string) =>
+  tag === 'Work' ? '43,181,194' : tag === 'Open' ? '74,222,128' : '168,128,212'
 
-    async function init() {
-      const { gsap } = await import('gsap')
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-      gsap.registerPlugin(ScrollTrigger)
+// ── Compact Accordion Timeline ──
+// The whole story collapses to nine scannable rows on one continuous spine.
+// Tap a row to expand its detail + photo. Compact by default, depth on demand.
+function TimelineRow({
+  item,
+  last,
+  open,
+  onToggle,
+}: {
+  item: typeof timeline[0]
+  last: boolean
+  open: boolean
+  onToggle: () => void
+}) {
+  const rgb = tagRgb(item.tag)
+  return (
+    <motion.div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '14px 1fr',
+        columnGap: 'clamp(16px, 3vw, 28px)',
+        alignItems: 'stretch',
+      }}
+      initial={{ opacity: 0, y: 14 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.5, ease: EASE_OUT }}
+    >
+      {/* rail: dot + connecting line down to the next dot */}
+      <div style={{ position: 'relative', width: 14 }}>
+        <div
+          style={{
+            position: 'absolute', top: 7, left: 1,
+            width: 12, height: 12, borderRadius: '50%',
+            background: item.color,
+            boxShadow: `0 0 0 4px #F7F3EE, 0 0 12px ${item.color}55`,
+            zIndex: 1,
+            transition: 'transform 200ms cubic-bezier(0.16,1,0.3,1)',
+            transform: open ? 'scale(1.25)' : 'scale(1)',
+          }}
+        />
+        {!last && (
+          <div style={{ position: 'absolute', top: 21, bottom: 0, left: 6, width: 2, background: 'rgba(13,13,13,0.13)' }} />
+        )}
+      </div>
 
-      const outer = outerRef.current
-      const track = trackRef.current
-      if (!outer || !track) return
+      {/* content */}
+      <div style={{ paddingBottom: last ? 0 : 'clamp(14px, 2vw, 20px)' }}>
+        {/* clickable header row */}
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={open}
+          className="tl-acc-btn"
+          style={{
+            display: 'flex', alignItems: 'flex-start', gap: 12,
+            width: '100%', textAlign: 'left',
+            background: 'none', border: 'none', padding: '2px 0', margin: 0,
+            cursor: 'pointer', font: 'inherit', color: 'inherit',
+          }}
+        >
+          <span style={{ flex: 1, minWidth: 0 }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 5, flexWrap: 'wrap' }}>
+              <span style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: `rgba(${rgb},0.85)` }}>
+                {item.year}
+              </span>
+              <span style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 9, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 999, background: `rgba(${rgb},0.12)`, color: item.color }}>
+                {item.tag}
+              </span>
+              {item.pivot && (
+                <span style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#A880D4', opacity: 0.8 }}>
+                  ↩ pivot
+                </span>
+              )}
+            </span>
+            <span style={{ display: 'block', fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(18px, 1.9vw, 24px)', color: '#0d0d0d', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
+              {item.title}
+            </span>
+            <span style={{ display: 'block', fontFamily: "'Satoshi', sans-serif", fontSize: 13, fontStyle: 'italic', color: item.color, opacity: 0.8, lineHeight: 1.5, marginTop: 5 }}>
+              {item.whisper}
+            </span>
+          </span>
+          {/* chevron */}
+          <span
+            aria-hidden
+            style={{
+              flexShrink: 0, marginTop: 6, width: 22, height: 22,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              color: 'rgba(13,13,13,0.4)',
+              transition: 'transform 250ms cubic-bezier(0.16,1,0.3,1)',
+              transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </span>
+        </button>
 
-      await new Promise<void>(r => setTimeout(r, 200))
+        {/* expandable detail */}
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              key="body"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ height: { duration: 0.4, ease: EASE_OUT }, opacity: { duration: 0.3, ease: 'easeOut' } }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div style={{ paddingTop: 14 }}>
+                {'photo' in item && item.photo && (
+                  <img
+                    src={item.photo as string}
+                    alt={item.title}
+                    loading="lazy"
+                    style={{ width: '100%', maxWidth: 320, height: 180, objectFit: 'cover', borderRadius: 12, display: 'block', margin: '0 0 14px', boxShadow: '0 12px 40px rgba(0,0,0,0.12)' }}
+                  />
+                )}
+                <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 15, fontWeight: 500, color: 'rgba(13,13,13,0.62)', lineHeight: 1.75, margin: 0 }}>
+                  {item.detail}
+                </p>
+                {item.pivot && (
+                  <div style={{ marginTop: 16, padding: '12px 18px', borderRadius: 10, background: 'rgba(168,128,212,0.1)', border: '1px solid rgba(168,128,212,0.2)', display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+                    <span style={{ fontSize: 16, color: '#A880D4' }}>↩</span>
+                    <span style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#A880D4' }}>
+                      Interior Design → UX Design. The pivot, formalized.
+                    </span>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
+  )
+}
 
-      const totalScroll = track.scrollWidth - window.innerWidth
-      if (totalScroll <= 0) return
-
-      // Give outer its total height so the sticky panel has room to scroll
-      outer.style.height = `${window.innerHeight + totalScroll}px`
-
-      ctx = gsap.context(() => {
-        // No pin:true — CSS sticky handles viewport locking, GSAP drives x
-        gsap.to(track, {
-          x: -totalScroll,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: outer,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 1.2,
-            onUpdate: (self: { progress: number }) => {
-              if (progressRef.current) {
-                progressRef.current.style.transform = `scaleX(${self.progress})`
-              }
-            },
-          },
-        })
-      })
-    }
-
-    init()
-    return () => ctx?.revert()
-  }, [])
+function Timeline() {
+  // First entry open by default so there's something to read on arrival.
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <div ref={outerRef} style={{ position: 'relative', minHeight: '100vh', background: '#F7F3EE' }}>
-      <div
-        ref={stickyRef}
-        style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', background: '#F7F3EE' }}
-      >
+    <section
+      className="about-page-section"
+      style={{
+        background: '#F7F3EE',
+        padding: 'clamp(72px, 8vw, 112px) clamp(32px, 7vw, 96px)',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
       {/* grain */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.35, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
 
-      {/* header bar */}
-      <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10,
-        padding: 'clamp(36px, 4vw, 52px) clamp(40px, 6vw, 80px) 24px',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
-        borderBottom: '1px solid rgba(13,13,13,0.08)',
-      }}>
-        <div>
-          <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.4)', marginBottom: 8, fontWeight: 700 }}>
-            Timeline
-          </p>
-          <h2 style={{ fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(28px, 3.5vw, 44px)', color: '#0d0d0d', lineHeight: 1, letterSpacing: '-0.03em', margin: 0 }}>
-            The full story.
-          </h2>
-        </div>
-        <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.1em', color: 'rgba(13,13,13,0.35)', textTransform: 'uppercase' as const, margin: 0 }}>
-          scroll →
-        </p>
-      </div>
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: 760, margin: '0 auto' }}>
+        {/* header */}
+        <motion.p
+          style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.4)', marginBottom: 14, fontWeight: 700 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          Timeline
+        </motion.p>
+        <motion.h2
+          style={{ fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(32px, 4.5vw, 56px)', color: '#0d0d0d', lineHeight: 1.0, letterSpacing: '-0.03em', margin: '0 0 14px' }}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: EASE_OUT }}
+        >
+          The full story.
+        </motion.h2>
+        <motion.p
+          style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 13, color: 'rgba(13,13,13,0.4)', margin: '0 0 clamp(40px, 5vw, 56px)' }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.15 }}
+        >
+          Tap any moment to read more.
+        </motion.p>
 
-      {/* horizontal track */}
-      <div
-        ref={trackRef}
-        style={{
-          display: 'flex',
-          alignItems: 'stretch',
-          height: '100%',
-          paddingTop: 'clamp(120px, 14vw, 158px)',
-          paddingBottom: 56,
-          paddingLeft: 'clamp(40px, 6vw, 80px)',
-          gap: 4,
-          willChange: 'transform',
-        }}
-      >
-        {timeline.map((item, i) => {
-          const color = item.tag === 'Work' ? '#2BB5C2' : item.tag === 'Open' ? '#4ade80' : '#A880D4'
-          const rgb = item.tag === 'Work' ? '43,181,194' : item.tag === 'Open' ? '74,222,128' : '168,128,212'
-          return (
-            <div
+        {/* spine + entries */}
+        <div style={{ position: 'relative' }}>
+          {timeline.map((item, i) => (
+            <TimelineRow
               key={`${item.year}-${i}`}
-              className="htl-card"
-              style={{
-                width: 'clamp(320px, 35vw, 460px)',
-                flexShrink: 0,
-                position: 'relative',
-                background: item.pivot ? 'rgba(168,128,212,0.08)' : '#ffffff',
-                borderRadius: 20,
-                border: item.pivot ? '1px solid rgba(168,128,212,0.25)' : '1px solid rgba(13,13,13,0.07)',
-                overflow: 'hidden',
-                padding: '36px 32px',
-              }}
-            >
-              {/* giant watermark year */}
-              <div style={{
-                position: 'absolute', bottom: -20, right: -4,
-                fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800,
-                fontSize: 'clamp(90px, 12vw, 144px)',
-                color: 'rgba(13,13,13,0.05)',
-                lineHeight: 1, letterSpacing: '-0.04em',
-                userSelect: 'none', pointerEvents: 'none',
-              }}>
-                {item.year}
-              </div>
-
-              {/* pivot glow */}
-              {item.pivot && (
-                <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(168,128,212,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
-              )}
-
-              <div className="htl-inner" style={{ position: 'relative', zIndex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
-                {/* index + tag */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 22 }}>
-                  <span style={{ fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800, fontSize: 11, color: 'rgba(13,13,13,0.25)', letterSpacing: '0.06em' }}>
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span style={{
-                    fontFamily: "'Satoshi', sans-serif", fontSize: 9, fontWeight: 700,
-                    letterSpacing: '0.12em', textTransform: 'uppercase' as const,
-                    padding: '4px 10px', borderRadius: 999,
-                    background: `rgba(${rgb},0.12)`, color,
-                  }}>
-                    {item.tag}
-                  </span>
-                  {item.pivot && (
-                    <span style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 9, color: '#A880D4', letterSpacing: '0.1em', textTransform: 'uppercase' as const, fontWeight: 700, opacity: 0.8 }}>
-                      ↩ pivot
-                    </span>
-                  )}
-                </div>
-
-                {/* year label */}
-                <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: `rgba(${rgb},0.8)`, marginBottom: 10, fontWeight: 700 }}>
-                  {item.year}
-                </p>
-
-                {/* title */}
-                <h3 style={{ fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(20px, 2.2vw, 28px)', color: '#0d0d0d', lineHeight: 1.15, letterSpacing: '-0.02em', marginBottom: 12 }}>
-                  {item.title}
-                </h3>
-
-                {/* whisper */}
-                <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 13, fontStyle: 'italic', color, opacity: 0.7, marginBottom: 18, lineHeight: 1.5 }}>
-                  {item.whisper}
-                </p>
-
-                {/* detail */}
-                <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 14, color: 'rgba(13,13,13,0.55)', lineHeight: 1.75, margin: 0, flex: 1 }}>
-                  {item.detail}
-                </p>
-              </div>
-            </div>
-          )
-        })}
-
-        {/* end spacer */}
-        <div style={{ width: 'clamp(40px, 6vw, 80px)', flexShrink: 0 }} />
+              item={item}
+              last={i === timeline.length - 1}
+              open={openIndex === i}
+              onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+            />
+          ))}
+        </div>
       </div>
-
-      {/* progress bar */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, background: 'rgba(13,13,13,0.1)', zIndex: 10 }}>
-        <div ref={progressRef} style={{ height: '100%', background: '#A880D4', transformOrigin: 'left', transform: 'scaleX(0)' }} />
-      </div>
-      </div>{/* end sticky */}
-    </div>
+    </section>
   )
 }
 
@@ -634,7 +439,7 @@ export default function AboutPage() {
               >
                 Let&apos;s talk →
               </a>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" style={{
+              <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
                 padding: '13px 28px', borderRadius: 999,
                 border: '1.5px solid rgba(0,0,0,0.18)', color: '#111',
@@ -651,8 +456,8 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── Horizontal scroll timeline ── */}
-        <HorizontalTimeline />
+        {/* ── Vertical timeline ── */}
+        <Timeline />
 
         {/* ── How I work: light ── */}
         <section className="about-page-section" style={{ background: '#F7F3EE', padding: 'clamp(72px, 8vw, 112px) clamp(32px, 7vw, 96px)', overflow: 'hidden', position: 'relative' }}>
@@ -762,7 +567,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Outside of work I am usually in the kitchen. Baking something I found at 11pm, or cooking for people I love. I travel whenever I get the chance. I watch shows with a level of commitment that is honestly a little embarrassing. Some of my best ideas show up on long flights or over a really good meal.
+              Outside of work I am usually in the kitchen. Baking something I found at 11pm, or cooking for people I love. I travel whenever I get the chance. I watch shows with real commitment. Some of my best ideas show up on long flights or over a really good meal.
             </motion.p>
           </div>
 
@@ -845,8 +650,8 @@ export default function AboutPage() {
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               {[
                 { label: 'Reading', value: "Clock In by Emily the Recruiter. Genuinely a little funny that I'm reading a career book mid-job-search, but here we are. It's making me think harder about what I actually want, not just what I think I'm supposed to want.", color: '#D97706' },
-                { label: 'Building', value: "Learning to build real things with Claude Code. I'm a designer who can now ship her own ideas without waiting on anyone. Still wrapping my head around that one.", color: '#0BB4CC' },
-                { label: 'Thinking about', value: "Why seamlessness is so rare. Most products get close and then sort of... stop. I think about this more than is probably healthy.", color: '#9B5DE5' },
+                { label: 'Building', value: "Learning to build real things with Claude Code. I'm a designer who can now ship her own ideas without waiting on anyone.", color: '#0BB4CC' },
+                { label: 'Thinking about', value: "Why seamlessness is so rare. Most products get close and then sort of... stop. Closing that last gap is the part I care about most.", color: '#9B5DE5' },
               ].map((item, i) => (
                 <motion.div
                   key={item.label}
@@ -894,7 +699,7 @@ export default function AboutPage() {
                 I want to work somewhere that starts with the person, not the feature list.
               </p>
               <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 'clamp(15px, 1.3vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, margin: '0 0 36px', maxWidth: 600 }}>
-                The kind of place where someone can say &ldquo;this works but it doesn&apos;t feel right&rdquo; and the room takes it seriously. I&apos;ve been in rooms like that. I want back in.
+                The kind of place where someone can say &ldquo;this works but it doesn&apos;t feel right&rdquo; and the room takes it seriously. Concretely: a product design role at an AI-native company or an early-stage team, where I can own the whole arc from research to shipped build. I&apos;m based in the US and authorized to work here, and I&apos;m open to relocating.
               </p>
               <motion.a
                 href="mailto:gangishettysanjana084@gmail.com"

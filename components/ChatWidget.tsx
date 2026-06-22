@@ -201,6 +201,9 @@ export default function ChatWidget() {
                 →
               </button>
             </form>
+            <p className="px-4 pb-3 -mt-1 text-[10px] leading-snug text-text-faint font-body text-center">
+              AI assistant trained on my work. Answers may be imperfect.
+            </p>
           </motion.div>
         )}
       </AnimatePresence>

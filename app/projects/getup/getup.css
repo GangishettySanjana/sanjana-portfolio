@@ -89,8 +89,8 @@
 .fx-sec-title {
   font-family: var(--fx-display);
   font-size: var(--type-xl);         /* ~28px fixed for sections */
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 500;
+  font-style: normal;
   line-height: var(--lh-snug);
   color: var(--text);
   letter-spacing: -0.015em;
@@ -498,8 +498,8 @@
 .fx-decision-body h3 {
   font-family: var(--fx-display);
   font-size: var(--type-lg);         /* ~21px */
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 500;
+  font-style: normal;
   color: var(--text);
   margin: 0 0 20px;
   line-height: var(--lh-snug);

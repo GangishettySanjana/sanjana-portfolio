@@ -4,7 +4,10 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Reveal, CaseFigure } from '@/components/case/CaseKit'
 import './getup.css'
+import '@/app/projects/_case/case-kit.css'
+import '@/app/projects/_case/buildnative.css'
 
 /* ── Page ─────────────────────────────────────────────────────────── */
 export default function GetUpPage() {
@@ -29,12 +32,7 @@ export default function GetUpPage() {
       if (fill) {
         gsap.to(fill, { height: `${((index + 1) / total) * 100}%`, duration: 0.55, ease: 'power3.out' })
       }
-      vLinks.forEach((link, i) => {
-        gsap.to(link, {
-          color: i === index ? 'rgba(0,36,72,0.75)' : 'rgba(0,36,72,0.22)',
-          duration: 0.3, ease: 'power2.out',
-        })
-      })
+      vLinks.forEach((link, i) => link.classList.toggle('fx-v-on', i === index))
     }
 
     sections.forEach((sec, i) => {
@@ -63,14 +61,17 @@ export default function GetUpPage() {
           </div>
           <div className="fx-v-items">
             {[
-              { href: '#context',    label: 'Context'    },
-              { href: '#role',       label: 'Role'       },
-              { href: '#brief',      label: 'Brief'      },
-              { href: '#design',     label: 'Design'     },
-              { href: '#copy',       label: 'Copy'       },
-              { href: '#reflection', label: 'Reflection' },
-            ].map(({ href, label }) => (
-              <a key={href} href={href} className="fx-v-link">{label}</a>
+              { href: '#context',    n: '01', label: 'Context'    },
+              { href: '#role',       n: '02', label: 'Role'       },
+              { href: '#brief',      n: '03', label: 'Brief'      },
+              { href: '#design',     n: '04', label: 'Design'     },
+              { href: '#copy',       n: '05', label: 'Copy'       },
+              { href: '#reflection', n: '06', label: 'Reflection' },
+            ].map(({ href, n, label }) => (
+              <a key={href} href={href} className="fx-v-link">
+                <span className="fx-v-num">{n}</span>
+                <span className="fx-v-label">{label}</span>
+              </a>
             ))}
           </div>
         </nav>
@@ -78,8 +79,9 @@ export default function GetUpPage() {
         {/* ── HERO ────────────────────────────────────────── */}
         <section className="fx-hero" id="hero">
           <div className="fx-container">
+            <Reveal>
             <Link href="/#work" className="fx-back-link" onClick={() => sessionStorage.setItem('skipIntro', '1')}>← Back to work</Link>
-            <p className="fx-eyebrow">Freelance · Marketing Design · Live Product</p>
+            <p className="fx-eyebrow">Freelance · Marketing &amp; Brand Design · 2024</p>
             <h1 className="fx-hero-title">A Pre-Order Campaign With No Brief, No Guidelines, Three Weeks</h1>
             <p className="fx-hero-sub">
               GetUp is a health brand backed by Jason Derulo. They were relaunching their caffeinated Energy Bites and needed a pre-order pop-up fast. No copywriter, no brand guidelines. I was the only designer. Three weeks to Figma handoff.
@@ -90,7 +92,7 @@ export default function GetUpPage() {
                 <p className="fx-summary-hmw">
                   <strong>The challenge:</strong> Derive the brand voice, write the copy, design the pop-up, and deliver a dev-ready Figma package in three weeks with minimal information.
                 </p>
-                <span className="fx-status-live">Live Product</span>
+                <span className="fx-status-live">Freelance</span>
               </div>
               <div className="fx-summary-meta">
                 <div className="fx-smeta-item">
@@ -137,22 +139,24 @@ export default function GetUpPage() {
                 </div>
                 <div className="fx-sum-col fx-sum-result">
                   <div className="fx-sum-head">
-                    <span className="fx-sum-label">Result</span>
+                    <span className="fx-sum-label">Outcome</span>
                   </div>
                   <ul>
-                    <li>Full design in 3 weeks, brief to handoff</li>
-                    <li>Mobile-first, responsive to desktop</li>
-                    <li>Copy and visual direction developed independently</li>
+                    <li>Shipped live and on time, brief to dev-ready handoff in three weeks</li>
+                    <li>Brand voice and copy built from scratch, no copywriter, no guidelines</li>
+                    <li>Mobile-first pop-up, responsive to desktop, every state annotated for dev</li>
                   </ul>
                 </div>
               </div>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 01 CONTEXT ──────────────────────────────────── */}
         <section className="fx-sec" id="context">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">01 · Context</p>
             <h2 className="fx-sec-title">A celebrity-backed energy brand. Three weeks. A sparse brief.</h2>
 
@@ -182,53 +186,17 @@ export default function GetUpPage() {
               ))}
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, margin: '36px 0' }}>
-              {[
-                { stat: '3 weeks',      desc: 'From brief to Figma handoff' },
-                { stat: 'Jason Derulo', desc: 'Celebrity co-founder, high visibility launch' },
-                { stat: 'Pre-order',    desc: 'Conversion-first objective, not awareness' },
-              ].map(({ stat, desc }) => (
-                <div key={stat} style={{
-                  background: 'var(--card)',
-                  border: '1px solid var(--border)',
-                  borderRadius: 14,
-                  padding: '20px 22px',
-                }}>
-                  <p style={{
-                    fontFamily: 'var(--fx-display)',
-                    fontSize: 'var(--type-xl)',
-                    fontWeight: 400,
-                    fontStyle: 'italic',
-                    color: 'var(--text)',
-                    margin: '0 0 6px',
-                    lineHeight: 'var(--lh-snug)',
-                  }}>{stat}</p>
-                  <p style={{
-                    fontFamily: 'var(--fx-sans)',
-                    fontSize: 'var(--type-sm)',
-                    color: 'var(--muted)',
-                    margin: 0,
-                    lineHeight: 'var(--lh-normal)',
-                  }}>{desc}</p>
-                </div>
-              ))}
-            </div>
-
-            <img
-              src="/projects/getup/popup.png"
-              alt="GetUp Energy Bites pre-order pop-up"
-              style={{ width: '100%', display: 'block', borderRadius: 16, border: '1px solid var(--border)', marginBottom: 28 }}
-            />
-
-            <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-base)', color: 'var(--muted)', lineHeight: 'var(--lh-relaxed)', margin: 0 }}>
-              Pop-ups live and die in the first second of attention. No time for clever, just clear. One product, one value prop, one CTA. Everything else is noise.
+            <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-base)', color: 'var(--muted)', lineHeight: 'var(--lh-relaxed)', margin: '32px 0 0' }}>
+              A pop-up has to land before someone decides to close it. So the layout stays ruthless: one product, one value prop, one CTA, and nothing competing for attention.
             </p>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 02 MY ROLE ──────────────────────────────────── */}
         <section className="fx-sec fx-sec-alt" id="role">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">02 · My Role</p>
             <h2 className="fx-sec-title">Sole designer: copy, visual direction, and Figma handoff.</h2>
 
@@ -246,7 +214,7 @@ export default function GetUpPage() {
                 {
                   num: '02',
                   title: 'Copy Direction',
-                  text: "Wrote and pressure-tested headline options. Used Claude to run multiple drafts fast. Final copy: punchy, not clever, because pop-ups get one second.",
+                  text: "Wrote and pressure-tested headline options. Used Claude to run multiple drafts fast. Final copy stayed short and plain. A pop-up isn't the place to get clever.",
                 },
                 {
                   num: '03',
@@ -270,12 +238,14 @@ export default function GetUpPage() {
                 </div>
               ))}
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 03 THE BRIEF ────────────────────────────────── */}
         <section className="fx-sec" id="brief">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">03 · The Brief</p>
             <h2 className="fx-sec-title">What they gave me. What I had to figure out.</h2>
 
@@ -286,7 +256,7 @@ export default function GetUpPage() {
                 overflow: 'hidden',
               }}>
                 <div style={{
-                  background: 'var(--accent)',
+                  background: 'var(--text)',
                   padding: '14px 20px',
                 }}>
                   <span style={{
@@ -295,7 +265,7 @@ export default function GetUpPage() {
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     letterSpacing: '0.09em',
-                    color: 'rgba(255,255,255,0.9)',
+                    color: 'rgba(255,255,255,0.7)',
                   }}>Given</span>
                 </div>
                 <div style={{ padding: '20px 22px', background: 'var(--card)' }}>
@@ -329,7 +299,7 @@ export default function GetUpPage() {
                 overflow: 'hidden',
               }}>
                 <div style={{
-                  background: '#2BB5C2',
+                  background: 'var(--accent)',
                   padding: '14px 20px',
                 }}>
                   <span style={{
@@ -338,7 +308,7 @@ export default function GetUpPage() {
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     letterSpacing: '0.09em',
-                    color: 'rgba(255,255,255,0.9)',
+                    color: 'rgba(255,255,255,0.95)',
                   }}>Derived by me</span>
                 </div>
                 <div style={{ padding: '20px 22px', background: 'var(--card)' }}>
@@ -366,25 +336,27 @@ export default function GetUpPage() {
                 </div>
               </div>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 04 THE DESIGN ───────────────────────────────── */}
         <section className="fx-sec fx-sec-alt" id="design">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">04 · The Design</p>
-            <h2 className="fx-sec-title">One product. One moment. One shot.</h2>
+            <h2 className="fx-sec-title">One product, one shot.</h2>
 
             <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-base)', color: 'var(--muted)', lineHeight: 'var(--lh-relaxed)', margin: '0 0 24px' }}>
-              The whole pop-up is built around a single constraint: you get one second. The product image is the hero. The headline does one job, make someone want to know more. The CTA is the only interactive element in the viewport.
+              The whole pop-up is built around a single constraint: you get about one second before someone keeps reading or closes it. The product image is the hero. The headline does one job, make someone want to know more. The CTA is the only interactive element in the viewport.
             </p>
 
-            <img
+            <CaseFigure
               src="/projects/getup/popup.png"
               alt="GetUp Energy Bites pre-order pop-up, final design"
-              style={{ width: '100%', display: 'block', borderRadius: 16, border: '1px solid var(--border)', marginBottom: 36 }}
+              caption="Final design · dev-ready Figma handoff"
+              variant="browser"
             />
-            <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-xs)', color: 'var(--dim)', textAlign: 'center', margin: '-28px 0 36px', textTransform: 'uppercase', letterSpacing: '0.09em' }}>Final design · dev-ready Figma handoff</p>
 
             <div className="fx-decisions-list">
               {[
@@ -401,12 +373,12 @@ export default function GetUpPage() {
                 {
                   num: '03',
                   title: 'Headline over subline',
-                  text: "Punchy headline does the lifting. One short subline for context. No paragraph copy. People don't read pop-ups, they decide in milliseconds.",
+                  text: "Punchy headline does the lifting. One short subline for context. No paragraph copy. People don't read pop-ups. They glance, then decide.",
                 },
                 {
                   num: '04',
                   title: 'Single CTA, maximum contrast',
-                  text: "One button. High contrast. Copy tested through multiple drafts, action-forward, low anxiety. 'Pre-order now' beat every other variant.",
+                  text: "One button, high contrast. I tested a handful of CTA labels for something that nudges without making anyone nervous. 'Pre-order now' beat every other variant.",
                 },
                 {
                   num: '05',
@@ -425,12 +397,14 @@ export default function GetUpPage() {
                 </div>
               ))}
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 05 COPY PROCESS ─────────────────────────────── */}
         <section className="fx-sec" id="copy">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">05 · Copy Process</p>
             <h2 className="fx-sec-title">How I wrote the campaign copy without a copywriter.</h2>
 
@@ -448,7 +422,7 @@ export default function GetUpPage() {
                 Started by building a picture of the brand voice from every piece of existing GetUp content: website, Instagram, product photography. The voice read as: outdoors-meets-wellness, casual confidence, natural energy. Not performance. Not aggression.
               </p>
               <p>
-                Used Claude to generate 20+ headline options across different tones, then cut aggressively using the brand voice as the filter. The winning headline was short, active, and product-honest. No hype language that would feel off-brand for a health product.
+                Used Claude to draft a stack of headline options across different tones, then cut hard against the brand voice. The winning headline was short, active, and product-honest. No hype language that would feel off-brand for a health product.
               </p>
             </div>
 
@@ -493,12 +467,14 @@ export default function GetUpPage() {
                 </tbody>
               </table>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 06 REFLECTION ───────────────────────────────── */}
         <section className="fx-sec fx-sec-alt" id="reflection">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">06 · Reflection</p>
             <h2 className="fx-sec-title">A sparse brief is a real-world condition, not an edge case.</h2>
 
@@ -511,6 +487,7 @@ export default function GetUpPage() {
               <span className="fx-reflection-label">What I&apos;d do differently</span>
               <p>I&apos;d push for at least a 48-hour review window with the client on copy before Figma handoff. We moved fast enough that the copy and the visual went out together, which worked, but meant any copy change would have required reopening the design file. Separating copy sign-off from design sign-off is a small process change that prevents a painful late-stage rework.</p>
             </div>
+            </Reveal>
           </div>
         </section>
 
