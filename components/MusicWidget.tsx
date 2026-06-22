@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 const VIBE = {
-  artist: 'Luther — lo-fi',
+  artist: 'Luther, lo-fi',
   trackId: '6mh5qxroeTY1UqOh4JdV1x',
 }
 
@@ -39,7 +39,7 @@ export default function MusicWidget() {
         .mw-btn:active { transform: scale(0.92) !important; }
       `}</style>
 
-      {/* Spotify embed — slides in above the button */}
+      {/* Spotify embed, slides in above the button */}
       {open && (
         <div
           style={{
@@ -64,7 +64,7 @@ export default function MusicWidget() {
 
       {/* Label + button row */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        {/* Info label — visible when idle */}
+        {/* Info label, visible when idle */}
         {!open && (
           <span
             style={{

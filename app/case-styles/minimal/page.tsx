@@ -294,14 +294,14 @@ export default function MinimalCaseStudy() {
         </h2>
         <div className="mn-prose">
           <p>
-            The platform could already do the hard part — read a messy export,
+            The platform could already do the hard part, read a messy export,
             infer structure, and hand back something clean. The harder question
             was quieter: would anyone believe the result enough to act on it?
           </p>
           <p>
             People don&rsquo;t distrust automation because it&rsquo;s wrong.
             They distrust it because it&rsquo;s silent. So the design problem
-            wasn&rsquo;t the cleaning — it was making the cleaning legible, a
+            wasn&rsquo;t the cleaning, it was making the cleaning legible, a
             step at a time, in language a person could check.
           </p>
         </div>
@@ -310,7 +310,7 @@ export default function MinimalCaseStudy() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/projects/fireside/simulation-mode.png" alt="Simulation mode" />
           <figcaption className="mn-caption">
-            An early simulation view — the system narrating what it intended to
+            An early simulation view, the system narrating what it intended to
             change before changing it.
           </figcaption>
         </figure>
@@ -324,8 +324,8 @@ export default function MinimalCaseStudy() {
         </h2>
         <div className="mn-prose">
           <p>
-            I mapped the moments where trust is won or lost — the first result,
-            the first correction, the first time the system disagrees with you —
+            I mapped the moments where trust is won or lost, the first result,
+            the first correction, the first time the system disagrees with you,
             then designed a flow that surfaced its reasoning at each one.
           </p>
           <p>
@@ -367,7 +367,7 @@ export default function MinimalCaseStudy() {
         </div>
       </section>
 
-      {/* 6. The decision — before / after */}
+      {/* 6. The decision, before / after */}
       <section className="mn-container mn-section">
         <p className="mn-section-label">The decision</p>
         <h2 className="mn-h2">
@@ -378,12 +378,12 @@ export default function MinimalCaseStudy() {
           <figure className="mn-figure" style={{ marginTop: 0 }}>
             <p className="mn-ba-label">Before</p>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/projects/fireside/information-mode.png" alt="Before — result without explanation" />
+            <img src="/projects/fireside/information-mode.png" alt="Before, result without explanation" />
           </figure>
           <figure className="mn-figure" style={{ marginTop: 0 }}>
             <p className="mn-ba-label">After</p>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/projects/fireside/intervention-mode.png" alt="After — result with explanation and intervention" />
+            <img src="/projects/fireside/intervention-mode.png" alt="After, result with explanation and intervention" />
           </figure>
         </div>
       </section>
@@ -401,7 +401,7 @@ export default function MinimalCaseStudy() {
         <p className="mn-section-label">Reflection</p>
         <h2 className="mn-h2">What I&rsquo;d carry forward.</h2>
         <p>
-          The thing that moved adoption wasn&rsquo;t a better model — it was
+          The thing that moved adoption wasn&rsquo;t a better model, it was
           letting people see the model think. Trust isn&rsquo;t a feature you
           add at the end; it&rsquo;s the shape of every small moment where the
           system could have stayed silent and chose not to.{" "}

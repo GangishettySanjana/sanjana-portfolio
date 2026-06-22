@@ -267,7 +267,7 @@ export default function Navigation() {
               onClick={() => setMenuOpen(false)}
             />
 
-            {/* Centering wrapper — keep CSS transform separate from Framer Motion */}
+            {/* Centering wrapper, keep CSS transform separate from Framer Motion */}
             <div
               id="mobile-pill-menu"
               style={{

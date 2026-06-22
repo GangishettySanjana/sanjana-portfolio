@@ -31,7 +31,7 @@ function AuraPrototype() {
   }
 
   const screens = [
-    // Screen 0 — Home
+    // Screen 0, Home
     <div key="home" style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FFF9F5' }}>
       <div style={{ padding: '20px 16px 10px', borderBottom: '1px solid #f0e8e0' }}>
         <p style={{ margin: 0, fontSize: 12, color: '#888', fontFamily: 'var(--fx-sans)' }}>Good morning</p>
@@ -61,7 +61,7 @@ function AuraPrototype() {
       </div>
     </div>,
 
-    // Screen 1 — Checkout step 1: Pick delivery date FIRST
+    // Screen 1, Checkout step 1: Pick delivery date FIRST
     <div key="date" style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FFF9F5' }}>
       <div style={{ padding: '16px', borderBottom: '1px solid #f0e8e0', display: 'flex', alignItems: 'center', gap: 10 }}>
         <button onClick={() => setScreen(0)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 16, color: '#555' }}>←</button>
@@ -101,7 +101,7 @@ function AuraPrototype() {
       </div>
     </div>,
 
-    // Screen 2 — Bouquet customizer
+    // Screen 2, Bouquet customizer
     <div key="customize" style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FFF9F5' }}>
       <div style={{ padding: '16px', borderBottom: '1px solid #f0e8e0', display: 'flex', alignItems: 'center', gap: 10 }}>
         <button onClick={() => setScreen(1)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 16, color: '#555' }}>←</button>
@@ -140,7 +140,7 @@ function AuraPrototype() {
       </div>
     </div>,
 
-    // Screen 3 — Confirmation
+    // Screen 3, Confirmation
     <div key="confirm" style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#FFF9F5', padding: '24px 20px', textAlign: 'center' }}>
       <div style={{ width: 60, height: 60, borderRadius: '50%', background: '#FFE8EF', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16, fontSize: 28 }}>🌸</div>
       <p style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 700, color: '#1a1a1a', fontFamily: 'var(--fx-sans)' }}>Order confirmed</p>

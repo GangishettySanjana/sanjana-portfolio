@@ -25,7 +25,7 @@ function makeTerrain(): Cell[] {
       let type: Cell['type'] = 'veg'
       // a dry, fast-burning belt across the lower third
       if (j > SIM_ROWS * 0.6 && f > 0.55) { type = 'dry'; f = Math.min(0.98, f + 0.15) }
-      // a rock firebreak — vertical strip with a gap fire must flow around
+      // a rock firebreak, vertical strip with a gap fire must flow around
       const inStrip = i >= 19 && i <= 20
       const gap = j >= 6 && j <= 9
       if (inStrip && !gap) { type = 'rock'; f = 0 }

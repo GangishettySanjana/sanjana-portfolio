@@ -7,13 +7,46 @@ const client = new Anthropic({
 })
 
 /* ─────────────────────────────────────────────────────────────
+   Humanizer: a deterministic pass over the model's reply. The
+   system prompt asks for no em dashes, but models leak them, so
+   this guarantees it. Also straightens curly quotes and clears a
+   few common AI tells. Runs on every response before it's sent.
+───────────────────────────────────────────────────────────── */
+function humanize(text: string): string {
+  let t = text
+  // Build smart-punctuation matchers from char codes, so no literal curly quote
+  // or em dash lives in this source file. A formatter once swept the literal
+  // characters and broke this regex; char codes are immune to that.
+  const ch = (n: number) => String.fromCharCode(n)
+  const singleQuotes = new RegExp('[' + ch(0x2018) + ch(0x2019) + ch(0x2032) + ']', 'g')
+  const doubleQuotes = new RegExp('[' + ch(0x201c) + ch(0x201d) + ch(0x2033) + ']', 'g')
+  const dashes = new RegExp('\\s*[' + ch(0x2014) + ch(0x2013) + ']\\s*', 'g')
+  // straight quotes and apostrophes
+  t = t.replace(singleQuotes, "'").replace(doubleQuotes, '"')
+  // em / en dash to comma (the model's most common tell)
+  t = t.replace(dashes, ', ')
+  // strip markdown bold/italic markers (the chat renders plain text)
+  t = t.replace(/\*\*(.+?)\*\*/g, '$1').replace(/(^|\s)\*(\S.*?\S)\*(?=\s|$|[.,!?])/g, '$1$2')
+  // also catch the "spaced double hyphen" dash and "->"-style arrows in prose
+  t = t.replace(/\s+--\s+/g, ', ')
+  // clean up punctuation collisions the replacement can create
+  t = t.replace(/,\s*,/g, ',')          // ",," → ","
+  t = t.replace(/\s+,/g, ',')            // " ," → ","
+  t = t.replace(/,\s*([.!?;:])/g, '$1')  // ", ." → "."
+  t = t.replace(/([.!?;:])\s*,\s*/g, '$1 ') // ". ," → ". "
+  t = t.replace(/^\s*,\s*/, '')          // leading comma
+  t = t.replace(/[ \t]{2,}/g, ' ')       // collapse double spaces
+  return t.trim()
+}
+
+/* ─────────────────────────────────────────────────────────────
    Project knowledge is generated straight from data/projects.ts.
    Add or edit a project there and the chatbot updates with it.
 ───────────────────────────────────────────────────────────── */
 const PROJECTS_KNOWLEDGE = projects
   .map((p) => {
     const lines = [
-      `• ${p.tagline} — ${p.title}`,
+      `• ${p.tagline}, ${p.title}`,
       `  ${[p.company, p.year, p.duration, `Role: ${p.role}`, p.status].filter(Boolean).join(' · ')}`,
       p.tools?.length ? `  Tools: ${p.tools.join(', ')}` : '',
       p.tldr ? `  In short: ${p.tldr}` : '',
@@ -54,10 +87,12 @@ ${PROJECTS_KNOWLEDGE}
 
 Rules:
 - Write the way I write: no em dashes ever (use commas, periods, or "and"). Keep it natural and human, never corporate or buzzwordy.
+- Avoid AI-sounding words and patterns: no "delve", "tapestry", "underscore", "testament", "showcase", "navigate the landscape", "boasts", "robust", "leverage", "elevate". Don't force things into lists of three. Vary your sentence rhythm: mix short punchy sentences with longer ones. Don't start replies with "Great question" or similar filler.
 - Answer questions about my work, skills, experience, background, and what I'm looking for.
 - The project details above are my real, current work. Use them. If asked about a project, draw on its problem, outcome, and metrics.
 - If you don't know something specific, say so honestly, don't make things up.
 - Keep answers conversational and reasonably short, this is a chat widget, not an essay.
+- Write in plain text only. No markdown, no asterisks for bold or italics, no headings or bullet symbols.
 - Never break character or say you're an AI assistant, just be Sanju.
 - If someone asks to hire me or work together, warmly direct them to gangishettysanjana084@gmail.com or LinkedIn: linkedin.com/in/sanjana-gangishetty
 - I'm authorized to work in the US, so if anyone asks about work authorization, say that plainly.
@@ -86,7 +121,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unexpected response type' }, { status: 500 })
     }
 
-    return NextResponse.json({ reply: content.text })
+    return NextResponse.json({ reply: humanize(content.text) })
   } catch (error) {
     console.error('Chat API error:', error)
     return NextResponse.json(

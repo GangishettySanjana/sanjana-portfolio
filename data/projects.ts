@@ -9,19 +9,19 @@ export interface Project {
   role: string
   status: 'Live Product' | 'Case Study' | 'In Progress'
   tools: string[]
-  liveUrl?: string // retired — not rendered
+  liveUrl?: string // retired, not rendered
   coverBg: string       // Tailwind bg class for card accent
   coverTextColor: string
   coverGradient: string  // CSS gradient for card right panel
   stats: { value: string; label: string }[]
 
-  // Recruiter View — quick read
+  // Recruiter View, quick read
   tldr: string
   problem: string
   outcome: string
   metrics: string[]
 
-  // Full story — what actually happened
+  // Full story, what actually happened
   context: string
   challenge: string
   solution: string
@@ -335,23 +335,23 @@ export const projects: Project[] = [
       { value: '4 steps', label: 'Search · Request · Chat · Refer' },
     ],
 
-    tldr: 'A community referral network built in 48 hours — so women in product can get warm introductions instead of sending cold applications into the void.',
+    tldr: 'A community referral network built in 48 hours, so women in product can get warm introductions instead of sending cold applications into the void.',
     problem: 'Women in product roles have a strong community in WIP, but no structured way to turn those community connections into actual referrals. Job boards are cold. LinkedIn messages go unread. The network existed but there was no product to activate it.',
     outcome: 'A working referral platform where WIP members can search for referrers at specific companies, submit structured requests, connect directly over chat, and track referral status. Built and shipped in 48 hours.',
     metrics: [
       'Full product designed and shipped within a 48-hour hackathon window',
       'Four-step referral flow: search, request, chat, refer',
       'Referrer controls: accept/decline, availability settings, leaderboard recognition',
-      'Membership scoped to WIP community — trust built in by default',
+      'Membership scoped to WIP community, trust built in by default',
     ],
 
-    context: 'Built for a Women in Product hackathon. The WIP community is one of the strongest product communities out there — tens of thousands of women across every level and company. But when someone needed a referral, they were still cold-messaging strangers on LinkedIn. The community had the network. It just didn\'t have the product.',
+    context: 'Built for a Women in Product hackathon. The WIP community is one of the strongest product communities out there, tens of thousands of women across every level and company. But when someone needed a referral, they were still cold-messaging strangers on LinkedIn. The community had the network. It just didn\'t have the product.',
     challenge: '48 hours meant zero time for research rounds or lengthy iteration. The design had to be right the first time, which meant every decision had to be grounded in something concrete: what does a referral request actually need to contain? What does a referrer need to feel safe saying yes? What happens when someone declines, and how do you make that not awkward?',
-    solution: 'A structured four-step flow that removes friction from both sides. The requester provides exactly what a referrer needs (LinkedIn, fit statement, job link) — no vague asks. The referrer has full control: toggle availability, decline anonymously, manage their queue. A leaderboard surfaces the most active referrers, creating community recognition without pressure.',
+    solution: 'A structured four-step flow that removes friction from both sides. The requester provides exactly what a referrer needs (LinkedIn, fit statement, job link), no vague asks. The referrer has full control: toggle availability, decline anonymously, manage their queue. A leaderboard surfaces the most active referrers, creating community recognition without pressure.',
     process: [
       {
         heading: 'Scoping the problem in hour one',
-        body: 'Started by mapping the exact moment where the WIP community fell short: you know someone at a company, you want a referral, and there\'s no good way to ask. Identified the two-sided problem immediately — requesters need to ask clearly, referrers need to feel in control. Everything else followed from that.',
+        body: 'Started by mapping the exact moment where the WIP community fell short: you know someone at a company, you want a referral, and there\'s no good way to ask. Identified the two-sided problem immediately, requesters need to ask clearly, referrers need to feel in control. Everything else followed from that.',
       },
       {
         heading: 'Designing the request form',
@@ -359,10 +359,10 @@ export const projects: Project[] = [
       },
       {
         heading: 'Referrer controls and community trust',
-        body: 'Referrers needed to feel like they could say no without it being a moment. Anonymous decline notifications, availability toggles, and a clear queue meant they stayed in the platform instead of ghosting. The leaderboard was added last — recognition, not pressure.',
+        body: 'Referrers needed to feel like they could say no without it being a moment. Anonymous decline notifications, availability toggles, and a clear queue meant they stayed in the platform instead of ghosting. The leaderboard was added last, recognition, not pressure.',
       },
     ],
-    reflection: '48 hours is enough time to build something real if you\'re ruthless about scope. The hardest cut was a matching algorithm that would suggest referrers automatically — we decided the search-and-select flow was faster to build and probably more trustworthy anyway. Sometimes the simpler thing is the better thing.',
+    reflection: '48 hours is enough time to build something real if you\'re ruthless about scope. The hardest cut was a matching algorithm that would suggest referrers automatically, we decided the search-and-select flow was faster to build and probably more trustworthy anyway. Sometimes the simpler thing is the better thing.',
 
     navSections: [
       { id: 'overview',    label: 'Overview' },

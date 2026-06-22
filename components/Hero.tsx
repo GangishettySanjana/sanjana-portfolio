@@ -127,7 +127,7 @@ export default function Hero() {
         <NoiseGradientBG />
 
 
-        {/* Main content — left aligned */}
+        {/* Main content, left aligned */}
         <div style={{
           flex: 1, position: 'relative', zIndex: 5,
           display: 'flex', alignItems: 'stretch',
@@ -193,7 +193,7 @@ export default function Hero() {
               margin: '0 0 36px',
             }}
           >
-            I design AI and B2B products that earn trust fast — through research, clarity, and decisions that hold up under scrutiny.
+            I design AI and B2B products that earn trust fast, through research, clarity, and decisions that hold up under scrutiny.
           </motion.p>
 
           {/* CTA */}

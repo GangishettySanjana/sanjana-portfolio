@@ -386,7 +386,7 @@ export default function AboutPage() {
               </span>
             </motion.div>
 
-            {/* Headline — NCL Gasdrifo, single line */}
+            {/* Headline, NCL Gasdrifo, single line */}
             <motion.h1
               style={{
                 fontFamily: "'NCL Gasdrifo', Georgia, serif",
@@ -571,7 +571,7 @@ export default function AboutPage() {
             </motion.p>
           </div>
 
-          {/* Photo strip — auto-scrolling */}
+          {/* Photo strip, auto-scrolling */}
           <motion.div
             style={{ position: 'relative', zIndex: 1, width: '100vw', left: '50%', transform: 'translateX(-50%)', overflow: 'hidden', marginBottom: 0 }}
             initial={{ opacity: 0, y: 16 }}
@@ -637,7 +637,7 @@ export default function AboutPage() {
         <section style={{ background: '#FDFAF5', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.3, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
 
-          {/* Rows — padded */}
+          {/* Rows, padded */}
           <div style={{ position: 'relative', zIndex: 1, padding: 'clamp(72px, 8vw, 112px) clamp(32px, 7vw, 96px) 40px' }}>
             <motion.p
               style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.35)', marginBottom: 48, fontWeight: 700 }}
@@ -679,7 +679,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* What I'm looking for — full-width dark block, direct child of section */}
+          {/* What I'm looking for, full-width dark block, direct child of section */}
           <motion.div
             style={{ background: '#111827', padding: 'clamp(40px, 5vw, 64px) clamp(32px, 7vw, 96px)', position: 'relative', overflow: 'hidden' }}
             initial={{ opacity: 0, y: 20 }}

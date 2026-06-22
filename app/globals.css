@@ -30,7 +30,7 @@ video { pointer-events: none; }
   box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
 }
 
-/* Nav "Let's Connect" CTA — Uiverse "fancy" style, rounded */
+/* Nav "Let's Connect" CTA, Uiverse "fancy" style, rounded */
 .fancy {
   background-color: transparent;
   border: 2px solid #000;
@@ -109,7 +109,7 @@ video { pointer-events: none; }
 
 /* ─────────────────────────────────────────────────
    DESIGN TOKENS
-   Sanjana Gangishetty Portfolio — May 2025
+   Sanjana Gangishetty Portfolio, May 2025
    Palette: Blue / Coral / White / Smoke / Periwinkle / Maroon
 ───────────────────────────────────────────────── */
 
@@ -226,7 +226,7 @@ aside::-webkit-scrollbar { display: none; }
 }
 
 /* ─────────────────────────────────────────────────
-   SCROLL REVEAL — base states
+   SCROLL REVEAL, base states
    Framer Motion handles the actual animation,
    these just ensure no FOUC
 ───────────────────────────────────────────────── */
@@ -333,7 +333,7 @@ aside::-webkit-scrollbar { display: none; }
 }
 
 /* ─────────────────────────────────────────────────
-   PROSE — case study body text
+   PROSE, case study body text
 ───────────────────────────────────────────────── */
 
 .prose-case h2 {
@@ -386,17 +386,17 @@ aside::-webkit-scrollbar { display: none; }
 /* ═══════════════════════════════════════════════════
    RESPONSIVE SYSTEM
    Breakpoints:
-     1024px  — large tablet / small laptop
-      860px  — tablet portrait
-      680px  — phablet
-      480px  — phone landscape
-      390px  — phone portrait (iPhone 14 Pro)
+     1024px , large tablet / small laptop
+      860px , tablet portrait
+      680px , phablet
+      480px , phone landscape
+      390px , phone portrait (iPhone 14 Pro)
 ═══════════════════════════════════════════════════ */
 
 /* ─────────────────────────────────────────────────
    NAVIGATION
 ───────────────────────────────────────────────── */
-/* nav-pill class no longer used — flush nav replaces it */
+/* nav-pill class no longer used, flush nav replaces it */
 
 /* ─────────────────────────────────────────────────
    HERO
@@ -542,7 +542,7 @@ aside::-webkit-scrollbar { display: none; }
     left: 74px !important;
   }
 }
-/* About page — editorial row grids */
+/* About page, editorial row grids */
 .about-work-row {
   display: grid;
   grid-template-columns: 72px 1fr 2fr;
@@ -605,7 +605,7 @@ aside::-webkit-scrollbar { display: none; }
 }
 
 /* ─────────────────────────────────────────────────
-   CASE STUDY — sidebar + layout
+   CASE STUDY, sidebar + layout
 ───────────────────────────────────────────────── */
 
 /* Large tablet: compress sidebar */
@@ -760,7 +760,7 @@ aside::-webkit-scrollbar { display: none; }
 }
 
 /* ─────────────────────────────────────────────────
-   GETUP CASE STUDY — inline grid responsive
+   GETUP CASE STUDY, inline grid responsive
 ───────────────────────────────────────────────── */
 @media (max-width: 600px) {
   .getup-3col {
@@ -772,7 +772,7 @@ aside::-webkit-scrollbar { display: none; }
 }
 
 /* ─────────────────────────────────────────────────
-   GLOBAL — section card margins on phone
+   GLOBAL, section card margins on phone
 ───────────────────────────────────────────────── */
 @media (max-width: 600px) {
   .section-card {
@@ -784,7 +784,7 @@ aside::-webkit-scrollbar { display: none; }
   }
 }
 
-/* About timeline — accordion row feedback (Emil: pressable elements respond) */
+/* About timeline, accordion row feedback (Emil: pressable elements respond) */
 .tl-acc-btn {
   transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), opacity 150ms ease;
   border-radius: 8px;

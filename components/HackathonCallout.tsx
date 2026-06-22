@@ -24,10 +24,10 @@ export default function HackathonCallout() {
             borderLeft: '3px solid #2A3550',
           }}
         >
-          {/* Left — label + headline + body */}
+          {/* Left, label + headline + body */}
           <div className="hackathon-callout-left" style={{ display: 'flex', alignItems: 'flex-start', gap: 24, flex: 1, minWidth: 0 }}>
 
-            {/* Star mark — portfolio navy */}
+            {/* Star mark, portfolio navy */}
             <div style={{
               width: 40, height: 40, borderRadius: 10,
               background: 'rgba(42,53,80,0.06)',
@@ -103,7 +103,7 @@ export default function HackathonCallout() {
             </div>
           </div>
 
-          {/* Right — CTA */}
+          {/* Right, CTA */}
           <a
             href="https://wip-spark-connect.lovable.app"
             target="_blank"

@@ -87,7 +87,7 @@ export function JourneyMap({
     return () => window.removeEventListener("keydown", onKey);
   }, [items.length]);
 
-  // Compute card placement — flip to left if too close to right edge
+  // Compute card placement, flip to left if too close to right edge
   const getCardStyle = (): React.CSSProperties => {
     if (!cardPos || !stageRef.current) return { display: "none" };
     const stageW = stageRef.current.offsetWidth;
@@ -118,7 +118,7 @@ export function JourneyMap({
         <div className="jm-headline">{title}</div>
       </div>
 
-      {/* Stage — the winding path + nodes */}
+      {/* Stage, the winding path + nodes */}
       <div className="jm-stage" ref={stageRef}>
         <svg
           className="jm-svg"
@@ -217,7 +217,7 @@ export function JourneyMap({
           );
         })}
 
-        {/* Hover card — appears next to the node */}
+        {/* Hover card, appears next to the node */}
         {hoverIdx !== null && cardPos && (
           <div className="jm-hover-card" style={getCardStyle()}>
             {previewItem.image && (
@@ -253,7 +253,7 @@ export function JourneyMap({
         )}
       </div>
 
-      {/* Persistent bottom bar — shows active item when not hovering */}
+      {/* Persistent bottom bar, shows active item when not hovering */}
       <div className="jm-bar">
         <div className="jm-bar-year">{items[activeIdx]?.year}</div>
         <div className="jm-bar-title">{items[activeIdx]?.title}</div>

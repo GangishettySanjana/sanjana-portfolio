@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 
-/* ── TOKENS — white/black + #6567F2 ─────────────── */
+/* ── TOKENS, white/black + #6567F2 ─────────────── */
 :root {
   /* surfaces */
   --base:    #FFFFFF;
@@ -17,7 +17,7 @@
   --muted: #555555;
   --dim:   #888888;
 
-  /* accent — OpenRouter #6567F2 */
+  /* accent, OpenRouter #6567F2 */
   --accent:        #6567F2;
   --accent-dark:   #4D4FD8;
   --accent-bg:     #EFEFFB;
@@ -862,7 +862,7 @@ section[id] { scroll-margin-top: 68px; }
 .step.done .step-n { background: var(--accent); border-color: var(--accent); color: var(--base); }
 .step.done .step-lbl { color: var(--text); }
 
-/* question cards — class names match app.js rendered HTML */
+/* question cards, class names match app.js rendered HTML */
 .pq-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -921,7 +921,7 @@ section[id] { scroll-margin-top: 68px; }
 
 .rec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
 
-/* rec cards — full border + bg tint, no side stripe */
+/* rec cards, full border + bg tint, no side stripe */
 .rec-card {
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
@@ -958,7 +958,7 @@ section[id] { scroll-margin-top: 68px; }
 .green { color: var(--green) !important; }
 .muted { color: var(--muted); }
 
-/* rec-why — section separator, not a nested card */
+/* rec-why, section separator, not a nested card */
 .rec-why {
   padding: 12px 0;
   border-bottom: 1px solid var(--border);
@@ -1116,7 +1116,7 @@ section[id] { scroll-margin-top: 68px; }
 
 .rf-title { font-size: 14.5px; font-weight: 700; margin-bottom: 14px; color: var(--text); }
 
-/* arjun-callback — italic only, no side stripe */
+/* arjun-callback, italic only, no side stripe */
 .arjun-callback {
   margin-top: 18px;
   font-size: var(--t-sm);

@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 
-/* everything she brings — auto-rotating right rail */
+/* everything she brings, auto-rotating right rail */
 const STRENGTHS = [
   'Designs that win the room',
   'Strategy before pixels',
@@ -132,7 +132,7 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
       .to(q('.log-5'), { opacity: 1, x: 0, duration: 0.3 }, 3.5)
       // hold on the shipped frame
       .to({}, { duration: 1.4 })
-      // curtain lifts — reveal the hero
+      // curtain lifts, reveal the hero
       .to(rootRef.current, {
         yPercent: -100, duration: 1.0, ease: 'power4.inOut',
         onStart: () => { onCompleteRef.current?.() },
@@ -166,7 +166,7 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
       document.addEventListener('pointerdown', tryPlay)
     }
 
-    // auto-start the experience — no gate, no friction
+    // auto-start the experience, no gate, no friction
     run()
 
     return () => {
@@ -237,7 +237,7 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
         <span className="log-line log-5" style={{ color: '#0d0d0d', fontWeight: 600 }}>&gt; designed &amp; shipped</span>
       </div>
 
-      {/* Right rail — rotating strengths */}
+      {/* Right rail, rotating strengths */}
       <div className="tag-rail" style={{ position: 'absolute', right: 'clamp(32px, 6vw, 96px)', top: 'clamp(56px, 9vh, 120px)', zIndex: 4 }}>
         <RotatingStrengths />
       </div>
@@ -290,7 +290,7 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
         SHIPPED
       </div>
 
-      {/* Skip — quiet, bottom center */}
+      {/* Skip, quiet, bottom center */}
       <button onClick={skip} style={{
         position: 'absolute', bottom: 'clamp(20px, 3vh, 34px)', left: '50%', transform: 'translateX(-50%)', zIndex: 30,
         fontFamily: "'Satoshi', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: '0.14em',

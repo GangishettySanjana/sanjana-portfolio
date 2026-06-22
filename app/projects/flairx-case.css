@@ -30,7 +30,7 @@
   margin-right: -32px;
 }
 
-/* ── section label  "01 — OVERVIEW" ────────────────────────────── */
+/* ── section label  "01, OVERVIEW" ────────────────────────────── */
 .fx-sec-label {
   font-family: var(--font-label), sans-serif;
   font-size: 11px;
@@ -258,7 +258,7 @@
   border-bottom: 1px solid var(--fx-border);
 }
 
-/* Outlined number — the most distinctive OpenRouter element */
+/* Outlined number, the most distinctive OpenRouter element */
 .fx-decision-num {
   font-family: var(--font-label), sans-serif;
   font-size: 32px;

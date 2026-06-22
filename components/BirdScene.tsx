@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * BirdScene — fixed WebGL background for a Next.js portfolio.
+ * BirdScene, fixed WebGL background for a Next.js portfolio.
  *
  * A small flock of low-poly paper birds flies along a 3D curve across
  * a sky + hills scene. Scroll position = how far along the curve the

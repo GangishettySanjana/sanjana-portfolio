@@ -97,7 +97,7 @@ export default function HomePage() {
 
     // If the curtain didn't render (already seen this session → it skipped and
     // unmounted), reveal the hero ourselves. On the play path the curtain stays
-    // on screen for several seconds, so this check finds it and does nothing —
+    // on screen for several seconds, so this check finds it and does nothing;
     // the curtain reveals the hero itself when it lifts.
     setTimeout(() => {
       // Curtain is on screen (first visit) → let it reveal the hero when it lifts.
@@ -125,7 +125,7 @@ export default function HomePage() {
     })
 
     /* ─────────────────────────────────────────────
-       5. HERO PARALLAX — photo drifts up as you scroll
+       5. HERO PARALLAX, photo drifts up as you scroll
     ───────────────────────────────────────────── */
     gsap.to('#hPhoto', {
       y: -60,
@@ -150,7 +150,7 @@ export default function HomePage() {
     })
 
     /* ─────────────────────────────────────────────
-       6. SCROLL CUE — fade out when scrolling starts
+       6. SCROLL CUE, fade out when scrolling starts
     ───────────────────────────────────────────── */
     ScrollTrigger.create({
       trigger: '.work-section',
@@ -167,7 +167,7 @@ export default function HomePage() {
     })
 
     /* ─────────────────────────────────────────────
-       8. PROJECT CARDS — staggered inner content
+       8. PROJECT CARDS, staggered inner content
     ───────────────────────────────────────────── */
     gsap.utils.toArray<HTMLElement>('.project-card').forEach((card) => {
       const title    = card.querySelector('.card-title')
@@ -209,7 +209,7 @@ export default function HomePage() {
     })
 
     /* ─────────────────────────────────────────────
-       9. STAT COUNTERS — numbers count up
+       9. STAT COUNTERS, numbers count up
     ───────────────────────────────────────────── */
     document.querySelectorAll<HTMLElement>('.stat-val[data-count]').forEach(el => {
       const target = parseInt(el.dataset.count || '0', 10)
@@ -321,7 +321,7 @@ export default function HomePage() {
     ───────────────────────────────────────────── */
     const aboutST = { start: 'top 86%', toggleActions: 'play none none none' }
 
-    // Card entry — same feel as project cards
+    // Card entry, same feel as project cards
     gsap.to('#aboutCard', {
       opacity: 1, y: 0, duration: 1.0, ease: 'power3.out',
       scrollTrigger: { trigger: '#aboutCard', start: 'top 88%', toggleActions: 'play none none none' },
@@ -378,7 +378,7 @@ export default function HomePage() {
       scrollTrigger: { trigger: '#aboutRight', start: 'top 88%', toggleActions: 'play none none none' },
     })
 
-    // Photo parallax — drifts up slowly as you scroll past (like hero photo)
+    // Photo parallax, drifts up slowly as you scroll past (like hero photo)
     gsap.to('#aboutRight', {
       y: -40,
       ease: 'none',
@@ -390,7 +390,7 @@ export default function HomePage() {
       },
     })
 
-    // Photo 3D tilt on hover — same as project cards
+    // Photo 3D tilt on hover, same as project cards
     const aboutPhotoWrap = document.querySelector<HTMLElement>('.about-photo-wrap')
     if (aboutPhotoWrap) {
       aboutPhotoWrap.addEventListener('mousemove', (e: MouseEvent) => {
@@ -456,7 +456,7 @@ export default function HomePage() {
       },
     })
 
-    // Pills idle float — each at its own rhythm
+    // Pills idle float, each at its own rhythm
     document.querySelectorAll<HTMLElement>('.con-pill').forEach((pill, i) => {
       const amp = 5 + (i % 3) * 3
       const dur = 2.6 + i * 0.4
@@ -503,7 +503,7 @@ export default function HomePage() {
     const FADE_DUR = 0.5
     let rafId = 0
     const tryPlay = () => { const p = video.play(); if (p && p.catch) p.catch(() => {}) }
-    // only reveal the video while it's genuinely playing — never a frozen frame (so Safari
+    // only reveal the video while it's genuinely playing, never a frozen frame (so Safari
     // can't slap its play-button glyph on a paused frame)
     const tick = () => {
       const { currentTime, duration, paused } = video
@@ -528,7 +528,7 @@ export default function HomePage() {
     tryPlay()
     rafId = requestAnimationFrame(tick)
 
-    // Safari / Low Power Mode blocks autoplay — keep retrying on any interaction
+    // Safari / Low Power Mode blocks autoplay, keep retrying on any interaction
     const onInteract = () => tryPlay()
     document.addEventListener('pointerdown', onInteract)
     document.addEventListener('touchstart', onInteract, { passive: true })
@@ -548,7 +548,7 @@ export default function HomePage() {
   return (
     <>
       <BirdScene />
-      {/* Intro curtain — built-live experience, lifts to reveal the hero */}
+      {/* Intro curtain, built-live experience, lifts to reveal the hero */}
       <IntroCurtain onComplete={() => runHeroRef.current?.()} />
 
       {/* Scroll progress */}
@@ -586,9 +586,9 @@ export default function HomePage() {
             {/* Lead with the headline */}
             <h1 className="hero-headline" id="hHead">I think about the whole product, not just the screen.</h1>
             <p className="hero-body" id="hBody">From the first user interview to the shipped build, and everything in between. I care about all of it.</p>
-            {/* Evergreen "what I'm drawn to" signal — reads as growth/conversion intent without naming a company */}
+            {/* Evergreen "what I'm drawn to" signal, reads as growth/conversion intent without naming a company */}
             <p className="hero-drawn" id="hDrawn">Lately I&apos;m drawn to the messy middle of growth: onboarding, conversion, the moments where a product earns its keep.</p>
-            {/* Whole-product loop — proves the positioning at a glance */}
+            {/* Whole-product loop, proves the positioning at a glance */}
             <div className="hero-loop" id="hLoop">
               <span className="hero-loop-step">Research</span>
               <span className="hero-loop-arrow" aria-hidden>→</span>
@@ -689,7 +689,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* 02 AI Trust Meter — self-initiated AI exploration */}
+            {/* 02 AI Trust Meter, self-initiated AI exploration */}
             <div className="project-card card-sparkconnect">
               <div className="card-inner">
                 <div className="card-num-bg">02</div>
@@ -730,7 +730,7 @@ export default function HomePage() {
                         if (next) next.style.display = 'flex'
                       }}
                     />
-                    <div className="img-placeholder" style={{display:'none'}}>AI Trust Meter — live demo</div>
+                    <div className="img-placeholder" style={{display:'none'}}>AI Trust Meter, live demo</div>
                   </div>
                 </div>
               </div>
@@ -906,7 +906,7 @@ export default function HomePage() {
 
           <div className="exp-grid">
 
-            {/* Exploration 01 — OpenRouter Model Match */}
+            {/* Exploration 01, OpenRouter Model Match */}
             <a className="exp-card exp-card--linked" href="/explorations/openrouter">
               <div className="exp-card-top">
                 <span className="exp-tag">OpenRouter</span>
@@ -919,7 +919,7 @@ export default function HomePage() {
               </div>
             </a>
 
-            {/* Exploration 02 — Alexa for Shopping Memory Layer */}
+            {/* Exploration 02, Alexa for Shopping Memory Layer */}
             <a className="exp-card exp-card--linked" href="https://alexa-for-shopping.vercel.app" target="_blank" rel="noopener noreferrer">
               <div className="exp-card-top">
                 <span className="exp-tag">Amazon</span>

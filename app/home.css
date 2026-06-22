@@ -83,7 +83,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   color: rgba(0,0,0,0.45); letter-spacing: 0.01em;
 }
 
-/* kept for GSAP targeting — invisible now, nameplate replaces it */
+/* kept for GSAP targeting, invisible now, nameplate replaces it */
 .hero-greeting {
   display: none;
 }
@@ -100,7 +100,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   opacity: 0; transform: translateY(24px);
 }
 
-/* "What I'm drawn to" — quieter than the body, sits just beneath it */
+/* "What I'm drawn to", quieter than the body, sits just beneath it */
 .hero-drawn {
   font-family: var(--body); font-size: 15.5px; font-weight: 400;
   color: rgba(0,0,0,0.5); line-height: 1.6; max-width: 500px;
@@ -109,7 +109,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   opacity: 0; transform: translateY(20px);
 }
 
-/* Hero CTA — matches page system */
+/* Hero CTA, matches page system */
 .hero-cta-row {
   display: flex; align-items: center; gap: 16px;
   opacity: 0; transform: translateY(20px);
@@ -179,7 +179,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
 .photo-placeholder { font-size: 11px; color: rgba(0,0,0,0.4); text-align: center; line-height: 1.8; letter-spacing: 0.06em; text-transform: uppercase; }
 
-/* whole-product loop strip — proves the positioning, reads as a cycle */
+/* whole-product loop strip, proves the positioning, reads as a cycle */
 .hero-loop {
   display: flex; align-items: center; gap: 9px; flex-wrap: wrap;
   opacity: 0; transform: translateY(20px);
@@ -281,7 +281,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   font-family: var(--body); font-size: 16px; line-height: 1.7;
   opacity: 0.8; margin-bottom: 36px; flex: 1;
 }
-/* Stats row — big numbers */
+/* Stats row, big numbers */
 .card-stats {
   display: flex; gap: 0;
   margin-bottom: 32px;
@@ -308,7 +308,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   font-family: var(--body); font-size: 11px; font-weight: 500;
   letter-spacing: 0.04em; opacity: 0.6; text-transform: uppercase;
 }
-/* Neumorphic work-card button (Uiverse by adamgiebl) — carved from each card's surface */
+/* Neumorphic work-card button (Uiverse by adamgiebl), carved from each card's surface */
 .card-btn {
   /* per-card themes set these vars so the button reads as carved from the card */
   --neu-bg: #e0e0e0;
@@ -444,14 +444,14 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   transform: translate(-50%,-50%); z-index: 9999; mix-blend-mode: screen;
 }
 
-/* ── INTRO CURTAIN — light cinematic ── */
+/* ── INTRO CURTAIN, light cinematic ── */
 #intro {
   position: fixed; inset: 0; z-index: 9000;
   background: #faf8f4;
   will-change: transform; overflow: hidden;
 }
 
-/* Video background — washed bright */
+/* Video background, washed bright */
 #intro-video {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
@@ -461,7 +461,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   z-index: 0;
 }
 
-/* Bright wash overlay — keeps it light & airy */
+/* Bright wash overlay, keeps it light & airy */
 #intro-overlay {
   position: absolute; inset: 0;
   background:
@@ -553,7 +553,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   opacity: 0;
 }
 
-/* Tags — top right */
+/* Tags, top right */
 .intro-tag {
   position: absolute;
   right: clamp(32px, 6vw, 96px);
@@ -729,7 +729,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   position: relative; z-index: 1;
 }
 
-/* card wrapper — same treatment as .hero-card */
+/* card wrapper, same treatment as .hero-card */
 .about-card {
   width: 100%; max-width: var(--max-w);
   margin: 0 auto; padding: 0 var(--gutter);
@@ -848,7 +848,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   50%       { box-shadow: 0 0 0 6px rgba(34,167,34,0.08); }
 }
 
-/* Info grid below photo — 2×2 */
+/* Info grid below photo, 2×2 */
 .about-info-bar {
   margin-top: 14px;
   display: grid;
@@ -971,7 +971,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 }
 
 /* ═══════════════════════════════════════════
-   RESPONSIVE — iPad (≤ 1024px)
+   RESPONSIVE, iPad (≤ 1024px)
 ═══════════════════════════════════════════ */
 @media (max-width: 1024px) {
   /* Hero */
@@ -990,13 +990,13 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   .card-right { min-height: 300px; }
   .card-num-bg { font-size: 160px; }
 
-  /* Recognition — reduce gap on tablet */
+  /* Recognition, reduce gap on tablet */
   .recognition-card { gap: 48px; padding: 48px; }
 
   /* About */
   .about-grid { grid-template-columns: 1fr 340px; gap: 48px; }
 
-  /* Connect pills — pull in from edges */
+  /* Connect pills, pull in from edges */
   .con-pill-1 { left: 1%; }
   .con-pill-3 { right: 1%; }
   .con-pill-4 { left: 0%; }
@@ -1004,11 +1004,11 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 }
 
 /* ═══════════════════════════════════════════
-   RESPONSIVE — Mobile (≤ 768px)
+   RESPONSIVE, Mobile (≤ 768px)
 ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* Hero — stack vertically */
+  /* Hero, stack vertically */
   .hero-section { padding: 72px 16px 56px; }
   .hero-card {
     display: flex;
@@ -1034,7 +1034,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   .work-title   { font-size: 32px; }
   .work-sub     { text-align: left; max-width: 100%; }
 
-  /* Project cards — hide image on mobile, tighten padding */
+  /* Project cards, hide image on mobile, tighten padding */
   .card-inner        { padding: 32px 24px 36px; }
   .card-content-row  { flex-direction: column; gap: 24px; min-height: unset; }
   .card-left         { flex: none; width: 100%; padding-bottom: 0; }
@@ -1046,7 +1046,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   .card-stats        { gap: 0; }
   .stat-val          { font-size: 18px; }
 
-  /* Recognition — stack vertically on mobile */
+  /* Recognition, stack vertically on mobile */
   .recognition-section { padding: 0 0 72px; }
   .recognition-card {
     flex-direction: column; gap: 32px; padding: 40px 28px;
@@ -1075,7 +1075,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   .con-btn-primary,
   .con-btn-ghost    { width: 100%; max-width: 280px; justify-content: center; }
 
-  /* Hide outer pills on mobile — too cramped */
+  /* Hide outer pills on mobile, too cramped */
   .con-pill-1, .con-pill-3,
   .con-pill-4, .con-pill-5 { display: none; }
   /* Reposition remaining pills closer in */
@@ -1093,7 +1093,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 }
 
 /* ═══════════════════════════════════════════
-   RESPONSIVE — Small mobile (≤ 480px)
+   RESPONSIVE, Small mobile (≤ 480px)
 ═══════════════════════════════════════════ */
 @media (max-width: 480px) {
   .hero-section  { padding: 64px 12px 48px; }
@@ -1128,7 +1128,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   }
 }
 
-/* Hero enhancements — mobile centering for new elements */
+/* Hero enhancements, mobile centering for new elements */
 @media (max-width: 768px) {
   .hero-nameplate { align-items: center; }
   .hero-loop      { justify-content: center; }

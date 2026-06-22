@@ -246,7 +246,7 @@ export default function DarkCaseStyle() {
         }
       `}</style>
 
-      {/* 1 — HERO */}
+      {/* 1, HERO */}
       <section className="dk-hero">
         <div className="dk-container">
           <p className="dk-kicker">product design · AI &amp; 0→1</p>
@@ -277,13 +277,13 @@ export default function DarkCaseStyle() {
         </div>
       </section>
 
-      {/* 2 — FULL BLEED HERO IMAGE */}
+      {/* 2, FULL BLEED HERO IMAGE */}
       <div className="dk-fullbleed">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/projects/fireside/exhibit-in-use.png" alt="The platform in use" />
       </div>
 
-      {/* 3 — CONTEXT */}
+      {/* 3, CONTEXT */}
       <section className="dk-section">
         <div className="dk-container">
           <p className="dk-eyebrow">Context</p>
@@ -310,14 +310,14 @@ export default function DarkCaseStyle() {
               <img src="/projects/fireside/information-mode.png" alt="Information mode interface" />
             </div>
             <p className="dk-caption">
-              <span className="dk-dot">—</span> The review surface, where every automated change is
+              <span className="dk-dot">, </span> The review surface, where every automated change is
               shown before it&rsquo;s committed.
             </p>
           </div>
         </div>
       </section>
 
-      {/* 4 — PROCESS */}
+      {/* 4, PROCESS */}
       <section className="dk-section">
         <div className="dk-container">
           <p className="dk-eyebrow">Process</p>
@@ -329,7 +329,7 @@ export default function DarkCaseStyle() {
             wireframe debate never would.
           </p>
           <p className="dk-body">
-            Every interaction earned its place by answering one question — does this make the person
+            Every interaction earned its place by answering one question, does this make the person
             more confident, or just more impressed? We cut anything that only did the second.
           </p>
           <div className="dk-wide">
@@ -338,14 +338,14 @@ export default function DarkCaseStyle() {
               <img src="/projects/fireside/simulation-mode.png" alt="Simulation mode prototype" />
             </div>
             <p className="dk-caption">
-              <span className="dk-dot">—</span> Simulation mode: testing the flow against live,
+              <span className="dk-dot">, </span> Simulation mode: testing the flow against live,
               imperfect input.
             </p>
           </div>
         </div>
       </section>
 
-      {/* 5 — IMPACT */}
+      {/* 5, IMPACT */}
       <section className="dk-section">
         <div className="dk-container">
           <p className="dk-eyebrow">Impact</p>
@@ -368,7 +368,7 @@ export default function DarkCaseStyle() {
         </div>
       </section>
 
-      {/* 6 — THE DECISION */}
+      {/* 6, THE DECISION */}
       <section className="dk-section">
         <div className="dk-container">
           <p className="dk-eyebrow">The decision</p>
@@ -378,21 +378,21 @@ export default function DarkCaseStyle() {
               <p className="dk-ba-label">Before</p>
               <div className="dk-frame">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/projects/fireside/information-mode.png" alt="Before — silent automation" />
+                <img src="/projects/fireside/information-mode.png" alt="Before, silent automation" />
               </div>
             </div>
             <div>
               <p className="dk-ba-label">After</p>
               <div className="dk-frame">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/projects/fireside/intervention-mode.png" alt="After — explained intervention" />
+                <img src="/projects/fireside/intervention-mode.png" alt="After, explained intervention" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 7 — PULL QUOTE */}
+      {/* 7, PULL QUOTE */}
       <section className="dk-quote">
         <div className="dk-container">
           <blockquote>
@@ -401,14 +401,14 @@ export default function DarkCaseStyle() {
         </div>
       </section>
 
-      {/* 8 — REFLECTION */}
+      {/* 8, REFLECTION */}
       <section className="dk-section dk-reflection">
         <div className="dk-container">
           <p className="dk-eyebrow">Reflection</p>
           <p className="dk-body">
             The lesson stayed with me: trust isn&rsquo;t a feeling you add at the end, it&rsquo;s a
             structure you design from the first screen. The most valuable thing I built wasn&rsquo;t
-            the automation — it was the moment of consent around it, made plain enough that a person
+            the automation, it was the moment of consent around it, made plain enough that a person
             could say yes and mean it.
           </p>
         </div>

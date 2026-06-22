@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────────────
-   SAMPLE case-study template — /case-template
+   SAMPLE case-study template, /case-template
    Aesthetic: LIGHT BUILD-NATIVE (design-engineer on a light surface).
    Neutral paper (not cream) · deep-teal signal · Geist Mono labels ·
    terminal-style metric readout · Cabinet Grotesk + Satoshi (her identity).
@@ -11,7 +11,7 @@ const SURFACE = '#FFFFFF'
 const INK = '#141619'
 const MUTED = '#565C63'
 const FAINT = '#767C84'
-const ACCENT = '#0E8E80'      // deep teal — text-safe on light
+const ACCENT = '#0E8E80'      // deep teal, text-safe on light
 const ACCENT_FILL = '#1FB0A0' // brighter teal for marks/fills
 const BORDER = 'rgba(20,22,25,0.11)'
 
@@ -134,7 +134,7 @@ export default function CaseTemplate() {
       {/* full-bleed hero media */}
       <figure className="bn-bleed">
         <img src={IMG.cover} alt="The product running in context" />
-        <figcaption className="bn-cap bn-mono">fig.00 — <b>the system in context</b></figcaption>
+        <figcaption className="bn-cap bn-mono">fig.00, <b>the system in context</b></figcaption>
       </figure>
 
       <div className="bn-wrap">
@@ -149,7 +149,7 @@ export default function CaseTemplate() {
               <div className="bn-chrome"><i /><i /><i /><span className="url bn-mono">app.preql.com/transform</span></div>
               <img src={IMG.ui} alt="" />
             </div>
-            <figcaption className="bn-cap bn-mono">fig.01 — the transform view</figcaption>
+            <figcaption className="bn-cap bn-mono">fig.01, the transform view</figcaption>
           </figure>
         </section>
 

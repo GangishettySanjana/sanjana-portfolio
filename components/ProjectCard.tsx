@@ -141,7 +141,7 @@ export default function ProjectCard({ project, index, hero }: ProjectCardProps) 
               )}
             </div>
 
-            {/* Key outcomes — lead with impact */}
+            {/* Key outcomes, lead with impact */}
             <div>
               <p style={{
                 fontFamily: 'var(--font-label), sans-serif',
@@ -223,7 +223,7 @@ export default function ProjectCard({ project, index, hero }: ProjectCardProps) 
                   color: '#6B7280',
                   margin: 0,
                 }}>
-                  — {project.testimonial.author}
+                {project.testimonial.author}
                 </p>
               </div>
             )}

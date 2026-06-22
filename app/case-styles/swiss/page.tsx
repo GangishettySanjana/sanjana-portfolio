@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Swiss-bold grid — case study sample",
+  title: "Swiss-bold grid, case study sample",
 };
 
 export default function SwissCaseStyle() {
@@ -334,7 +334,7 @@ export default function SwissCaseStyle() {
                 Teams pour effort into the visible output and treat data
                 preparation as a chore to rush through. But the moment a number
                 looks wrong, trust collapses backward through every step that
-                produced it — including the ones nobody watched.
+                produced it, including the ones nobody watched.
               </p>
               <p>
                 We were asking people to hand cleaning and structuring to an AI
@@ -350,7 +350,7 @@ export default function SwissCaseStyle() {
           <figcaption className="sw-cap">
             <span className="sw-cap-tag">Fig. 01</span>
             <span className="sw-cap-txt">
-              Information mode — the AI explains each transformation in plain
+              Information mode, the AI explains each transformation in plain
               language before applying it.
             </span>
           </figcaption>
@@ -375,8 +375,8 @@ export default function SwissCaseStyle() {
             </h2>
             <div className="sw-body" style={{ marginTop: "clamp(20px,3vw,32px)" }}>
               <p>
-                I mapped the trust moments first — where someone pauses, doubts,
-                or wants to check the machine&apos;s work — then designed a
+                I mapped the trust moments first, where someone pauses, doubts,
+                or wants to check the machine&apos;s work, then designed a
                 simulation mode that walks through proposed changes before
                 anything is committed.
               </p>
@@ -394,7 +394,7 @@ export default function SwissCaseStyle() {
           <figcaption className="sw-cap">
             <span className="sw-cap-tag">Fig. 02</span>
             <span className="sw-cap-txt">
-              Simulation mode — proposed changes previewed against the original
+              Simulation mode, proposed changes previewed against the original
               data, reversible before commit.
             </span>
           </figcaption>
@@ -439,7 +439,7 @@ export default function SwissCaseStyle() {
         <p className="sw-note">Founder-reported</p>
       </section>
 
-      {/* 6. The decision — before / after */}
+      {/* 6. The decision, before / after */}
       <section className="sw-wrap sw-section">
         <hr className="sw-rule" />
         <div className="sw-index">
@@ -455,7 +455,7 @@ export default function SwissCaseStyle() {
               <p>
                 The before relied on a passive information panel. The after
                 turned every AI action into an explicit, inspectable
-                intervention — the screen people actually trusted.
+                intervention, the screen people actually trusted.
               </p>
             </div>
           </div>
@@ -469,7 +469,7 @@ export default function SwissCaseStyle() {
             </figcaption>
             <img
               src="/projects/fireside/information-mode.png"
-              alt="Before — information mode"
+              alt="Before, information mode"
             />
           </figure>
           <figure className="sw-ba-item">
@@ -479,7 +479,7 @@ export default function SwissCaseStyle() {
             </figcaption>
             <img
               src="/projects/fireside/intervention-mode.png"
-              alt="After — intervention mode"
+              alt="After, intervention mode"
             />
           </figure>
         </div>
@@ -505,7 +505,7 @@ export default function SwissCaseStyle() {
             <h2 className="sw-h2 sw-display">Trust is a design surface.</h2>
             <div className="sw-body" style={{ marginTop: "clamp(20px,3vw,32px)" }}>
               <p>
-                The hardest part of designing for AI wasn&apos;t the model — it
+                The hardest part of designing for AI wasn&apos;t the model, it
                 was giving people a reason to believe it. Once the system could
                 explain itself, adoption stopped being a persuasion problem and
                 became a default. I&apos;d carry that principle into anything

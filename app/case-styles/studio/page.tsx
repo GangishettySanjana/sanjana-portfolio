@@ -319,14 +319,14 @@ export default function StudioCaseStudyPage() {
                 <img src="/projects/fireside/simulation-mode.png" alt="Reviewing how the system interprets a messy dataset" />
               </div>
               <figcaption className="st-cap">
-                Review view — every transformation is shown before it is applied.
+                Review view, every transformation is shown before it is applied.
               </figcaption>
             </figure>
           </div>
         </div>
       </section>
 
-      {/* 4. Process — sage material panel */}
+      {/* 4. Process, sage material panel */}
       <section className="st-section" style={{ paddingTop: 0 }}>
         <div className="st-wrap">
           <div className="st-panel st-panel--sage">
@@ -337,8 +337,8 @@ export default function StudioCaseStudyPage() {
                   Design the flow, then prove it on a real screen.
                 </h2>
                 <p className="st-body" style={{ marginTop: "1.75rem" }}>
-                  I started with the trust journey on paper — where confidence
-                  builds, where it breaks — then moved fast into working
+                  I started with the trust journey on paper, where confidence
+                  builds, where it breaks, then moved fast into working
                   prototypes. Plain-language prompts, inline confidence, and a
                   clear undo at every step.
                 </p>
@@ -354,7 +354,7 @@ export default function StudioCaseStudyPage() {
                   <img src="/projects/fireside/information-mode.png" alt="A working prototype of the structured data view" />
                 </div>
                 <figcaption className="st-cap" style={{ color: "#E4E6D6" }}>
-                  Prototype — the structured result, with provenance one tap away.
+                  Prototype, the structured result, with provenance one tap away.
                 </figcaption>
               </figure>
             </div>
@@ -393,13 +393,13 @@ export default function StudioCaseStudyPage() {
 
           <p className="st-note">
             Founder-reported, in the first quarter after launch. Numbers from a
-            small early cohort, not a controlled study — but the direction was
+            small early cohort, not a controlled study, but the direction was
             unambiguous.
           </p>
         </div>
       </section>
 
-      {/* 6. The decision — before / after */}
+      {/* 6. The decision, before / after */}
       <section className="st-section" style={{ paddingTop: 0 }}>
         <div className="st-wrap">
           <p className="st-label">The decision</p>
@@ -432,7 +432,7 @@ export default function StudioCaseStudyPage() {
         </div>
       </section>
 
-      {/* 7. Pull quote — terracotta block */}
+      {/* 7. Pull quote, terracotta block */}
       <section className="st-quote-block">
         <div className="st-wrap">
           <blockquote className="st-quote">
@@ -449,7 +449,7 @@ export default function StudioCaseStudyPage() {
             <p className="st-label">Reflection</p>
             <p className="st-body">
               The instinct in AI products is to make the machine look certain.
-              This project taught me the opposite is what earns trust — that
+              This project taught me the opposite is what earns trust, that
               people relax once a system is willing to be legible about its own
               limits. The most human thing the tool did was admit when it
               wasn&apos;t sure, and that, more than any feature, is what made

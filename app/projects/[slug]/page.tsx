@@ -8,7 +8,7 @@ interface Props {
   params: { slug: string }
 }
 
-// Exclude slugs that have their own standalone page.tsx — those take priority.
+// Exclude slugs that have their own standalone page.tsx, those take priority.
 const STANDALONE_SLUGS = ['flairx', 'fireside', 'aura', 'getup']
 
 export function generateStaticParams() {

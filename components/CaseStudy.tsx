@@ -9,11 +9,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import '@/app/projects/flairx-case.css'
 
 // ── Type scale (Impeccable: 5 clear sizes, ~1.333 ratio, 16px base minimum)
-// xs  : 12px — legal, placeholder labels
-// sm  : 14px — tags, ALL-CAPS meta labels
-// base: 16px — body text, sidebar values
-// lg  : 20px — section headings, active nav
-// xl  : clamp(56px, 7.5vw, 104px) — display title
+// xs  : 12px, legal, placeholder labels
+// sm  : 14px, tags, ALL-CAPS meta labels
+// base: 16px, body text, sidebar values
+// lg  : 20px, section headings, active nav
+// xl  : clamp(56px, 7.5vw, 104px), display title
 
 // ── Tool logo badges ──
 function ToolBadge({ name }: { name: string }) {
@@ -123,7 +123,7 @@ export default function CaseStudy({ project }: { project: Project }) {
 
   useEffect(() => {
     if (view !== 'full') return
-    // Scroll-based tracker — fires immediately, no IntersectionObserver lag
+    // Scroll-based tracker, fires immediately, no IntersectionObserver lag
     const handleScroll = () => {
       const ids = navSections.map(s => s.id)
       const offset = 120
@@ -148,7 +148,7 @@ export default function CaseStudy({ project }: { project: Project }) {
       const rect = el.getBoundingClientRect()
       const alreadyVisible = rect.top < window.innerHeight * 0.88
       if (alreadyVisible) {
-        // Already in viewport — animate in directly, no ScrollTrigger needed
+        // Already in viewport, animate in directly, no ScrollTrigger needed
         gsap.fromTo(el,
           { opacity: 0, y: 22 },
           { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out', delay }
@@ -172,7 +172,7 @@ export default function CaseStudy({ project }: { project: Project }) {
       // Section headings
       document.querySelectorAll<HTMLElement>('.case-section-heading').forEach(el => revealEl(el))
 
-      // Stat bar — staggered reveal
+      // Stat bar, staggered reveal
       const statBar = document.querySelector<HTMLElement>('.case-stat-bar')
       if (statBar) {
         const statItems = Array.from(statBar.querySelectorAll<HTMLElement>(':scope > div'))
@@ -334,7 +334,7 @@ const DEFAULT_NAV_SECTIONS = [
   { id: 'reflection', label: 'Reflection' },
 ]
 
-// Fixed-header-aware scroll — accounts for the 90px sticky nav bar
+// Fixed-header-aware scroll, accounts for the 90px sticky nav bar
 function scrollToSection(el: HTMLElement | null) {
   if (!el) return
   const NAV_OFFSET = 108 // fixed nav top(20) + nav height(~64) + breathing room(24)
@@ -376,7 +376,7 @@ function SectionNav({ activeSection, setActiveSection, sectionRefs, sections, ac
               transition={{ duration: 0.18 }}
               style={{ width: 8, height: 8, borderRadius: '50%', flexShrink: 0, position: 'absolute', left: 2 }}
             />
-            {/* Label — consistent font, only color/weight changes */}
+            {/* Label, consistent font, only color/weight changes */}
             <button
               onClick={() => {
                 setActiveSection(id) // instant highlight
@@ -475,7 +475,7 @@ function RecruiterContent({ project, onReadMore }: { project: Project; onReadMor
         </div>
       )}
 
-      {/* Reflection quote — surfaces the most human moment of the case study in Quick Read */}
+      {/* Reflection quote, surfaces the most human moment of the case study in Quick Read */}
       {project.reflection && (
         <div style={{
           margin: '40px 0 32px',
@@ -1076,7 +1076,7 @@ function AuraContent({ project, sectionRefs }: { project: Project; sectionRefs: 
             <p style={{ fontFamily: 'var(--font-heading), Georgia, serif', fontSize: 18, fontWeight: 700, color: '#002448', margin: 0 }}>Home, "Our Favorite Pick"</p>
           </div>
           <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 16, color: 'rgba(0,36,72,0.75)', lineHeight: 1.7, marginBottom: 0 }}>The home screen balances browsing and discovery. Real-time inventory status is baked in, grayed out means unavailable, soft tags signal low stock. An "upcoming collections" section keeps returning customers engaged with what's fresh.</p>
-          {/* Dashboard — real image, original proportions */}
+          {/* Dashboard, real image, original proportions */}
           <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center' }}>
             <img src="/projects/aura/aura-dashboard.png" alt="Aura home screen" style={{ maxWidth: 320, width: '100%', height: 'auto', borderRadius: 32, display: 'block', boxShadow: '0 12px 48px rgba(0,36,72,0.12)' }} />
           </div>
@@ -1277,7 +1277,7 @@ function FiresideContent({ project, sectionRefs }: { project: Project; sectionRe
         {body('Alongside the physical table, a tablet interface gives facilitators control over exhibit state, and gives curious visitors a way to go deeper, fire science data, case studies from real events, step-by-step mode explanations.')}
         <div style={{ height: 20 }} />
         {body('The iPad screens went through three design phases: first a dashboard-heavy approach that overwhelmed test users, then a stripped-back information-first layout, and finally the current version, which surfaces only what\'s needed for the current mode.')}
-        {/* Introduction screens — full-width */}
+        {/* Introduction screens, full-width */}
         <div style={{ marginTop: 28 }}>
           <img src="/projects/fireside/intro-screens.png" alt="iPad. Introduction screens" style={{ width: '100%', height: 'auto', borderRadius: 14, display: 'block', border: '1px solid rgba(0,36,72,0.07)' }} />
         </div>
@@ -1455,7 +1455,7 @@ function FlairXFlowChart() {
         <text x={100} y={279} textAnchor="middle" fill="rgba(0,36,72,0.7)" fontSize={11.5} fontFamily={font}>No manual time required</text>
         <text x={100} y={297} textAnchor="middle" fill="rgba(0,36,72,0.7)" fontSize={11.5} fontFamily={font}>Clean, structured data</text>
 
-        {/* ── Stage 2 results — single + bulk ── */}
+        {/* ── Stage 2 results, single + bulk ── */}
         <rect x={208} y={260} width={155} height={60} rx={13} fill={resultFill} stroke={resultBorder} strokeWidth={lw}/>
         <text x={285} y={286} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Single</text>
         <text x={285} y={304} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Upload</text>
