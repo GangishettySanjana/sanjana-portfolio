@@ -22,7 +22,7 @@ export default function CreativeProjectsPage() {
           ← Back to portfolio
         </Link>
 
-        {/* Header — matches .work-header */}
+        {/* Header, matches .work-header */}
         <header style={{ marginTop: 'clamp(32px, 5vw, 56px)', marginBottom: 'clamp(28px, 3.5vw, 44px)' }}>
           <p style={{ fontFamily: BODY, fontSize: 11, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(0,0,0,0.38)', margin: '0 0 12px' }}>
             Playground
@@ -73,11 +73,6 @@ export default function CreativeProjectsPage() {
             allow="microphone"
           />
         </section>
-
-        {/* More coming */}
-        <p style={{ fontFamily: BODY, fontSize: 14, fontWeight: 400, color: 'rgba(0,0,0,0.4)', fontStyle: 'italic', marginTop: 'clamp(48px, 6vw, 72px)' }}>
-          More in the works. I keep a running list of small things to build.
-        </p>
 
       </div>
     </main>

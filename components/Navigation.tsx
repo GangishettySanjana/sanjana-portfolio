@@ -60,7 +60,7 @@ export default function Navigation() {
     { label: 'Creative',       href: '/creative-projects' },
     { label: 'About',          href: '/#about' },
     { label: "Let's Connect",  href: 'https://www.linkedin.com/in/sanjana-gangishetty' },
-    { label: 'Resume',         href: '/resume.pdf', external: true },
+    { label: 'Resume',         href: '/resume.pdf?v=0622', external: true },
   ]
 
   return (
@@ -164,7 +164,7 @@ export default function Navigation() {
             ))}
             <div style={{ width: 12 }} />
             <a
-              href="/resume.pdf"
+              href="/resume.pdf?v=0622"
               target="_blank"
               rel="noopener noreferrer"
               style={{ ...linkStyle, fontWeight: 500 }}
@@ -267,7 +267,7 @@ export default function Navigation() {
               onClick={() => setMenuOpen(false)}
             />
 
-            {/* Centering wrapper — keep CSS transform separate from Framer Motion */}
+            {/* Centering wrapper, keep CSS transform separate from Framer Motion */}
             <div
               id="mobile-pill-menu"
               style={{

@@ -24,3 +24,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .vercel
+
+# build artifacts + local backups (should not be committed)
+tsconfig.tsbuildinfo
+resume-old-backup.pdf

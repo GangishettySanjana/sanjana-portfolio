@@ -1,0 +1,127 @@
+/* ─────────────────────────────────────────────────────────────
+   FlairX re-skin, Swiss-bold + build-native, light surface.
+   Imported LAST so it overrides flairx.css / case-kit.css.
+   Pure styling: redefines the design tokens the fx- classes already
+   consume + a few structural overrides. NO content/markup changes.
+   ───────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap');
+
+.fx-page {
+  /* fonts: Cabinet Grotesk display + Satoshi body + Geist Mono labels */
+  --fx-display: 'Cabinet Grotesk', system-ui, sans-serif;
+  --fx-sans: 'Satoshi', system-ui, sans-serif;
+  --fx-mono: 'Geist Mono', ui-monospace, monospace;
+
+  /* palette: light neutral (not cream) + deep-teal signal + ink */
+  --base: #F4F4F2;
+  --surface: #FFFFFF;
+  --card: #FFFFFF;
+  --border: rgba(20,22,25,0.12);
+  --border-hi: rgba(20,22,25,0.24);
+  --text: #141619;
+  --muted: #565C63;
+  --dim: #767C84;
+  --accent: #0E8E80;
+  --accent-bg: rgba(14,142,128,0.08);
+  --accent-bd: rgba(14,142,128,0.28);
+  --green: #0E8E80;
+  --green-bg: rgba(14,142,128,0.07);
+  --green-bd: rgba(14,142,128,0.22);
+}
+
+/* ── Hero: big confident grotesk (was italic serif) ── */
+.fx-page .fx-hero-title {
+  font-family: var(--fx-display); font-weight: 800; font-style: normal;
+  letter-spacing: -0.03em; line-height: 1.0;
+  font-size: clamp(2.4rem, 5.2vw, 4.4rem);
+  white-space: normal; text-wrap: balance; max-width: 16ch;
+}
+.fx-page .fx-hero-sub { font-family: var(--fx-sans); }
+
+/* ── Section titles: bold grotesk, larger ── */
+.fx-page .fx-sec-title {
+  font-family: var(--fx-display); font-weight: 800; font-style: normal;
+  letter-spacing: -0.025em; line-height: 1.05;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+}
+
+/* ── Labels / eyebrow / meta → Geist Mono (build-native) ── */
+.fx-page .fx-sec-label,
+.fx-page .fx-eyebrow {
+  font-family: var(--fx-mono); text-transform: lowercase;
+  letter-spacing: 0.01em; color: var(--accent); font-weight: 500;
+}
+.fx-page .fx-smeta-k { font-family: var(--fx-mono); text-transform: lowercase; letter-spacing: 0; }
+.fx-page .fx-smeta-v { font-family: var(--fx-mono); }
+.fx-page .fx-sum-label { font-family: var(--fx-mono); text-transform: lowercase; }
+.fx-page .fx-status-live { font-family: var(--fx-mono); text-transform: lowercase; letter-spacing: 0; }
+.fx-page .fx-back-link { font-family: var(--fx-mono); text-transform: lowercase; letter-spacing: 0; }
+
+/* ── Ruled grid: Swiss separation between sections ── */
+.fx-page .fx-sec { border-top: 1px solid var(--border); }
+
+/* ── Hero breathing room: let the headline + lede land before the dense summary ── */
+.fx-page .fx-hero-sub { margin-top: 22px; max-width: 60ch; }
+.fx-page .fx-summary-card { margin-top: clamp(52px, 7vw, 92px); border-radius: 2px; background: transparent; }
+.fx-page .fx-summary-top { padding-top: 0; }
+
+/* ── Decision numerals: ink-outlined Swiss figures ── */
+.fx-page .fx-decision-num {
+  font-family: var(--fx-display); color: transparent;
+  -webkit-text-stroke: 1.5px var(--border-hi);
+}
+.fx-page .fx-decision-body h3 { font-family: var(--fx-display); font-weight: 700; font-style: normal; }
+.fx-page .fx-design-title { font-family: var(--fx-display); font-weight: 700; font-style: normal; }
+
+/* ── Impact metrics → terminal / ruled readout: big figures + mono labels ── */
+.fx-page .fx-outcome-item { border-top: 1px solid var(--border); grid-template-columns: 56px 1fr; align-items: baseline; }
+.fx-page .fx-outcome-num { font-family: var(--fx-mono); color: var(--accent); opacity: 1; font-size: var(--type-sm); font-weight: 500; }
+.fx-page .fx-outcome-metric {
+  font-family: var(--fx-display); font-weight: 800; font-style: normal;
+  letter-spacing: -0.02em; color: var(--text);
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+}
+.fx-page .fx-outcome-desc { font-family: var(--fx-sans); color: var(--muted); font-size: var(--type-sm); line-height: 1.65; }
+
+/* ── Quotes → bold grotesk (not italic serif) ── */
+.fx-page .fx-pull-quote {
+  font-family: var(--fx-display); font-weight: 800; font-style: normal;
+  letter-spacing: -0.02em; background: var(--accent-bg); border: 1px solid var(--accent-bd);
+  border-radius: 2px;
+}
+.fx-page .fx-footer-quote { font-family: var(--fx-display); font-style: normal; font-weight: 700; }
+
+/* ── Figures: neutral frame on light + mono captions ── */
+.fx-page .cs-figure-frame { border-color: var(--border); box-shadow: 0 24px 50px -30px rgba(20,22,25,0.18); border-radius: 4px; }
+.fx-page .cs-figcaption,
+.fx-page .fx-img-caption { font-family: var(--fx-sans); text-transform: none; letter-spacing: 0.01em; }
+
+/* ── Pills / tags / cards: square off the soft editorial radii for Swiss precision ── */
+.fx-page .worked-pill,
+.fx-page .fx-card-grid-item,
+.fx-page .fx-two-col-item,
+.fx-page .fx-reflection-callout { border-radius: 3px; }
+.fx-page .fx-reflection-label { font-family: var(--fx-mono); text-transform: lowercase; letter-spacing: 0; }
+
+/* ── Side progress rail: a clean indicator, not a 10-item menu ──
+   Quiet mono section numbers as ticks; the label only reveals for the
+   active section (or on hover). The teal track-fill shows progress. */
+.fx-page .fx-v-fill { background: var(--accent); }
+.fx-page .fx-v-link {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--fx-mono); font-size: 10.5px; letter-spacing: 0.02em;
+  text-transform: lowercase; text-decoration: none; color: var(--dim);
+  transition: color 0.3s ease;
+}
+.fx-page .fx-v-num { color: var(--dim); transition: color 0.3s ease; font-variant-numeric: tabular-nums; }
+.fx-page .fx-v-label {
+  max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap;
+  transition: max-width 0.45s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease;
+}
+.fx-page .fx-v-link.fx-v-on { color: var(--text); }
+.fx-page .fx-v-link.fx-v-on .fx-v-num { color: var(--accent); }
+.fx-page .fx-v-link.fx-v-on .fx-v-label { max-width: 130px; opacity: 1; }
+.fx-page .fx-v-link:hover .fx-v-label { max-width: 130px; opacity: 0.65; }
+@media (prefers-reduced-motion: reduce) {
+  .fx-page .fx-v-label { transition: opacity 0.2s ease; }
+}

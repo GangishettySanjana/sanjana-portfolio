@@ -5,7 +5,7 @@ import Navigation from '@/components/Navigation'
 import ChatWidget from '@/components/ChatWidget'
 import './globals.css'
 
-// DISPLAY — Fraunces: variable optical-size serif, expressive at large sizes, sturdy small
+// DISPLAY, Fraunces: variable optical-size serif, expressive at large sizes, sturdy small
 const displayFont = Fraunces({
   subsets: ['latin'],
   style: ['normal', 'italic'],
@@ -13,7 +13,7 @@ const displayFont = Fraunces({
   display: 'swap',
 })
 
-// HEADINGS — replaces Hatton until font files are acquired
+// HEADINGS, replaces Hatton until font files are acquired
 // To swap: use next/font/local pointing to your Hatton .woff2 files
 const headingFont = Playfair_Display({
   subsets: ['latin'],
@@ -23,7 +23,7 @@ const headingFont = Playfair_Display({
   display: 'swap',
 })
 
-// BODY — Ysabeau Infant (exact font from your brief — this is the real one)
+// BODY, Ysabeau Infant (exact font from your brief, this is the real one)
 const bodyFont = Ysabeau_Infant({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600'],
@@ -88,7 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navigation />
         {children}
         <Analytics />
-        {/* In-house chat assistant — knowledge auto-built from data/projects.ts */}
+        {/* In-house chat assistant, knowledge auto-built from data/projects.ts */}
         <ChatWidget />
       </body>
     </html>

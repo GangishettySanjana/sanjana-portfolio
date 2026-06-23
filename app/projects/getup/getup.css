@@ -12,13 +12,13 @@
 
 /* ── Impeccable scale tokens ─────────────────────────────────────── */
 .fx-page {
-  --type-xs:      0.75rem;    /* 12px — micro labels, tags, scrollspy */
-  --type-sm:      0.875rem;   /* 14px — secondary UI, quotes, metadata */
-  --type-base:    1rem;       /* 16px — body (Impeccable min) */
-  --type-lg:      1.333rem;   /* ~21px — subheadings, decision h3 */
-  --type-xl:      1.778rem;   /* ~28px — section titles */
-  --type-2xl:     2.369rem;   /* ~38px — large display */
-  --type-display: clamp(2rem, 5vw, 3.5rem); /* hero — fluid, capped at 2.5× */
+  --type-xs:      0.75rem;    /* 12px, micro labels, tags, scrollspy */
+  --type-sm:      0.875rem;   /* 14px, secondary UI, quotes, metadata */
+  --type-base:    1rem;       /* 16px, body (Impeccable min) */
+  --type-lg:      1.333rem;   /* ~21px, subheadings, decision h3 */
+  --type-xl:      1.778rem;   /* ~28px, section titles */
+  --type-2xl:     2.369rem;   /* ~38px, large display */
+  --type-display: clamp(2rem, 5vw, 3.5rem); /* hero, fluid, capped at 2.5× */
 
   /* Impeccable line-height rhythm (base unit = 1.5 × 1rem = 24px) */
   --lh-tight:   1.15;
@@ -74,7 +74,7 @@
 .fx-sec-alt { background: var(--surface); }
 .fx-page section[id] { scroll-margin-top: 72px; }
 
-/* ── section label  "01 — CONTEXT" ─────────────────────────────── */
+/* ── section label  "01, CONTEXT" ─────────────────────────────── */
 .fx-sec-label {
   font-family: var(--fx-sans);
   font-size: var(--type-xs);
@@ -89,8 +89,8 @@
 .fx-sec-title {
   font-family: var(--fx-display);
   font-size: var(--type-xl);         /* ~28px fixed for sections */
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 500;
+  font-style: normal;
   line-height: var(--lh-snug);
   color: var(--text);
   letter-spacing: -0.015em;
@@ -483,7 +483,7 @@
 }
 .fx-decision:first-child { border-top: 1px solid var(--border); }
 
-/* Outlined number — Impeccable + OpenRouter signature element */
+/* Outlined number, Impeccable + OpenRouter signature element */
 .fx-decision-num {
   font-family: var(--fx-sans);
   font-size: var(--type-2xl);        /* ~38px */
@@ -498,8 +498,8 @@
 .fx-decision-body h3 {
   font-family: var(--fx-display);
   font-size: var(--type-lg);         /* ~21px */
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 500;
+  font-style: normal;
   color: var(--text);
   margin: 0 0 20px;
   line-height: var(--lh-snug);
@@ -738,7 +738,7 @@
 .fx-float-item.fx-float-active .fx-float-lbl  { color: rgba(255,255,255,0.92); }
 .fx-float-num {
   font-family: var(--fx-sans);
-  font-size: 0.5625rem;              /* 9px — deliberately smaller than xs */
+  font-size: 0.5625rem;              /* 9px, deliberately smaller than xs */
   font-weight: 500;
   color: var(--dim);
   letter-spacing: 0.03em;

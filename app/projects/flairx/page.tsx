@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Reveal, CaseFigure } from '@/components/case/CaseKit'
 import './flairx.css'
+import '@/app/projects/_case/case-kit.css'
+import '@/app/projects/_case/buildnative.css'
 
 /* ── FlairX image map ─────────────────────────────────────────────── */
 const FX = {
@@ -351,9 +354,9 @@ function ATSPrototype() {
   return (
     <div>
       {/* Stepper */}
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24, gap: 0 }}>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24, gap: 0, overflowX: 'auto', WebkitOverflowScrolling: 'touch' as const, paddingBottom: 2 }}>
         {stepLabels.map((l, i) => (
-          <div key={l} style={{ display: 'flex', alignItems: 'center', flex: i < stepLabels.length - 1 ? 1 : undefined }}>
+          <div key={l} style={{ display: 'flex', alignItems: 'center', flexShrink: 0, flex: i < stepLabels.length - 1 ? '1 0 auto' : '0 0 auto' }}>
             <button onClick={() => setStep(i)} style={{
               ...s, display: 'flex', alignItems: 'center', gap: 8, padding: '7px 0',
               background: 'none', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' as const,
@@ -394,12 +397,12 @@ export default function FlairXPage() {
       { id: 'problem',    num: '02', label: 'Problem'    },
       { id: 'ideation',   num: '03', label: 'Ideation'   },
       { id: 'decisions',  num: '04', label: 'Decisions'  },
-      { id: 'finals',        num: '05',   label: 'Finals'      },
-      { id: 'ats-prototype', num: '05.5', label: 'ATS Flow'    },
-      { id: 'edgecases',     num: '06',   label: 'Edge Cases'  },
-      { id: 'impact',     num: '07', label: 'Impact'     },
-      { id: 'handoff',    num: '07.5', label: 'Handoff'  },
-      { id: 'reflection', num: '08', label: 'Reflection' },
+      { id: 'finals',        num: '05', label: 'Finals'      },
+      { id: 'ats-prototype', num: '06', label: 'ATS Flow'    },
+      { id: 'edgecases',     num: '07', label: 'Edge Cases'  },
+      { id: 'impact',     num: '08', label: 'Impact'     },
+      { id: 'handoff',    num: '09', label: 'Handoff'  },
+      { id: 'reflection', num: '10', label: 'Reflection' },
     ]
 
     const sections   = NAV.map(n => document.getElementById(n.id)).filter(Boolean) as HTMLElement[]
@@ -411,12 +414,7 @@ export default function FlairXPage() {
       if (fill) {
         gsap.to(fill, { height: `${((index + 1) / total) * 100}%`, duration: 0.55, ease: 'power3.out' })
       }
-      vLinks.forEach((link, i) => {
-        gsap.to(link, {
-          color: i === index ? 'rgba(0,36,72,0.75)' : 'rgba(0,36,72,0.22)',
-          duration: 0.3, ease: 'power2.out',
-        })
-      })
+      vLinks.forEach((link, i) => link.classList.toggle('fx-v-on', i === index))
     }
 
     sections.forEach((sec, i) => {
@@ -445,18 +443,21 @@ export default function FlairXPage() {
           </div>
           <div className="fx-v-items">
             {[
-              { href: '#context',    label: 'Context'    },
-              { href: '#problem',    label: 'Problem'    },
-              { href: '#ideation',   label: 'Ideation'   },
-              { href: '#decisions',  label: 'Decisions'  },
-              { href: '#finals',        label: 'Finals'     },
-              { href: '#ats-prototype', label: 'ATS Flow'   },
-              { href: '#edgecases',     label: 'Edge Cases' },
-              { href: '#impact',     label: 'Impact'     },
-              { href: '#handoff',    label: 'Handoff'    },
-              { href: '#reflection', label: 'Reflection' },
-            ].map(({ href, label }) => (
-              <a key={href} href={href} className="fx-v-link">{label}</a>
+              { href: '#context',       n: '01', label: 'Context'    },
+              { href: '#problem',       n: '02', label: 'Problem'    },
+              { href: '#ideation',      n: '03', label: 'Ideation'   },
+              { href: '#decisions',     n: '04', label: 'Decisions'  },
+              { href: '#finals',        n: '05', label: 'Finals'     },
+              { href: '#ats-prototype', n: '06', label: 'ATS Flow'   },
+              { href: '#edgecases',     n: '07', label: 'Edge Cases' },
+              { href: '#impact',        n: '08', label: 'Impact'     },
+              { href: '#handoff',       n: '09', label: 'Handoff'    },
+              { href: '#reflection',    n: '10', label: 'Reflection' },
+            ].map(({ href, n, label }) => (
+              <a key={href} href={href} className="fx-v-link">
+                <span className="fx-v-num">{n}</span>
+                <span className="fx-v-label">{label}</span>
+              </a>
             ))}
           </div>
         </nav>
@@ -464,6 +465,7 @@ export default function FlairXPage() {
         {/* ── HERO ────────────────────────────────────────── */}
         <section className="fx-hero" id="hero">
           <div className="fx-container">
+            <Reveal>
             <Link href="/#work" className="fx-back-link" onClick={() => sessionStorage.setItem('skipIntro', '1')}>← Back to work</Link>
             <p className="fx-eyebrow">Product Design · Live Product · FlairX AI</p>
             <h1 className="fx-hero-title" style={{ whiteSpace: 'nowrap' }}>Redesigning the Recruiter Workflow</h1>
@@ -527,19 +529,21 @@ export default function FlairXPage() {
                     <span className="fx-sum-label">Result</span>
                   </div>
                   <ul>
-                    <li><strong>4 hrs → 30 min</strong> to process a résumé batch</li>
-                    <li>+130 hires tracked to the redesign</li>
+                    <li><strong>2 hrs → 30 min</strong> to process a résumé batch</li>
+                    <li>130 hires sourced through the new flow</li>
                     <li>Duplicates caught automatically, no checking required</li>
                   </ul>
                 </div>
               </div>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 01 CONTEXT ──────────────────────────────────── */}
         <section className="fx-sec" id="context">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">01 · Context</p>
             <h2 className="fx-sec-title">The intake flow was slow and manual. I had three workflows to fix at once.</h2>
 
@@ -576,12 +580,14 @@ export default function FlairXPage() {
                 </div>
               ))}
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 02 PROBLEM ──────────────────────────────────── */}
         <section className="fx-sec fx-sec-alt" id="problem">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">02 · The Problem</p>
             <h2 className="fx-sec-title">Hours of data entry before the first interview. That was the baseline.</h2>
 
@@ -634,12 +640,14 @@ export default function FlairXPage() {
                 </ul>
               </div>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 03 IDEATION & FLOW ──────────────────────────── */}
         <section className="fx-sec" id="ideation">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">03 · Ideation &amp; Flow</p>
             <h2 className="fx-sec-title">Three separate workflows with enough in common to solve at once.</h2>
 
@@ -655,12 +663,14 @@ export default function FlairXPage() {
             <div style={{ maxWidth: '72%' }}>
               <FlairXFlowChart />
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 04 DESIGN DECISIONS ─────────────────────────── */}
         <section className="fx-sec fx-sec-alt" id="decisions">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">04 · Design Decisions</p>
             <h2 className="fx-sec-title">The four calls that actually mattered.</h2>
 
@@ -739,12 +749,14 @@ export default function FlairXPage() {
                 </div>
               ))}
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 05 FINAL DESIGNS ────────────────────────────── */}
         <section className="fx-sec" id="finals">
           <div className="fx-container">
+            <Reveal>
             <p className="fx-sec-label">05 · Final Designs</p>
             <h2 className="fx-sec-title">What each upload path actually looks like.</h2>
 
@@ -785,19 +797,21 @@ export default function FlairXPage() {
             ].map(({ title, img, alt, bullets }) => (
               <div key={title} className="fx-design-block">
                 <h3 className="fx-design-title">{title}</h3>
-                <img src={img} alt={alt} className="fx-design-img" />
+                <CaseFigure src={img} alt={alt} variant="browser" />
                 <ul className="fx-bullets">
                   {bullets.map(item => <li key={item}>{item}</li>)}
                 </ul>
               </div>
             ))}
+            </Reveal>
           </div>
         </section>
 
         {/* ── 05.5 ATS INTEGRATION PROTOTYPE ─────────────── */}
         <section className="fx-sec fx-sec-alt" id="ats-prototype">
           <div className="fx-container">
-            <p className="fx-sec-label">05.5 · Stage 3 · ATS Integration</p>
+            <Reveal>
+            <p className="fx-sec-label">06 · Stage 3 · ATS Integration</p>
             <h2 className="fx-sec-title">What connecting to an ATS would look like.</h2>
 
             <div className="fx-prose" style={{ marginBottom: 36 }}>
@@ -805,18 +819,20 @@ export default function FlairXPage() {
             </div>
 
             <ATSPrototype />
+            </Reveal>
           </div>
         </section>
 
         {/* ── 06 EDGE CASES ───────────────────────────────── */}
         <section className="fx-sec fx-sec-alt" id="edgecases">
           <div className="fx-container">
-            <p className="fx-sec-label">06 · Edge Cases</p>
+            <Reveal>
+            <p className="fx-sec-label">07 · Edge Cases</p>
             <h2 className="fx-sec-title">Real hiring doesn&apos;t go smoothly. The system had to be ready for that.</h2>
 
             <div style={{ marginBottom: 48 }}>
               <span className="fx-sub-label">Mixed uploading: some files fail, some go through</span>
-              <img src={FX.edgeCase1} alt="Mixed upload states" className="fx-design-img" />
+              <CaseFigure src={FX.edgeCase1} alt="Mixed upload states" caption="Files split across uploading, failed, and done states" variant="browser" />
               <ul className="fx-bullets">
                 {[
                   'One file failing does not stop the others',
@@ -829,7 +845,7 @@ export default function FlairXPage() {
 
             <div style={{ marginBottom: 48 }}>
               <span className="fx-sub-label">When the AI misses fields</span>
-              <img src={FX.edgeCase2} alt="Missing fields after parsing" className="fx-design-img" />
+              <CaseFigure src={FX.edgeCase2} alt="Missing fields after parsing" caption="Only the fields the AI missed get flagged inline" variant="browser" />
               <ul className="fx-bullets">
                 {[
                   'Required fields the AI could not extract show inline in the review table',
@@ -907,26 +923,28 @@ export default function FlairXPage() {
                 ))}
               </div>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 07 IMPACT ───────────────────────────────────── */}
         <section className="fx-sec" id="impact">
           <div className="fx-container">
-            <p className="fx-sec-label">07 · Impact</p>
+            <Reveal>
+            <p className="fx-sec-label">08 · Impact</p>
             <h2 className="fx-sec-title">It shipped, it worked, and it changed how the team hired.</h2>
 
             <div className="fx-outcomes">
               {[
                 {
                   num: '01',
-                  metric: '4 hrs → ~30 mins',
+                  metric: '2 hrs → ~30 mins',
                   desc: 'Processing a batch of résumés went from half a day to a coffee break.',
                 },
                 {
                   num: '02',
-                  metric: '+130 hires attributed',
-                  desc: '130 candidates hired through roles that were sourced and processed entirely through the redesigned intake flow in the first six months, tracked via pipeline stage data in the FlairX system.',
+                  metric: '130 hires through the flow',
+                  desc: '130 candidates were hired from roles sourced and processed entirely through the redesigned intake flow in the first six months (founder-reported, from pipeline data). The redesign owns the intake, not the hiring call, but every one of those hires moved through it.',
                 },
                 {
                   num: '03',
@@ -948,13 +966,15 @@ export default function FlairXPage() {
                 </div>
               ))}
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 07.5 HANDOFF ────────────────────────────────── */}
         <section className="fx-sec" id="handoff">
           <div className="fx-container">
-            <p className="fx-sec-label">07.5 · Handoff</p>
+            <Reveal>
+            <p className="fx-sec-label">09 · Handoff</p>
             <h2 className="fx-sec-title">What the engineers actually received.</h2>
 
             <div className="fx-prose">
@@ -990,13 +1010,15 @@ export default function FlairXPage() {
                 </div>
               ))}
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ── 08 REFLECTION ───────────────────────────────── */}
         <section className="fx-sec fx-sec-alt" id="reflection">
           <div className="fx-container">
-            <p className="fx-sec-label">08 · Reflection</p>
+            <Reveal>
+            <p className="fx-sec-label">10 · Reflection</p>
             <h2 className="fx-sec-title">The hardest design call was knowing when to stay quiet.</h2>
 
             <div className="fx-prose">
@@ -1008,6 +1030,7 @@ export default function FlairXPage() {
               <span className="fx-reflection-label">What I&apos;d do differently</span>
               <p>I&apos;d want to sit with recruiters doing 100+ candidates in a day. The single-page flow works fine at normal volume, but at that scale it might get exhausting. A stepper with clear checkpoints could work better. I haven&apos;t tested it and I don&apos;t know for sure.</p>
             </div>
+            </Reveal>
           </div>
         </section>
 
