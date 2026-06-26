@@ -1792,6 +1792,12 @@ body { background: #fff; }
 
 .pt-nav-btn:hover { background: rgba(0,0,0,0.03); }
 
+.pt-nav-btn.is-active {
+  background: #1c1c1e;
+  color: #fff;
+  border-color: #1c1c1e;
+}
+
 .pt-photo-placeholder {
   height: 184px;
   background: rgba(0,0,0,0.04);
