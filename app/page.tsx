@@ -1,1047 +1,205 @@
 'use client'
-import { useEffect, useRef } from 'react'
-import dynamic from 'next/dynamic'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { CustomEase } from 'gsap/CustomEase'
 import IntroCurtain from '@/components/IntroCurtain'
 import './home.css'
 
-const BirdScene = dynamic(() => import('@/components/BirdScene'), { ssr: false })
+type Tab = 'home' | 'projects' | 'vibe' | 'about' | 'connect'
+
+const PROJECTS = [
+  { num: '01', title: 'FlairX',             sub: 'Redesigning the Recruiter Workflow',         cat: 'AI Recruiting',    href: '/projects/flairx' },
+  { num: '02', title: 'AI Trust Meter',     sub: 'Confidence states for AI answers',           cat: 'AI Product',       href: 'https://ai-trust-meter.vercel.app', external: true },
+  { num: '03', title: 'Fireside Interactive', sub: 'Wildfire Education Platform',             cat: 'Education',        href: '/projects/fireside' },
+  { num: '04', title: 'GetUp Nutrition',    sub: 'Pre-Launch Campaign & Pop-Up',               cat: 'Brand Design',     href: '/projects/getup' },
+  { num: '05', title: 'Aura',               sub: 'An Online Florist Built Around the Gift',    cat: 'UX · Mobile',      href: '/projects/aura' },
+]
+
+const EXPLORATIONS = [
+  {
+    tag: 'OpenRouter', num: '01',
+    title: '500 models. I still couldn\'t pick one.',
+    desc:  'Designed a recommendation wizard that takes you from zero context to a working API call in four questions.',
+    href: '/explorations/openrouter', status: 'Live prototype',
+  },
+  {
+    tag: 'Amazon', num: '02',
+    title: 'Alexa remembers your cart. Not you.',
+    desc:  'Designed a memory layer that carries context across sessions: past purchases, preferences, family patterns.',
+    href: 'https://alexa-for-shopping.vercel.app', external: true, status: 'Live prototype',
+  },
+  {
+    tag: 'Hackathon', num: '03',
+    title: 'Finalist: Women in Product × Lovable 2026',
+    desc:  'Built a working referral network for the WIP community in one sprint. Team of 5. Shipped, presented, placed.',
+    href: 'https://wip-spark-connect.lovable.app', external: true, status: 'Finalist',
+  },
+]
+
+const TABS: { id: Tab; label: string }[] = [
+  { id: 'projects', label: 'Projects' },
+  { id: 'vibe',     label: 'Vibe Coding' },
+  { id: 'about',    label: 'A little about' },
+  { id: 'connect',  label: 'Connect' },
+]
 
 export default function HomePage() {
-  const runHeroRef = useRef<(() => void) | null>(null)
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger, CustomEase)
-
-    /* ─────────────────────────────────────────────
-       CUSTOM EASES
-    ───────────────────────────────────────────── */
-    CustomEase.create('reveal', 'M0,0 C0.16,1 0.3,1 1,1')
-    CustomEase.create('spring', 'M0,0 C0.14,0 0.242,1.121 0.374,1 0.518,0.876 0.694,1 1,1')
-
-    /* ─────────────────────────────────────────────
-       UTILITIES
-    ───────────────────────────────────────────── */
-
-    // Split text into individual chars wrapped in spans
-    function splitChars(el: HTMLElement, className = 'char') {
-      const text = el.textContent || ''
-      el.innerHTML = Array.from(text).map(ch =>
-        ch === ' '
-          ? ' '
-          : `<span class="${className}" style="display:inline-block;will-change:transform,opacity">${ch}</span>`
-      ).join('')
-      return el.querySelectorAll(`.${className}`)
-    }
-
-    // Split into word spans (word-inner pattern)
-    function splitWords(el: HTMLElement) {
-      const text = el.textContent || ''
-      el.innerHTML = text.split(' ').map(w =>
-        `<span class="word" style="display:inline-block;overflow:hidden;vertical-align:bottom"><span class="word-inner" style="display:inline-block;transform:translateY(110%)">${w}</span></span>`
-      ).join(' ')
-      return el.querySelectorAll('.word-inner')
-    }
-
-    /* ─────────────────────────────────────────────
-       1. CURSOR GLOW
-    ───────────────────────────────────────────── */
-    const handleMouseMove = (e: MouseEvent) => {
-      gsap.to('#glow', { x: e.clientX, y: e.clientY, duration: 0.5, ease: 'power2.out' })
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-
-    /* ─────────────────────────────────────────────
-       3. HERO SEQUENCE (fires after intro)
-    ───────────────────────────────────────────── */
-    function runHero() {
-      // Headline: word-by-word clip reveal
-      const hHead = document.getElementById('hHead')
-      if (!hHead) return
-      const headWords = splitWords(hHead)
-
-      const tl = gsap.timeline({ delay: 0.05 })
-      tl
-        .to('#hGreeting', {
-          opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
-        })
-        .to(headWords, {
-          y: '0%', duration: 0.7, ease: 'reveal', stagger: 0.06,
-        }, '-=0.15')
-        .to('#hBody', {
-          opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
-        }, '-=0.3')
-        .to('#hDrawn', {
-          opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
-        }, '-=0.4')
-        .to('#hLoop', {
-          opacity: 1, y: 0, duration: 0.5, ease: 'power3.out',
-        }, '-=0.25')
-        .to('#hCta', {
-          opacity: 1, y: 0, duration: 0.55, ease: 'spring',
-        }, '-=0.25')
-        .to('#hLoc', {
-          opacity: 1, duration: 0.4, ease: 'power2.out',
-        }, '-=0.15')
-        .to('#hPhoto', {
-          opacity: 1, x: 0, duration: 0.8, ease: 'power3.out',
-        }, '-=0.8')
-        .to('#scrollCue', {
-          opacity: 1, duration: 0.5, ease: 'power2.out',
-        }, '-=0.2')
-    }
-    // expose runHero so the intro curtain can fire it when it lifts
-    runHeroRef.current = runHero
-
-    // If the curtain didn't render (already seen this session → it skipped and
-    // unmounted), reveal the hero ourselves. On the play path the curtain stays
-    // on screen for several seconds, so this check finds it and does nothing;
-    // the curtain reveals the hero itself when it lifts.
-    setTimeout(() => {
-      // Curtain is on screen (first visit) → let it reveal the hero when it lifts.
-      if (document.querySelector('.scenery-video')) return
-      // Curtain skipped (already seen this session) → reveal the hero instantly.
-      // gsap.set is idempotent, so StrictMode/double-calls just re-assert the final state.
-      const hHead = document.getElementById('hHead')
-      if (hHead && !hHead.querySelector('.word-inner')) splitWords(hHead)
-      gsap.set('#hHead .word-inner', { y: '0%', opacity: 1 })
-      gsap.set(['#hGreeting', '#hBody', '#hDrawn', '#hLoop', '#hCta', '#hLoc', '#hPhoto', '#scrollCue'], { opacity: 1, y: 0, x: 0 })
-    }, 150)
-
-    /* ─────────────────────────────────────────────
-       4. SCROLL PROGRESS BAR
-    ───────────────────────────────────────────── */
-    gsap.to('#progress-bar', {
-      scaleX: 1,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 0.3,
-      },
-    })
-
-    /* ─────────────────────────────────────────────
-       5. HERO PARALLAX, photo drifts up as you scroll
-    ───────────────────────────────────────────── */
-    gsap.to('#hPhoto', {
-      y: -60,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.hero-section',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1,
-      },
-    })
-    // Hero text drifts slightly slower
-    gsap.to('.hero-text', {
-      y: -30,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.hero-section',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1.2,
-      },
-    })
-
-    /* ─────────────────────────────────────────────
-       6. SCROLL CUE, fade out when scrolling starts
-    ───────────────────────────────────────────── */
-    ScrollTrigger.create({
-      trigger: '.work-section',
-      start: 'top 90%',
-      onEnter: () => gsap.to('#scrollCue', { opacity: 0, y: 10, duration: 0.4 }),
-    })
-
-    /* ─────────────────────────────────────────────
-       7. WORK HEADER
-    ───────────────────────────────────────────── */
-    gsap.to('#workHead', {
-      opacity: 1, y: 0, duration: 0.75, ease: 'power3.out',
-      scrollTrigger: { trigger: '#workHead', start: 'top 85%', toggleActions: 'play none none none' },
-    })
-
-    /* ─────────────────────────────────────────────
-       8. PROJECT CARDS, staggered inner content
-    ───────────────────────────────────────────── */
-    gsap.utils.toArray<HTMLElement>('.project-card').forEach((card) => {
-      const title    = card.querySelector('.card-title')
-      const subtitle = card.querySelector('.card-subtitle')
-      const desc     = card.querySelector('.card-desc')
-      const stats    = card.querySelectorAll('.stat')
-      const btn      = card.querySelector('.card-btn')
-      const image    = card.querySelector('.card-right')
-      const topRow   = card.querySelector('.card-top-row')
-
-      // Set initial states on inner elements
-      gsap.set([title, subtitle, desc, btn, topRow], { opacity: 0, y: 28 })
-      gsap.set(stats, { opacity: 0, y: 20 })
-      if (image) gsap.set(image, { opacity: 0, x: 30 })
-
-      const st = {
-        trigger: card,
-        start: 'top 86%',
-        toggleActions: 'play none none none',
-      }
-
-      // Card itself slides up
-      gsap.to(card, {
-        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: st,
-        onStart() { card.classList.add('in-view') },
-      })
-
-      // Inner content staggers
-      const innerTl = gsap.timeline({ scrollTrigger: { ...st, start: 'top 84%' } })
-      innerTl
-        .to(topRow,    { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' })
-        .to(title,     { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.1')
-        .to(subtitle,  { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, '-=0.2')
-        .to(desc,      { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.2')
-        .to(stats,     { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out', stagger: 0.07 }, '-=0.2')
-        .to(btn,       { opacity: 1, y: 0, duration: 0.45, ease: 'spring' }, '-=0.1')
-        .to(image,     { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' }, '-=0.7')
-    })
-
-    /* ─────────────────────────────────────────────
-       9. STAT COUNTERS, numbers count up
-    ───────────────────────────────────────────── */
-    document.querySelectorAll<HTMLElement>('.stat-val[data-count]').forEach(el => {
-      const target = parseInt(el.dataset.count || '0', 10)
-      const prefix = el.dataset.prefix || ''
-      const obj    = { val: 0 }
-
-      gsap.to(obj, {
-        val: target,
-        duration: 1.4,
-        ease: 'power2.out',
-        onUpdate() { el.textContent = prefix + Math.round(obj.val) },
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
-      })
-    })
-
-    /* ─────────────────────────────────────────────
-       10. RECOGNITION
-    ───────────────────────────────────────────── */
-    const recST = { trigger: '#recCard', start: 'top 88%', toggleActions: 'play none none none' }
-
-    gsap.to('#recEye',  { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
-      scrollTrigger: { trigger: '#recEye', start: 'top 92%', toggleActions: 'play none none none' } })
-
-    gsap.to('#recCard', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-      scrollTrigger: recST })
-
-    // Title word reveal inside recognition card
-    ScrollTrigger.create({
-      trigger: '#recCard',
-      start: 'top 84%',
-      toggleActions: 'play none none none',
-      onEnter() {
-        const titleEl = document.querySelector<HTMLElement>('.recognition-title')
-        if (!titleEl) return
-        const recWords = splitWords(titleEl)
-        gsap.to(recWords, { y: '0%', duration: 0.6, ease: 'power4.out', stagger: 0.04 })
-      },
-    })
-
-    gsap.to('.recognition-tag', {
-      opacity: 1, y: 0, duration: 0.45, ease: 'spring', stagger: 0.09,
-      scrollTrigger: { ...recST, start: 'top 82%' },
-    })
-    gsap.to('.recognition-btn', {
-      opacity: 1, y: 0, duration: 0.45, ease: 'spring', stagger: 0.1,
-      scrollTrigger: { ...recST, start: 'top 80%' },
-    })
-
-    /* ─────────────────────────────────────────────
-       11. CARD 3D TILT + MAGNETIC BUTTONS
-    ───────────────────────────────────────────── */
-    document.querySelectorAll<HTMLElement>('.project-card').forEach(card => {
-      card.addEventListener('mousemove', (e: MouseEvent) => {
-        const r = card.getBoundingClientRect()
-        const x = (e.clientX - r.left) / r.width  - 0.5
-        const y = (e.clientY - r.top)  / r.height - 0.5
-        gsap.to(card, {
-          rotateY: x * 3, rotateX: -y * 2,
-          duration: 0.4, ease: 'power2.out',
-          transformPerspective: 1400,
-        })
-      })
-      card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-          rotateY: 0, rotateX: 0,
-          duration: 0.9, ease: 'elastic.out(1, 0.5)',
-        })
-      })
-    })
-
-    // Magnetic pull on CTA buttons
-    document.querySelectorAll<HTMLElement>('.hero-btn-primary, .hero-btn-secondary, .nav-cta').forEach(btn => {
-      btn.addEventListener('mousemove', (e: MouseEvent) => {
-        const r   = btn.getBoundingClientRect()
-        const cx  = r.left + r.width  / 2
-        const cy  = r.top  + r.height / 2
-        const dx  = (e.clientX - cx) * 0.35
-        const dy  = (e.clientY - cy) * 0.35
-        gsap.to(btn, { x: dx, y: dy, duration: 0.3, ease: 'power2.out' })
-      })
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' })
-      })
-    })
-
-    /* ─────────────────────────────────────────────
-       12. NAV LINK UNDERLINE ANIM
-    ───────────────────────────────────────────── */
-    document.querySelectorAll<HTMLElement>('.nav-link').forEach(link => {
-      link.style.position = 'relative'
-      const line = document.createElement('span')
-      line.style.cssText = `
-        position:absolute; bottom:2px; left:12px; right:12px;
-        height:1px; background:#111;
-        transform:scaleX(0); transform-origin:left;
-        transition:transform 0.22s ease;
-      `
-      link.appendChild(line)
-      link.addEventListener('mouseenter', () => { line.style.transform = 'scaleX(1)' })
-      link.addEventListener('mouseleave', () => { line.style.transform = 'scaleX(0)' })
-    })
-
-    /* ─────────────────────────────────────────────
-       13. ABOUT SECTION
-    ───────────────────────────────────────────── */
-    const aboutST = { start: 'top 86%', toggleActions: 'play none none none' }
-
-    // Card entry, same feel as project cards
-    gsap.to('#aboutCard', {
-      opacity: 1, y: 0, duration: 1.0, ease: 'power3.out',
-      scrollTrigger: { trigger: '#aboutCard', start: 'top 88%', toggleActions: 'play none none none' },
-    })
-
-    gsap.to('#aboutEye', {
-      opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
-      scrollTrigger: { trigger: '#aboutEye', ...aboutST },
-    })
-
-    // Word clip reveal on headlines
-    ScrollTrigger.create({
-      trigger: '#aboutH1', ...aboutST,
-      onEnter() {
-        const h1 = document.getElementById('aboutH1')
-        const h2 = document.getElementById('aboutH2')
-        if (h1) {
-          gsap.to(splitWords(h1), {
-            y: '0%', duration: 0.65, ease: 'reveal', stagger: 0.07,
-          })
-        }
-        if (h2) {
-          gsap.to(splitWords(h2), {
-            y: '0%', duration: 0.6, ease: 'power3.out', stagger: 0.05, delay: 0.3,
-          })
-        }
-      },
-    })
-
-    gsap.to('#aboutB1', {
-      opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-      scrollTrigger: { trigger: '#aboutB1', ...aboutST },
-    })
-    gsap.to('#aboutB2', {
-      opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-      scrollTrigger: { trigger: '#aboutB2', ...aboutST },
-    })
-
-    // Info cells cascade in one by one
-    gsap.to('.about-info-cell', {
-      opacity: 1, y: 0, duration: 0.45, ease: 'power3.out',
-      stagger: 0.08,
-      scrollTrigger: { trigger: '#aboutInfo', ...aboutST },
-    })
-
-    gsap.to('#aboutBtns', {
-      opacity: 1, y: 0, duration: 0.55, ease: 'spring',
-      scrollTrigger: { trigger: '#aboutBtns', ...aboutST },
-    })
-
-    // Photo slides in from right
-    gsap.to('#aboutRight', {
-      opacity: 1, x: 0, duration: 0.85, ease: 'power3.out',
-      scrollTrigger: { trigger: '#aboutRight', start: 'top 88%', toggleActions: 'play none none none' },
-    })
-
-    // Photo parallax, drifts up slowly as you scroll past (like hero photo)
-    gsap.to('#aboutRight', {
-      y: -40,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.about-section',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.2,
-      },
-    })
-
-    // Photo 3D tilt on hover, same as project cards
-    const aboutPhotoWrap = document.querySelector<HTMLElement>('.about-photo-wrap')
-    if (aboutPhotoWrap) {
-      aboutPhotoWrap.addEventListener('mousemove', (e: MouseEvent) => {
-        const r = aboutPhotoWrap.getBoundingClientRect()
-        const x = (e.clientX - r.left) / r.width  - 0.5
-        const y = (e.clientY - r.top)  / r.height - 0.5
-        gsap.to(aboutPhotoWrap, {
-          rotateY: x * 8, rotateX: -y * 6,
-          duration: 0.4, ease: 'power2.out',
-          transformPerspective: 1000,
-        })
-      })
-      aboutPhotoWrap.addEventListener('mouseleave', () => {
-        gsap.to(aboutPhotoWrap, {
-          rotateY: 0, rotateX: 0,
-          duration: 0.9, ease: 'elastic.out(1, 0.5)',
-        })
-      })
-    }
-
-    // Magnetic pull on about buttons
-    document.querySelectorAll<HTMLElement>('.about-btn-dark, .about-btn-outline').forEach(btn => {
-      btn.addEventListener('mousemove', (e: MouseEvent) => {
-        const r  = btn.getBoundingClientRect()
-        const dx = (e.clientX - r.left - r.width  / 2) * 0.3
-        const dy = (e.clientY - r.top  - r.height / 2) * 0.3
-        gsap.to(btn, { x: dx, y: dy, duration: 0.25, ease: 'power2.out' })
-      })
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' })
-      })
-    })
-
-    /* ─────────────────────────────────────────────
-       14. CONNECT SECTION
-    ───────────────────────────────────────────── */
-    ScrollTrigger.create({
-      trigger: '#conInner',
-      start: 'top 82%',
-      toggleActions: 'play none none none',
-      onEnter() {
-        // 1. headline word reveal
-        const conHead = document.getElementById('conHead')
-        if (conHead) {
-          gsap.to(splitWords(conHead), {
-            y: '0%', duration: 0.75, ease: 'reveal', stagger: 0.06,
-          })
-        }
-        // 2. pills pop in scattered
-        gsap.to('.con-pill', {
-          opacity: 1, y: 0, scale: 1,
-          duration: 0.55, ease: 'back.out(1.6)',
-          stagger: { each: 0.08, from: 'random' },
-          delay: 0.2,
-        })
-        // 3. sub + buttons fade up
-        gsap.to('#conSub', {
-          opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.5,
-        })
-        gsap.to('#conBtns', {
-          opacity: 1, y: 0, duration: 0.6, ease: 'spring', delay: 0.65,
-        })
-      },
-    })
-
-    // Pills idle float, each at its own rhythm
-    document.querySelectorAll<HTMLElement>('.con-pill').forEach((pill, i) => {
-      const amp = 5 + (i % 3) * 3
-      const dur = 2.6 + i * 0.4
-      gsap.set(pill, { y: 10, scale: 0.9 }) // start state before reveal
-      gsap.to(pill, {
-        y: -amp, duration: dur, ease: 'sine.inOut',
-        yoyo: true, repeat: -1, delay: i * 0.25,
-      })
-      gsap.to(pill, {
-        rotation: (i % 2 === 0 ? 1 : -1) * 2.5,
-        duration: dur * 1.4, ease: 'sine.inOut',
-        yoyo: true, repeat: -1, delay: i * 0.3 + 0.15,
-      })
-    })
-
-    // Magnetic on CTA buttons
-    document.querySelectorAll<HTMLElement>('.con-btn-primary, .con-btn-ghost').forEach(btn => {
-      btn.addEventListener('mousemove', (e: MouseEvent) => {
-        const r  = btn.getBoundingClientRect()
-        const dx = (e.clientX - r.left - r.width  / 2) * 0.25
-        const dy = (e.clientY - r.top  - r.height / 2) * 0.25
-        gsap.to(btn, { x: dx, y: dy, duration: 0.25, ease: 'power2.out' })
-      })
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)' })
-      })
-    })
-
-    gsap.to('#conFooter', {
-      opacity: 1, y: 0, duration: 0.5, ease: 'power2.out',
-      scrollTrigger: { trigger: '#conFooter', start: 'top 95%', toggleActions: 'play none none none' },
-    })
-
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill())
-      window.removeEventListener('mousemove', handleMouseMove)
-    }
-  }, [])
+  const [tab, setTab] = useState<Tab>('home')
 
   useEffect(() => {
-    const video = document.getElementById('hero-video') as HTMLVideoElement | null
-    if (!video) return
-    video.muted = true; video.defaultMuted = true; video.playsInline = true
-    const FADE_DUR = 0.5
-    let rafId = 0
-    const tryPlay = () => { const p = video.play(); if (p && p.catch) p.catch(() => {}) }
-    // only reveal the video while it's genuinely playing, never a frozen frame (so Safari
-    // can't slap its play-button glyph on a paused frame)
-    const tick = () => {
-      const { currentTime, duration, paused } = video
-      if (!paused && currentTime > 0) {
-        video.style.transition = 'opacity 0.6s ease'
-        let opacity = 1
-        if (duration && !Number.isNaN(duration) && currentTime > duration - FADE_DUR) {
-          opacity = Math.max(0, (duration - currentTime) / FADE_DUR)
-        }
-        video.style.opacity = String(opacity)
-      }
-      rafId = requestAnimationFrame(tick)
-    }
-    const onEnded = () => {
-      video.style.opacity = '0'
-      setTimeout(() => { video.currentTime = 0; tryPlay() }, 80)
-    }
-
-    video.addEventListener('ended', onEnded)
-    video.addEventListener('canplay', tryPlay)
-    video.addEventListener('loadeddata', tryPlay)
-    tryPlay()
-    rafId = requestAnimationFrame(tick)
-
-    // Safari / Low Power Mode blocks autoplay, keep retrying on any interaction
-    const onInteract = () => tryPlay()
-    document.addEventListener('pointerdown', onInteract)
-    document.addEventListener('touchstart', onInteract, { passive: true })
-    document.addEventListener('scroll', onInteract, { passive: true })
-
-    return () => {
-      cancelAnimationFrame(rafId)
-      video.removeEventListener('ended', onEnded)
-      video.removeEventListener('canplay', tryPlay)
-      video.removeEventListener('loadeddata', tryPlay)
-      document.removeEventListener('pointerdown', onInteract)
-      document.removeEventListener('touchstart', onInteract)
-      document.removeEventListener('scroll', onInteract)
-    }
+    document.body.setAttribute('data-tabview', '1')
+    return () => document.body.removeAttribute('data-tabview')
   }, [])
+
+  const pick = (id: Tab) => setTab(prev => prev === id ? 'home' : id)
 
   return (
     <>
-      <BirdScene />
-      {/* Intro curtain, built-live experience, lifts to reveal the hero */}
-      <IntroCurtain onComplete={() => runHeroRef.current?.()} />
+      <IntroCurtain onComplete={() => {}} />
 
-      {/* Scroll progress */}
-      <div id="progress-bar"></div>
+      <div className="pt-shell">
+        {/* ── LEFT RAIL ── */}
+        <aside className="pt-rail">
+          <div>
+            <div className="pt-brand">
+              <span className="pt-name">Sanjana<br />Gangishetty</span>
+              <span className="pt-mark" aria-hidden>🌻</span>
+            </div>
 
-      <div className="cursor-glow" id="glow"></div>
+            <div className="pt-lines">
+              <span>Product &amp; UX design</span>
+              <span>for AI &amp; 0→1 teams.</span>
+              <span>Open to full-time.</span>
+            </div>
 
-      {/* HERO */}
-      <section className="hero-section">
-        {/* Video background */}
-        <video
-          id="hero-video"
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
-          muted
-          playsInline
-          autoPlay
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0, transition: 'opacity 0.05s linear', zIndex: 0 }}
-        />
-        {/* Gradient overlay top + bottom */}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, var(--page-bg) 0%, transparent 30%, transparent 70%, var(--page-bg) 100%)', zIndex: 1, pointerEvents: 'none' }} />
-        <div className="hero-card" style={{ position: 'relative', zIndex: 2 }}>
-          <div className="hero-text">
-            {/* Status + name + location */}
-            <div className="hero-nameplate" id="hGreeting">
-              <span className="hero-eyebrow-row">
-                <span className="hero-status"><span className="hero-status-dot" />Open to work</span>
-                <span className="hero-role">Product Designer · AI &amp; 0→1</span>
-              </span>
-              <span className="hero-name-row">
-                <span className="hero-nameplate-name">Sanjana Gangishetty</span>
-                <span className="hero-nameplate-dot">·</span>
-                <span className="hero-nameplate-loc">Based in the US · Authorized to work · CU Boulder MS &apos;25</span>
-              </span>
-            </div>
-            {/* Lead with the headline */}
-            <h1 className="hero-headline" id="hHead">I think about the whole product, not just the screen.</h1>
-            <p className="hero-body" id="hBody">From the first user interview to the shipped build, and everything in between. I care about all of it.</p>
-            {/* Evergreen "what I'm drawn to" signal, reads as growth/conversion intent without naming a company */}
-            <p className="hero-drawn" id="hDrawn">Lately I&apos;m drawn to the messy middle of growth: onboarding, conversion, the moments where a product earns its keep.</p>
-            {/* Whole-product loop, proves the positioning at a glance */}
-            <div className="hero-loop" id="hLoop">
-              <span className="hero-loop-step">Research</span>
-              <span className="hero-loop-arrow" aria-hidden>→</span>
-              <span className="hero-loop-step">Design</span>
-              <span className="hero-loop-arrow" aria-hidden>→</span>
-              <span className="hero-loop-step">The feel</span>
-              <span className="hero-loop-arrow" aria-hidden>→</span>
-              <span className="hero-loop-step">Build and deliver</span>
-              <span className="hero-loop-cycle" title="A product is never done. It loops back to the person.">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                  <path d="M21 12a9 9 0 1 1-2.64-6.36" />
-                  <polyline points="21 3 21 9 15 9" />
-                </svg>
-                Loops back
-              </span>
-            </div>
-            {/* Industry tags as pills */}
-            <div className="hero-worked-in">
-              <span className="worked-label">Previously in</span>
-              <span className="worked-pill">AI</span>
-              <span className="worked-pill">HR Tech</span>
-              <span className="worked-pill">SaaS</span>
-              <span className="worked-pill">EDU Tech</span>
-              <span className="worked-pill">E-Commerce</span>
-            </div>
-            <div className="hero-cta-row" id="hCta">
-              <a href="https://www.linkedin.com/in/sanjana-gangishetty" target="_blank" rel="noopener noreferrer" className="hero-btn-primary">Let&apos;s connect <span className="arrow">→</span></a>
-              <a href="#work" className="hero-btn-secondary">See my work</a>
-              <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="hero-btn-secondary">Resume ↗</a>
-            </div>
-          </div>
-          <div className="hero-photo" id="hPhoto">
-            <img
-              src="/images/sanjana-hero.png"
-              alt="Sanjana Gangishetty"
-              onError={(e) => {
-                const img = e.target as HTMLImageElement
-                img.style.display = 'none'
-                const next = img.nextElementSibling as HTMLElement
-                if (next) next.style.display = 'flex'
-              }}
-            />
-            <div className="photo-placeholder" style={{display:'none'}}>Your photo<br/>343 × 359</div>
-          </div>
-          <div className="scroll-cue" id="scrollCue">
-            <span>Scroll</span>
-            <div className="scroll-line"></div>
-          </div>
-        </div>
-      </section>
-
-      {/* WORK */}
-      <section className="work-section" id="work">
-        <div className="container">
-          <div className="work-header" id="workHead">
-            <div>
-              <p className="work-eyebrow">Selected Work</p>
-              <h2 className="work-title">Case Studies</h2>
-            </div>
-            <p className="work-sub">Five projects. Different problems, same question: why does this feel harder than it should?</p>
+            <nav className="pt-tabs">
+              {TABS.map(({ id, label }) => (
+                <button
+                  key={id}
+                  className={`pt-tab${tab === id ? ' is-active' : ''}`}
+                  onClick={() => pick(id)}
+                >
+                  {label}
+                </button>
+              ))}
+            </nav>
           </div>
 
-          <div className="cards-wrap">
+          <div className="pt-foot">
+            <span className="pt-copy">© Sanjana 2025</span>
+          </div>
+        </aside>
 
-            {/* 01 FlairX */}
-            <div className="project-card card-flairx">
-              <div className="card-inner">
-                <div className="card-num-bg">01</div>
-                <div className="card-top-row">
-                  <span className="card-index">01 / 05</span>
-                  <span className="card-category">Product Design · AI Recruiting</span>
+        {/* ── RIGHT PANEL ── */}
+        <main className="pt-panel">
+            <div className={tab === 'home' ? 'pt-home' : 'pt-content pt-fade-in'}>
+              {tab === 'home' && (
+                <div
+                  className="pt-home-img"
+                  style={{ backgroundImage: 'url("https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260611_133301_d5f2a94a-b22e-4e4a-a6b6-eacdddf1f5b0.png&w=1280&q=85")' }}
+                >
+                  <span className="pt-badge">Product Designer · AI &amp; 0→1</span>
                 </div>
-                <div className="card-content-row">
-                  <div className="card-left">
-                    <h3 className="card-title">FlairX</h3>
-                    <p className="card-subtitle">Redesigning the Recruiter Workflow</p>
-                    <p className="card-desc">Designed the upload and review experience so recruiters could filter hundreds of applicants down to the ones worth an interview, without losing their minds.</p>
-                    <div className="card-stats">
-                      <div className="stat">
-                        <span className="stat-val">2h→30m</span>
-                        <span className="stat-label">Workflow time</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val" data-count="130" data-prefix="+">+130</span>
-                        <span className="stat-label">Hires attributed</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val" data-count="3">3</span>
-                        <span className="stat-label">Upload modes</span>
-                      </div>
-                    </div>
-                    <Link href="/projects/flairx" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
+              )}
+
+              {tab === 'projects' && (
+                <>
+                  <div className="pt-section-head">
+                    <p className="pt-eyebrow">Selected Work</p>
+                    <h2 className="pt-h2">Case Studies</h2>
                   </div>
-                  <div className="card-right">
-                    <img src="/images/cover-flairx.jpg" alt="FlairX" style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
+                  <div className="pt-proj-grid">
+                    {PROJECTS.map(p => (
+                      <a
+                        key={p.num}
+                        href={p.href}
+                        target={p.external ? '_blank' : undefined}
+                        rel={p.external ? 'noopener noreferrer' : undefined}
+                        className="pt-proj-card"
+                      >
+                        <span className="pt-proj-num">{p.num}</span>
+                        <div className="pt-proj-body">
+                          <span className="pt-proj-cat">{p.cat}</span>
+                          <h3 className="pt-proj-title">{p.title}</h3>
+                          <p className="pt-proj-sub">{p.sub}</p>
+                        </div>
+                        <span className="pt-proj-arr" aria-hidden>→</span>
+                      </a>
+                    ))}
                   </div>
-                </div>
-              </div>
-            </div>
+                </>
+              )}
 
-            {/* 02 AI Trust Meter, self-initiated AI exploration */}
-            <div className="project-card card-sparkconnect">
-              <div className="card-inner">
-                <div className="card-num-bg">02</div>
-                <div className="card-top-row">
-                  <span className="card-index">02 / 05</span>
-                  <span className="card-category">AI Product · Self-Initiated</span>
-                </div>
-                <div className="card-content-row">
-                  <div className="card-left">
-                    <h3 className="card-title">The AI Trust Meter</h3>
-                    <p className="card-subtitle">Confidence states for AI answers</p>
-                    <p className="card-desc">AI support tools present wrong answers with the same confidence as right ones. I designed a confidence-state system that changes how an answer looks based on how grounded it is, and routes uncertainty to a human instead of the customer.</p>
-                    <div className="card-stats">
-                      <div className="stat">
-                        <span className="stat-val">Live</span>
-                        <span className="stat-label">Working demo</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val">AI</span>
-                        <span className="stat-label">Trust &amp; confidence</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val">Solo</span>
-                        <span className="stat-label">Self-initiated</span>
-                      </div>
-                    </div>
-                    <a href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer" className="card-btn">View Live Demo <span className="btn-arrow">→</span></a>
+              {tab === 'vibe' && (
+                <>
+                  <div className="pt-section-head">
+                    <p className="pt-eyebrow">Explorations</p>
+                    <h2 className="pt-h2">Vibe Coding Projects</h2>
+                    <p className="pt-section-sub">AI products I built or redesigned for fun. Sometimes it became a case study.</p>
                   </div>
-                  <div className="card-right">
-                    <img
-                      src="/images/ai-trust-meter.png?v=2"
-                      alt="The AI Trust Meter confidence-state demo"
-                      style={{width:'100%',height:'100%',objectFit:'contain',background:'#F6F6F8'}}
-                      onError={(e) => {
-                        const img = e.target as HTMLImageElement
-                        img.style.display = 'none'
-                        const next = img.nextElementSibling as HTMLElement
-                        if (next) next.style.display = 'flex'
-                      }}
-                    />
-                    <div className="img-placeholder" style={{display:'none'}}>AI Trust Meter, live demo</div>
+                  <div className="pt-exp-grid">
+                    {EXPLORATIONS.map(e => (
+                      <a
+                        key={e.num}
+                        href={e.href}
+                        target={e.external ? '_blank' : undefined}
+                        rel={e.external ? 'noopener noreferrer' : undefined}
+                        className="pt-exp-card"
+                      >
+                        <div className="pt-exp-top">
+                          <span className="pt-exp-tag">{e.tag}</span>
+                          <span className="pt-exp-num">{e.num}</span>
+                        </div>
+                        <h3 className="pt-exp-title">{e.title}</h3>
+                        <p className="pt-exp-desc">{e.desc}</p>
+                        <div className="pt-exp-foot">
+                          <span className="pt-exp-status">{e.status} →</span>
+                        </div>
+                      </a>
+                    ))}
                   </div>
-                </div>
-              </div>
-            </div>
+                </>
+              )}
 
-            {/* 03 Fireside */}
-            <div className="project-card card-fireside">
-              <div className="card-inner">
-                <div className="card-num-bg">03</div>
-                <div className="card-top-row">
-                  <span className="card-index">03 / 05</span>
-                  <span className="card-category">Web Design · Education</span>
-                </div>
-                <div className="card-content-row">
-                  <div className="card-left">
-                    <h3 className="card-title">Fireside Interactive</h3>
-                    <p className="card-subtitle">Wildfire Education Platform</p>
-                    <p className="card-desc">Made complex wildfire data legible. Charts and visuals over walls of text, because nobody reads walls of text, especially not in an emergency.</p>
-                    <div className="card-stats">
-                      <div className="stat">
-                        <span className="stat-val">EDU</span>
-                        <span className="stat-label">Tech Platform</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val">Data</span>
-                        <span className="stat-label">Visualization</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val">UX</span>
-                        <span className="stat-label">Research Lead</span>
-                      </div>
-                    </div>
-                    <Link href="/projects/fireside" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
+              {tab === 'about' && (
+                <>
+                  <div className="pt-section-head">
+                    <p className="pt-eyebrow">About</p>
+                    <h2 className="pt-h2">I started in rooms.<br /><em>Turns out software has the same problems.</em></h2>
                   </div>
-                  <div className="card-right">
-                    <img src="/projects/fireside/exhibit-in-use.png" alt="Fireside" style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
+                  <div className="pt-about-body">
+                    <p>Interior design trained me to obsess over how a space makes you feel before you can explain why. Same obsession, different material. The questions didn&apos;t change. Just the rooms got smaller and moved to screens.</p>
+                    <p>Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re actually solving yet.</p>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 04 GetUp */}
-            <div className="project-card card-getup">
-              <div className="card-inner">
-                <div className="card-num-bg">04</div>
-                <div className="card-top-row">
-                  <span className="card-index">04 / 05</span>
-                  <span className="card-category">Brand Design · E-Commerce</span>
-                </div>
-                <div className="card-content-row">
-                  <div className="card-left">
-                    <h3 className="card-title">GetUp Nutrition</h3>
-                    <p className="card-subtitle">Pre-Launch Campaign &amp; Pop-Up</p>
-                    <p className="card-desc">Three weeks. No copywriter, no brand guidelines, one celebrity backer. I derived the voice, wrote the copy, and designed the pre-order pop-up from zero.</p>
-                    <div className="card-stats">
-                      <div className="stat">
-                        <span className="stat-val">3wks</span>
-                        <span className="stat-label">Timeline</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val">Solo</span>
-                        <span className="stat-label">Designer + Copywriter</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val">0→1</span>
-                        <span className="stat-label">Brand identity</span>
-                      </div>
-                    </div>
-                    <Link href="/projects/getup" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
+                  <div className="pt-info-grid">
+                    <div><span className="pt-info-k">Based in</span><span className="pt-info-v">United States</span></div>
+                    <div><span className="pt-info-k">Focus</span><span className="pt-info-v">Product · AI · SaaS</span></div>
+                    <div><span className="pt-info-k">Education</span><span className="pt-info-v">CU Boulder MS &apos;25</span></div>
+                    <div><span className="pt-info-k">Status</span><span className="pt-info-v pt-open">Open to full-time ✦</span></div>
                   </div>
-                  <div className="card-right">
-                    <img
-                      src="/images/getup.png"
-                      alt="GetUp"
-                      style={{width:'100%',height:'100%',objectFit:'cover'}}
-                      onError={(e) => {
-                        const img = e.target as HTMLImageElement
-                        img.style.display = 'none'
-                        const next = img.nextElementSibling as HTMLElement
-                        if (next) next.style.display = 'flex'
-                      }}
-                    />
-                    <div className="img-placeholder" style={{display:'none'}}>GetUp project image</div>
+                  <div className="pt-btns">
+                    <Link href="/about" className="pt-btn-dark">Full Story →</Link>
+                    <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="pt-btn-ghost">Resume ↗</a>
                   </div>
-                </div>
-              </div>
-            </div>
+                </>
+              )}
 
-            {/* 05 Aura */}
-            <div className="project-card card-aura">
-              <div className="card-inner">
-                <div className="card-num-bg">05</div>
-                <div className="card-top-row">
-                  <span className="card-index">05 / 05</span>
-                  <span className="card-category">UX Design · E-Commerce · Mobile App</span>
-                </div>
-                <div className="card-content-row">
-                  <div className="card-left">
-                    <h3 className="card-title">Aura</h3>
-                    <p className="card-subtitle">An Online Florist Built Around the Gift</p>
-                    <p className="card-desc">An end-to-end UX project for a local florist with no digital presence. Research through final prototype, sole designer. The hard problem turned out to be scheduling, not the bouquet picker.</p>
-                    <div className="card-stats">
-                      <div className="stat">
-                        <span className="stat-val">Solo</span>
-                        <span className="stat-label">UX Designer</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val">3 rounds</span>
-                        <span className="stat-label">Usability testing</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val">0→1</span>
-                        <span className="stat-label">Research to prototype</span>
-                      </div>
-                    </div>
-                    <Link href="/projects/aura" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
+              {tab === 'connect' && (
+                <>
+                  <div className="pt-section-head">
+                    <p className="pt-eyebrow">Connect</p>
+                    <h2 className="pt-h2">Don&apos;t hesitate<br /><em>to reach out.</em></h2>
                   </div>
-                  <div className="card-right">
-                    <img
-                      src="/images/aura.png"
-                      alt="Aura"
-                      style={{width:'100%',height:'100%',objectFit:'cover'}}
-                      onError={(e) => {
-                        const img = e.target as HTMLImageElement
-                        img.style.display = 'none'
-                        const next = img.nextElementSibling as HTMLElement
-                        if (next) next.style.display = 'flex'
-                      }}
-                    />
-                    <div className="img-placeholder" style={{display:'none'}}>Aura project image</div>
+                  <p className="pt-connect-sub">Open to full-time product design. Happy to talk if you&apos;re building something and want a second brain.</p>
+                  <div className="pt-btns">
+                    <a href="mailto:gangishettysanjana084@gmail.com" className="pt-btn-dark">Email me ↗</a>
+                    <a href="https://www.linkedin.com/in/sanjana-gangishetty" target="_blank" rel="noopener noreferrer" className="pt-btn-ghost">LinkedIn ↗</a>
+                    <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="pt-btn-ghost">Resume ↗</a>
                   </div>
-                </div>
-              </div>
+                </>
+              )}
             </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* RECOGNITION */}
-      <section className="recognition-section">
-        <div className="container">
-          <p className="recognition-eyebrow" id="recEye">Recognition</p>
-          <div className="recognition-card" id="recCard">
-            <div className="rec-left">
-              <h2 className="recognition-title">Finalist: Women in Product × Lovable Hackathon 2026</h2>
-              <p className="recognition-desc">Built a working referral network for the WIP community in one sprint, designed to make cold referral requests feel less awkward and more human. Team of 5. Shipped, presented, placed.</p>
-              <div className="recognition-tags">
-                <span className="recognition-tag">Lovable</span>
-                <span className="recognition-tag">AI-Assisted</span>
-                <span className="recognition-tag">48 hrs</span>
-                <span className="recognition-tag">Team of 5</span>
-              </div>
-            </div>
-            <div className="rec-right">
-              <a href="https://id-preview--e94c1759-cb49-4560-bae0-cee815c16b13.lovable.app" target="_blank" rel="noopener noreferrer" className="recognition-btn">View Project Deck</a>
-              <a href="https://wip-spark-connect.lovable.app" target="_blank" rel="noopener noreferrer" className="recognition-btn">View Website</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* EXPLORATIONS */}
-      <section className="explorations-section" id="explorations">
-        <div className="container">
-          <div className="work-header">
-            <div>
-              <p className="work-eyebrow">Explorations</p>
-              <h2 className="work-title">Use Cases &amp; POVs</h2>
-            </div>
-            <p className="work-sub">Takes on AI products: how they feel to use, where they fall short.</p>
-          </div>
-
-          <div className="exp-grid">
-
-            {/* Exploration 01, OpenRouter Model Match */}
-            <a className="exp-card exp-card--linked" href="/explorations/openrouter">
-              <div className="exp-card-top">
-                <span className="exp-tag">OpenRouter</span>
-                <span className="exp-num">01</span>
-              </div>
-              <h3 className="exp-title">500 models. I still couldn&apos;t pick one.</h3>
-              <p className="exp-desc">OpenRouter gives developers access to 500+ AI models, but no guidance on which one to use. I designed a recommendation wizard that takes you from zero context to a working API call in four questions. Live prototype included.</p>
-              <div className="exp-footer">
-                <span className="exp-status exp-status--live">Live prototype →</span>
-              </div>
-            </a>
-
-            {/* Exploration 02, Alexa for Shopping Memory Layer */}
-            <a className="exp-card exp-card--linked" href="https://alexa-for-shopping.vercel.app" target="_blank" rel="noopener noreferrer">
-              <div className="exp-card-top">
-                <span className="exp-tag">Amazon</span>
-                <span className="exp-num">02</span>
-              </div>
-              <h3 className="exp-title">Alexa remembers your cart. Not you.</h3>
-              <p className="exp-desc">Alexa for Shopping treats every session as a blank slate. I designed a memory layer that carries context across sessions: past purchases, preferences, family patterns. With it, Alexa can give recommendations that actually fit your life. Live prototype included.</p>
-              <div className="exp-footer">
-                <span className="exp-status exp-status--live">Live prototype →</span>
-              </div>
-            </a>
-
-            {/* More coming */}
-            <div className="exp-card exp-card--more">
-              <p className="exp-more-text">Currently exploring, currently building.</p>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ABOUT */}
-      <section className="about-section" id="about">
-        <div className="container">
-          <div className="about-card" id="aboutCard">
-          <div className="about-grid">
-
-            {/* LEFT: narrative copy + info grid */}
-            <div className="about-left">
-              <p className="about-eyebrow" id="aboutEye">About</p>
-              <h2 className="about-headline" id="aboutH1">I started in rooms.</h2>
-              <p className="about-headline-italic" id="aboutH2">Turns out software has the same problems.</p>
-
-              <p className="about-body" id="aboutB1">Interior design trained me to obsess over how a space makes you feel before you can explain why. Same obsession, different material. The questions didn&apos;t change. Just the rooms got smaller and moved to screens.</p>
-
-              <p className="about-body" id="aboutB2">Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re actually solving yet. That&apos;s the part most designers skip. I don&apos;t.</p>
-
-              {/* Info grid */}
-              <div className="about-info-bar" id="aboutInfo">
-                <div className="about-info-cell">
-                  <p className="info-key">Based in</p>
-                  <p className="info-val">United States</p>
-                </div>
-                <div className="about-info-cell">
-                  <p className="info-key">Focus</p>
-                  <p className="info-val">Product · AI · SaaS</p>
-                </div>
-                <div className="about-info-cell">
-                  <p className="info-key">Education</p>
-                  <p className="info-val">CU Boulder MS &apos;25</p>
-                </div>
-                <div className="about-info-cell">
-                  <p className="info-key">Status</p>
-                  <p className="info-val open">Open to full-time ✦</p>
-                </div>
-              </div>
-
-              <div className="about-btns" id="aboutBtns">
-                <Link href="/about" className="about-btn-dark">Full Story →</Link>
-                <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="about-btn-outline">Resume ↗</a>
-              </div>
-            </div>
-
-            {/* RIGHT: photo */}
-            <div className="about-right" id="aboutRight">
-              <div className="about-photo-wrap">
-                <img
-                  src="/images/sanjana.jpg"
-                  alt="Sanjana at CU Boulder"
-                  onError={(e) => {
-                    const img = e.target as HTMLImageElement
-                    img.style.display = 'none'
-                    const next = img.nextElementSibling as HTMLElement
-                    if (next) next.style.display = 'flex'
-                  }}
-                />
-                <span className="about-photo-ph" style={{display:'none'}}>Your photo here</span>
-              </div>
-            </div>
-
-          </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CONNECT */}
-      <section className="connect-section" id="connect">
-        <div className="container">
-          <div className="connect-inner" id="conInner">
-
-            {/* floating pills */}
-            <span className="con-pill con-pill-1">Open to work ✦</span>
-            <span className="con-pill con-pill-2">Product Design</span>
-            <span className="con-pill con-pill-3">Let&apos;s talk</span>
-            <span className="con-pill con-pill-4">AI · SaaS</span>
-            <span className="con-pill con-pill-5">Full-time roles</span>
-            <span className="con-pill con-pill-6">Figma → Code</span>
-            <span className="con-pill con-pill-7">Based in US</span>
-
-            {/* headline */}
-            <h2 className="connect-headline" id="conHead">
-              Don&apos;t hesitate<br/><em>to reach out.</em>
-            </h2>
-
-            {/* sub */}
-            <p className="connect-sub" id="conSub">Open to full-time product design. Happy to talk if you&apos;re building something and want a second brain.</p>
-
-            {/* CTAs */}
-            <div className="connect-btns" id="conBtns">
-              <a href="mailto:gangishettysanjana084@gmail.com" className="con-btn-primary">Email me ↗</a>
-              <a href="https://www.linkedin.com/in/sanjana-gangishetty" target="_blank" rel="noopener noreferrer" className="con-btn-ghost">LinkedIn ↗</a>
-              <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="con-btn-ghost">Resume ↗</a>
-            </div>
-
-          </div>
-
-          <div className="connect-footer-row" id="conFooter">
-            <span>Sanjana Gangishetty © 2025</span>
-            <span>Built with Figma, GSAP, and 47 Stack Overflow tabs</span>
-          </div>
-        </div>
-      </section>
+        </main>
+      </div>
     </>
   )
 }
