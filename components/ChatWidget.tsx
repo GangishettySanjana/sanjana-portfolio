@@ -207,7 +207,7 @@ export default function ChatWidget() {
             </div>
 
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-3.5 bg-white/90 backdrop-blur-xl border-b border-black/[0.07]">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-white/20 backdrop-blur-2xl border-b border-white/20">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-full overflow-hidden bg-[#F2F2F7] shrink-0">
                   <img src="/images/sanju-avatar.png" alt="Sanju" className="w-full h-full object-cover" />
@@ -343,7 +343,7 @@ export default function ChatWidget() {
       {/* Floating bar, always visible, centered at the bottom */}
       <motion.form
         onSubmit={handleSubmit}
-        className="fixed bottom-5 z-50 w-[calc(100%-2rem)] max-w-[560px] flex items-center gap-3 bg-white rounded-full shadow-stamp border border-[var(--color-border)] pl-5 pr-2 py-2"
+        className="fixed bottom-5 z-50 w-[calc(100%-2rem)] max-w-[560px] flex items-center gap-3 bg-white/20 backdrop-blur-2xl rounded-full shadow-stamp border border-white/30 pl-5 pr-2 py-2"
         style={{ left: '50%' }}
         initial={{ y: 90, x: '-50%', opacity: 0 }}
         animate={{ y: 0, x: '-50%', opacity: 1 }}
