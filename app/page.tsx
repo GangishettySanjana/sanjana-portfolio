@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from 'react'
-import IntroCurtain from '@/components/IntroCurtain'
 import ChatWidget from '@/components/ChatWidget'
 import './home.css'
 
@@ -24,7 +23,6 @@ export default function HomePage() {
 
   return (
     <>
-      <IntroCurtain onComplete={() => {}} />
       <ChatWidget />
 
       <div className="pt-container">
