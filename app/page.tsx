@@ -59,7 +59,7 @@ export default function HomePage() {
       <div className="pt-shell">
         {/* ── LEFT RAIL ── */}
         <aside className="pt-rail">
-          <div>
+          <div className="pt-rail-head">
             <div className="pt-brand">
               <span className="pt-name">Sanjana<br />Gangishetty</span>
               <span className="pt-mark" aria-hidden>🌻</span>
@@ -82,6 +82,24 @@ export default function HomePage() {
                 </button>
               ))}
             </nav>
+          </div>
+
+          <div className="pt-rail-scroll">
+            {PROJECTS.map(p => (
+              <a
+                key={p.num}
+                href={p.href}
+                target={p.external ? '_blank' : undefined}
+                rel={p.external ? 'noopener noreferrer' : undefined}
+                className="pt-rail-proj"
+              >
+                <span className="pt-rail-num">{p.num}</span>
+                <div className="pt-rail-proj-info">
+                  <h4 className="pt-rail-proj-name">{p.title}</h4>
+                  <span className="pt-rail-proj-cat">{p.cat}</span>
+                </div>
+              </a>
+            ))}
           </div>
 
           <div className="pt-foot">
