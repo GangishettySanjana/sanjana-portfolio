@@ -181,10 +181,10 @@ export default function ChatWidget() {
         {open && (
           <motion.div
             className="fixed bottom-[84px] z-50 w-[calc(100%-2rem)] max-w-[560px] bg-white rounded-2xl shadow-stamp border border-[var(--color-border)] overflow-hidden flex flex-col"
-            style={{ left: '50%', maxHeight: '70vh' }}
-            initial={{ opacity: 0, y: 16, x: '-50%' }}
-            animate={{ opacity: 1, y: 0, x: '-50%' }}
-            exit={{ opacity: 0, y: 16, x: '-50%' }}
+            style={{ right: '1rem', maxHeight: '70vh' }}
+            initial={{ opacity: 0, y: 16, x: '20px' }}
+            animate={{ opacity: 1, y: 0, x: 0 }}
+            exit={{ opacity: 0, y: 16, x: '20px' }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Floating easter-egg layer */}
@@ -340,13 +340,30 @@ export default function ChatWidget() {
         )}
       </AnimatePresence>
 
-      {/* Floating bar, always visible, centered at the bottom */}
+      {/* Floating bar, always visible, right aligned at the bottom */}
+      <motion.button
+        onClick={() => setOpen(!open)}
+        className="fixed z-50 w-14 h-14 flex items-center justify-center bg-white/20 backdrop-blur-2xl rounded-full shadow-stamp border border-white/30 hover:bg-white/30 transition-all"
+        style={{ bottom: '25px', right: '25px' }}
+        initial={{ y: 90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 1.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <span className="text-[#8e8e93]" aria-hidden>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+          </svg>
+        </span>
+      </motion.button>
+
+      {/* Original form - now hidden when closed */}
+      {open && (
       <motion.form
         onSubmit={handleSubmit}
-        className="fixed bottom-5 z-50 w-[calc(100%-2rem)] max-w-[560px] flex items-center gap-3 bg-white/20 backdrop-blur-2xl rounded-full shadow-stamp border border-white/30 pl-5 pr-2 py-2"
-        style={{ left: '50%' }}
-        initial={{ y: 90, x: '-50%', opacity: 0 }}
-        animate={{ y: 0, x: '-50%', opacity: 1 }}
+        className="fixed bottom-20 z-50 max-w-[560px] flex items-center gap-3 bg-white/20 backdrop-blur-2xl rounded-full shadow-stamp border border-white/30 pl-5 pr-2 py-2 right-5"
+        style={{}}
+        initial={{ y: 90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* Chat bubble icon */}
@@ -378,6 +395,7 @@ export default function ChatWidget() {
           </svg>
         </button>
       </motion.form>
+      )}
     </>
   )
 }
