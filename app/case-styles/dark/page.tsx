@@ -271,7 +271,7 @@ export default function DarkCaseStyle() {
             </div>
             <div className="dk-meta-item">
               <span className="dk-meta-label">Year</span>
-              <span className="dk-meta-val">2025</span>
+              <span className="dk-meta-val">2026</span>
             </div>
           </div>
         </div>

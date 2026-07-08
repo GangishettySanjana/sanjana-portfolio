@@ -250,7 +250,7 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
           <div className="real-eyebrow" style={{
             position: 'absolute', top: 0, left: 0, fontFamily: "'Cabinet Grotesk', sans-serif",
             fontSize: 10, fontWeight: 500, letterSpacing: '0.26em', color: 'rgba(13,13,13,0.45)',
-          }}>PORTFOLIO · 2025</div>
+          }}>PORTFOLIO · 2026</div>
         </div>
         <div className="real-line" style={{ height: 1, background: 'rgba(13,13,13,0.22)', marginBottom: 16, width: 0 }} />
         <div style={{ position: 'relative', marginBottom: 16 }}>

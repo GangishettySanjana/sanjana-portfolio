@@ -373,6 +373,75 @@ export const projects: Project[] = [
       { id: 'reflection',  label: 'Reflection' },
     ],
   },
+  {
+    cardContext: 'Self-Initiated · Live Product',
+    slug: 'ai-trust-meter',
+    title: 'The AI Trust Meter',
+    tagline: 'Confidence States for AI Answers',
+    company: 'Self-Initiated',
+    year: '2026',
+    duration: 'Solo build',
+    role: 'Designer & Builder',
+    status: 'Live Product',
+    tools: ['Figma', 'Claude Code', 'Cursor', 'GitHub'],
+    liveUrl: 'https://ai-trust-meter.vercel.app',
+    coverBg: 'bg-[#EEF0FC]',
+    coverTextColor: 'text-[#2A2E6B]',
+    coverGradient: 'linear-gradient(135deg, #C9CDF2 0%, #9FA6E8 60%, #5B6FE0 100%)',
+    stats: [
+      { value: '3', label: 'Confidence States' },
+      { value: 'Solo', label: 'Designed, Built, Shipped' },
+      { value: 'Live', label: 'Next.js on Vercel' },
+      { value: '0', label: 'False Confidence' },
+    ],
+
+    tldr: 'AI tools present wrong answers with the same confidence as right ones. I designed a system that changes how an answer looks based on how grounded it is, then built and deployed it myself.',
+    problem: 'AI assistants answer every question with identical confidence, whether they know or are guessing. The moment one confident answer turns out wrong, users stop trusting all of them and start re-verifying everything, erasing whatever time the assistant was supposed to save.',
+    outcome: 'A three-state confidence system, Grounded, Inferred, Uncertain, where the interface changes both its presentation and its available actions based on how trustworthy an answer actually is. Designed, built, and shipped solo with Next.js, Claude, and Cursor.',
+    metrics: [
+      'Three honest confidence categories replace a single, falsely precise trust score',
+      'Available actions shift with confidence: insert instantly, review first, or escalate, enforcing calibration instead of just suggesting it',
+      'Grounded answers show expandable inline citations with the exact source excerpt',
+      'Built and deployed solo: Next.js front-end, serverless model route with defensive parsing and graceful fallbacks, live on Vercel',
+    ],
+
+    context: 'This wasn\'t a client project. It was a problem I kept running into while building with AI every day: the interface treats every answer as equally certain, even when the model is guessing. I decided the problem deserved a working product, not a Dribbble shot, so I designed one and taught myself to ship it.',
+    challenge: 'Meet Maya, a support agent. Her AI assistant answers instantly, confidently, every time. Then one confident answer turns out to be wrong, a refund policy that didn\'t exist. Maya doesn\'t just distrust that answer. She stops trusting all of them, and starts re-verifying everything, which means the assistant stops saving her any time at all. The product didn\'t fail because the model was wrong once. It failed because the interface gave her no way to know when to trust it.',
+    solution: 'Trust isn\'t binary, and it shouldn\'t be invisible. An interface can show how grounded an answer is, and change what actions it offers accordingly. The system has three confidence states sharing one card surface, one chip system, one action row, a small design system where only the trust level changes the behavior. Grounded answers insert instantly with visible citations. Inferred answers require a review step. Uncertain answers escalate instead of bluffing.',
+    process: [
+      {
+        heading: 'The insight',
+        body: 'Calibrated trust beats blind trust and blind doubt. LLMs can\'t reliably self-report "87% confident", a number implies a precision that doesn\'t exist. Three honest categories communicate more truth than one false number.',
+      },
+      {
+        heading: 'Trust changes the actions, not just the color',
+        body: 'A confidence chip nobody reads is decoration. Here, the available actions shift with confidence, grounded answers insert instantly, inferred ones require review, uncertain ones escalate. The interface enforces calibration instead of just suggesting it.',
+      },
+      {
+        heading: 'Citations you can open, not badges you must believe',
+        body: 'Grounded answers show their sources inline, expandable to the exact excerpt. Trust you can verify beats trust you\'re asked for.',
+      },
+      {
+        heading: 'Building it solo',
+        body: 'I\'m a designer, not a trained engineer, and I shipped this anyway. Working with Claude Code and Cursor, I built the front-end in Next.js and React, wired a live model through a serverless route with defensive parsing and graceful fallbacks, and deployed on Vercel.',
+      },
+    ],
+    reflection: 'Designing for AI trust is mostly designing for the unhappy paths: the hedge, the miss, the honest "I don\'t know." The magic moment takes care of itself; the moments around it decide whether anyone stays.',
+
+    images: {
+      overview: '/images/ai-trust-meter-og.svg',
+    },
+
+    navSections: [
+      { id: 'teardown',     label: 'The Teardown' },
+      { id: 'incident',     label: 'The Incident' },
+      { id: 'requirements', label: 'Design Requirements' },
+      { id: 'system',       label: 'The Design System' },
+      { id: 'comparison',   label: 'Side by Side' },
+      { id: 'playground',   label: 'Live Playground' },
+      { id: 'reflection',   label: 'Reflection' },
+    ],
+  },
 ]
 
 export function getProjectBySlug(slug: string): Project | undefined {

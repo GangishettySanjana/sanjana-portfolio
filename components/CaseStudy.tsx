@@ -94,11 +94,12 @@ function ViewToggle({ view, setView }: { view: 'recruiter' | 'full'; setView: (v
 }
 
 const PROJECT_ACCENT: Record<string, string> = {
-  flairx:       '#2BB5C2',
-  fireside:     '#66a9a9',
-  aura:         '#A880D4',
-  getup:        '#4DAA60',
-  sparkconnect: '#9B7FD4',
+  flairx:         '#2BB5C2',
+  fireside:       '#66a9a9',
+  aura:           '#A880D4',
+  getup:          '#4DAA60',
+  sparkconnect:   '#9B7FD4',
+  'ai-trust-meter': '#5B6FE0',
 }
 
 export default function CaseStudy({ project }: { project: Project }) {
@@ -522,6 +523,7 @@ function FullStoryContent({ project, sectionRefs }: { project: Project; sectionR
   if (project.slug === 'fireside') return <FiresideContent project={project} sectionRefs={sectionRefs} />
   if (project.slug === 'aura') return <AuraContent project={project} sectionRefs={sectionRefs} />
   if (project.slug === 'getup') return <GetUpContent project={project} sectionRefs={sectionRefs} />
+  if (project.slug === 'ai-trust-meter') return <AITrustMeterContent project={project} sectionRefs={sectionRefs} />
   return (
     <div>
       <section id="overview" ref={el => { sectionRefs.current['overview'] = el }} style={{ marginBottom: 72 }}>
@@ -582,6 +584,217 @@ function FullStoryContent({ project, sectionRefs }: { project: Project; sectionR
       <section id="reflection" ref={el => { sectionRefs.current['reflection'] = el }} style={{ marginBottom: 16 }}>
         <p style={sLabel}>Reflection</p>
         <p style={{ ...sBody, fontStyle: 'italic', fontSize: 'clamp(18px, 1.8vw, 22px)', color: 'rgba(0,36,72,0.65)', borderLeft: '2px solid rgba(43,181,194,0.4)', paddingLeft: 24 }}>{project.reflection}</p>
+      </section>
+    </div>
+  )
+}
+
+// ── AI Trust Meter case study ── mirrors the live structure at ai-trust-meter.vercel.app
+function AITrustMeterContent({ project, sectionRefs }: { project: Project; sectionRefs: React.MutableRefObject<Record<string, HTMLElement | null>> }) {
+  const indigo = '#5B6FE0'
+  const indigoLight = 'rgba(91,111,224,0.08)'
+  const indigoMid = '#4657C4'
+  const navy = '#002448'
+
+  const eyebrow = (num: string, text: string) => (
+    <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase' as const, color: indigo, marginBottom: 16, fontWeight: 700 }}>{num} · {text}</p>
+  )
+  const body = (text: string) => (
+    <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, color: 'rgba(0,36,72,0.8)', lineHeight: 1.75, marginBottom: 0 }}>{text}</p>
+  )
+  const heading = (text: string) => (
+    <h2 className="case-section-heading" style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 400, fontStyle: 'italic', color: navy, lineHeight: 1.15, marginBottom: 20 }}>{text}</h2>
+  )
+  const pullQuote = (text: string) => (
+    <div style={{ margin: '28px 0', paddingLeft: 22, borderLeft: `2px solid ${indigo}` }}>
+      <p style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 'clamp(18px, 2vw, 22px)', fontStyle: 'italic', color: navy, lineHeight: 1.5, margin: 0 }}>{text}</p>
+    </div>
+  )
+
+  const TEARDOWN = [
+    { name: 'Intercom Fin', does: 'Answers fluently and confidently regardless of how well-grounded the answer actually is in your help docs.', missing: 'No visible distinction between an answer pulled straight from a doc and one the model inferred or guessed.' },
+    { name: 'Zendesk AI', does: 'Suggests replies to agents with a single relevance score, styled the same whether the source is solid or thin.', missing: 'The score is a black box, agents can not see why it is confident or check the source before sending.' },
+    { name: 'Notion AI Q&A', does: 'Answers workspace questions and links back to source pages after the fact, in the same tone every time.', missing: 'A disclaimer at the bottom is the only signal, treated as legal cover rather than a real trust mechanism.' },
+  ]
+
+  const REQUIREMENTS = [
+    { dot: '#4DAA60', name: 'Grounded', quote: 'When the answer comes from policy, show the source instantly so I can reply without fear.' },
+    { dot: '#D6A93A', name: 'Inferred', quote: 'When the AI is guessing, tell me before I send it. I never wear the costume of a fact.' },
+    { dot: '#8A94A6', name: 'Uncertain', quote: 'When it doesn\'t know, say so and point me to a human. I shouldn\'t apologize for its inventions.' },
+  ]
+
+  const CONFIDENCE_STATES = [
+    {
+      dot: '#4DAA60',
+      bg: 'rgba(77,170,96,0.06)',
+      border: 'rgba(77,170,96,0.22)',
+      name: 'Grounded',
+      desc: 'The answer is backed by actual documentation. The card shows expandable inline citations with the exact source excerpts, and offers a frictionless "Insert into reply." When the system knows, it gets out of your way.',
+    },
+    {
+      dot: '#D6A93A',
+      bg: 'rgba(214,169,58,0.07)',
+      border: 'rgba(214,169,58,0.24)',
+      name: 'Inferred',
+      desc: 'The answer is reasoned from partial information. The language hedges honestly, a "Show me why" reveals the reasoning, and the insert action is gated behind a mandatory review step. Speed yields to judgment exactly when it should.',
+    },
+    {
+      dot: '#8A94A6',
+      bg: 'rgba(138,148,166,0.08)',
+      border: 'rgba(138,148,166,0.25)',
+      name: 'Uncertain',
+      desc: 'No grounded answer exists. Instead of bluffing, the card says what information would be needed and swaps "insert" for "Escalate to manager" and "Check with billing team." The honest dead-end is a feature.',
+    },
+  ]
+
+  return (
+    <div>
+      {/* ── 01 The Teardown ── */}
+      <section id="teardown" ref={el => { sectionRefs.current['teardown'] = el }} style={{ marginBottom: 72 }}>
+        {eyebrow('01', 'The Teardown')}
+        {heading('How AI products handle uncertainty today.')}
+        {body('I audited how three leading AI-powered support and knowledge products present answers when they\'re not confident. The pattern is consistent: fluency regardless of grounding, with a small disclaimer at the edge. The interface treats every answer as equally trustworthy because it has no other mechanism.')}
+        <div className="case-3col" style={{ marginTop: 28, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+          {TEARDOWN.map(t => (
+            <div key={t.name} style={{ padding: '20px 20px', borderRadius: 12, border: `1px solid ${indigoLight}`, background: '#FFFFFF' }}>
+              <p style={{ fontFamily: 'var(--font-heading), Georgia, serif', fontSize: 15, fontWeight: 700, color: navy, marginBottom: 12 }}>{t.name}</p>
+              <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase' as const, color: indigoMid, marginBottom: 4, fontWeight: 700 }}>What it does</p>
+              <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 13.5, color: 'rgba(0,36,72,0.72)', lineHeight: 1.6, marginBottom: 14 }}>{t.does}</p>
+              <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase' as const, color: '#B5473E', marginBottom: 4, fontWeight: 700 }}>What&apos;s missing</p>
+              <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 13.5, color: 'rgba(0,36,72,0.72)', lineHeight: 1.6, margin: 0 }}>{t.missing}</p>
+            </div>
+          ))}
+        </div>
+        <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 14, fontStyle: 'italic', color: 'rgba(0,36,72,0.5)', marginTop: 20, textAlign: 'center' as const }}>
+          The only honest mechanism shipping today is a disclaimer. Disclaimers are legal cover, not design.
+        </p>
+      </section>
+
+      {/* ── 02 The Incident ── */}
+      <section id="incident" ref={el => { sectionRefs.current['incident'] = el }} style={{ marginBottom: 72 }}>
+        {eyebrow('02', 'The Incident')}
+        {heading('The cost isn\'t the error.')}
+        {body('Maya is a support agent. She handles 40+ tickets a day, measured on speed and accuracy. The AI assistant was added to make her faster, until it confidently told a customer they qualified for a refund they hadn\'t. Maya now double-checks everything, and the assistant saves her nothing.')}
+        {pullQuote('The cost of a wrong AI answer isn\'t the error. It\'s that every answer after it gets treated as a guess.')}
+      </section>
+
+      {/* ── 03 Design Requirements ── */}
+      <section id="requirements" ref={el => { sectionRefs.current['requirements'] = el }} style={{ marginBottom: 72 }}>
+        {eyebrow('03', 'Design Requirements')}
+        {heading('Three states. Three different jobs to do.')}
+        {body('Each confidence state carries a different user need, and a different design obligation. These three stories are what the system is built to address.')}
+        <div className="case-3col" style={{ marginTop: 28, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+          {REQUIREMENTS.map(r => (
+            <div key={r.name} style={{ padding: '18px 18px', borderRadius: 12, border: `1px solid ${indigoLight}`, background: 'rgba(91,111,224,0.03)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: r.dot, flexShrink: 0 }} />
+                <p style={{ fontFamily: 'var(--font-heading), Georgia, serif', fontSize: 14, fontWeight: 700, color: navy, margin: 0 }}>{r.name}</p>
+              </div>
+              <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 13.5, fontStyle: 'italic', color: 'rgba(0,36,72,0.7)', lineHeight: 1.6, margin: 0 }}>&ldquo;{r.quote}&rdquo;</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── 04 The Design System ── */}
+      <section id="system" ref={el => { sectionRefs.current['system'] = el }} style={{ marginBottom: 72 }}>
+        {eyebrow('04', 'The Design System')}
+        {heading('Three variants. One coherent system.')}
+        {body('Each confidence state is a complete variant: distinct card surface, chip, source treatment, and action row, all derived from the same token set so they feel like a family, not three separate components.')}
+        <div className="case-3col" style={{ marginTop: 28, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+          {CONFIDENCE_STATES.map(state => (
+            <div key={state.name} style={{ padding: '22px 22px', borderRadius: 14, border: `1.5px solid ${state.border}`, background: state.bg }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+                <span style={{ width: 9, height: 9, borderRadius: '50%', background: state.dot, flexShrink: 0 }} />
+                <p style={{ fontFamily: 'var(--font-heading), Georgia, serif', fontSize: 16, fontWeight: 700, color: navy, margin: 0 }}>{state.name}</p>
+              </div>
+              <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 14, color: 'rgba(0,36,72,0.72)', lineHeight: 1.6, margin: 0 }}>{state.desc}</p>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 24, padding: '18px 20px', borderRadius: 12, background: indigoLight, border: `1px solid rgba(91,111,224,0.18)` }}>
+          <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase' as const, color: indigoMid, marginBottom: 6, fontWeight: 700 }}>Design decision</p>
+          <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 14.5, color: 'rgba(0,36,72,0.78)', lineHeight: 1.65, margin: 0 }}>Why three segments instead of a percentage? LLMs can&apos;t reliably self-report confidence, &ldquo;87% sure&rdquo; would be false precision, the exact dishonesty this system exists to remove. Three named states force the model into a categorical judgment it can actually support, and give the agent language they can act on.</p>
+        </div>
+      </section>
+
+      {/* ── 05 Side by Side ── */}
+      <section id="comparison" ref={el => { sectionRefs.current['comparison'] = el }} style={{ marginBottom: 72 }}>
+        {eyebrow('05', 'Side by Side')}
+        {heading('The same wrong answer, two interfaces.')}
+        {body('Both cards answer the same question about a customer\'s refund, a genuine gray area. One pretends to be sure. Watch how the honest version feels when the interface stops pretending.')}
+        <div className="case-2col" style={{ marginTop: 28, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+          <div style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(0,36,72,0.1)' }}>
+            <div style={{ background: 'rgba(0,36,72,0.06)', padding: '10px 16px' }}>
+              <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.55)', margin: 0, fontWeight: 700 }}>Today&apos;s AI, confident, unsourced</p>
+            </div>
+            <div style={{ padding: '18px 18px', background: '#fff' }}>
+              <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 14.5, color: 'rgba(0,36,72,0.78)', lineHeight: 1.65, margin: 0 }}>&ldquo;Yes, Acme is covered by the 30-day money-back guarantee, so a full refund within the standard payment window is approved.&rdquo;</p>
+            </div>
+          </div>
+          <div style={{ borderRadius: 12, overflow: 'hidden', border: `1px solid ${indigoLight}` }}>
+            <div style={{ background: 'rgba(214,169,58,0.12)', padding: '10px 16px' }}>
+              <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: '#8A5500', margin: 0, fontWeight: 700 }}>With Trust UI, inferred</p>
+            </div>
+            <div style={{ padding: '18px 18px', background: '#fff' }}>
+              <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 14.5, color: 'rgba(0,36,72,0.78)', lineHeight: 1.65, margin: 0 }}>&ldquo;It&apos;s not clear-cut. Acme is past the standard 30-day window, but a discretionary, case-by-case refund may apply, this isn&apos;t guaranteed.&rdquo;</p>
+            </div>
+          </div>
+        </div>
+        <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 14, fontStyle: 'italic', color: 'rgba(0,36,72,0.5)', marginTop: 20, textAlign: 'center' as const }}>
+          The underlying answer is the same in both cases, only the interface changed. And with it, whether the agent sends a grounded reply or a guess.
+        </p>
+      </section>
+
+      {/* ── 06 Live Playground ── */}
+      <section id="playground" ref={el => { sectionRefs.current['playground'] = el }} style={{ marginBottom: 72 }}>
+        {eyebrow('06', 'Live Playground')}
+        {heading('Try it, you\'re the agent.')}
+        {body('A support agent in mid-conversation with a customer. Ask the assistant a question and watch the answer return with a visible confidence state, and the actions available change with how grounded it is. The full interactive version is live on the demo.')}
+        {project.images?.overview && (
+          <div style={{ marginTop: 24 }}>
+            <img src={project.images.overview} alt="AI Trust Meter live playground" style={{ width: '100%', borderRadius: 16 }} />
+          </div>
+        )}
+      </section>
+
+      {/* ── 07 Reflection ── */}
+      <section id="reflection" ref={el => { sectionRefs.current['reflection'] = el }} style={{ marginBottom: 16 }}>
+        {eyebrow('07', 'Reflection')}
+        {heading('What I\'d do next.')}
+        {body('The most important open question is behavioral, not visual: does the review step for inferred answers actually reduce errors, or does it just become a step agents learn to click through? I\'d validate that with a structured pilot, real agents, real tickets, measuring whether the friction changes behavior instead of just slowing it down.')}
+        <div style={{ height: 16 }} />
+        {body('The known scope limit: this works for document-grounded support tasks, where a source either exists or doesn\'t. It doesn\'t solve open-ended reasoning. But the same confidence-state pattern should generalize anywhere a human relays an AI answer to someone else, legal, healthcare, financial advisory.')}
+        <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 'clamp(18px, 1.8vw, 22px)', fontStyle: 'italic', color: 'rgba(0,36,72,0.65)', lineHeight: 1.6, borderLeft: `2px solid ${indigo}`, paddingLeft: 24, margin: '28px 0 0' }}>
+          {project.reflection}
+        </p>
+
+        <div style={{ display: 'flex', gap: 14, marginTop: 32, flexWrap: 'wrap' as const }}>
+          <a href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 10,
+            padding: '14px 26px', borderRadius: 999, border: 'none',
+            background: navy, color: '#FFFFFF',
+            fontFamily: 'var(--font-label), sans-serif', fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase' as const, fontWeight: 600,
+            textDecoration: 'none', transition: 'opacity 0.2s',
+          }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+          >
+            Try the live demo <span style={{ fontSize: 15 }}>→</span>
+          </a>
+          <a href="https://github.com/GangishettySanjana/ai-trust-meter" target="_blank" rel="noopener noreferrer" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 10,
+            padding: '14px 26px', borderRadius: 999, border: `1.5px solid rgba(0,36,72,0.18)`,
+            background: 'transparent', color: navy,
+            fontFamily: 'var(--font-label), sans-serif', fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase' as const, fontWeight: 600,
+            textDecoration: 'none', transition: 'background 0.2s',
+          }}
+            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(0,36,72,0.04)')}
+            onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+          >
+            View the code <span style={{ fontSize: 15 }}>↗</span>
+          </a>
+        </div>
       </section>
     </div>
   )

@@ -278,7 +278,7 @@ export default function StudioCaseStudyPage() {
             </div>
             <div>
               <p className="st-meta-k">Year</p>
-              <p className="st-meta-v">2025</p>
+              <p className="st-meta-v">2026</p>
             </div>
           </dl>
         </div>

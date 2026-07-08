@@ -657,12 +657,89 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* 02 Fireside */}
-            <div className="project-card card-fireside">
+            {/* 02 AI Trust Meter */}
+            <div className="project-card card-ai-trust-meter">
               <div className="card-inner">
                 <div className="card-num-bg">02</div>
                 <div className="card-top-row">
                   <span className="card-index">02 / 04</span>
+                  <span className="card-category">Self-Initiated · Live Product</span>
+                </div>
+                <div className="card-content-row">
+                  <div className="card-left">
+                    <h3 className="card-title">The AI Trust Meter</h3>
+                    <p className="card-subtitle">Confidence States for AI Answers</p>
+                    <p className="card-desc">AI tools present wrong answers with the same confidence as right ones. I designed a system that changes how an answer looks based on how grounded it is, then built and deployed it myself with Next.js, Claude, and Cursor.</p>
+                    <div className="card-stats">
+                      <div className="stat">
+                        <span className="stat-val">3</span>
+                        <span className="stat-label">Confidence states</span>
+                      </div>
+                      <div className="stat">
+                        <span className="stat-val">Solo</span>
+                        <span className="stat-label">Designed, built, shipped</span>
+                      </div>
+                      <div className="stat">
+                        <span className="stat-val">Live</span>
+                        <span className="stat-label">Next.js on Vercel</span>
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                      <Link href="/projects/ai-trust-meter" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
+                      <a href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer" className="card-btn" style={{ background: 'transparent', border: '1.5px solid rgba(220,223,251,0.4)', color: '#DCDFFB' }}>Try the demo <span className="btn-arrow">↗</span></a>
+                    </div>
+                  </div>
+                  <div className="card-right" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '10px' }}>
+                    <div style={{ width: '100%', aspectRatio: '1.4', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 12px 40px rgba(0,0,0,0.25)' }}>
+                      <img src="/images/ai-trust-meter-og.svg" alt="AI Trust Meter" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'left top' }}/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 03 OpenRouter Model Match */}
+            <div className="project-card card-openrouter">
+              <div className="card-inner">
+                <div className="card-num-bg">03</div>
+                <div className="card-top-row">
+                  <span className="card-index">03 / 04</span>
+                  <span className="card-category">Product Design · Developer Tools</span>
+                </div>
+                <div className="card-content-row">
+                  <div className="card-left">
+                    <h3 className="card-title">OpenRouter Model Match</h3>
+                    <p className="card-subtitle">500 Models. I Still Couldn&apos;t Pick One.</p>
+                    <p className="card-desc">OpenRouter gives developers access to 500+ AI models, but no guidance on which one to use. I designed a recommendation wizard that takes you from zero context to a working API call in four questions.</p>
+                    <div className="card-stats">
+                      <div className="stat">
+                        <span className="stat-val">500+</span>
+                        <span className="stat-label">Models covered</span>
+                      </div>
+                      <div className="stat">
+                        <span className="stat-val">4</span>
+                        <span className="stat-label">Questions to a match</span>
+                      </div>
+                      <div className="stat">
+                        <span className="stat-val">Live</span>
+                        <span className="stat-label">Working prototype</span>
+                      </div>
+                    </div>
+                    <Link href="/explorations/openrouter" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
+                  </div>
+                  <div className="card-right">
+                    <img src="/images/openrouter-model-match-card.png" alt="OpenRouter Model Match" style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 04 Fireside */}
+            <div className="project-card card-fireside">
+              <div className="card-inner">
+                <div className="card-num-bg">04</div>
+                <div className="card-top-row">
+                  <span className="card-index">04 / 04</span>
                   <span className="card-category">Web Design · Education</span>
                 </div>
                 <div className="card-content-row">
@@ -693,99 +770,109 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* 03 GetUp */}
-            <div className="project-card card-getup">
-              <div className="card-inner">
-                <div className="card-num-bg">03</div>
-                <div className="card-top-row">
-                  <span className="card-index">03 / 04</span>
-                  <span className="card-category">Brand Design · E-Commerce</span>
-                </div>
-                <div className="card-content-row">
-                  <div className="card-left">
-                    <h3 className="card-title">GetUp Nutrition</h3>
-                    <p className="card-subtitle">Pre-Launch Campaign &amp; Pop-Up</p>
-                    <p className="card-desc">Three weeks. No copywriter, no brand guidelines, one celebrity backer. I derived the voice, wrote the copy, and designed the pre-order pop-up from zero.</p>
-                    <div className="card-stats">
-                      <div className="stat">
-                        <span className="stat-val">3wks</span>
-                        <span className="stat-label">Timeline</span>
+            {/* ─────────────────────────────────────────────────────────
+                NOT CURRENTLY SHOWN IN MAIN RAIL
+                GetUp and Aura are kept here (code intact, wrapped in
+                {false && ...}) so they can be brought back later without
+                rebuilding. They are not deleted, just not rendered.
+            ───────────────────────────────────────────────────────── */}
+            {false && (
+              <>
+                {/* GetUp */}
+                <div className="project-card card-getup">
+                  <div className="card-inner">
+                    <div className="card-num-bg">05</div>
+                    <div className="card-top-row">
+                      <span className="card-index">05 / 05</span>
+                      <span className="card-category">Brand Design · E-Commerce</span>
+                    </div>
+                    <div className="card-content-row">
+                      <div className="card-left">
+                        <h3 className="card-title">GetUp Nutrition</h3>
+                        <p className="card-subtitle">Pre-Launch Campaign &amp; Pop-Up</p>
+                        <p className="card-desc">Three weeks. No copywriter, no brand guidelines, one celebrity backer. I derived the voice, wrote the copy, and designed the pre-order pop-up from zero.</p>
+                        <div className="card-stats">
+                          <div className="stat">
+                            <span className="stat-val">3wks</span>
+                            <span className="stat-label">Timeline</span>
+                          </div>
+                          <div className="stat">
+                            <span className="stat-val">Solo</span>
+                            <span className="stat-label">Designer + Copywriter</span>
+                          </div>
+                          <div className="stat">
+                            <span className="stat-val">0→1</span>
+                            <span className="stat-label">Brand identity</span>
+                          </div>
+                        </div>
+                        <Link href="/projects/getup" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
                       </div>
-                      <div className="stat">
-                        <span className="stat-val">Solo</span>
-                        <span className="stat-label">Designer + Copywriter</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val">0→1</span>
-                        <span className="stat-label">Brand identity</span>
+                      <div className="card-right">
+                        <img
+                          src="/images/getup.png"
+                          alt="GetUp"
+                          style={{width:'100%',height:'100%',objectFit:'cover'}}
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement
+                            img.style.display = 'none'
+                            const next = img.nextElementSibling as HTMLElement
+                            if (next) next.style.display = 'flex'
+                          }}
+                        />
+                        <div className="img-placeholder" style={{display:'none'}}>GetUp project image</div>
                       </div>
                     </div>
-                    <Link href="/projects/getup" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
-                  </div>
-                  <div className="card-right">
-                    <img
-                      src="/images/getup.png"
-                      alt="GetUp"
-                      style={{width:'100%',height:'100%',objectFit:'cover'}}
-                      onError={(e) => {
-                        const img = e.target as HTMLImageElement
-                        img.style.display = 'none'
-                        const next = img.nextElementSibling as HTMLElement
-                        if (next) next.style.display = 'flex'
-                      }}
-                    />
-                    <div className="img-placeholder" style={{display:'none'}}>GetUp project image</div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* 04 Aura */}
-            <div className="project-card card-aura">
-              <div className="card-inner">
-                <div className="card-num-bg">04</div>
-                <div className="card-top-row">
-                  <span className="card-index">04 / 04</span>
-                  <span className="card-category">Mobile App · E-commerce</span>
-                </div>
-                <div className="card-content-row">
-                  <div className="card-left">
-                    <h3 className="card-title">Aura</h3>
-                    <p className="card-subtitle">Gifting Experience Platform</p>
-                    <p className="card-desc">A personalized floral and gifting app that cuts through decision fatigue and long queues. Designed end-to-end for a Hyderabad florist as part of the Google UX Certificate.</p>
-                    <div className="card-stats">
-                      <div className="stat">
-                        <span className="stat-val">Mobile</span>
-                        <span className="stat-label">Platform</span>
+                {/* Aura */}
+                <div className="project-card card-aura">
+                  <div className="card-inner">
+                    <div className="card-num-bg">06</div>
+                    <div className="card-top-row">
+                      <span className="card-index">06 / 05</span>
+                      <span className="card-category">Mobile App · E-commerce</span>
+                    </div>
+                    <div className="card-content-row">
+                      <div className="card-left">
+                        <h3 className="card-title">Aura</h3>
+                        <p className="card-subtitle">Gifting Experience Platform</p>
+                        <p className="card-desc">A personalized floral and gifting app that cuts through decision fatigue and long queues. Designed end-to-end for a Hyderabad florist as part of the Google UX Certificate.</p>
+                        <div className="card-stats">
+                          <div className="stat">
+                            <span className="stat-val">Mobile</span>
+                            <span className="stat-label">Platform</span>
+                          </div>
+                          <div className="stat">
+                            <span className="stat-val">3×</span>
+                            <span className="stat-label">Usability rounds</span>
+                          </div>
+                          <div className="stat">
+                            <span className="stat-val">Google</span>
+                            <span className="stat-label">UX Certificate</span>
+                          </div>
+                        </div>
+                        <Link href="/projects/aura" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
                       </div>
-                      <div className="stat">
-                        <span className="stat-val">3×</span>
-                        <span className="stat-label">Usability rounds</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val">Google</span>
-                        <span className="stat-label">UX Certificate</span>
+                      <div className="card-right">
+                        <img
+                          src="/images/aura.png"
+                          alt="Aura"
+                          style={{width:'100%',height:'100%',objectFit:'cover'}}
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement
+                            img.style.display = 'none'
+                            const next = img.nextElementSibling as HTMLElement
+                            if (next) next.style.display = 'flex'
+                          }}
+                        />
+                        <div className="img-placeholder" style={{display:'none'}}>Aura app screenshots</div>
                       </div>
                     </div>
-                    <Link href="/projects/aura" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
-                  </div>
-                  <div className="card-right">
-                    <img
-                      src="/images/aura.png"
-                      alt="Aura"
-                      style={{width:'100%',height:'100%',objectFit:'cover'}}
-                      onError={(e) => {
-                        const img = e.target as HTMLImageElement
-                        img.style.display = 'none'
-                        const next = img.nextElementSibling as HTMLElement
-                        if (next) next.style.display = 'flex'
-                      }}
-                    />
-                    <div className="img-placeholder" style={{display:'none'}}>Aura app screenshots</div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </>
+            )}
 
           </div>
         </div>
@@ -852,24 +939,6 @@ export default function HomePage() {
                 <span className="exp-status exp-status--live">Live prototype →</span>
               </div>
             </a>
-
-            {/* Exploration 03 — The AI Trust Meter */}
-            <a className="exp-card exp-card--linked" href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer">
-              <div className="exp-card-top">
-                <span className="exp-tag">Intercom Fin</span>
-                <span className="exp-num">03</span>
-              </div>
-              <h3 className="exp-title">AI sounds just as sure when it&apos;s guessing.</h3>
-              <p className="exp-desc">AI support tools present wrong answers with the same confidence as right ones. Inspired by Intercom Fin, I designed a confidence-state system that visibly changes how an answer looks based on how grounded it is, then routes uncertainty to a human instead of a customer. Live demo included.</p>
-              <div className="exp-footer">
-                <span className="exp-status exp-status--live">Live demo →</span>
-              </div>
-            </a>
-
-            {/* More coming */}
-            <div className="exp-card exp-card--more">
-              <p className="exp-more-text">More concepts in the works. Currently exploring, currently building.</p>
-            </div>
 
           </div>
         </div>
@@ -955,7 +1024,7 @@ export default function HomePage() {
 
             {/* headline */}
             <h2 className="connect-headline" id="conHead">
-              Don&apos;t hesitate<br/><em>to reach out.</em>
+              Don&apos;t hesitate <br/><em>to reach out.</em>
             </h2>
 
             {/* sub */}
@@ -971,7 +1040,7 @@ export default function HomePage() {
           </div>
 
           <div className="connect-footer-row" id="conFooter">
-            <span>Sanjana Gangishetty © 2025</span>
+            <span>Sanjana Gangishetty © 2026</span>
             <span>Built with Figma, GSAP, and 47 Stack Overflow tabs</span>
           </div>
         </div>

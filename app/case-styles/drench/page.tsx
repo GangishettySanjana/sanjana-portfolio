@@ -298,7 +298,7 @@ export default function DrenchCaseStyle() {
             </div>
             <div>
               <p className="dr-meta-k">Year</p>
-              <p className="dr-meta-v">2025</p>
+              <p className="dr-meta-v">2026</p>
             </div>
           </div>
         </div>

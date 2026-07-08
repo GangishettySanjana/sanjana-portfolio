@@ -306,7 +306,7 @@ export default function SwissCaseStyle() {
           </div>
           <div className="sw-meta-cell">
             <p className="sw-meta-k">Year</p>
-            <p className="sw-meta-v">2025</p>
+            <p className="sw-meta-v">2026</p>
           </div>
         </div>
       </header>

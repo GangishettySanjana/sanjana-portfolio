@@ -262,6 +262,16 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 }
 
 /* ── COLOR THEMES ── */
+.card-openrouter { background: #EBE7FC; color: #2D2560; }
+.card-openrouter .card-category { border-color: #2D2560; color: #2D2560; }
+.card-openrouter .card-btn { background: #2D2560; color: #EBE7FC; }
+.card-openrouter .card-right { background: #DDD6FA; }
+
+.card-ai-trust-meter { background: #2A2E6B; color: #DCDFFB; }
+.card-ai-trust-meter .card-category { border-color: #DCDFFB; color: #DCDFFB; }
+.card-ai-trust-meter .card-btn { background: #DCDFFB; color: #2A2E6B; }
+.card-ai-trust-meter .card-right { background: #3D42A0; }
+
 .card-flairx { background: var(--blue); color: var(--cream-text); }
 .card-flairx .card-category { border-color: var(--cream-text); color: var(--cream-text); }
 .card-flairx .card-btn { background: var(--cream-text); color: #000; }

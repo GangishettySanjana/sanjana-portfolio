@@ -275,7 +275,7 @@ export default function MinimalCaseStudy() {
           </div>
           <div className="mn-meta-item">
             <span className="mn-meta-label">Year</span>
-            <span className="mn-meta-value">2025</span>
+            <span className="mn-meta-value">2026</span>
           </div>
         </div>
       </header>
