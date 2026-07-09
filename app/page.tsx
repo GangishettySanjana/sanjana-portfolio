@@ -461,6 +461,13 @@ export default function HomePage() {
   useEffect(() => {
     const video = document.getElementById('hero-video') as HTMLVideoElement | null
     if (!video) return
+    // Skip the ~29MB background video on mobile entirely — the gradient
+    // overlay + hero content read fine without it, and it's not worth the
+    // bandwidth on a small screen. Deferring the src assignment (instead of
+    // setting it in JSX) also keeps the browser's preload scanner from
+    // fetching it before anything else on the page.
+    if (window.matchMedia('(max-width: 767px)').matches) return
+    video.src = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4'
     video.muted = true; video.defaultMuted = true; video.playsInline = true
     const FADE_DUR = 0.5
     let rafId = 0
@@ -521,10 +528,9 @@ export default function HomePage() {
         {/* Video background */}
         <video
           id="hero-video"
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
           muted
           playsInline
-          autoPlay
+          preload="none"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0, transition: 'opacity 0.05s linear', zIndex: 0 }}
         />
         {/* Gradient overlay top + bottom */}
