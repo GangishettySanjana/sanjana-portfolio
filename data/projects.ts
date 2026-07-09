@@ -47,14 +47,14 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    cardContext: 'Full-Time Role · AI Recruiting Platform',
+    cardContext: 'Founding Role · AI Recruiting Platform',
     slug: 'flairx',
     title: 'Redesigning the Recruiter Workflow',
     tagline: 'FlairX AI',
     company: 'FlairX',
-    year: '2024',
-    duration: '3 months',
-    role: 'Product Designer & Researcher',
+    year: '2025',
+    duration: 'Apr – Dec 2025',
+    role: 'Founding Product Designer',
     status: 'Live Product',
     tools: ['Figma', 'Notion', 'Jira', 'Slack', 'Lovable', 'Claude'],
     liveUrl: 'https://gangishetty.framer.website/flairx',

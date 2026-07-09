@@ -607,7 +607,7 @@ export default function AboutPage() {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 'clamp(15px, 1.3vw, 17px)', color: '#555', lineHeight: 1.78, margin: 0 }}>
-                I&apos;m Sanjana. Seven years in design, studying it, working in it, thinking about it. I started in interior spaces and moved into product design. That background shapes how I work now. It just means I learned early how to figure out what something needs to feel like before anyone has words for it.
+                I&apos;m Sanjana. ~7 years in design, ~3 in product, studying it, working in it, thinking about it. I started in interior spaces and moved into product design. That background shapes how I work now. It just means I learned early how to figure out what something needs to feel like before anyone has words for it.
               </p>
               <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 'clamp(15px, 1.3vw, 17px)', color: '#555', lineHeight: 1.78, margin: 0 }}>
                 These days I design digital products. AI workflows, interactive exhibits, things people actually want to use. What I care about most is the gap between <em style={{ fontStyle: 'italic', color: '#111' }}>technically works</em> and <em style={{ fontStyle: 'italic', color: '#111' }}>actually good.</em>

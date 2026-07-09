@@ -39,27 +39,27 @@ export const journeyData: JourneyItem[] = [
     location: "Boulder, CO",
     blurb:
       "Got the offer. Packed everything. Traveled abroad with immense hope and one very overstuffed suitcase. Two years in the Rockies designing at the intersection of emerging tech and human experience. Her spatial instincts traveled well.",
-    tags: ["CU Boulder", "MS Design", "Colorado", "AI + UX"],
+    tags: ["CU Boulder", "MS HCI", "Colorado", "AI + UX"],
     image: "/journey/2023-boulder.jpg",
   },
   {
     year: 2025,
     title: "Master's done. What comes next.",
-    subtitle: "MS in Creative Technology & Design",
+    subtitle: "MS in Human-Computer Interaction",
     location: "United States",
     blurb:
-      "Graduated with an MS in Creative Technology and Design. Two years of genuinely hard, genuinely fun work. AI recruiter flows at FlairX, a wildfire simulation exhibit at Fireside Interactive, a celebrity product launch at GetUp. Three very different problems. Same instinct: figure out the human first.\n\nNow I'm looking for the team that actually loses sleep over the gap between 'it works' and 'it's good.' The one where design is a real input, not a final coat of paint. I'm ready. Let's build something worth building.",
+      "Graduated with an MS in Human-Computer Interaction. Two years of genuinely hard, genuinely fun work. AI recruiter flows at FlairX, a wildfire simulation exhibit at Fireside Interactive, a celebrity product launch at GetUp. Three very different problems. Same instinct: figure out the human first.\n\nNow I'm looking for the team that actually loses sleep over the gap between 'it works' and 'it's good.' The one where design is a real input, not a final coat of paint. I'm ready. Let's build something worth building.",
     tags: ["Graduated", "Open to work", "AI Design", "Product Design"],
     image: "/journey/2025-grad.jpg",
   },
   {
     year: 2026,
-    title: "excited to see what comes next.",
-    subtitle: "the story continues",
-    location: "wherever the work is good",
+    title: "Northern Trust, then back to looking.",
+    subtitle: "Product Designer, Jan – Jun 2026",
+    location: "Chicago, IL",
     blurb:
-      "The line keeps going. She is looking for the next hard thing, a team with real standards and real curiosity. The chapter is unwritten. That is exactly how she likes it.",
-    tags: ["Open", "Next chapter", "Looking"],
+      "Spent the first half of the year at Northern Trust doing product design work in Chicago. That wrapped in June, and she is looking for the next hard thing, a team with real standards and real curiosity. The chapter is unwritten. That is exactly how she likes it.",
+    tags: ["Northern Trust", "Open to work", "Next chapter", "Looking"],
     turning: false,
   },
 ];

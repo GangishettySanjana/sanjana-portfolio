@@ -484,7 +484,7 @@ export default function FlairXPage() {
               <div className="fx-summary-meta">
                 <div className="fx-smeta-item">
                   <span className="fx-smeta-k">Role</span>
-                  <span className="fx-smeta-v">Product Designer &amp; Researcher</span>
+                  <span className="fx-smeta-v">Founding Product Designer</span>
                 </div>
                 <div className="fx-smeta-item">
                   <span className="fx-smeta-k">Company</span>
@@ -492,11 +492,11 @@ export default function FlairXPage() {
                 </div>
                 <div className="fx-smeta-item">
                   <span className="fx-smeta-k">Year</span>
-                  <span className="fx-smeta-v">2024</span>
+                  <span className="fx-smeta-v">2025</span>
                 </div>
                 <div className="fx-smeta-item">
                   <span className="fx-smeta-k">Duration</span>
-                  <span className="fx-smeta-v">3 months</span>
+                  <span className="fx-smeta-v">Apr – Dec 2025</span>
                 </div>
                 <div className="fx-smeta-item">
                   <span className="fx-smeta-k">Tools</span>

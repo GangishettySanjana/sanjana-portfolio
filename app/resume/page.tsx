@@ -80,7 +80,7 @@ export default function ResumePage() {
                   UX designer who came from interior design and never quite let go of the spatial thinking that comes with it. Spent the past few years at CU Boulder making AI-powered products feel less like tools and more like collaborators. Comfortable in 0→1 chaos, obsessed with the moment a messy research finding becomes a clear design decision.
                 </p>
                 <div style={{ display: 'flex', gap: 12, marginTop: 16, flexWrap: 'wrap' }}>
-                  {['87.5% faster candidate review', '30% faster insights', '5% conversion lift'].map(m => (
+                  {['2h → 30m recruiter workflow', '30% faster insights', '5% conversion lift'].map(m => (
                     <span key={m} style={{ fontFamily: 'var(--font-label, sans-serif)', fontSize: 11, letterSpacing: '0.06em', color: teal, background: 'rgba(26,122,122,0.07)', borderRadius: 6, padding: '5px 10px' }}>{m}</span>
                   ))}
                 </div>
@@ -89,25 +89,23 @@ export default function ResumePage() {
               {/* Experience */}
               <Section title="Experience">
                 <Experience
-                  role="UX Design Research Intern"
+                  role="Product Designer (placeholder title — confirm)"
                   company="Northern Trust"
-                  period="Jun 2024 – Aug 2024"
+                  period="Jan 2026 – Jun 2026"
                   location="Chicago, IL"
                   bullets={[
-                    'Redesigned AI recruiter screening flow, cutting candidate review time by 87.5% and improving diversity-hire rate by 14%.',
-                    'Ran 12 structured interviews with recruiters and candidates; distilled findings into a design system that scaled across 3 product teams.',
-                    'Mapped complete end-to-end journey for AI-assisted review, surfacing 6 critical friction points that were prioritised in the next sprint.',
+                    'Placeholder — replace with real Northern Trust accomplishments before sharing this resume.',
                   ]}
                 />
                 <Experience
-                  role="UX Design Intern"
+                  role="Founding Product Designer"
                   company="FlairxAI"
-                  period="Jan 2024 – May 2024"
+                  period="Apr 2025 – Dec 2025"
                   location="Remote"
                   bullets={[
-                    'Built and shipped an AI-generated style-board feature with Lovable + Figma; reduced client onboarding time by 30%.',
-                    'Prototyped 4 end-to-end flows for a fashion AI tool and ran usability tests with 20+ users.',
-                    'Collaborated with engineers on a design system with 40+ components, enabling faster handoff across two product streams.',
+                    'Redesigned the recruiter intake and review workflow, cutting review time from 2 hours to 30 minutes and contributing to 130 hires sourced through the redesigned flow.',
+                    'Designed three distinct upload paths (single, bulk, CSV) so recruiters could trust AI-assisted screening without feeling like it was making decisions for them.',
+                    'Owned the product design function as the first design hire, working directly with founders from 0→1.',
                   ]}
                 />
                 <Experience
