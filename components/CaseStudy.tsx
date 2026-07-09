@@ -103,27 +103,12 @@ const PROJECT_ACCENT: Record<string, string> = {
 }
 
 export default function CaseStudy({ project }: { project: Project }) {
-  const [view, setView] = useState<'recruiter' | 'full'>('recruiter')
   const [activeSection, setActiveSection] = useState('overview')
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({})
   const navSections = project.navSections ?? DEFAULT_NAV_SECTIONS
   const mainRef = useRef<HTMLElement | null>(null)
 
-  // Switching to full story scrolls back to top so you start at section 1
-  function switchView(v: 'recruiter' | 'full') {
-    setView(v)
-    if (v === 'full') {
-      requestAnimationFrame(() => {
-        const top = mainRef.current?.getBoundingClientRect().top
-          ? mainRef.current.getBoundingClientRect().top + window.scrollY - 108
-          : 0
-        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
-      })
-    }
-  }
-
   useEffect(() => {
-    if (view !== 'full') return
     // Scroll-based tracker, fires immediately, no IntersectionObserver lag
     const handleScroll = () => {
       const ids = navSections.map(s => s.id)
@@ -139,7 +124,7 @@ export default function CaseStudy({ project }: { project: Project }) {
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll() // run once on mount
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [view, navSections])
+  }, [navSections])
 
   // GSAP scroll-reveal
   useEffect(() => {
@@ -204,7 +189,7 @@ export default function CaseStudy({ project }: { project: Project }) {
       clearTimeout(timer)
       ScrollTrigger.getAll().forEach(t => t.kill())
     }
-  }, [view])
+  }, [])
 
   return (
     <div style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
@@ -249,11 +234,7 @@ export default function CaseStudy({ project }: { project: Project }) {
             ← Back
           </Link>
 
-          <div className="case-sidebar-toggle" style={{ marginBottom: 32 }}>
-            <ViewToggle view={view} setView={switchView} />
-          </div>
-
-          <div className="case-sidebar-nav">{view === 'full' && <SectionNav activeSection={activeSection} setActiveSection={setActiveSection} sectionRefs={sectionRefs} sections={navSections} accentColor={PROJECT_ACCENT[project.slug] ?? '#2BB5C2'} />}</div>
+          <div className="case-sidebar-nav" style={{ marginBottom: 32 }}><SectionNav activeSection={activeSection} setActiveSection={setActiveSection} sectionRefs={sectionRefs} sections={navSections} accentColor={PROJECT_ACCENT[project.slug] ?? '#2BB5C2'} /></div>
 
           {/* ■ At a glance */}
           <div className="case-sidebar-glance">
@@ -293,17 +274,7 @@ export default function CaseStudy({ project }: { project: Project }) {
             color: 'rgba(0,36,72,0.4)', marginBottom: 24,
           }}>{project.tagline}</p>
 
-          <AnimatePresence mode="wait">
-            {view === 'recruiter' ? (
-              <motion.div key="recruiter" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
-                <RecruiterContent project={project} onReadMore={() => switchView('full')} />
-              </motion.div>
-            ) : (
-              <motion.div key="full" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
-                <FullStoryContent project={project} sectionRefs={sectionRefs} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <FullStoryContent project={project} sectionRefs={sectionRefs} />
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 16, paddingTop: 48, marginTop: 24, borderTop: '1px solid rgba(43,181,194,0.15)' }}>
             <Link href="/#work" style={{

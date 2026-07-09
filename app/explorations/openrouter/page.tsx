@@ -1,37 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './openrouter.css'
 
-const OR_PURPLE = '#6C47FF'
-const OR_NAVY = '#002448'
-
-// ── Case-study-shell view toggle, matches the pill used on other case studies ──
-function ORViewToggle({ view, setView }: { view: 'recruiter' | 'full'; setView: (v: 'recruiter' | 'full') => void }) {
-  return (
-    <div style={{ display: 'inline-flex', alignItems: 'center', padding: 4, background: 'rgba(0,36,72,0.03)', borderRadius: 999, border: `1px solid rgba(108,71,255,0.18)`, gap: 2 }}>
-      {(['recruiter', 'full'] as const).map(v => (
-        <button key={v} onClick={() => setView(v)} style={{
-          padding: '8px 14px', borderRadius: 999, border: 'none', cursor: 'pointer',
-          fontFamily: 'var(--font-label), sans-serif',
-          fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase' as const, fontWeight: 600,
-          transition: 'all 0.2s ease',
-          background: view === v ? OR_NAVY : 'transparent',
-          color: view === v ? '#F8F8F7' : 'rgba(0,36,72,0.45)',
-        }}>
-          {v === 'recruiter' ? 'Quick read' : 'Full story'}
-        </button>
-      ))}
-    </div>
-  )
-}
-
 export default function OpenRouterPage() {
-  const [view, setView] = useState<'recruiter' | 'full'>('recruiter')
-
   useEffect(() => {
     // Tabler icons
     const iconLink = document.createElement('link')
@@ -397,102 +372,7 @@ def support_bot(user_message, history):
         <span style={{ fontSize: '12px', color: '#6B7280', lineHeight: 1.5 }}>A single API giving developers access to 500+ AI models from 60+ providers. One key, one endpoint. Gives you access to everything but guides you on nothing. That&rsquo;s what this project is about.</span>
       </div>
 
-      {/* ── QUICK READ, matches the case-study shell used elsewhere (sidebar + stat bar) ── */}
-      {view === 'recruiter' && (
-        <div style={{ background: 'var(--color-bg, #FAFAF8)', minHeight: '100vh' }}>
-          <div style={{ maxWidth: 1100, margin: '0 auto', padding: 'clamp(48px, 6vh, 80px) clamp(24px, 5vw, 60px) 100px', display: 'flex', gap: 60, alignItems: 'flex-start' }}>
-
-            {/* Sidebar */}
-            <aside style={{ width: 220, flexShrink: 0, position: 'sticky', top: 90 }}>
-              <Link href="/#explorations" style={{
-                display: 'flex', alignItems: 'center', gap: 6,
-                fontFamily: 'var(--font-label), sans-serif', fontSize: 13, letterSpacing: '0.07em', textTransform: 'uppercase' as const,
-                color: 'rgba(0,36,72,0.45)', textDecoration: 'none', marginBottom: 28,
-              }}>← Back</Link>
-
-              <div style={{ marginBottom: 32 }}>
-                <ORViewToggle view={view} setView={setView} />
-              </div>
-
-              <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.35)', marginBottom: 16 }}>■ At a glance</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 28 }}>
-                {[
-                  { label: 'Company',  value: 'OpenRouter (concept)' },
-                  { label: 'Year',     value: '2026' },
-                  { label: 'Duration', value: 'Solo build' },
-                  { label: 'Role',     value: 'Product Designer' },
-                  { label: 'Status',   value: 'Live Prototype' },
-                ].map(({ label, value }) => (
-                  <div key={label}>
-                    <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.35)', marginBottom: 3 }}>{label}</p>
-                    <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 16, fontWeight: 500, color: OR_NAVY, lineHeight: 1.4 }}>{value}</p>
-                  </div>
-                ))}
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                {['Figma', 'Cursor', 'Claude'].map(tool => (
-                  <span key={tool} style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 11, fontWeight: 600, color: OR_NAVY, background: 'rgba(108,71,255,0.08)', border: '1px solid rgba(108,71,255,0.18)', borderRadius: 8, padding: '6px 10px' }}>{tool}</span>
-                ))}
-              </div>
-            </aside>
-
-            {/* Main */}
-            <main style={{ flex: 1, minWidth: 0 }}>
-              <h1 style={{
-                fontFamily: 'var(--font-display), Georgia, serif', fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 300, fontStyle: 'italic',
-                color: OR_NAVY, lineHeight: 1.08, letterSpacing: '-0.03em', marginBottom: 16,
-              }}>OpenRouter has 500 models. I still couldn&apos;t pick one.</h1>
-              <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 14, letterSpacing: '0.09em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginBottom: 40 }}>Model Recommendation Wizard</p>
-
-              {/* Stat bar */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0, marginBottom: 40, borderRadius: 14, overflow: 'hidden', border: `1px solid rgba(108,71,255,0.18)` }}>
-                {[
-                  { value: '500+', label: 'Models covered' },
-                  { value: '4',    label: 'Questions to a match' },
-                  { value: 'Live', label: 'Working prototype' },
-                ].map(({ value, label }, i) => (
-                  <div key={label} style={{ padding: '20px 24px', background: i % 2 === 0 ? 'rgba(0,36,72,0.03)' : 'rgba(108,71,255,0.05)', borderRight: i < 2 ? `1px solid rgba(108,71,255,0.18)` : 'none' }}>
-                    <p style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 'clamp(20px, 2.2vw, 28px)', fontWeight: 700, color: OR_NAVY, margin: '0 0 4px' }}>{value}</p>
-                    <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', margin: 0 }}>{label}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Problem / What I did / Outcome */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, background: 'rgba(108,71,255,0.12)', borderRadius: 12, overflow: 'hidden', marginBottom: 40 }}>
-                {[
-                  { label: 'The problem', text: 'OpenRouter gives developers access to 500+ AI models from 60+ providers through one API, but zero guidance on which model actually fits their use case, budget, or prompt length.' },
-                  { label: 'What I did',  text: 'Designed a four-question recommendation wizard that takes a developer from "I need AI" to a working, copy-pasteable API call, with a fallback model chain built in.' },
-                  { label: 'The outcome', text: 'A live, working prototype: pick your use case, quality bar, volume, and prompt length, get a specific model recommendation and ready-to-run code in Node, Python, or curl.' },
-                ].map(({ label, text }) => (
-                  <div key={label} style={{ background: '#FFFFFF', padding: '28px 24px' }}>
-                    <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', marginBottom: 12 }}>{label}</p>
-                    <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 15, color: OR_NAVY, lineHeight: 1.7 }}>{text}</p>
-                  </div>
-                ))}
-              </div>
-
-              <button onClick={() => setView('full')} style={{
-                display: 'inline-flex', alignItems: 'center', gap: 10,
-                padding: '14px 28px', borderRadius: 999, border: 'none', cursor: 'pointer',
-                background: OR_NAVY, color: '#FFFFFF',
-                fontFamily: 'var(--font-label), sans-serif', fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase' as const, fontWeight: 600,
-              }}>
-                Read the full story <span style={{ fontSize: 16 }}>→</span>
-              </button>
-            </main>
-          </div>
-        </div>
-      )}
-
-      {/* ── FULL STORY, the existing rich page, unchanged, DOM always present so the wizard's effects never lose their elements ── */}
-      <div style={{ display: view === 'full' ? 'block' : 'none' }}>
       <div className="or-page" style={{ paddingTop: 0 }}>
-
-        {/* Quick-read toggle, visible while in the full story so it's easy to jump back */}
-        <div style={{ position: 'sticky', top: 74, zIndex: 40, display: 'flex', justifyContent: 'flex-end', padding: '14px 40px 0' }}>
-          <ORViewToggle view={view} setView={setView} />
-        </div>
 
         {/* ── VERTICAL SCROLLSPY NAV ──────────────────── */}
         <nav className="v-nav" aria-label="Page sections">
@@ -515,7 +395,7 @@ def support_bot(user_message, history):
         {/* ── HERO ────────────────────────────────────── */}
         <section className="hero" id="hero">
           <div className="container">
-            <Link href="/#explorations" className="back-link">← Back to explorations</Link>
+            <Link href="/#work" className="back-link" onClick={() => sessionStorage.setItem('skipIntro', '1')}>← Back to work</Link>
             <p className="eyebrow">Product Design · Concept · OpenRouter</p>
             <h1 className="hero-title">OpenRouter has 500&nbsp;models.<br />I still couldn&apos;t pick one.</h1>
             <p className="hero-sub">So I designed a wizard that does the picking. Four questions, one recommendation, copy-paste code to ship.</p>
@@ -972,7 +852,6 @@ def support_bot(user_message, history):
         {/* FAB */}
         <button className="fab" id="fab" aria-label="Try the prototype">Try the prototype ↗</button>
 
-      </div>
       </div>
     </>
   )
