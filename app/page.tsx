@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CustomEase } from 'gsap/CustomEase'
-import IntroCurtain from '@/components/IntroCurtain'
 import './home.css'
 
 const BirdScene = dynamic(() => import('@/components/BirdScene'), { ssr: false })
@@ -511,8 +510,6 @@ export default function HomePage() {
   return (
     <>
       <BirdScene />
-      {/* Intro curtain — built-live experience, lifts to reveal the hero */}
-      <IntroCurtain onComplete={() => runHeroRef.current?.()} />
 
       {/* Scroll progress */}
       <div id="progress-bar"></div>
