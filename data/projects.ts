@@ -62,7 +62,7 @@ export const projects: Project[] = [
     coverTextColor: 'text-roasted',
     coverGradient: 'linear-gradient(135deg, #C5C9E8 0%, #9BA8D4 60%, #7B8EC8 100%)',
     stats: [
-      { value: '2hrs → 30min', label: 'Time to process résumés' },
+      { value: '2 hrs → 30 min', label: 'Time to process résumés' },
       { value: '+130 hires', label: 'Attributed to redesign' },
       { value: '3 upload modes', label: 'Single · Bulk · CSV' },
       { value: '0 duplicates', label: 'Automated detection' },

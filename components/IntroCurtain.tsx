@@ -271,7 +271,7 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
           <div className="real-sub" style={{
             position: 'absolute', top: 0, left: 0, fontFamily: "'Satoshi', sans-serif",
             fontSize: 'clamp(13px, 1.3vw, 17px)', fontWeight: 400, fontStyle: 'italic', color: 'rgba(13,13,13,0.5)',
-          }}>Product designer</div>
+          }}>Product Designer</div>
         </div>
         <div className="wf-dim wf-dim-tick" style={{
           position: 'absolute', left: 0, bottom: -2, width: 560, height: 1,

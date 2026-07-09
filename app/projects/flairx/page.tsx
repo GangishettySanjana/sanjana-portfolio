@@ -15,7 +15,7 @@ const FX = {
   case1:        '/flairx/decision-1.png',
   case2:        '/flairx/decision-2.png',
   entryPoint:   '/flairx/Screenshot%202025-12-08%20at%2011.07.15%20AM%201.jpg',
-  singleUpload: '/flairx/bulk upload.png',
+  singleUpload: '/flairx/single-upload-flow.png',
   bulkUpload:   '/flairx/bulk-upload-1.png',
   csvUpload:    '/flairx/csv-upload.png',
   edgeCase1:    '/flairx/mixed-uploads.png',
@@ -470,8 +470,8 @@ export default function FlairXPage() {
             <p className="fx-eyebrow">Product Design · Live Product · FlairX AI</p>
             <h1 className="fx-hero-title" style={{ whiteSpace: 'nowrap' }}>Redesigning the Recruiter Workflow</h1>
             <p className="fx-hero-sub">
-              Recruiters at FlairX were spending half a day just getting candidates into the system.
-              I redesigned the intake flow across all three upload paths until that dropped to 30 minutes.
+              Recruiters at FlairX were spending 2 hrs just getting candidates into the system.
+              I redesigned the intake flow across all three upload paths until that dropped to 30 min.
             </p>
 
             <div className="fx-summary-card">
@@ -938,8 +938,8 @@ export default function FlairXPage() {
               {[
                 {
                   num: '01',
-                  metric: '2 hrs → ~30 mins',
-                  desc: 'Processing a batch of résumés went from half a day to a coffee break.',
+                  metric: '2 hrs → 30 min',
+                  desc: 'Processing a batch of résumés went from 2 hrs to a coffee break.',
                 },
                 {
                   num: '02',

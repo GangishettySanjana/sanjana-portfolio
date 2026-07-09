@@ -1977,7 +1977,7 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
         <h2 className="fx-sec-title">It all worked out, and with an impact.</h2>
         <div className="fx-outcomes">
           {[
-            { num: '01', metric: '2 hrs → ~30 mins', desc: 'Time to process a batch of résumés went from half a day to a coffee break.' },
+            { num: '01', metric: '2 hrs → 30 min', desc: 'Time to process a batch of résumés went from 2 hrs to a coffee break.' },
             { num: '02', metric: 'Duplicate profiles eliminated', desc: 'System caught repeated entries before they entered the pipeline.' },
             { num: '03', metric: 'Data accuracy improved', desc: 'Inline validation meant fields were complete and correct before submission.' },
             { num: '04', metric: 'Recruiter confidence up', desc: 'Bulk uploads became predictable, no more dreading high-volume intake days.' },

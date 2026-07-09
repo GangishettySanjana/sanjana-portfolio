@@ -591,7 +591,7 @@ export default function HomePage() {
           <div className="hero-photo" id="hPhoto">
             <img
               src="/images/sanjana-hero.png"
-              alt="Sanjana Gangishetty"
+              alt="Portrait of Sanjana Gangishetty, Product Designer"
               onError={(e) => {
                 const img = e.target as HTMLImageElement
                 img.style.display = 'none'
@@ -599,7 +599,7 @@ export default function HomePage() {
                 if (next) next.style.display = 'flex'
               }}
             />
-            <div className="photo-placeholder" style={{display:'none'}}>Your photo<br/>343 × 359</div>
+            <div className="photo-placeholder" style={{display:'none'}}>Sanjana Gangishetty</div>
           </div>
           <div className="scroll-cue" id="scrollCue">
             <span>Scroll</span>
@@ -636,13 +636,18 @@ export default function HomePage() {
                     <p className="card-desc">Designed the upload and review experience so recruiters could filter hundreds of applicants down to the ones worth an interview, without losing their minds.</p>
                     <div className="card-stats">
                       <div className="stat">
-                        <span className="stat-val">4h→30m</span>
+                        <span className="stat-val">2 hrs → 30 min</span>
                         <span className="stat-label">Workflow time</span>
                       </div>
-                      <div className="stat">
+                      <Link
+                        href="/projects/flairx#impact"
+                        className="stat"
+                        title="Founder-reported, from pipeline data. The redesign owns the intake, not the hiring call. See the impact section for the full context."
+                        style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+                      >
                         <span className="stat-val" data-count="130" data-prefix="+">+130</span>
-                        <span className="stat-label">Hires attributed</span>
-                      </div>
+                        <span className="stat-label" style={{ borderBottom: '1px dotted currentColor', width: 'fit-content' }}>Hires attributed</span>
+                      </Link>
                       <div className="stat">
                         <span className="stat-val" data-count="3">3</span>
                         <span className="stat-label">Upload modes</span>
@@ -991,7 +996,7 @@ export default function HomePage() {
               <div className="about-photo-wrap">
                 <img
                   src="/images/sanjana.jpg"
-                  alt="Sanjana at CU Boulder"
+                  alt="Sanjana Gangishetty at CU Boulder"
                   onError={(e) => {
                     const img = e.target as HTMLImageElement
                     img.style.display = 'none'
@@ -999,7 +1004,7 @@ export default function HomePage() {
                     if (next) next.style.display = 'flex'
                   }}
                 />
-                <span className="about-photo-ph" style={{display:'none'}}>Your photo here</span>
+                <span className="about-photo-ph" style={{display:'none'}}>Sanjana Gangishetty</span>
               </div>
             </div>
 
