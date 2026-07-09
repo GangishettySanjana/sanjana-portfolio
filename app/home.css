@@ -11,7 +11,7 @@
   --body:       'Satoshi', sans-serif;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden; color: #000; }
 
 /* ── REDUCED MOTION ── content is already visible by default (see rest of
@@ -131,6 +131,11 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   border: 1px solid rgba(0,0,0,0.1);
   border-radius: 999px;
   padding: 3px 10px;
+}
+.hero-proof {
+  font-family: var(--body); font-size: 13px; font-weight: 500;
+  color: rgba(0,0,0,0.45); letter-spacing: -0.005em;
+  margin-top: 14px;
 }
 .hero-btn-primary:hover { opacity: 0.82; transform: translateY(-2px); }
 .hero-btn-primary .arrow { display: inline-block; transition: transform 0.2s; }

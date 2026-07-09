@@ -78,7 +78,7 @@ const timeline = [
   },
   {
     year: '2025',
-    title: 'MS, Information and Learning Technologies.',
+    title: 'MS, Human-Computer Interaction.',
     whisper: 'Five years. Two countries. One direction.',
     detail: 'FlairX, Fireside Interactive, GetUp. AI recruiter workflows, a wildfire simulation exhibit, a celebrity product launch. Graduated. The work spread across a lot of industries, but it kept circling back to the same question: what does this person actually need?',
     tag: 'Education',
@@ -634,7 +634,7 @@ export default function AboutPage() {
               >
                 Let&apos;s talk →
               </a>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" style={{
+              <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
                 padding: '13px 28px', borderRadius: 999,
                 border: '1.5px solid rgba(0,0,0,0.18)', color: '#111',

@@ -83,7 +83,7 @@ export default function Navigation() {
       >
         {/* Desktop nav */}
         <nav
-          className="hidden md:flex"
+          className="hidden lg:flex"
           style={{
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -112,6 +112,8 @@ export default function Navigation() {
                   setMusicPlaying(true)
                 }
               }}
+              title={musicPlaying ? 'Pause background music' : 'Play background music'}
+              aria-label={musicPlaying ? 'Pause background music' : 'Play background music'}
               style={{
                 display: 'flex', alignItems: 'center', gap: 6,
                 background: 'none', border: 'none', cursor: 'pointer',
@@ -190,7 +192,7 @@ export default function Navigation() {
 
         {/* Mobile header */}
         <div
-          className="flex md:hidden"
+          className="flex lg:hidden"
           style={{
             width: '100%',
             alignItems: 'center',

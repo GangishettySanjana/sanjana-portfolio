@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { Fraunces, Playfair_Display, Ysabeau_Infant, Space_Grotesk, Outfit } from 'next/font/google'
 import Navigation from '@/components/Navigation'
-import ChatWidget from '@/components/ChatWidget'
 import './globals.css'
 
 // DISPLAY — Fraunces: variable optical-size serif, expressive at large sizes, sturdy small
@@ -88,8 +87,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navigation />
         {children}
         <Analytics />
-        {/* In-house chat assistant — knowledge auto-built from data/projects.ts */}
-        <ChatWidget />
       </body>
     </html>
   )

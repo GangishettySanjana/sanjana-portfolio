@@ -551,8 +551,9 @@ export default function HomePage() {
             </div>
             <div className="hero-cta-row" id="hCta">
               <a href="#work" className="hero-btn-primary">See my work <span className="arrow">→</span></a>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="hero-btn-secondary">Resume ↗</a>
+              <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="hero-btn-secondary">Resume ↗</a>
             </div>
+            <p className="hero-proof">Recruiters spent 2 hrs just getting candidates into the system. I got it to 30 minutes.</p>
           </div>
           <div className="hero-photo" id="hPhoto">
             <img
@@ -849,7 +850,7 @@ export default function HomePage() {
 
               <div className="about-btns" id="aboutBtns">
                 <Link href="/about" className="about-btn-dark">Full Story →</Link>
-                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="about-btn-outline">Resume ↗</a>
+                <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="about-btn-outline">Resume ↗</a>
               </div>
             </div>
 
@@ -901,7 +902,7 @@ export default function HomePage() {
             <div className="connect-btns" id="conBtns">
               <a href="mailto:gangishettysanjana084@gmail.com" className="con-btn-primary">Email me ↗</a>
               <a href="https://www.linkedin.com/in/sanjana-gangishetty" target="_blank" rel="noopener noreferrer" className="con-btn-ghost">LinkedIn ↗</a>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="con-btn-ghost">Resume ↗</a>
+              <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="con-btn-ghost">Resume ↗</a>
             </div>
 
           </div>
