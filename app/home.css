@@ -383,9 +383,9 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   font-family: var(--head); font-size: 15px; font-weight: 500;
   line-height: 1.5; letter-spacing: -0.005em;
 }
-.bento-tile--project { padding: 0; overflow: hidden; justify-content: flex-end; min-height: 200px; position: relative; }
+.bento-tile--project { padding: 0; overflow: hidden; justify-content: flex-end; aspect-ratio: 16 / 9; min-height: unset; position: relative; }
 .bento-project-img { position: absolute; inset: 0; }
-.bento-project-img img { width: 100%; height: 100%; object-fit: cover; }
+.bento-project-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .bento-tile--project .img-placeholder {
   width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
   font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(0,0,0,0.4);
