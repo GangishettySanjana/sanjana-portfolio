@@ -14,6 +14,30 @@
 html { scroll-behavior: smooth; }
 body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden; color: #000; }
 
+/* ── REDUCED MOTION ── content is already visible by default (see rest of
+   this file), this just neutralizes the reveal animations themselves so
+   nothing slides/fades in for users who've asked for less motion. The
+   !important here is intentional: GSAP drives these via inline styles,
+   which a plain override can't beat. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  #hHead .word-inner, .word-inner,
+  #hGreeting, #hBody, #hCta, #hLoc, #hPhoto, #scrollCue,
+  .hero-nameplate, .hero-body, .hero-cta-row, .hero-photo,
+  #workHead, .work-header,
+  .card-title, .card-subtitle, .card-desc, .card-btn, .card-right, .card-top-row, .stat,
+  #recEye, .recognition-eyebrow, #recCard, .recognition-card, .recognition-tag, .recognition-btn,
+  #aboutCard, .about-card, #aboutEye, .about-eyebrow,
+  #aboutB1, #aboutB2, .about-body, .about-info-cell,
+  #aboutBtns, .about-btns, #aboutRight, .about-right,
+  .con-pill, #conSub, .connect-sub, #conBtns, .connect-btns, #conFooter, .connect-footer-row {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 .container {
   width: 100%; max-width: var(--max-w);
   margin: 0 auto; padding: 0 var(--gutter);
@@ -47,7 +71,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 /* Name + location plate at top of hero */
 .hero-nameplate {
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  opacity: 0; transform: translateY(16px);
+  transform: translateY(16px);
 }
 .hero-nameplate-name {
   font-family: var(--body); font-size: 14px; font-weight: 600;
@@ -75,13 +99,13 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 .hero-body {
   font-family: var(--body); font-size: 19px; font-weight: 400;
   color: rgba(0,0,0,0.7); line-height: 1.65; max-width: 540px;
-  opacity: 0; transform: translateY(24px);
+  transform: translateY(24px);
 }
 
 /* Hero CTA — matches page system */
 .hero-cta-row {
   display: flex; align-items: center; gap: 16px;
-  opacity: 0; transform: translateY(20px);
+  transform: translateY(20px);
 }
 .hero-btn-primary {
   display: inline-flex; align-items: center; gap: 8px;
@@ -131,7 +155,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   border: 1px solid #000; overflow: hidden;
   background: #c8d8c0;
   display: flex; align-items: center; justify-content: center;
-  align-self: center; opacity: 0; transform: translateX(40px);
+  align-self: center; transform: translateX(40px);
 }
 
 .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
@@ -143,7 +167,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   display: flex; align-items: flex-end; justify-content: space-between;
   padding-bottom: 56px; border-bottom: 1px solid rgba(0,0,0,0.1);
   margin-bottom: 64px;
-  opacity: 0; transform: translateY(32px);
+  transform: translateY(32px);
 }
 .work-eyebrow { font-family: var(--body); font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,0,0,0.38); margin-bottom: 10px; }
 .work-title { font-family: var(--head); font-size: 44px; font-weight: 800; color: #000; letter-spacing: -0.025em; }
@@ -323,11 +347,11 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 .recognition-eyebrow {
   font-family: var(--body); font-size: 11px; font-weight: 600;
   letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,0,0,0.4);
-  margin-bottom: 20px; opacity: 0; transform: translateY(20px);
+  margin-bottom: 20px; transform: translateY(20px);
 }
 .recognition-card {
   background: #b6c5da; border-radius: 24px; padding: 60px;
-  opacity: 0; transform: translateY(40px);
+  transform: translateY(40px);
   display: flex; gap: 80px; align-items: center;
 }
 .rec-left { flex: 1; }
@@ -347,7 +371,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   padding: 8px 18px;
   font-family: var(--head); font-size: 12px; font-weight: 700;
   color: #1e3d6e; letter-spacing: 0.06em; text-transform: uppercase;
-  opacity: 0; transform: translateY(16px);
+  transform: translateY(16px);
 }
 .recognition-btn {
   display: flex; align-items: center; justify-content: center;
@@ -356,7 +380,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   font-family: var(--head); font-size: 13px; font-weight: 700;
   color: #1e3d6e; text-decoration: none;
   transition: all 0.15s; letter-spacing: 0.03em;
-  opacity: 0; transform: translateY(16px);
+  transform: translateY(16px);
 }
 .recognition-btn:hover { background: #1e3d6e; color: #b6c5da; }
 
@@ -660,7 +684,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   background-color: rgba(240,236,228,0.88);
   border-radius: 60px; padding: 72px 72px;
   position: relative; overflow: hidden;
-  opacity: 0; transform: translateY(32px);
+  transform: translateY(32px);
 }
 .about-card::before {
   content: ''; position: absolute; inset: 0; border-radius: 60px;
@@ -683,7 +707,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   font-family: var(--body); font-size: 11px; font-weight: 600;
   letter-spacing: 0.18em; text-transform: uppercase;
   color: rgba(0,0,0,0.38); margin-bottom: 24px;
-  opacity: 0; transform: translateY(16px);
+  transform: translateY(16px);
 }
 .about-headline {
   font-family: var(--head);
@@ -711,12 +735,12 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   font-family: var(--body); font-size: 18px; font-weight: 400;
   color: rgba(13,13,13,0.7); line-height: 1.85;
   max-width: 620px; margin-bottom: 24px;
-  opacity: 0; transform: translateY(20px);
+  transform: translateY(20px);
 }
 .about-body + .about-body { margin-bottom: 44px; }
 .about-btns {
   display: flex; gap: 12px;
-  opacity: 0; transform: translateY(16px);
+  transform: translateY(16px);
 }
 .about-btn-dark {
   display: inline-flex; align-items: center; gap: 8px;
@@ -740,7 +764,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 /* Right: Photo + status */
 .about-right {
   display: flex; flex-direction: column; gap: 0;
-  opacity: 0; transform: translateX(30px);
+  transform: translateX(30px);
 }
 .about-photo-wrap {
   position: relative; border-radius: 24px; overflow: hidden;
@@ -784,7 +808,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   padding: 16px 18px;
   border-right: 1px solid rgba(0,0,0,0.08);
   border-bottom: 1px solid rgba(0,0,0,0.08);
-  opacity: 0; transform: translateY(12px);
+  transform: translateY(12px);
 }
 /* remove right border on right column */
 .about-info-cell:nth-child(2n) { border-right: none; }
@@ -833,14 +857,14 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   font-family: var(--body); font-size: 15px; line-height: 1.7;
   color: rgba(13,13,13,0.5); margin: 20px auto 0;
   max-width: 380px;
-  opacity: 0; transform: translateY(16px);
+  transform: translateY(16px);
   position: relative; z-index: 2;
 }
 /* CTA buttons row */
 .connect-btns {
   display: flex; align-items: center; justify-content: center;
   gap: 14px; margin-top: 44px;
-  opacity: 0; transform: translateY(16px);
+  transform: translateY(16px);
   position: relative; z-index: 2;
 }
 .con-btn-primary {
@@ -873,7 +897,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   letter-spacing: 0.08em; text-transform: uppercase;
   color: #0d0d0d; white-space: nowrap;
   box-shadow: 0 2px 14px rgba(0,0,0,0.06);
-  opacity: 0; z-index: 1; pointer-events: none;
+  z-index: 1; pointer-events: none;
 }
 /* scattered positions + fun colours */
 .con-pill-1 { top: 10%;  left: 4%;   rotate: -8deg; background: #d4f0a0; border-color: #b8e070; color: #2a5000; }
@@ -891,7 +915,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   display: flex; align-items: center; justify-content: space-between;
   font-family: var(--body); font-size: 12px; color: rgba(0,0,0,0.38);
   letter-spacing: 0.04em;
-  opacity: 0; transform: translateY(8px);
+  transform: translateY(8px);
 }
 
 /* ═══════════════════════════════════════════

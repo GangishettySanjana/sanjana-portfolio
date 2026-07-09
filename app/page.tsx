@@ -172,10 +172,12 @@ export default function HomePage() {
       const image    = card.querySelector('.card-right')
       const topRow   = card.querySelector('.card-top-row')
 
-      // Set initial states on inner elements
-      gsap.set([title, subtitle, desc, btn, topRow], { opacity: 0, y: 28 })
-      gsap.set(stats, { opacity: 0, y: 20 })
-      if (image) gsap.set(image, { opacity: 0, x: 30 })
+      // Set initial states on inner elements. Content stays visible by
+      // default (no opacity:0), the reveal is a positional enhancement
+      // only — if the ScrollTrigger below never fires, nothing is hidden.
+      gsap.set([title, subtitle, desc, btn, topRow], { y: 28 })
+      gsap.set(stats, { y: 20 })
+      if (image) gsap.set(image, { x: 30 })
 
       const st = {
         trigger: card,
