@@ -77,8 +77,8 @@ export default function Navigation() {
           borderBottom: scrolled ? '1px solid rgba(0,0,0,0.06)' : '1px solid rgba(0,0,0,0.04)',
           transition: 'background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease',
         }}
-        initial={{ y: -8, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ y: -8 }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
       >
         {/* Desktop nav */}
