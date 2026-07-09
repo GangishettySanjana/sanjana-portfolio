@@ -26,8 +26,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   #hGreeting, #hBody, #hCta, #hLoc, #hPhoto, #scrollCue,
   .hero-nameplate, .hero-body, .hero-cta-row, .hero-photo,
   #workHead, .work-header,
-  .card-title, .card-subtitle, .card-desc, .card-btn, .card-right, .card-top-row, .stat,
-  #recEye, .recognition-eyebrow, #recCard, .recognition-card, .recognition-tag, .recognition-btn,
+  .card-title, .card-subtitle, .card-desc, .card-hook, .card-btn, .card-right, .card-top-row, .stat,
   #aboutCard, .about-card, #aboutEye, .about-eyebrow,
   #aboutB1, #aboutB2, .about-body, .about-info-cell,
   #aboutBtns, .about-btns, #aboutRight, .about-right,
@@ -232,6 +231,11 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   font-family: var(--body); font-size: 16px; line-height: 1.7;
   opacity: 0.8; margin-bottom: 36px; flex: 1;
 }
+.card-hook {
+  font-family: var(--head); font-size: 19px; font-weight: 500;
+  line-height: 1.45; letter-spacing: -0.01em;
+  opacity: 0.85; margin-bottom: 36px; flex: 1;
+}
 /* Stats row — big numbers */
 .card-stats {
   display: flex; gap: 0;
@@ -342,47 +346,56 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   text-transform: uppercase; color: #C4B5FD; margin-bottom: 14px;
 }
 
-/* ── RECOGNITION ── */
-.recognition-section { background: var(--page-bg); padding: 0 0 100px; position: relative; z-index: 1; }
-.recognition-eyebrow {
+/* ── BEYOND THE CASE STUDIES — quiet bento band ── */
+.beyond-band { margin-top: 64px; padding-top: 56px; border-top: 1px solid rgba(0,0,0,0.1); }
+.beyond-eyebrow {
   font-family: var(--body); font-size: 11px; font-weight: 600;
   letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,0,0,0.4);
-  margin-bottom: 20px; transform: translateY(20px);
+  margin-bottom: 24px;
 }
-.recognition-card {
-  background: #b6c5da; border-radius: 24px; padding: 60px;
-  transform: translateY(40px);
-  display: flex; gap: 80px; align-items: center;
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
 }
-.rec-left { flex: 1; }
-.rec-right { flex: 0 0 240px; display: flex; flex-direction: column; gap: 12px; }
-.recognition-title {
-  font-family: var(--head); font-size: 30px; font-weight: 800;
-  color: #1e3d6e; line-height: 1.3; margin-bottom: 16px; letter-spacing: -0.02em;
-  overflow: hidden;
+.bento-tile {
+  background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px;
+  padding: 24px; display: flex; flex-direction: column; justify-content: center;
+  min-height: 140px; text-decoration: none; color: inherit;
+  transition: border-color 0.2s, transform 0.2s;
 }
-.recognition-desc {
-  font-family: var(--body); font-size: 17px; color: #1e3d6e;
-  line-height: 1.7; margin-bottom: 32px; opacity: 0.85;
+a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px); }
+.bento-tile--stat { align-items: center; justify-content: center; text-align: center; }
+.bento-stat-num {
+  font-family: var(--head); font-size: 48px; font-weight: 800; line-height: 1;
+  margin-bottom: 8px;
 }
-.recognition-tags { display: flex; gap: 10px; flex-wrap: wrap; }
-.recognition-tag {
-  border: 1.5px solid #1e3d6e; border-radius: 999px;
-  padding: 8px 18px;
-  font-family: var(--head); font-size: 12px; font-weight: 700;
-  color: #1e3d6e; letter-spacing: 0.06em; text-transform: uppercase;
-  transform: translateY(16px);
+.bento-stat-label {
+  font-family: var(--body); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase; opacity: 0.55;
 }
-.recognition-btn {
-  display: flex; align-items: center; justify-content: center;
-  border: 2px solid #1e3d6e; border-radius: 10px;
-  padding: 16px 24px;
-  font-family: var(--head); font-size: 13px; font-weight: 700;
-  color: #1e3d6e; text-decoration: none;
-  transition: all 0.15s; letter-spacing: 0.03em;
-  transform: translateY(16px);
+.bento-tag {
+  font-family: var(--body); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.5;
+  margin-bottom: 10px;
 }
-.recognition-btn:hover { background: #1e3d6e; color: #b6c5da; }
+.bento-text {
+  font-family: var(--head); font-size: 15px; font-weight: 500;
+  line-height: 1.5; letter-spacing: -0.005em;
+}
+.bento-tile--project { padding: 0; overflow: hidden; justify-content: flex-end; min-height: 200px; position: relative; }
+.bento-project-img { position: absolute; inset: 0; }
+.bento-project-img img { width: 100%; height: 100%; object-fit: cover; }
+.bento-tile--project .img-placeholder {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(0,0,0,0.4);
+  background: #f0f0ee;
+}
+.bento-tile--project .bento-tag {
+  position: relative; z-index: 1; margin: 0; padding: 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), transparent);
+  color: #fff; opacity: 0.9; width: 100%; box-sizing: border-box;
+}
 
 /* Cursor glow */
 .cursor-glow {
@@ -938,9 +951,6 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   .card-right { min-height: 300px; }
   .card-num-bg { font-size: 160px; }
 
-  /* Recognition — reduce gap on tablet */
-  .recognition-card { gap: 48px; padding: 48px; }
-
   /* About */
   .about-grid { grid-template-columns: 1fr 340px; gap: 48px; }
 
@@ -990,19 +1000,14 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   .card-title        { font-size: 26px; }
   .card-subtitle     { font-size: 15px; }
   .card-desc         { font-size: 14px; }
+  .card-hook         { font-size: 16px; margin-bottom: 24px; }
   .card-num-bg       { font-size: 110px; top: -10px; left: 16px; }
   .card-stats        { gap: 0; }
   .stat-val          { font-size: 18px; }
 
-  /* Recognition — stack vertically on mobile */
-  .recognition-section { padding: 0 0 72px; }
-  .recognition-card {
-    flex-direction: column; gap: 32px; padding: 40px 28px;
-  }
-  .rec-right { flex: none; width: 100%; flex-direction: row; flex-wrap: wrap; gap: 10px; }
-  .recognition-title { font-size: 24px; }
-  .recognition-desc  { font-size: 15px; margin-bottom: 20px; }
-  .recognition-tags  { flex-wrap: wrap; }
+  /* Beyond band — single column on mobile */
+  .beyond-band { margin-top: 48px; padding-top: 40px; }
+  .bento-grid { grid-template-columns: 1fr; }
 
   /* About */
   .about-section { padding: 80px 0 72px; }
@@ -1062,10 +1067,6 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   .card-inner { padding: 24px 16px 28px; }
   .card-stats { flex-wrap: wrap; }
   .stat + .stat { border-left: none; border-top: 1px solid currentColor; padding: 12px 0; }
-
-  /* Recognition extra-small */
-  .recognition-card { padding: 32px 20px; }
-  .rec-right { flex-direction: column; }
 
   /* Pills already hidden via 768px rule above */
 

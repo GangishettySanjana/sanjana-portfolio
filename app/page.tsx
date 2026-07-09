@@ -226,39 +226,6 @@ export default function HomePage() {
     })
 
     /* ─────────────────────────────────────────────
-       10. RECOGNITION
-    ───────────────────────────────────────────── */
-    const recST = { trigger: '#recCard', start: 'top 88%', toggleActions: 'play none none none' }
-
-    gsap.to('#recEye',  { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
-      scrollTrigger: { trigger: '#recEye', start: 'top 92%', toggleActions: 'play none none none' } })
-
-    gsap.to('#recCard', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-      scrollTrigger: recST })
-
-    // Title word reveal inside recognition card
-    ScrollTrigger.create({
-      trigger: '#recCard',
-      start: 'top 84%',
-      toggleActions: 'play none none none',
-      onEnter() {
-        const titleEl = document.querySelector<HTMLElement>('.recognition-title')
-        if (!titleEl) return
-        const recWords = splitWords(titleEl)
-        gsap.to(recWords, { y: '0%', duration: 0.6, ease: 'power4.out', stagger: 0.04 })
-      },
-    })
-
-    gsap.to('.recognition-tag', {
-      opacity: 1, y: 0, duration: 0.45, ease: 'spring', stagger: 0.09,
-      scrollTrigger: { ...recST, start: 'top 82%' },
-    })
-    gsap.to('.recognition-btn', {
-      opacity: 1, y: 0, duration: 0.45, ease: 'spring', stagger: 0.1,
-      scrollTrigger: { ...recST, start: 'top 80%' },
-    })
-
-    /* ─────────────────────────────────────────────
        11. CARD 3D TILT + MAGNETIC BUTTONS
     ───────────────────────────────────────────── */
     document.querySelectorAll<HTMLElement>('.project-card').forEach(card => {
@@ -618,7 +585,7 @@ export default function HomePage() {
               <p className="work-eyebrow">Selected Work</p>
               <h2 className="work-title">Case Studies</h2>
             </div>
-            <p className="work-sub">Four projects. Different problems, same question: why does this feel harder than it should?</p>
+            <p className="work-sub">Three projects. Different problems, same question: why does this feel harder than it should?</p>
           </div>
 
           <div className="cards-wrap">
@@ -628,17 +595,16 @@ export default function HomePage() {
               <div className="card-inner">
                 <div className="card-num-bg">01</div>
                 <div className="card-top-row">
-                  <span className="card-index">01 / 04</span>
-                  <span className="card-category">Product Design · AI Recruiting</span>
+                  <span className="card-index">01 / 03</span>
+                  <span className="card-category">Product design · AI recruiting</span>
                 </div>
                 <div className="card-content-row">
                   <div className="card-left">
                     <h3 className="card-title">FlairX</h3>
-                    <p className="card-subtitle">Redesigning the Recruiter Workflow</p>
-                    <p className="card-desc">Designed the upload and review experience so recruiters could filter hundreds of applicants down to the ones worth an interview, without losing their minds.</p>
+                    <p className="card-hook">Recruiters spent 2 hrs just getting candidates into the system. I got it to 30 minutes.</p>
                     <div className="card-stats">
                       <div className="stat">
-                        <span className="stat-val">2 hrs → 30 min</span>
+                        <span className="stat-val">2h → 30m</span>
                         <span className="stat-label">Workflow time</span>
                       </div>
                       <Link
@@ -648,11 +614,11 @@ export default function HomePage() {
                         style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
                       >
                         <span className="stat-val" data-count="130" data-prefix="+">+130</span>
-                        <span className="stat-label" style={{ borderBottom: '1px dotted currentColor', width: 'fit-content' }}>Hires attributed</span>
+                        <span className="stat-label" style={{ borderBottom: '1px dotted currentColor', width: 'fit-content' }}>Hires sourced</span>
                       </Link>
                       <div className="stat">
                         <span className="stat-val" data-count="3">3</span>
-                        <span className="stat-label">Upload modes</span>
+                        <span className="stat-label">Upload paths</span>
                       </div>
                     </div>
                     <Link href="/projects/flairx" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
@@ -669,14 +635,13 @@ export default function HomePage() {
               <div className="card-inner">
                 <div className="card-num-bg">02</div>
                 <div className="card-top-row">
-                  <span className="card-index">02 / 04</span>
-                  <span className="card-category">Self-Initiated · Live Product</span>
+                  <span className="card-index">02 / 03</span>
+                  <span className="card-category">Self-initiated · live product</span>
                 </div>
                 <div className="card-content-row">
                   <div className="card-left">
                     <h3 className="card-title">The AI Trust Meter</h3>
-                    <p className="card-subtitle">Confidence States for AI Answers</p>
-                    <p className="card-desc">AI tools present wrong answers with the same confidence as right ones. I designed a system that changes how an answer looks based on how grounded it is, then built and deployed it myself with Next.js, Claude, and Cursor.</p>
+                    <p className="card-hook">I designed, built, and shipped a system that shows how grounded an AI answer really is.</p>
                     <div className="card-stats">
                       <div className="stat">
                         <span className="stat-val">3</span>
@@ -684,7 +649,7 @@ export default function HomePage() {
                       </div>
                       <div className="stat">
                         <span className="stat-val">Solo</span>
-                        <span className="stat-label">Designed, built, shipped</span>
+                        <span className="stat-label">Design + build</span>
                       </div>
                       <div className="stat">
                         <span className="stat-val">Live</span>
@@ -705,67 +670,30 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* 03 OpenRouter Model Match */}
-            <div className="project-card card-openrouter">
+            {/* 03 Fireside */}
+            <div className="project-card card-fireside">
               <div className="card-inner">
                 <div className="card-num-bg">03</div>
                 <div className="card-top-row">
-                  <span className="card-index">03 / 04</span>
-                  <span className="card-category">Product Design · Developer Tools</span>
+                  <span className="card-index">03 / 03</span>
+                  <span className="card-category">Interactive exhibit · CU Boulder</span>
                 </div>
                 <div className="card-content-row">
                   <div className="card-left">
-                    <h3 className="card-title">OpenRouter Model Match</h3>
-                    <p className="card-subtitle">500 Models. I Still Couldn&apos;t Pick One.</p>
-                    <p className="card-desc">OpenRouter gives developers access to 500+ AI models, but no guidance on which one to use. I designed a recommendation wizard that takes you from zero context to a working API call in four questions.</p>
+                    <h3 className="card-title">Fireside</h3>
+                    <p className="card-hook">A 3D projected table a 9-year-old understood in 15 seconds, with no instructions.</p>
                     <div className="card-stats">
-                      <div className="stat">
-                        <span className="stat-val">500+</span>
-                        <span className="stat-label">Models covered</span>
-                      </div>
                       <div className="stat">
                         <span className="stat-val">4</span>
-                        <span className="stat-label">Questions to a match</span>
+                        <span className="stat-label">Public events</span>
                       </div>
                       <div className="stat">
-                        <span className="stat-val">Live</span>
-                        <span className="stat-label">Working prototype</span>
-                      </div>
-                    </div>
-                    <Link href="/explorations/openrouter" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
-                  </div>
-                  <div className="card-right">
-                    <img src="/images/openrouter-model-match-card.png" alt="OpenRouter Model Match" style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 04 Fireside */}
-            <div className="project-card card-fireside">
-              <div className="card-inner">
-                <div className="card-num-bg">04</div>
-                <div className="card-top-row">
-                  <span className="card-index">04 / 04</span>
-                  <span className="card-category">Web Design · Education</span>
-                </div>
-                <div className="card-content-row">
-                  <div className="card-left">
-                    <h3 className="card-title">Fireside Interactive</h3>
-                    <p className="card-subtitle">Wildfire Education Platform</p>
-                    <p className="card-desc">Made complex wildfire data legible. Charts and visuals over walls of text, because nobody reads walls of text, especially not in an emergency.</p>
-                    <div className="card-stats">
-                      <div className="stat">
-                        <span className="stat-val">EDU</span>
-                        <span className="stat-label">Tech Platform</span>
+                        <span className="stat-val">8–80</span>
+                        <span className="stat-label">Ages reached</span>
                       </div>
                       <div className="stat">
-                        <span className="stat-val">Data</span>
-                        <span className="stat-label">Visualization</span>
-                      </div>
-                      <div className="stat">
-                        <span className="stat-val">UX</span>
-                        <span className="stat-label">Research Lead</span>
+                        <span className="stat-val">0</span>
+                        <span className="stat-label">Instructions needed</span>
                       </div>
                     </div>
                     <Link href="/projects/fireside" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
@@ -777,132 +705,67 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* ─────────────────────────────────────────────────────────
-                NOT CURRENTLY SHOWN IN MAIN RAIL
-                GetUp and Aura are kept here (code intact, wrapped in
-                {false && ...}) so they can be brought back later without
-                rebuilding. They are not deleted, just not rendered.
-            ───────────────────────────────────────────────────────── */}
-            {false && (
-              <>
-                {/* GetUp */}
-                <div className="project-card card-getup">
-                  <div className="card-inner">
-                    <div className="card-num-bg">05</div>
-                    <div className="card-top-row">
-                      <span className="card-index">05 / 05</span>
-                      <span className="card-category">Brand Design · E-Commerce</span>
-                    </div>
-                    <div className="card-content-row">
-                      <div className="card-left">
-                        <h3 className="card-title">GetUp Nutrition</h3>
-                        <p className="card-subtitle">Pre-Launch Campaign &amp; Pop-Up</p>
-                        <p className="card-desc">Three weeks. No copywriter, no brand guidelines, one celebrity backer. I derived the voice, wrote the copy, and designed the pre-order pop-up from zero.</p>
-                        <div className="card-stats">
-                          <div className="stat">
-                            <span className="stat-val">3wks</span>
-                            <span className="stat-label">Timeline</span>
-                          </div>
-                          <div className="stat">
-                            <span className="stat-val">Solo</span>
-                            <span className="stat-label">Designer + Copywriter</span>
-                          </div>
-                          <div className="stat">
-                            <span className="stat-val">0→1</span>
-                            <span className="stat-label">Brand identity</span>
-                          </div>
-                        </div>
-                        <Link href="/projects/getup" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
-                      </div>
-                      <div className="card-right">
-                        <img
-                          src="/images/getup.png"
-                          alt="GetUp"
-                          style={{width:'100%',height:'100%',objectFit:'cover'}}
-                          onError={(e) => {
-                            const img = e.target as HTMLImageElement
-                            img.style.display = 'none'
-                            const next = img.nextElementSibling as HTMLElement
-                            if (next) next.style.display = 'flex'
-                          }}
-                        />
-                        <div className="img-placeholder" style={{display:'none'}}>GetUp project image</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Aura */}
-                <div className="project-card card-aura">
-                  <div className="card-inner">
-                    <div className="card-num-bg">06</div>
-                    <div className="card-top-row">
-                      <span className="card-index">06 / 05</span>
-                      <span className="card-category">Mobile App · E-commerce</span>
-                    </div>
-                    <div className="card-content-row">
-                      <div className="card-left">
-                        <h3 className="card-title">Aura</h3>
-                        <p className="card-subtitle">Gifting Experience Platform</p>
-                        <p className="card-desc">A personalized floral and gifting app that cuts through decision fatigue and long queues. Designed end-to-end for a Hyderabad florist as part of the Google UX Certificate.</p>
-                        <div className="card-stats">
-                          <div className="stat">
-                            <span className="stat-val">Mobile</span>
-                            <span className="stat-label">Platform</span>
-                          </div>
-                          <div className="stat">
-                            <span className="stat-val">3×</span>
-                            <span className="stat-label">Usability rounds</span>
-                          </div>
-                          <div className="stat">
-                            <span className="stat-val">Google</span>
-                            <span className="stat-label">UX Certificate</span>
-                          </div>
-                        </div>
-                        <Link href="/projects/aura" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
-                      </div>
-                      <div className="card-right">
-                        <img
-                          src="/images/aura.png"
-                          alt="Aura"
-                          style={{width:'100%',height:'100%',objectFit:'cover'}}
-                          onError={(e) => {
-                            const img = e.target as HTMLImageElement
-                            img.style.display = 'none'
-                            const next = img.nextElementSibling as HTMLElement
-                            if (next) next.style.display = 'flex'
-                          }}
-                        />
-                        <div className="img-placeholder" style={{display:'none'}}>Aura app screenshots</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-
           </div>
-        </div>
-      </section>
 
-      {/* RECOGNITION */}
-      <section className="recognition-section">
-        <div className="container">
-          <p className="recognition-eyebrow" id="recEye">Recognition</p>
-          <div className="recognition-card" id="recCard">
-            <div className="rec-left">
-              <h2 className="recognition-title">Finalist: Women in Product × Lovable Hackathon 2026</h2>
-              <p className="recognition-desc">Built a working referral network for the WIP community in one sprint, designed to make cold referral requests feel less awkward and more human. Team of 5. Shipped, presented, placed.</p>
-              <div className="recognition-tags">
-                <span className="recognition-tag">Lovable</span>
-                <span className="recognition-tag">AI-Assisted</span>
-                <span className="recognition-tag">48 hrs</span>
-                <span className="recognition-tag">Team of 5</span>
+          {/* ── Beyond the case studies — quieter bento band ── */}
+          <div className="beyond-band">
+            <p className="beyond-eyebrow">Beyond the case studies</p>
+            <div className="bento-grid">
+
+              <div className="bento-tile bento-tile--stat">
+                <span className="bento-stat-num">5</span>
+                <span className="bento-stat-label">Case studies</span>
               </div>
-            </div>
-            <div className="rec-right">
-              <a href="https://id-preview--e94c1759-cb49-4560-bae0-cee815c16b13.lovable.app" target="_blank" rel="noopener noreferrer" className="recognition-btn">View Project Deck</a>
-              <a href="https://wip-spark-connect.lovable.app" target="_blank" rel="noopener noreferrer" className="recognition-btn">View Website</a>
+
+              <div className="bento-tile bento-tile--text">
+                <p className="bento-tag">Currently building</p>
+                <p className="bento-text">Learning to build real things with Claude Code. A designer who can now ship her own ideas without waiting on anyone.</p>
+              </div>
+
+              <a className="bento-tile bento-tile--project" href="/projects/getup">
+                <div className="bento-project-img">
+                  <img
+                    src="/images/getup.png"
+                    alt="GetUp"
+                    onError={(e) => {
+                      const img = e.target as HTMLImageElement
+                      img.style.display = 'none'
+                      const next = img.nextElementSibling as HTMLElement
+                      if (next) next.style.display = 'flex'
+                    }}
+                  />
+                  <div className="img-placeholder" style={{display:'none'}}>GetUp</div>
+                </div>
+                <p className="bento-tag">Brand · GetUp</p>
+              </a>
+
+              <a className="bento-tile bento-tile--project" href="/projects/aura">
+                <div className="bento-project-img">
+                  <img
+                    src="/images/aura.png"
+                    alt="Aura"
+                    onError={(e) => {
+                      const img = e.target as HTMLImageElement
+                      img.style.display = 'none'
+                      const next = img.nextElementSibling as HTMLElement
+                      if (next) next.style.display = 'flex'
+                    }}
+                  />
+                  <div className="img-placeholder" style={{display:'none'}}>Aura</div>
+                </div>
+                <p className="bento-tag">Mobile app · Aura</p>
+              </a>
+
+              <a className="bento-tile bento-tile--text" href="/projects/sparkconnect">
+                <p className="bento-tag">Finalist · WIP × Lovable</p>
+                <p className="bento-text">Built a working referral network for the Women in Product community in one 48-hour sprint. Team of 5, shipped and placed.</p>
+              </a>
+
+              <div className="bento-tile bento-tile--text">
+                <p className="bento-tag">On my mind</p>
+                <p className="bento-text">Why seamlessness is so rare. Most products get close and then sort of&nbsp;&hellip; stop.</p>
+              </div>
+
             </div>
           </div>
         </div>
