@@ -474,6 +474,15 @@ export default function FlairXPage() {
               I redesigned the intake flow across all three upload paths until that dropped to 30 min.
             </p>
 
+            <div className="cs-hero-figure">
+              <CaseFigure
+                src={FX.entryPoint}
+                alt="FlairX candidate upload screen, the entry point to the redesigned intake flow"
+                variant="plain"
+                maxWidth={880}
+              />
+            </div>
+
             <div className="fx-summary-card">
               <div className="fx-summary-top">
                 <p className="fx-summary-hmw">
@@ -673,6 +682,9 @@ export default function FlairXPage() {
             <Reveal>
             <p className="fx-sec-label">04 · Design Decisions</p>
             <h2 className="fx-sec-title">The four calls that actually mattered.</h2>
+            <p className="fx-hero-sub" style={{ marginBottom: 40 }}>
+              The obvious fix looked like a cleaner form. It wasn&apos;t the problem, and testing it is what proved that.
+            </p>
 
             <div className="fx-ruled-out">
               <span className="fx-ruled-out-label">What I ruled out first</span>
