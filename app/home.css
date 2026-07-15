@@ -360,13 +360,14 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 }
 .bento-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;   /* every tile matches the tallest in its row */
   gap: 16px;
 }
 .bento-tile {
   background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px;
   padding: 24px; display: flex; flex-direction: column; justify-content: center;
-  min-height: 140px; text-decoration: none; color: inherit;
+  min-height: 180px; text-decoration: none; color: inherit;
   transition: border-color 0.2s, transform 0.2s;
 }
 a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px); }
@@ -388,7 +389,19 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   font-family: var(--head); font-size: 15px; font-weight: 500;
   line-height: 1.5; letter-spacing: -0.005em;
 }
-.bento-tile--project { padding: 0; overflow: hidden; justify-content: flex-end; aspect-ratio: 16 / 9; min-height: unset; position: relative; }
+/* Featured tile with an explicit call-to-action (hackathon finalist) */
+.bento-tile--feature { justify-content: flex-start; border-color: rgba(30,93,172,0.28); background: rgba(30,93,172,0.03); }
+.bento-cta {
+  margin-top: auto; padding-top: 16px;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--head); font-size: 12.5px; font-weight: 700;
+  letter-spacing: 0.02em; color: var(--blue); text-decoration: none;
+  transition: gap 0.2s ease;
+}
+.bento-cta:hover { gap: 11px; }
+.bento-cta .cta-arrow { transition: transform 0.2s ease; }
+.bento-cta:hover .cta-arrow { transform: translateX(2px); }
+.bento-tile--project { padding: 0; overflow: hidden; justify-content: flex-end; position: relative; }
 .bento-project-img { position: absolute; inset: 0; }
 .bento-project-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .bento-tile--project .img-placeholder {
@@ -945,6 +958,9 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   .hero-headline { font-size: 38px; }
   .hero-body     { font-size: 16px; }
   .hero-photo    { width: 280px; height: 296px; }
+
+  /* Beyond band — two columns on tablet */
+  .bento-grid { grid-template-columns: repeat(2, 1fr); }
 
   /* Work header */
   .work-title { font-size: 36px; }

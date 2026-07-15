@@ -760,10 +760,11 @@ export default function HomePage() {
                 <p className="bento-tag">Mobile app · Aura</p>
               </a>
 
-              <a className="bento-tile bento-tile--text" href="/projects/sparkconnect">
+              <div className="bento-tile bento-tile--text bento-tile--feature">
                 <p className="bento-tag">Finalist · WIP × Lovable</p>
                 <p className="bento-text">Built a working referral network for the Women in Product community in one 48-hour sprint. Team of 5, shipped and placed.</p>
-              </a>
+                <a className="bento-cta" href="/projects/sparkconnect">View case study <span className="cta-arrow">→</span></a>
+              </div>
 
               <div className="bento-tile bento-tile--text">
                 <p className="bento-tag">On my mind</p>
