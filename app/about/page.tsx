@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import Contact from '@/components/Contact'
 import { JourneyMap } from '@/components/JourneyMap'
@@ -341,14 +341,23 @@ const CARD_BORDER_HOVER = [
   'rgba(74,222,128,0.35)', 'rgba(244,114,182,0.35)', 'rgba(96,165,250,0.35)',
 ]
 
-// ── Horizontal Scroll Timeline ──
-function HorizontalTimeline() {
-  const outerRef = useRef<HTMLDivElement>(null)
-  const stickyRef = useRef<HTMLDivElement>(null)
+// ── Vertical Timeline ──
+// Cards stack down the page along a spine that draws itself as you scroll,
+// with node dots that light up as the progress reaches them. GSAP powers the
+// interactivity, but deliberately NOT the pattern that broke Safari (no pin,
+// no position:sticky, no translateX scroll-jack) — everything here is normal
+// scroll driving scaleY on an in-flow line plus class toggles, which composits
+// correctly in every browser. Cards are fully visible by default; the reveal
+// is a purely positional rise that only enhances (never gates) visibility and
+// is skipped entirely for users who prefer reduced motion.
+function VerticalTimeline() {
+  const reduce = useReducedMotion()
+  const rootRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
-  const progressRef = useRef<HTMLDivElement>(null)
+  const fillRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    if (reduce) return
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let ctx: any = null
 
@@ -357,175 +366,237 @@ function HorizontalTimeline() {
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
       gsap.registerPlugin(ScrollTrigger)
 
-      const outer = outerRef.current
+      const root = rootRef.current
       const track = trackRef.current
-      if (!outer || !track) return
+      const fill = fillRef.current
+      if (!root || !track || !fill) return
 
-      await new Promise<void>(r => setTimeout(r, 200))
+      await new Promise<void>(r => setTimeout(r, 150))
 
-      const totalScroll = track.scrollWidth - window.innerWidth
-      if (totalScroll <= 0) return
+      const dots = Array.from(root.querySelectorAll<HTMLElement>('.vtl-dot'))
+      const reveals = Array.from(root.querySelectorAll<HTMLElement>('.vtl-reveal'))
 
-      // Give outer its total height so the sticky panel has room to scroll
-      outer.style.height = `${window.innerHeight + totalScroll}px`
+      // Spine geometry: run the track from the first node center to the last,
+      // re-measured on every refresh so font/image reflow can't misalign it.
+      let firstC = 0, lastC = 0, centers: number[] = []
+      const measure = () => {
+        const rootTop = root.getBoundingClientRect().top + window.scrollY
+        centers = dots.map(d => {
+          const r = d.getBoundingClientRect()
+          return r.top + window.scrollY - rootTop + r.height / 2
+        })
+        firstC = centers[0] ?? 0
+        lastC = centers[centers.length - 1] ?? 0
+        track.style.top = `${firstC}px`
+        track.style.height = `${Math.max(0, lastC - firstC)}px`
+      }
+      measure()
 
       ctx = gsap.context(() => {
-        // No pin:true — CSS sticky handles viewport locking, GSAP drives x
-        gsap.to(track, {
-          x: -totalScroll,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: outer,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 1.2,
-            onUpdate: (self: { progress: number }) => {
-              if (progressRef.current) {
-                progressRef.current.style.transform = `scaleX(${self.progress})`
-              }
-            },
+        gsap.set(fill, { scaleY: 0, transformOrigin: 'top' })
+
+        ScrollTrigger.create({
+          trigger: root,
+          start: 'top 62%',
+          end: 'bottom 62%',
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+          onRefreshInit: measure,
+          onUpdate: (self: { progress: number }) => {
+            fill.style.transform = `scaleY(${self.progress})`
+            const filledY = firstC + self.progress * (lastC - firstC)
+            dots.forEach((d, i) => {
+              d.classList.toggle('vtl-dot--on', centers[i] <= filledY + 1)
+            })
           },
         })
+
+        // Per-card positional reveal (opacity stays 1 → visible by default).
+        reveals.forEach(el => {
+          gsap.set(el, { y: 30 })
+          gsap.to(el, {
+            y: 0, duration: 0.7, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+            onComplete: () => gsap.set(el, { clearProps: 'transform' }),
+          })
+        })
+      }, root)
+
+      root.querySelectorAll('img').forEach(img => {
+        if (!img.complete) img.addEventListener('load', () => ScrollTrigger.refresh(), { once: true })
       })
     }
 
     init()
     return () => ctx?.revert()
-  }, [])
+  }, [reduce])
 
   return (
-    <div ref={outerRef} style={{ position: 'relative', minHeight: '100vh', background: '#F7F3EE' }}>
-      <div
-        ref={stickyRef}
-        style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', background: '#F7F3EE' }}
-      >
+    <section style={{ position: 'relative', background: '#F7F3EE', padding: 'clamp(64px, 9vw, 120px) 0 clamp(72px, 10vw, 132px)' }}>
       {/* grain */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.35, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
 
-      {/* header bar */}
-      <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10,
-        padding: 'clamp(36px, 4vw, 52px) clamp(40px, 6vw, 80px) 24px',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
-        borderBottom: '1px solid rgba(13,13,13,0.08)',
-      }}>
-        <div>
-          <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.4)', marginBottom: 8, fontWeight: 700 }}>
+      {/* scoped interactive styles */}
+      <style>{`
+        .vtl-dot {
+          transition: transform .35s cubic-bezier(.16,1,.3,1), background .35s, border-color .35s, box-shadow .35s;
+        }
+        .vtl-dot--on {
+          transform: scale(1.25);
+          background: var(--dot) !important;
+          border-color: var(--dot) !important;
+          box-shadow: 0 0 0 5px rgba(var(--dotrgb), 0.16) !important;
+        }
+        .vtl-card {
+          transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s, border-color .35s;
+          will-change: transform;
+        }
+        .vtl-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 22px 48px -26px rgba(13,13,13,0.35);
+          border-color: rgba(var(--dotrgb), 0.4);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .vtl-card, .vtl-dot { transition: none; }
+        }
+      `}</style>
+
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: 920, margin: '0 auto', padding: '0 clamp(24px, 6vw, 64px)' }}>
+        {/* header */}
+        <div style={{ marginBottom: 'clamp(40px, 6vw, 72px)', paddingBottom: 24, borderBottom: '1px solid rgba(13,13,13,0.08)' }}>
+          <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.4)', marginBottom: 10, fontWeight: 700 }}>
             Timeline
           </p>
-          <h2 style={{ fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(28px, 3.5vw, 44px)', color: '#0d0d0d', lineHeight: 1, letterSpacing: '-0.03em', margin: 0 }}>
+          <h2 style={{ fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(30px, 4.5vw, 52px)', color: '#0d0d0d', lineHeight: 1, letterSpacing: '-0.03em', margin: 0 }}>
             The full story.
           </h2>
         </div>
-        <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.1em', color: 'rgba(13,13,13,0.35)', textTransform: 'uppercase' as const, margin: 0 }}>
-          scroll →
-        </p>
-      </div>
 
-      {/* horizontal track */}
-      <div
-        ref={trackRef}
-        style={{
-          display: 'flex',
-          alignItems: 'stretch',
-          height: '100%',
-          paddingTop: 'clamp(120px, 14vw, 158px)',
-          paddingBottom: 56,
-          paddingLeft: 'clamp(40px, 6vw, 80px)',
-          gap: 4,
-          willChange: 'transform',
-        }}
-      >
-        {timeline.map((item, i) => {
-          const color = item.tag === 'Work' ? '#2BB5C2' : item.tag === 'Open' ? '#4ade80' : '#A880D4'
-          const rgb = item.tag === 'Work' ? '43,181,194' : item.tag === 'Open' ? '74,222,128' : '168,128,212'
-          return (
+        {/* items */}
+        <div ref={rootRef} style={{ position: 'relative' }}>
+          {/* animated spine: gray track + colored fill that draws on scroll */}
+          <div ref={trackRef} aria-hidden style={{ position: 'absolute', left: 8, width: 2, background: 'rgba(13,13,13,0.1)', borderRadius: 2, pointerEvents: 'none' }}>
             <div
-              key={`${item.year}-${i}`}
-              className="htl-card"
+              ref={fillRef}
               style={{
-                width: 'clamp(320px, 35vw, 460px)',
-                flexShrink: 0,
-                position: 'relative',
-                background: item.pivot ? 'rgba(168,128,212,0.08)' : '#ffffff',
-                borderRadius: 20,
-                border: item.pivot ? '1px solid rgba(168,128,212,0.25)' : '1px solid rgba(13,13,13,0.07)',
-                overflow: 'hidden',
-                padding: '36px 32px',
+                position: 'absolute', inset: 0, width: 2, borderRadius: 2,
+                background: 'linear-gradient(to bottom, #A880D4 0%, #2BB5C2 55%, #4ade80 100%)',
+                transform: reduce ? 'scaleY(1)' : 'scaleY(0)',
+                transformOrigin: 'top',
               }}
-            >
-              {/* giant watermark year */}
-              <div style={{
-                position: 'absolute', bottom: -20, right: -4,
-                fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800,
-                fontSize: 'clamp(90px, 12vw, 144px)',
-                color: 'rgba(13,13,13,0.05)',
-                lineHeight: 1, letterSpacing: '-0.04em',
-                userSelect: 'none', pointerEvents: 'none',
-              }}>
-                {item.year}
-              </div>
+            />
+          </div>
 
-              {/* pivot glow */}
-              {item.pivot && (
-                <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(168,128,212,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
-              )}
-
-              <div className="htl-inner" style={{ position: 'relative', zIndex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
-                {/* index + tag */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 22 }}>
-                  <span style={{ fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800, fontSize: 11, color: 'rgba(13,13,13,0.25)', letterSpacing: '0.06em' }}>
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span style={{
-                    fontFamily: "'Satoshi', sans-serif", fontSize: 9, fontWeight: 700,
-                    letterSpacing: '0.12em', textTransform: 'uppercase' as const,
-                    padding: '4px 10px', borderRadius: 999,
-                    background: `rgba(${rgb},0.12)`, color,
-                  }}>
-                    {item.tag}
-                  </span>
-                  {item.pivot && (
-                    <span style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 9, color: '#A880D4', letterSpacing: '0.1em', textTransform: 'uppercase' as const, fontWeight: 700, opacity: 0.8 }}>
-                      ↩ pivot
-                    </span>
-                  )}
+          {timeline.map((item, i) => {
+            const color = item.tag === 'Work' ? '#2BB5C2' : item.tag === 'Open' ? '#4ade80' : '#A880D4'
+            const rgb = item.tag === 'Work' ? '43,181,194' : item.tag === 'Open' ? '74,222,128' : '168,128,212'
+            const isLast = i === timeline.length - 1
+            return (
+              <div
+                key={`${item.year}-${i}`}
+                style={{
+                  position: 'relative',
+                  display: 'grid',
+                  gridTemplateColumns: '18px 1fr',
+                  columnGap: 'clamp(20px, 4vw, 40px)',
+                  paddingBottom: isLast ? 0 : 'clamp(28px, 4vw, 52px)',
+                }}
+              >
+                {/* node dot (sits on the spine) */}
+                <div style={{ position: 'relative' }}>
+                  <div
+                    className={`vtl-dot${reduce ? ' vtl-dot--on' : ''}`}
+                    style={{
+                      // custom props feed the active-state CSS
+                      ['--dot' as string]: color,
+                      ['--dotrgb' as string]: rgb,
+                      position: 'absolute', top: 24, left: 2,
+                      width: 14, height: 14, borderRadius: '50%',
+                      background: '#F7F3EE', border: '2px solid rgba(13,13,13,0.22)',
+                    }}
+                  />
                 </div>
 
-                {/* year label */}
-                <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: `rgba(${rgb},0.8)`, marginBottom: 10, fontWeight: 700 }}>
-                  {item.year}
-                </p>
+                {/* reveal wrapper (GSAP animates this) → card (CSS hover) */}
+                <div className="vtl-reveal">
+                  <article
+                    className="vtl-card"
+                    style={{
+                      ['--dotrgb' as string]: rgb,
+                      position: 'relative',
+                      background: item.pivot ? 'rgba(168,128,212,0.08)' : '#ffffff',
+                      borderRadius: 20,
+                      border: item.pivot ? '1px solid rgba(168,128,212,0.25)' : '1px solid rgba(13,13,13,0.07)',
+                      overflow: 'hidden',
+                      padding: 'clamp(28px, 4vw, 40px)',
+                    }}
+                  >
+                    {/* giant watermark year */}
+                    <div style={{
+                      position: 'absolute', bottom: -22, right: -4,
+                      fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800,
+                      fontSize: 'clamp(72px, 11vw, 128px)',
+                      color: 'rgba(13,13,13,0.05)',
+                      lineHeight: 1, letterSpacing: '-0.04em',
+                      userSelect: 'none', pointerEvents: 'none',
+                    }}>
+                      {item.year}
+                    </div>
 
-                {/* title */}
-                <h3 style={{ fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(20px, 2.2vw, 28px)', color: '#0d0d0d', lineHeight: 1.15, letterSpacing: '-0.02em', marginBottom: 12 }}>
-                  {item.title}
-                </h3>
+                    {/* pivot glow */}
+                    {item.pivot && (
+                      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 0% 0%, rgba(168,128,212,0.15) 0%, transparent 60%)', pointerEvents: 'none' }} />
+                    )}
 
-                {/* whisper */}
-                <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 13, fontStyle: 'italic', color, opacity: 0.7, marginBottom: 18, lineHeight: 1.5 }}>
-                  {item.whisper}
-                </p>
+                    <div style={{ position: 'relative', zIndex: 1 }}>
+                      {/* index + tag */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18, flexWrap: 'wrap' }}>
+                        <span style={{ fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800, fontSize: 11, color: 'rgba(13,13,13,0.25)', letterSpacing: '0.06em' }}>
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <span style={{
+                          fontFamily: "'Satoshi', sans-serif", fontSize: 9, fontWeight: 700,
+                          letterSpacing: '0.12em', textTransform: 'uppercase' as const,
+                          padding: '4px 10px', borderRadius: 999,
+                          background: `rgba(${rgb},0.12)`, color,
+                        }}>
+                          {item.tag}
+                        </span>
+                        {item.pivot && (
+                          <span style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 9, color: '#A880D4', letterSpacing: '0.1em', textTransform: 'uppercase' as const, fontWeight: 700, opacity: 0.8 }}>
+                            ↩ pivot
+                          </span>
+                        )}
+                      </div>
 
-                {/* detail */}
-                <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 14, color: 'rgba(13,13,13,0.55)', lineHeight: 1.75, margin: 0, flex: 1 }}>
-                  {item.detail}
-                </p>
+                      {/* year label */}
+                      <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: `rgba(${rgb},0.85)`, marginBottom: 10, fontWeight: 700 }}>
+                        {item.year}
+                      </p>
+
+                      {/* title */}
+                      <h3 style={{ fontFamily: "'Cabinet Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(21px, 2.6vw, 30px)', color: '#0d0d0d', lineHeight: 1.15, letterSpacing: '-0.02em', marginBottom: 12, textWrap: 'balance' }}>
+                        {item.title}
+                      </h3>
+
+                      {/* whisper */}
+                      <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 13, fontStyle: 'italic', color, opacity: 0.75, marginBottom: 16, lineHeight: 1.5 }}>
+                        {item.whisper}
+                      </p>
+
+                      {/* detail */}
+                      <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 'clamp(14px, 1.1vw, 15px)', color: 'rgba(13,13,13,0.62)', lineHeight: 1.75, margin: 0, maxWidth: '62ch' }}>
+                        {item.detail}
+                      </p>
+                    </div>
+                  </article>
+                </div>
               </div>
-            </div>
-          )
-        })}
-
-        {/* end spacer */}
-        <div style={{ width: 'clamp(40px, 6vw, 80px)', flexShrink: 0 }} />
+            )
+          })}
+        </div>
       </div>
-
-      {/* progress bar */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, background: 'rgba(13,13,13,0.1)', zIndex: 10 }}>
-        <div ref={progressRef} style={{ height: '100%', background: '#A880D4', transformOrigin: 'left', transform: 'scaleX(0)' }} />
-      </div>
-      </div>{/* end sticky */}
-    </div>
+    </section>
   )
 }
 
@@ -652,7 +723,7 @@ export default function AboutPage() {
         </section>
 
         {/* ── Horizontal scroll timeline ── */}
-        <HorizontalTimeline />
+        <VerticalTimeline />
 
         {/* ── How I work: light ── */}
         <section className="about-page-section" style={{ background: '#F7F3EE', padding: 'clamp(72px, 8vw, 112px) clamp(32px, 7vw, 96px)', overflow: 'hidden', position: 'relative' }}>
