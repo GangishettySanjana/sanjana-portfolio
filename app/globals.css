@@ -678,6 +678,18 @@ aside::-webkit-scrollbar { display: none; }
   margin-left: 0;
 }
 
+/* Clean bold sans headings on case-study pages — override the old
+   calligraphic italic serif treatment set inline. !important wins over
+   the inline font-style/weight without needing to edit every heading. */
+.case-layout h1,
+.case-layout h2,
+.case-layout h3,
+.case-section-heading {
+  font-style: normal !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+}
+
 /* ─────────────────────────────────────────────────
    RESUME PAGE
 ───────────────────────────────────────────────── */

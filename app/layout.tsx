@@ -1,23 +1,21 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
-import { Fraunces, Playfair_Display, Source_Sans_3, Space_Grotesk, Outfit } from 'next/font/google'
+import { Source_Sans_3, Space_Grotesk, Outfit } from 'next/font/google'
 import Navigation from '@/components/Navigation'
 import './globals.css'
 
-// DISPLAY — Fraunces: variable optical-size serif, expressive at large sizes, sturdy small
-const displayFont = Fraunces({
+// DISPLAY — Space Grotesk: clean structured grotesk, bold and modern (no serif curves)
+const displayFont = Space_Grotesk({
   subsets: ['latin'],
-  style: ['normal', 'italic'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-display',
   display: 'swap',
 })
 
-// HEADINGS — replaces Hatton until font files are acquired
-// To swap: use next/font/local pointing to your Hatton .woff2 files
-const headingFont = Playfair_Display({
+// HEADINGS — Space Grotesk as well, for one coherent heading voice
+const headingFont = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
-  style: ['normal', 'italic'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-heading',
   display: 'swap',
 })
