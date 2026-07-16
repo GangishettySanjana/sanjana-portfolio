@@ -673,6 +673,12 @@ function AITrustMeterContent({ project, sectionRefs }: { project: Project; secti
         {eyebrow('04', 'The Design System')}
         {heading('Three variants. One coherent system.')}
         {body('Each confidence state is a complete variant: distinct card surface, chip, source treatment, and action row, all derived from the same token set so they feel like a family, not three separate components.')}
+        <figure style={{ margin: '28px 0 4px' }}>
+          <div style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(0,36,72,0.1)', boxShadow: '0 24px 56px -30px rgba(0,36,72,0.35)' }}>
+            <img src="/images/ai-trust-meter-ui.png" alt="The three confidence states side by side: Grounded, Inferred, and Uncertain" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block' }} />
+          </div>
+          <figcaption style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', textAlign: 'center' as const, marginTop: 14 }}>Grounded, Inferred, Uncertain — one surface, three trust levels</figcaption>
+        </figure>
         <div className="case-3col" style={{ marginTop: 28, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
           {CONFIDENCE_STATES.map(state => (
             <div key={state.name} style={{ padding: '22px 22px', borderRadius: 14, border: `1.5px solid ${state.border}`, background: state.bg }}>
@@ -723,11 +729,9 @@ function AITrustMeterContent({ project, sectionRefs }: { project: Project; secti
         {eyebrow('06', 'Live Playground')}
         {heading('Try it, you\'re the agent.')}
         {body('A support agent in mid-conversation with a customer. Ask the assistant a question and watch the answer return with a visible confidence state, and the actions available change with how grounded it is. The full interactive version is live on the demo.')}
-        {project.images?.overview && (
-          <div style={{ marginTop: 24 }}>
-            <img src={project.images.overview} alt="AI Trust Meter live playground" style={{ width: '100%', borderRadius: 16 }} />
-          </div>
-        )}
+        <div style={{ marginTop: 24, borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(0,36,72,0.1)', boxShadow: '0 24px 56px -30px rgba(0,36,72,0.35)' }}>
+          <img src="/images/ai-trust-meter.png" alt="The AI Trust Meter — a confidence-state design system for AI answers" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block' }} />
+        </div>
       </section>
 
       {/* ── 07 Reflection ── */}
