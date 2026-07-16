@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
-import { Fraunces, Playfair_Display, Ysabeau_Infant, Space_Grotesk, Outfit } from 'next/font/google'
+import { Fraunces, Playfair_Display, Source_Sans_3, Space_Grotesk, Outfit } from 'next/font/google'
 import Navigation from '@/components/Navigation'
 import './globals.css'
 
@@ -22,10 +22,11 @@ const headingFont = Playfair_Display({
   display: 'swap',
 })
 
-// BODY — Ysabeau Infant (exact font from your brief — this is the real one)
-const bodyFont = Ysabeau_Infant({
+// BODY — Source Sans 3: humanist sans, highly readable for long-form reading,
+// pairs cleanly with the serif display/heading fonts.
+const bodyFont = Source_Sans_3({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
+  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-body',
   display: 'swap',
 })
