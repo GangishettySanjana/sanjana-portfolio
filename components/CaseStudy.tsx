@@ -495,6 +495,7 @@ function FullStoryContent({ project, sectionRefs }: { project: Project; sectionR
   if (project.slug === 'aura') return <AuraContent project={project} sectionRefs={sectionRefs} />
   if (project.slug === 'getup') return <GetUpContent project={project} sectionRefs={sectionRefs} />
   if (project.slug === 'ai-trust-meter') return <AITrustMeterContent project={project} sectionRefs={sectionRefs} />
+  if (project.slug === 'sparkconnect') return <SparkConnectContent project={project} sectionRefs={sectionRefs} />
   return (
     <div>
       <section id="overview" ref={el => { sectionRefs.current['overview'] = el }} style={{ marginBottom: 72 }}>
@@ -1961,6 +1962,161 @@ function FlairXContent({ project: _project, sectionRefs }: { project: Project; s
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+    </div>
+  )
+}
+
+// ── SparkConnect: hackathon referral network ──
+function SparkConnectContent({ project, sectionRefs }: { project: Project; sectionRefs: React.MutableRefObject<Record<string, HTMLElement | null>> }) {
+  const purple = '#7C4DCB'
+  const magenta = '#B4318F'
+  const liveUrl = project.liveUrl ?? 'https://wip-spark-connect.lovable.app'
+
+  const label = (text: string) => (
+    <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase' as const, color: purple, marginBottom: 16, fontWeight: 700 }}>{text}</p>
+  )
+  const heading = (text: string) => (
+    <h2 className="case-section-heading" style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 'clamp(22px, 2.6vw, 32px)', fontWeight: 400, fontStyle: 'italic', color: '#002448', lineHeight: 1.15, marginBottom: 20 }}>{text}</h2>
+  )
+  const body = (text: string) => (
+    <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, color: 'rgba(0,36,72,0.8)', lineHeight: 1.75, margin: 0 }}>{text}</p>
+  )
+
+  // Screenshot in a light browser chrome frame, shown at natural aspect (no crop)
+  const Shot = ({ src, alt, caption, chrome = true }: { src: string; alt: string; caption?: string; chrome?: boolean }) => (
+    <figure style={{ margin: '28px 0 4px' }}>
+      <div style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(0,36,72,0.1)', boxShadow: '0 24px 56px -30px rgba(0,36,72,0.35)', background: '#fff' }}>
+        {chrome && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '11px 16px', borderBottom: '1px solid rgba(0,36,72,0.07)', background: '#fafafa' }} aria-hidden>
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'rgba(0,36,72,0.12)' }} />
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'rgba(0,36,72,0.12)' }} />
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'rgba(0,36,72,0.12)' }} />
+          </div>
+        )}
+        <img src={src} alt={alt} loading="lazy" style={{ width: '100%', height: 'auto', display: 'block' }} />
+      </div>
+      {caption && <figcaption style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', textAlign: 'center' as const, marginTop: 14 }}>{caption}</figcaption>}
+    </figure>
+  )
+
+  const LiveCTA = ({ block = false }: { block?: boolean }) => (
+    <a href={liveUrl} target="_blank" rel="noopener noreferrer" style={{
+      display: block ? 'flex' : 'inline-flex', width: block ? '100%' : 'auto',
+      alignItems: 'center', justifyContent: 'center', gap: 8,
+      padding: '14px 28px', borderRadius: 999,
+      background: `linear-gradient(135deg, ${purple} 0%, ${magenta} 100%)`,
+      color: '#fff', textDecoration: 'none',
+      fontFamily: 'var(--font-label), sans-serif', fontSize: 13, fontWeight: 700,
+      letterSpacing: '0.06em', textTransform: 'uppercase' as const,
+      boxShadow: '0 14px 30px -12px rgba(124,77,203,0.6)',
+      transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+    }}
+      onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 20px 40px -12px rgba(124,77,203,0.7)' }}
+      onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 14px 30px -12px rgba(124,77,203,0.6)' }}
+    >
+      Try the live app <span style={{ fontSize: 15 }}>↗</span>
+    </a>
+  )
+
+  return (
+    <div>
+
+      {/* ── Overview ── */}
+      <section id="overview" ref={el => { sectionRefs.current['overview'] = el }} style={{ marginBottom: 72 }}>
+        {label('Overview')}
+        {heading('The WIP community had the network. It just didn’t have the product.')}
+        {body('Built in a 48-hour Women in Product hackathon. WIP is one of the strongest product communities out there — tens of thousands of women across every level and company. But when someone needed a referral, they were still cold-messaging strangers on LinkedIn. The network existed. There was just no product to activate it. So I designed and shipped one.')}
+        <Shot src="/sparkconnect/search.png" alt="SparkConnect Find a Referrer screen with search, filters, and referrer cards" caption="The shipped product — browse and filter WIP members open to referring" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' as const, marginTop: 24 }}>
+          <LiveCTA />
+          <span style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 15, color: 'rgba(0,36,72,0.55)', fontStyle: 'italic' as const }}>Live, finalist, shipped in 48 hours.</span>
+        </div>
+      </section>
+
+      {/* ── Problem ── */}
+      <section id="problem" ref={el => { sectionRefs.current['problem'] = el }} style={{ marginBottom: 72 }}>
+        {label('Problem')}
+        {heading('48 hours meant every decision had to be right the first time.')}
+        {body('No time for research rounds or lengthy iteration. Every call had to be grounded in something concrete, and the core tension was that this is a two-sided product. A requester who asks badly gets ignored. A referrer who feels put on the spot ghosts. Both sides had to feel good, or neither would use it.')}
+        <div className="case-2col" style={{ marginTop: 28, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          {[
+            { side: 'The requester', need: 'A way to ask clearly, without the awkward cold LinkedIn DM. Enough structure that a referrer can say yes fast.', color: purple },
+            { side: 'The referrer', need: 'Full control over their time and their name. A way to say no that isn’t a moment, and recognition when they say yes.', color: magenta },
+          ].map(c => (
+            <div key={c.side} style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(0,36,72,0.1)' }}>
+              <div style={{ background: c.color, padding: '12px 20px' }}>
+                <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,0.9)', margin: 0, fontWeight: 700 }}>{c.side} needs</p>
+              </div>
+              <div style={{ padding: '18px 20px', background: '#fff' }}>
+                <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 15, color: 'rgba(0,36,72,0.78)', lineHeight: 1.65, margin: 0 }}>{c.need}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Solution ── */}
+      <section id="solution" ref={el => { sectionRefs.current['solution'] = el }} style={{ marginBottom: 72 }}>
+        {label('Solution')}
+        {heading('A structured flow that removes friction from both sides.')}
+        {body('The requester provides exactly what a referrer needs — LinkedIn, a one-paragraph fit statement, the specific job link. No vague asks. The referrer has full control: toggle availability, decline without it being awkward, manage their own queue. A leaderboard surfaces the most active referrers, so the incentive is recognition, not pressure.')}
+        <Shot src="/sparkconnect/hero.png" alt="SparkConnect landing page: Referrals, powered by trust" caption="Positioned as a community system built on real relationships, not a job board" />
+      </section>
+
+      {/* ── The Flow ── */}
+      <section id="flow" ref={el => { sectionRefs.current['flow'] = el }} style={{ marginBottom: 72 }}>
+        {label('The Flow')}
+        {heading('Four steps: search, request, connect, refer.')}
+        <Shot src="/sparkconnect/flow.png" alt="Four-step flow: Search, Request, Connect, Referral" chrome={false} caption="A structured, respectful process that keeps referrers in control" />
+        <div style={{ marginTop: 28, display: 'flex', flexDirection: 'column' as const, gap: 12 }}>
+          {[
+            { n: '01', step: 'Search', text: 'Find WIP members at the company you’re targeting, filtered by function, chapter, and current availability.' },
+            { n: '02', step: 'Request', text: 'Submit your LinkedIn, a one-paragraph fit statement, and the specific job link. Three fields — enough context, no noise.' },
+            { n: '03', step: 'Connect', text: 'Once a referrer accepts, chat opens to share anything else they need. The conversation stays inside the platform.' },
+            { n: '04', step: 'Refer', text: 'The referrer submits internally and marks it done. Status is visible, so nobody is left wondering.' },
+          ].map(s => (
+            <div key={s.n} style={{ display: 'grid', gridTemplateColumns: '52px 1fr', gap: 18, alignItems: 'baseline', padding: '18px 0', borderTop: '1px solid rgba(0,36,72,0.08)' }}>
+              <span style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 24, fontWeight: 400, fontStyle: 'italic' as const, color: purple }}>{s.n}</span>
+              <div>
+                <p style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: '#002448', fontWeight: 700, marginBottom: 6 }}>{s.step}</p>
+                <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 16, color: 'rgba(0,36,72,0.72)', lineHeight: 1.65, margin: 0 }}>{s.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Design Decisions ── */}
+      <section id="decisions" ref={el => { sectionRefs.current['decisions'] = el }} style={{ marginBottom: 72 }}>
+        {label('Design Decisions')}
+        {heading('The form is the product.')}
+        {body('If the request is vague, the referrer says no. If it’s too long, the requester gives up. Almost every decision came back to protecting both sides from friction they wouldn’t forgive in a 48-hour window.')}
+        <div className="case-3col" style={{ marginTop: 28, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+          {[
+            { t: 'Three fields, not ten', d: 'LinkedIn, fit statement, job link. Enough for a referrer to decide in seconds, short enough that a requester actually finishes it.' },
+            { t: 'Saying no isn’t a moment', d: 'Anonymous declines, availability toggles, and a clear queue meant referrers stayed in the platform instead of ghosting out of guilt.' },
+            { t: 'Leaderboard last', d: 'Added at the end, on purpose. Recognition for the most active referrers — a pull, never a pressure.' },
+            { t: 'Cut the matching algorithm', d: 'The hardest cut. Search-and-select was faster to build and, honestly, more trustworthy than an auto-suggester nobody asked for.' },
+          ].map(c => (
+            <div key={c.t} style={{ padding: '22px 24px', borderRadius: 14, border: '1px solid rgba(124,77,203,0.18)', background: 'rgba(124,77,203,0.03)' }}>
+              <p style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 18, fontStyle: 'italic' as const, color: '#002448', marginBottom: 8, lineHeight: 1.25 }}>{c.t}</p>
+              <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 14.5, color: 'rgba(0,36,72,0.72)', lineHeight: 1.65, margin: 0 }}>{c.d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Reflection ── */}
+      <section id="reflection" ref={el => { sectionRefs.current['reflection'] = el }} style={{ marginBottom: 40 }}>
+        {label('Reflection')}
+        {heading('48 hours is enough time to build something real — if you’re ruthless about scope.')}
+        {body('The simpler thing was the better thing, again and again. The search-and-select flow beat the clever algorithm. Three fields beat a thorough form. It shipped, it placed, and it’s still live.')}
+        <div style={{ marginTop: 28, padding: 'clamp(28px, 4vw, 40px)', borderRadius: 18, background: 'linear-gradient(135deg, rgba(124,77,203,0.06) 0%, rgba(180,49,143,0.06) 100%)', border: '1px solid rgba(124,77,203,0.16)', textAlign: 'center' as const }}>
+          <p style={{ fontFamily: 'var(--font-display), Georgia, serif', fontSize: 'clamp(19px, 2vw, 24px)', fontStyle: 'italic' as const, color: '#002448', lineHeight: 1.4, margin: '0 0 22px', maxWidth: '30ch', marginLeft: 'auto', marginRight: 'auto' }}>See the thing that came out of those 48 hours.</p>
+          <div style={{ display: 'inline-flex' }}><LiveCTA /></div>
         </div>
       </section>
 
