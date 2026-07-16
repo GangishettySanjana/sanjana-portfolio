@@ -319,7 +319,7 @@ export const projects: Project[] = [
     title: 'SparkConnect',
     tagline: 'WIP Referral Network',
     company: 'Women in Product Hackathon',
-    year: '2024',
+    year: '2026',
     duration: '48 hours',
     role: 'Product Designer',
     status: 'Live Product',
