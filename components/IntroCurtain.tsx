@@ -259,7 +259,7 @@ export default function IntroCurtain({ onComplete }: { onComplete: () => void })
           </div>
           <div style={{ position: 'absolute', top: 0, left: 0, overflow: 'hidden' }}>
             <div className="real-name intro-name-real" style={{
-              fontFamily: "'NCL Gasdrifo', Georgia, serif", fontSize: 'clamp(48px, 7.5vw, 104px)',
+              fontFamily: "var(--font-serif), Georgia, serif", fontSize: 'clamp(48px, 7.5vw, 104px)',
               fontWeight: 400, color: '#0d0d0d', letterSpacing: '0.005em', lineHeight: 1, whiteSpace: 'nowrap',
             }}>Sanjana Gangishetty</div>
             <div className="name-cover sk-shimmer" style={{ position: 'absolute', inset: 0, transformOrigin: 'right center' }} />

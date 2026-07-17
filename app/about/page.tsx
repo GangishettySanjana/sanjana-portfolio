@@ -652,10 +652,10 @@ export default function AboutPage() {
               </span>
             </motion.div>
 
-            {/* Headline — NCL Gasdrifo, single line */}
+            {/* Headline — editorial serif (Instrument Serif), single line */}
             <motion.h1
               style={{
-                fontFamily: "'NCL Gasdrifo', Georgia, serif",
+                fontFamily: "var(--font-serif), Georgia, serif",
                 fontWeight: 400,
                 fontSize: 'clamp(36px, 5vw, 64px)',
                 lineHeight: 1.15,
@@ -954,7 +954,7 @@ export default function AboutPage() {
             transition={{ duration: 0.7 }}
           >
             <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.4, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
-            <div style={{ position: 'absolute', top: -10, right: 32, fontSize: 'clamp(120px, 16vw, 200px)', lineHeight: 1, fontFamily: "'NCL Gasdrifo', Georgia, serif", color: 'rgba(255,255,255,0.05)', pointerEvents: 'none', userSelect: 'none', zIndex: 0 }}>
+            <div style={{ position: 'absolute', top: -10, right: 32, fontSize: 'clamp(120px, 16vw, 200px)', lineHeight: 1, fontFamily: "var(--font-serif), Georgia, serif", color: 'rgba(255,255,255,0.05)', pointerEvents: 'none', userSelect: 'none', zIndex: 0 }}>
               &rdquo;
             </div>
             <div style={{ position: 'relative', zIndex: 1 }}>

@@ -515,7 +515,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 
 /* Name */
 #intro-name {
-  font-family: 'NCL Gasdrifo', Georgia, serif;
+  font-family: var(--head-serif);
   font-size: clamp(48px, 7.5vw, 104px);
   font-weight: 400; color: #0d0d0d;
   letter-spacing: 0.005em;
