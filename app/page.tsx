@@ -661,8 +661,7 @@ export default function HomePage() {
                       </div>
                     </div>
                     <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                      <Link href="/projects/ai-trust-meter" className="card-btn">View Case Study <span className="btn-arrow">→</span></Link>
-                      <a href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer" className="card-btn" style={{ background: 'transparent', border: '1.5px solid rgba(220,223,251,0.4)', color: '#DCDFFB' }}>Try the demo <span className="btn-arrow">↗</span></a>
+                      <a href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer" className="card-btn">Try the live demo <span className="btn-arrow">↗</span></a>
                     </div>
                   </div>
                   <div className="card-right" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '10px' }}>
