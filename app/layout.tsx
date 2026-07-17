@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
-import { Source_Sans_3, Space_Grotesk, Outfit } from 'next/font/google'
+import { Source_Sans_3, Space_Grotesk, Outfit, Instrument_Serif } from 'next/font/google'
 import Navigation from '@/components/Navigation'
 import './globals.css'
 
@@ -9,6 +9,16 @@ const displayFont = Space_Grotesk({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-display',
+  display: 'swap',
+})
+
+// SERIF DISPLAY — Instrument Serif: light editorial serif for the display
+// headlines only (Marimba-like tone). Single weight (400) + italic.
+const serifFont = Instrument_Serif({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
   display: 'swap',
 })
 
@@ -74,7 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${displayFont.variable} ${headingFont.variable} ${bodyFont.variable} ${labelFont.variable}`}
+      className={`${displayFont.variable} ${headingFont.variable} ${serifFont.variable} ${bodyFont.variable} ${labelFont.variable}`}
     >
       <head>
         <link rel="preconnect" href="https://api.fontshare.com"/>
