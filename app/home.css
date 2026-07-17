@@ -36,7 +36,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   #aboutCard, .about-card, #aboutEye, .about-eyebrow,
   #aboutB1, #aboutB2, .about-body, .about-info-cell,
   #aboutBtns, .about-btns, #aboutRight, .about-right,
-  .con-pill, #conSub, .connect-sub, #conBtns, .connect-btns, #conFooter, .connect-footer-row {
+  #conSub, .connect-sub, #conBtns, .connect-btns, #conFooter, .connect-footer-row {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
@@ -876,18 +876,37 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   text-align: center;
   padding: 80px 0 60px;
 }
-/* big headline */
-.connect-headline {
-  font-family: var(--head-serif);
-  font-size: clamp(40px, 5.5vw, 79px);
-  font-weight: 400; letter-spacing: -0.01em; line-height: 1.05;
-  color: #0d0d0d;
-  overflow: hidden;
+/* Masked-statement centerpiece — meadow video shows through the letters.
+   aspect-ratio is set inline (matches the SVG viewBox / line count). */
+.connect-word {
   position: relative; z-index: 2;
+  width: 100%; max-width: 880px;
+  margin: 0 auto;
 }
-.connect-headline em {
-  font-style: italic;
-  color: rgba(13,13,13,0.38);
+/* solid ink statement — the base (also the mobile / reduced-motion state) */
+.mwv-solidtext {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-family: var(--font-display), 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: clamp(38px, 8.6vw, 100px);
+  letter-spacing: -0.03em; line-height: 0.98; color: #14181A;
+  text-align: center;
+  transition: opacity 0.5s ease;
+}
+.mwv-solidline { display: block; }
+.mwv-solidtext.is-hidden { opacity: 0; }
+/* video mask — overlays the solid word, revealed only while the video plays */
+.mwv-stage {
+  position: absolute; inset: 0; overflow: hidden;
+  opacity: 0; transition: opacity 0.6s ease;
+}
+.mwv-stage.is-ready { opacity: 1; }
+.mwv-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.mwv-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.mwv-cover { fill: var(--page-bg); }
+.mwv-masktext {
+  font-family: var(--font-display), 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: 210px; letter-spacing: -4px;
 }
 /* sub copy */
 .connect-sub {
@@ -923,28 +942,6 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 }
 .con-btn-ghost:hover { background: #0d0d0d; color: #fff; border-color: #0d0d0d; transform: translateY(-2px); }
 
-/* Floating pill tags */
-.con-pill {
-  position: absolute;
-  background: #fff;
-  border: 1.5px solid rgba(0,0,0,0.12);
-  border-radius: 999px;
-  padding: 8px 18px;
-  font-family: var(--head); font-size: 11px; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: #0d0d0d; white-space: nowrap;
-  box-shadow: 0 2px 14px rgba(0,0,0,0.06);
-  z-index: 1; pointer-events: none;
-}
-/* scattered positions + fun colours */
-.con-pill-1 { top: 10%;  left: 4%;   rotate: -8deg; background: #d4f0a0; border-color: #b8e070; color: #2a5000; }
-.con-pill-2 { top: 6%;   left: 38%;  rotate:  4deg; background: #ffd6e7; border-color: #ffb3cf; color: #7a0038; }
-.con-pill-3 { top: 8%;   right: 6%;  rotate:  7deg; background: #c8e6ff; border-color: #90ccff; color: #003d7a; }
-.con-pill-4 { top: 42%;  left: 2%;   rotate: -5deg; background: #fff0b3; border-color: #ffe066; color: #5a4000; }
-.con-pill-5 { top: 44%;  right: 3%;  rotate:  6deg; background: #e8d4ff; border-color: #c89aff; color: #3d0070; }
-.con-pill-6 { bottom: 22%; left: 10%; rotate: -4deg; background: #ffd6b3; border-color: #ffb366; color: #6b2800; }
-.con-pill-7 { bottom: 18%; right: 8%; rotate:  5deg; background: #b3f0e8; border-color: #66ddd0; color: #004d42; }
-
 /* footer row */
 .connect-footer-row {
   margin-top: 64px; padding-top: 32px;
@@ -954,6 +951,31 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   letter-spacing: 0.04em;
   transform: translateY(8px);
 }
+
+/* footer meta — availability + back-to-top */
+.footer-meta { display: inline-flex; align-items: center; gap: 14px; }
+.footer-availability {
+  display: inline-flex; align-items: center; gap: 7px;
+  color: rgba(0,0,0,0.42); letter-spacing: 0.04em;
+}
+.footer-availability-dot {
+  width: 7px; height: 7px; border-radius: 999px;
+  background: #57c26b;
+  box-shadow: 0 0 0 3px rgba(87,194,107,0.18);
+  flex-shrink: 0;
+}
+.back-to-top {
+  appearance: none; -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.16); border-radius: 999px;
+  padding: 5px 12px;
+  font-family: var(--body); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(0,0,0,0.55); cursor: pointer;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+.back-to-top:hover { background: #0d0d0d; color: #fff; border-color: #0d0d0d; }
+.back-to-top:focus-visible { outline: 2px solid #1e5dac; outline-offset: 2px; }
 
 /* ═══════════════════════════════════════════
    RESPONSIVE — iPad (≤ 1024px)
@@ -980,12 +1002,6 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 
   /* About */
   .about-grid { grid-template-columns: 1fr 340px; gap: 48px; }
-
-  /* Connect pills — pull in from edges */
-  .con-pill-1 { left: 1%; }
-  .con-pill-3 { right: 1%; }
-  .con-pill-4 { left: 0%; }
-  .con-pill-5 { right: 0%; }
 }
 
 /* ═══════════════════════════════════════════
@@ -1050,19 +1066,10 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 
   /* Connect — vertical padding now from --section-pad */
   .connect-inner   { padding: 60px 0 40px; }
-  .connect-headline { font-size: clamp(31px, 8vw, 53px); }
   .connect-sub      { font-size: 14px; }
   .connect-btns     { flex-direction: column; align-items: center; gap: 10px; }
   .con-btn-primary,
   .con-btn-ghost    { width: 100%; max-width: 280px; justify-content: center; }
-
-  /* Hide outer pills on mobile — too cramped */
-  .con-pill-1, .con-pill-3,
-  .con-pill-4, .con-pill-5 { display: none; }
-  /* Reposition remaining pills closer in */
-  .con-pill-2 { top: 4%;   left: 5%;  }
-  .con-pill-6 { bottom: 14%; left: 5%; }
-  .con-pill-7 { bottom: 10%; right: 5%; }
 
   /* Footer */
   .connect-footer-row { flex-direction: column; gap: 6px; text-align: center; }
@@ -1084,8 +1091,6 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   .card-title    { font-size: 22px; }
   .about-headline { font-size: 31px; }
   .about-headline-italic { font-size: 22px; }
-  .connect-headline { font-size: 31px; }
-  .con-pill-2, .con-pill-6, .con-pill-7 { display: none; }
 
   /* Hero extra-small */
   .hero-card  { padding: 32px 20px 40px; border-radius: 24px; }
@@ -1095,8 +1100,6 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   .card-inner { padding: 24px 16px 28px; }
   .card-stats { flex-wrap: wrap; }
   .stat + .stat { border-left: none; border-top: 1px solid currentColor; padding: 12px 0; }
-
-  /* Pills already hidden via 768px rule above */
 
   #intro-sub {
     font-size: 9.5px;
