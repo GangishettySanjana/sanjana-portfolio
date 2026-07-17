@@ -5,6 +5,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
+import { setLenis } from '@/lib/smoothScroll'
 
 /**
  * Site-wide Lenis smooth scroll, kept in lockstep with GSAP ScrollTrigger so
@@ -35,6 +36,9 @@ export default function SmoothScroll() {
 
     // Gentle lerp; autoRaf off — we drive the loop ourselves below.
     const lenis = new Lenis({ lerp: 0.09, autoRaf: false })
+
+    // Register so other components (e.g. footer back-to-top) can scroll via Lenis.
+    setLenis(lenis)
 
     // Keep every ScrollTrigger updating against Lenis' smoothed position.
     lenis.on('scroll', ScrollTrigger.update)
@@ -81,6 +85,7 @@ export default function SmoothScroll() {
     return () => {
       cancelAnimationFrame(rafId)
       document.removeEventListener('click', onClick)
+      setLenis(null)
       lenis.destroy()
     }
   }, [])

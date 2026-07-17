@@ -8,6 +8,8 @@ import { CustomEase } from 'gsap/CustomEase'
 import './home.css'
 
 const BirdScene = dynamic(() => import('@/components/BirdScene'), { ssr: false })
+import MaskedWordVideo from '@/components/MaskedWordVideo'
+import FooterMeta from '@/components/FooterMeta'
 
 export default function HomePage() {
   const runHeroRef = useRef<(() => void) | null>(null)
@@ -394,44 +396,17 @@ export default function HomePage() {
       start: 'top 82%',
       toggleActions: 'play none none none',
       onEnter() {
-        // 1. headline word reveal
-        const conHead = document.getElementById('conHead')
-        if (conHead) {
-          gsap.to(splitWords(conHead), {
-            y: '0%', duration: 0.75, ease: 'reveal', stagger: 0.06,
-          })
-        }
-        // 2. pills pop in scattered
-        gsap.to('.con-pill', {
-          opacity: 1, y: 0, scale: 1,
-          duration: 0.55, ease: 'back.out(1.6)',
-          stagger: { each: 0.08, from: 'random' },
-          delay: 0.2,
+        // eyebrow + sub + buttons fade up (the masked word is its own component)
+        gsap.to('#conEyebrow', {
+          opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
         })
-        // 3. sub + buttons fade up
         gsap.to('#conSub', {
-          opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.5,
+          opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.35,
         })
         gsap.to('#conBtns', {
-          opacity: 1, y: 0, duration: 0.6, ease: 'spring', delay: 0.65,
+          opacity: 1, y: 0, duration: 0.6, ease: 'spring', delay: 0.5,
         })
       },
-    })
-
-    // Pills idle float — each at its own rhythm
-    document.querySelectorAll<HTMLElement>('.con-pill').forEach((pill, i) => {
-      const amp = 5 + (i % 3) * 3
-      const dur = 2.6 + i * 0.4
-      gsap.set(pill, { y: 10, scale: 0.9 }) // start state before reveal
-      gsap.to(pill, {
-        y: -amp, duration: dur, ease: 'sine.inOut',
-        yoyo: true, repeat: -1, delay: i * 0.25,
-      })
-      gsap.to(pill, {
-        rotation: (i % 2 === 0 ? 1 : -1) * 2.5,
-        duration: dur * 1.4, ease: 'sine.inOut',
-        yoyo: true, repeat: -1, delay: i * 0.3 + 0.15,
-      })
     })
 
     // Magnetic on CTA buttons
@@ -887,19 +862,12 @@ export default function HomePage() {
         <div className="container">
           <div className="connect-inner" id="conInner">
 
-            {/* floating pills */}
-            <span className="con-pill con-pill-1">Open to work ✦</span>
-            <span className="con-pill con-pill-2">Product Design</span>
-            <span className="con-pill con-pill-3">Let&apos;s talk</span>
-            <span className="con-pill con-pill-4">AI · SaaS</span>
-            <span className="con-pill con-pill-5">Full-time roles</span>
-            <span className="con-pill con-pill-6">Figma → Code</span>
-            <span className="con-pill con-pill-7">Based in US</span>
+            {/* italic serif eyebrow */}
+            <p className="connect-eyebrow" id="conEyebrow"><em>Don&apos;t hesitate —</em></p>
 
-            {/* headline */}
-            <h2 className="connect-headline" id="conHead">
-              Don&apos;t hesitate <br/><em>to reach out.</em>
-            </h2>
+            {/* big word — meadow video shows through the letters (solid text on
+                mobile / reduced-motion). Renders its own <h2> for a11y. */}
+            <MaskedWordVideo word="REACH OUT" />
 
             {/* sub */}
             <p className="connect-sub" id="conSub">Open to full-time product design. Happy to talk if you&apos;re building something and want a second brain.</p>
@@ -915,6 +883,7 @@ export default function HomePage() {
 
           <div className="connect-footer-row" id="conFooter">
             <span>Sanjana Gangishetty © 2026</span>
+            <FooterMeta />
             <span>Built with Figma, GSAP, and 47 Stack Overflow tabs</span>
           </div>
         </div>
