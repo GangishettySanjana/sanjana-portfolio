@@ -15,6 +15,9 @@
 }
 
 html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+/* When Lenis is active it owns scrolling — turn off native smooth so the two
+   don't double-animate. Reduced-motion users skip Lenis and keep native smooth. */
+html.lenis, html.lenis body { scroll-behavior: auto; }
 body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden; color: #000; }
 
 /* ── REDUCED MOTION ── content is already visible by default (see rest of

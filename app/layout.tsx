@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { Source_Sans_3, Space_Grotesk, Outfit, Instrument_Serif } from 'next/font/google'
 import Navigation from '@/components/Navigation'
+import SmoothScroll from '@/components/SmoothScroll'
 import './globals.css'
 
 // DISPLAY — Space Grotesk: clean structured grotesk, bold and modern (no serif curves)
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap" rel="stylesheet"/>
       </head>
       <body className="bg-white text-roasted antialiased">
+        <SmoothScroll />
         <Navigation />
         {children}
         <Analytics />
