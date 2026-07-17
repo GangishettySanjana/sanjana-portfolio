@@ -396,10 +396,7 @@ export default function HomePage() {
       start: 'top 82%',
       toggleActions: 'play none none none',
       onEnter() {
-        // eyebrow + sub + buttons fade up (the masked word is its own component)
-        gsap.to('#conEyebrow', {
-          opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
-        })
+        // sub + buttons fade up (the masked statement is its own component)
         gsap.to('#conSub', {
           opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.35,
         })
@@ -862,12 +859,9 @@ export default function HomePage() {
         <div className="container">
           <div className="connect-inner" id="conInner">
 
-            {/* italic serif eyebrow */}
-            <p className="connect-eyebrow" id="conEyebrow"><em>Don&apos;t hesitate —</em></p>
-
-            {/* big word — meadow video shows through the letters (solid text on
-                mobile / reduced-motion). Renders its own <h2> for a11y. */}
-            <MaskedWordVideo word="REACH OUT" />
+            {/* whole statement — meadow video shows through the letters (solid
+                text on mobile / reduced-motion). Renders its own <h2> for a11y. */}
+            <MaskedWordVideo lines={["Don't hesitate", 'to reach out']} />
 
             {/* sub */}
             <p className="connect-sub" id="conSub">Open to full-time product design. Happy to talk if you&apos;re building something and want a second brain.</p>

@@ -36,7 +36,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   #aboutCard, .about-card, #aboutEye, .about-eyebrow,
   #aboutB1, #aboutB2, .about-body, .about-info-cell,
   #aboutBtns, .about-btns, #aboutRight, .about-right,
-  .connect-eyebrow, #conEyebrow, #conSub, .connect-sub, #conBtns, .connect-btns, #conFooter, .connect-footer-row {
+  #conSub, .connect-sub, #conBtns, .connect-btns, #conFooter, .connect-footer-row {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
@@ -876,32 +876,24 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   text-align: center;
   padding: 80px 0 60px;
 }
-/* italic serif eyebrow above the big word */
-.connect-eyebrow {
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: clamp(20px, 2.3vw, 30px);
-  color: rgba(13,13,13,0.5);
-  opacity: 0; transform: translateY(14px);
-  position: relative; z-index: 2;
-}
-.connect-eyebrow em { font-style: italic; }
-
-/* Masked-word centerpiece — meadow video shows through the letters */
+/* Masked-statement centerpiece — meadow video shows through the letters.
+   aspect-ratio is set inline (matches the SVG viewBox / line count). */
 .connect-word {
   position: relative; z-index: 2;
-  width: 100%; max-width: 780px;
-  margin: 10px auto 0;
-  aspect-ratio: 1200 / 300; /* fixed banner box; solid text + stage both fill it */
+  width: 100%; max-width: 880px;
+  margin: 0 auto;
 }
-/* solid ink word — the base (also the mobile / reduced-motion state) */
+/* solid ink statement — the base (also the mobile / reduced-motion state) */
 .mwv-solidtext {
   position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
   font-family: var(--font-display), 'Space Grotesk', sans-serif;
-  font-weight: 700; font-size: clamp(48px, 15vw, 140px);
-  letter-spacing: -0.03em; line-height: 1; color: #14181A;
+  font-weight: 700; font-size: clamp(38px, 8.6vw, 100px);
+  letter-spacing: -0.03em; line-height: 0.98; color: #14181A;
+  text-align: center;
   transition: opacity 0.5s ease;
 }
+.mwv-solidline { display: block; }
 .mwv-solidtext.is-hidden { opacity: 0; }
 /* video mask — overlays the solid word, revealed only while the video plays */
 .mwv-stage {
@@ -1074,7 +1066,6 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 
   /* Connect — vertical padding now from --section-pad */
   .connect-inner   { padding: 60px 0 40px; }
-  .connect-eyebrow  { font-size: 20px; }
   .connect-sub      { font-size: 14px; }
   .connect-btns     { flex-direction: column; align-items: center; gap: 10px; }
   .con-btn-primary,

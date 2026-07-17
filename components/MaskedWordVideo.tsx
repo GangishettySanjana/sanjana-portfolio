@@ -7,43 +7,47 @@ import { useEffect, useRef, useState } from 'react'
 const MEADOW_SRC =
   'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4'
 
+// SVG mask coordinate space. Text is laid out per line inside this box; the
+// whole thing scales to the container via the viewBox.
+const VB_W = 1700
+const VB_H = 540
+
 /**
- * A big word whose letters are cut out of a cream cover, revealing the meadow
+ * A statement whose letters are cut out of a cream cover, revealing the meadow
  * video playing behind — so the footer bookends the page with the hero scenery.
+ * Supports multiple lines (the whole phrase is masked, not just one word).
  *
  * How the SVG mask works: a white full-size rect (= show) plus black <text>
- * (= hide) form the mask; the cream cover rect is painted everywhere the mask
- * is white and hidden where it's black (the letters), so the video shows only
- * through the letters.
+ * lines (= hide) form the mask; the cream cover rect is painted everywhere the
+ * mask is white and hidden where it's black (the letters), so the video shows
+ * only through the letters.
  *
  * Rendering / robustness:
  * - The base is always solid bold ink text. The video mask fades in ONLY once
  *   the video is actually playing — so the masked (composited) layer is never
  *   shown in a static frame, where Chrome can flash a 1px seam at its edge.
- *   The effect reads as the ink word "filling" with the meadow.
+ *   The effect reads as the words "filling" with the meadow.
  * - Video is skipped entirely on ≤767px and under prefers-reduced-motion —
- *   those keep the solid ink word (no <video>, no mask).
+ *   those keep the solid ink text (no <video>, no mask).
  * - The src is set lazily, only when the footer nears the viewport.
  *
- * Accessibility: the real word is an <h2> with an sr-only text node; the visual
+ * Accessibility: the phrase is an <h2> with an sr-only text node; the visual
  * treatment (solid or mask) is aria-hidden, so screen readers read it once.
  */
-export default function MaskedWordVideo({ word }: { word: string }) {
+export default function MaskedWordVideo({ lines }: { lines: string[] }) {
   const rootRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [useVideo, setUseVideo] = useState(false)
   const [ready, setReady] = useState(false)
 
-  // Decide video vs solid on the client (after mount → no hydration mismatch).
   useEffect(() => {
     if (typeof window === 'undefined') return
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const isMobile = window.matchMedia('(max-width: 767px)').matches
-    if (reduce || isMobile) return // keep solid ink word
+    if (reduce || isMobile) return // keep solid ink text
     setUseVideo(true)
   }, [])
 
-  // Lazy-load + play the video once it exists and the footer is near.
   useEffect(() => {
     if (!useVideo) return
     const root = rootRef.current
@@ -81,7 +85,6 @@ export default function MaskedWordVideo({ word }: { word: string }) {
     )
     io.observe(root)
 
-    // Safari / Low Power Mode can block autoplay — retry on interaction.
     const onInteract = () => started && tryPlay()
     document.addEventListener('pointerdown', onInteract)
     document.addEventListener('scroll', onInteract, { passive: true })
@@ -97,31 +100,46 @@ export default function MaskedWordVideo({ word }: { word: string }) {
   }, [useVideo])
 
   const maskId = 'meadow-cut'
+  const lineH = VB_H / lines.length
+  const fontSize = lineH * 0.72
 
   return (
-    <h2 className="connect-word" ref={rootRef}>
-      <span className="sr-only">{word}</span>
+    <h2 className="connect-word" ref={rootRef} style={{ aspectRatio: `${VB_W} / ${VB_H}` }}>
+      <span className="sr-only">{lines.join(' ')}</span>
 
-      {/* solid ink word — the base; fades out once the video is playing */}
+      {/* solid ink text — the base; fades out once the video is playing */}
       <span className={`mwv-solidtext${ready ? ' is-hidden' : ''}`} aria-hidden="true">
-        {word}
+        {lines.map((line, i) => (
+          <span key={i} className="mwv-solidline">
+            {line}
+          </span>
+        ))}
       </span>
 
       {/* video mask — desktop only; revealed only while the video plays */}
       {useVideo && (
         <span className={`mwv-stage${ready ? ' is-ready' : ''}`} aria-hidden="true">
           <video ref={videoRef} className="mwv-video" muted loop playsInline preload="metadata" />
-          <svg className="mwv-svg" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid meet">
+          <svg className="mwv-svg" viewBox={`0 0 ${VB_W} ${VB_H}`} preserveAspectRatio="xMidYMid meet">
             <defs>
-              {/* rects overscan the viewBox so the SVG viewport hard-clips the edge */}
               <mask id={maskId}>
-                <rect x="-8" y="-8" width="1216" height="316" fill="#fff" />
-                <text x="600" y="150" textAnchor="middle" dominantBaseline="central" className="mwv-masktext">
-                  {word}
-                </text>
+                <rect x="-8" y="-8" width={VB_W + 16} height={VB_H + 16} fill="#fff" />
+                {lines.map((line, i) => (
+                  <text
+                    key={i}
+                    x={VB_W / 2}
+                    y={lineH * (i + 0.5)}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    className="mwv-masktext"
+                    style={{ fontSize }}
+                  >
+                    {line}
+                  </text>
+                ))}
               </mask>
             </defs>
-            <rect className="mwv-cover" x="-8" y="-8" width="1216" height="316" mask={`url(#${maskId})`} />
+            <rect className="mwv-cover" x="-8" y="-8" width={VB_W + 16} height={VB_H + 16} mask={`url(#${maskId})`} />
           </svg>
         </span>
       )}
