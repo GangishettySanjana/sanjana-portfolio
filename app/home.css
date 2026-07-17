@@ -9,9 +9,15 @@
   --cream-text: #ebe2e5;
   --head:       'Cabinet Grotesk', sans-serif;
   --body:       'Satoshi', sans-serif;
+  /* Editorial serif for DISPLAY headlines only (Instrument Serif, light 400).
+     To revert to the grotesk look, swap this to: var(--font-display), 'Cabinet Grotesk', sans-serif */
+  --head-serif: var(--font-serif), var(--font-display), Georgia, serif;
 }
 
 html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+/* When Lenis is active it owns scrolling — turn off native smooth so the two
+   don't double-animate. Reduced-motion users skip Lenis and keep native smooth. */
+html.lenis, html.lenis body { scroll-behavior: auto; }
 body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden; color: #000; }
 
 /* ── REDUCED MOTION ── content is already visible by default (see rest of
@@ -89,8 +95,8 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   display: none;
 }
 .hero-headline {
-  font-family: var(--head); font-size: 48px; font-weight: 800; color: #000;
-  line-height: 1.06; letter-spacing: -0.025em;
+  font-family: var(--head-serif); font-size: 54px; font-weight: 400; color: #000;
+  line-height: 1.08; letter-spacing: -0.01em;
   overflow: visible;
 }
 .word-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; }
@@ -174,7 +180,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   transform: translateY(32px);
 }
 .work-eyebrow { font-family: var(--body); font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,0,0,0.38); margin-bottom: 10px; }
-.work-title { font-family: var(--head); font-size: 44px; font-weight: 800; color: #000; letter-spacing: -0.025em; }
+.work-title { font-family: var(--head-serif); font-size: 48px; font-weight: 400; color: #000; letter-spacing: -0.01em; line-height: 1.08; }
 .work-sub { font-family: var(--body); font-size: 15px; color: rgba(0,0,0,0.45); max-width: 320px; line-height: 1.7; text-align: right; }
 .cards-wrap { display: flex; flex-direction: column; gap: 32px; }
 
@@ -512,7 +518,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 
 /* Name */
 #intro-name {
-  font-family: 'NCL Gasdrifo', Georgia, serif;
+  font-family: var(--head-serif);
   font-size: clamp(48px, 7.5vw, 104px);
   font-weight: 400; color: #0d0d0d;
   letter-spacing: 0.005em;
@@ -741,19 +747,19 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   transform: translateY(16px);
 }
 .about-headline {
-  font-family: var(--head);
-  font-size: clamp(36px, 4vw, 54px);
-  font-weight: 900; color: #0d0d0d;
-  letter-spacing: -0.03em; line-height: 1.05;
+  font-family: var(--head-serif);
+  font-size: clamp(40px, 4.4vw, 60px);
+  font-weight: 400; color: #0d0d0d;
+  letter-spacing: -0.01em; line-height: 1.08;
   margin-bottom: 8px;
   overflow: hidden;
 }
 .about-headline-italic {
-  font-family: var(--head);
-  font-size: clamp(28px, 3.2vw, 44px);
-  font-weight: 700; font-style: italic;
+  font-family: var(--head-serif);
+  font-size: clamp(31px, 3.5vw, 48px);
+  font-weight: 400; font-style: italic;
   color: rgba(13,13,13,0.6);
-  letter-spacing: -0.025em; line-height: 1.3;
+  letter-spacing: -0.01em; line-height: 1.2;
   margin-bottom: 40px;
   overflow: visible;
 }
@@ -872,9 +878,9 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 }
 /* big headline */
 .connect-headline {
-  font-family: var(--head);
-  font-size: clamp(36px, 5vw, 72px);
-  font-weight: 900; letter-spacing: -0.035em; line-height: 1.0;
+  font-family: var(--head-serif);
+  font-size: clamp(40px, 5.5vw, 79px);
+  font-weight: 400; letter-spacing: -0.01em; line-height: 1.05;
   color: #0d0d0d;
   overflow: hidden;
   position: relative; z-index: 2;
@@ -955,7 +961,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 @media (max-width: 1024px) {
   /* Hero */
   .hero-card { padding: 60px 40px; gap: 48px; border-radius: 40px; }
-  .hero-headline { font-size: 38px; }
+  .hero-headline { font-size: 42px; }
   .hero-body     { font-size: 16px; }
   .hero-photo    { width: 280px; height: 296px; }
 
@@ -963,7 +969,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   .bento-grid { grid-template-columns: repeat(2, 1fr); }
 
   /* Work header */
-  .work-title { font-size: 36px; }
+  .work-title { font-size: 40px; }
 
   /* Project cards */
   .card-content-row { gap: 32px; min-height: 360px; }
@@ -999,7 +1005,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
     grid-template-columns: unset;
   }
   .hero-text { max-width: 100%; align-items: center; text-align: center; }
-  .hero-headline { font-size: 30px; }
+  .hero-headline { font-size: 33px; }
   .hero-body     { font-size: 15px; max-width: 100%; }
   .hero-cta-row  { justify-content: center; flex-wrap: wrap; gap: 10px; }
   .hero-location { text-align: center; }
@@ -1010,7 +1016,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   /* Work section */
   .work-section { padding: 72px 0 56px; }
   .work-header  { flex-direction: column; align-items: flex-start; gap: 12px; padding-bottom: 36px; margin-bottom: 40px; }
-  .work-title   { font-size: 32px; }
+  .work-title   { font-size: 35px; }
   .work-sub     { text-align: left; max-width: 100%; }
 
   /* Project cards — hide image on mobile, tighten padding */
@@ -1038,15 +1044,15 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   .about-card    { padding: 48px 36px; border-radius: 36px; }
   .about-grid    { grid-template-columns: 1fr; gap: 40px; }
   .about-right   { max-width: 320px; margin: 0 auto; }
-  .about-headline { font-size: 32px; }
-  .about-headline-italic { font-size: 24px; }
+  .about-headline { font-size: 36px; }
+  .about-headline-italic { font-size: 27px; }
   .about-body    { font-size: 16px; }
   .about-btns    { flex-wrap: wrap; }
 
   /* Connect */
   .connect-section { padding: 100px 0 60px; }
   .connect-inner   { padding: 60px 0 40px; }
-  .connect-headline { font-size: clamp(28px, 8vw, 48px); }
+  .connect-headline { font-size: clamp(31px, 8vw, 53px); }
   .connect-sub      { font-size: 14px; }
   .connect-btns     { flex-direction: column; align-items: center; gap: 10px; }
   .con-btn-primary,
@@ -1075,12 +1081,12 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 @media (max-width: 480px) {
   .hero-section  { padding: 64px 12px 48px; }
   .hero-card     { padding: 28px 18px 36px; border-radius: 22px; gap: 24px; }
-  .hero-headline { font-size: 26px; }
+  .hero-headline { font-size: 29px; }
   .hero-photo    { width: 160px; height: 170px; }
   .card-title    { font-size: 22px; }
-  .about-headline { font-size: 28px; }
-  .about-headline-italic { font-size: 20px; }
-  .connect-headline { font-size: 28px; }
+  .about-headline { font-size: 31px; }
+  .about-headline-italic { font-size: 22px; }
+  .connect-headline { font-size: 31px; }
   .con-pill-2, .con-pill-6, .con-pill-7 { display: none; }
 
   /* Hero extra-small */

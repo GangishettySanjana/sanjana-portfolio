@@ -77,13 +77,9 @@ video { pointer-events: none; }
 .fancy:hover::before { width: 0.85rem; background: #fff; }
 .fancy:hover .fancy-text { padding-left: 1.5em; }
 
-@font-face {
-  font-family: 'NCL Gasdrifo';
-  src: url('/fonts/NCLGasdrifo-Demo.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+/* Removed the 'NCL Gasdrifo' @font-face — it pointed at a Demo .otf
+   (unlicensed for public/commercial web use). Its usages now render with
+   Instrument Serif (var(--font-serif)), which is free for commercial + web. */
 
 @keyframes ping {
   75%, 100% { transform: scale(2); opacity: 0; }
