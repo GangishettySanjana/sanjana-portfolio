@@ -134,6 +134,10 @@ video { pointer-events: none; }
   /* Spacing */
   --section-gap: clamp(80px, 10vw, 140px);
   --container-pad: clamp(20px, 5vw, 80px);
+  /* Responsive vertical section padding — one scale for consistent rhythm.
+     clamp() lower bound handles mobile, so no per-section mobile overrides. */
+  --section-pad: clamp(84px, 9vw, 148px);      /* standard vertical section padding */
+  --section-pad-lg: clamp(108px, 12vw, 188px); /* larger, for the narrative About */
 }
 
 /* ─────────────────────────────────────────────────

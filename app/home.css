@@ -53,7 +53,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 .hero-section {
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
-  padding: 80px var(--gutter);
+  padding: var(--section-pad) var(--gutter);
   background: var(--page-bg);
   position: relative;
   overflow: hidden;
@@ -172,7 +172,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 .photo-placeholder { font-size: 11px; color: rgba(0,0,0,0.4); text-align: center; line-height: 1.8; letter-spacing: 0.06em; text-transform: uppercase; }
 
 /* ── WORK SECTION ── */
-.work-section { background: var(--page-bg); padding: 100px 0 80px; position: relative; z-index: 1; }
+.work-section { background: var(--page-bg); padding: var(--section-pad) 0; position: relative; z-index: 1; }
 .work-header {
   display: flex; align-items: flex-end; justify-content: space-between;
   padding-bottom: 56px; border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -613,7 +613,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 /* ── EXPLORATIONS SECTION ── */
 .explorations-section {
   background: var(--page-bg);
-  padding: 100px 0 80px;
+  padding: var(--section-pad) 0;
   position: relative; z-index: 1;
 }
 .explorations-section .work-header {
@@ -710,7 +710,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 /* ── ABOUT SECTION ── */
 .about-section {
   background: var(--page-bg);
-  padding: 120px 0 100px;
+  padding: var(--section-pad-lg) 0;
   position: relative; z-index: 1;
 }
 
@@ -866,7 +866,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 /* ── CONNECT ── */
 .connect-section {
   background: var(--page-bg);
-  padding: 140px 0 80px;
+  padding: var(--section-pad) 0;
   position: relative; z-index: 1;
   border-top: 1px solid rgba(0,0,0,0.07);
   overflow: hidden;
@@ -993,8 +993,9 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* Hero — stack vertically */
-  .hero-section { padding: 72px 16px 56px; }
+  /* Hero — stack vertically. Vertical padding comes from --section-pad;
+     keep only the tighter mobile side padding. */
+  .hero-section { padding-left: 16px; padding-right: 16px; }
   .hero-card {
     display: flex;
     flex-direction: column-reverse;
@@ -1013,8 +1014,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   .hero-worked-in { justify-content: center; }
   .hero-nameplate { justify-content: center; }
 
-  /* Work section */
-  .work-section { padding: 72px 0 56px; }
+  /* Work section — vertical padding now from --section-pad */
   .work-header  { flex-direction: column; align-items: flex-start; gap: 12px; padding-bottom: 36px; margin-bottom: 40px; }
   .work-title   { font-size: 35px; }
   .work-sub     { text-align: left; max-width: 100%; }
@@ -1039,8 +1039,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   .beyond-band { margin-top: 48px; padding-top: 40px; }
   .bento-grid { grid-template-columns: 1fr; }
 
-  /* About */
-  .about-section { padding: 80px 0 72px; }
+  /* About — vertical padding now from --section-pad-lg */
   .about-card    { padding: 48px 36px; border-radius: 36px; }
   .about-grid    { grid-template-columns: 1fr; gap: 40px; }
   .about-right   { max-width: 320px; margin: 0 auto; }
@@ -1049,8 +1048,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   .about-body    { font-size: 16px; }
   .about-btns    { flex-wrap: wrap; }
 
-  /* Connect */
-  .connect-section { padding: 100px 0 60px; }
+  /* Connect — vertical padding now from --section-pad */
   .connect-inner   { padding: 60px 0 40px; }
   .connect-headline { font-size: clamp(31px, 8vw, 53px); }
   .connect-sub      { font-size: 14px; }
@@ -1079,7 +1077,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
    RESPONSIVE — Small mobile (≤ 480px)
 ═══════════════════════════════════════════ */
 @media (max-width: 480px) {
-  .hero-section  { padding: 64px 12px 48px; }
+  .hero-section  { padding-left: 12px; padding-right: 12px; }
   .hero-card     { padding: 28px 18px 36px; border-radius: 22px; gap: 24px; }
   .hero-headline { font-size: 29px; }
   .hero-photo    { width: 160px; height: 170px; }
