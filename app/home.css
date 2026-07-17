@@ -1018,6 +1018,9 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   .card-content-row  { flex-direction: column; gap: 24px; min-height: unset; }
   .card-left         { flex: none; width: 100%; padding-bottom: 0; }
   .card-right        { display: none; }
+  /* AI Trust Meter card-right has an inline display:flex (for the framed
+     OG image); !important is needed to hide it on mobile like the others */
+  .card-ai-trust-meter .card-right { display: none !important; }
   .card-title        { font-size: 26px; }
   .card-subtitle     { font-size: 15px; }
   .card-desc         { font-size: 14px; }
