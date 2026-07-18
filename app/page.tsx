@@ -310,77 +310,22 @@ export default function HomePage() {
       scrollTrigger: { trigger: '#aboutH2', ...aboutST },
     })
 
-    gsap.to('#aboutB1', {
-      opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-      scrollTrigger: { trigger: '#aboutB1', ...aboutST },
-    })
-    gsap.to('#aboutB2', {
-      opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-      scrollTrigger: { trigger: '#aboutB2', ...aboutST },
+    // Then / Now columns cascade
+    gsap.to('.about-col', {
+      opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.12,
+      scrollTrigger: { trigger: '#aboutSplit', ...aboutST },
     })
 
-    // Info cells cascade in one by one
-    gsap.to('.about-info-cell', {
-      opacity: 1, y: 0, duration: 0.45, ease: 'power3.out',
-      stagger: 0.08,
-      scrollTrigger: { trigger: '#aboutInfo', ...aboutST },
+    // The bridge line
+    gsap.to('#aboutBridge', {
+      opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
+      scrollTrigger: { trigger: '#aboutBridge', ...aboutST },
     })
 
-    gsap.to('#aboutBtns', {
-      opacity: 1, y: 0, duration: 0.55, ease: 'spring',
-      scrollTrigger: { trigger: '#aboutBtns', ...aboutST },
-    })
-
-    // Photo slides in from right
-    gsap.to('#aboutRight', {
-      opacity: 1, x: 0, duration: 0.85, ease: 'power3.out',
-      scrollTrigger: { trigger: '#aboutRight', start: 'top 88%', toggleActions: 'play none none none' },
-    })
-
-    // Photo parallax — drifts up slowly as you scroll past (like hero photo)
-    gsap.to('#aboutRight', {
-      y: -40,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.about-section',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.2,
-      },
-    })
-
-    // Photo 3D tilt on hover — same as project cards
-    const aboutPhotoWrap = document.querySelector<HTMLElement>('.about-photo-wrap')
-    if (aboutPhotoWrap) {
-      aboutPhotoWrap.addEventListener('mousemove', (e: MouseEvent) => {
-        const r = aboutPhotoWrap.getBoundingClientRect()
-        const x = (e.clientX - r.left) / r.width  - 0.5
-        const y = (e.clientY - r.top)  / r.height - 0.5
-        gsap.to(aboutPhotoWrap, {
-          rotateY: x * 8, rotateX: -y * 6,
-          duration: 0.4, ease: 'power2.out',
-          transformPerspective: 1000,
-        })
-      })
-      aboutPhotoWrap.addEventListener('mouseleave', () => {
-        gsap.to(aboutPhotoWrap, {
-          rotateY: 0, rotateX: 0,
-          duration: 0.9, ease: 'elastic.out(1, 0.5)',
-        })
-      })
-    }
-
-    // Magnetic pull on about buttons
-    document.querySelectorAll<HTMLElement>('.about-btn-dark, .about-btn-outline').forEach(btn => {
-      btn.addEventListener('mousemove', (e: MouseEvent) => {
-        const r  = btn.getBoundingClientRect()
-        const dx = (e.clientX - r.left - r.width  / 2) * 0.3
-        const dy = (e.clientY - r.top  - r.height / 2) * 0.3
-        gsap.to(btn, { x: dx, y: dy, duration: 0.25, ease: 'power2.out' })
-      })
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' })
-      })
+    // Bottom strip (portrait + metadata + links)
+    gsap.to('#aboutStrip', {
+      opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
+      scrollTrigger: { trigger: '#aboutStrip', ...aboutST },
     })
 
     /* ─────────────────────────────────────────────
@@ -788,62 +733,65 @@ export default function HomePage() {
       {/* ABOUT */}
       <section className="about-section" id="about">
         <div className="container">
-          <div className="about-grid">
 
-            {/* LEFT: narrative copy + info grid */}
-            <div className="about-left">
-              <p className="about-eyebrow" id="aboutEye">About</p>
-              <h2 className="about-headline" id="aboutH1">I started in rooms.</h2>
-              <p className="about-headline-italic" id="aboutH2">Turns out software has the same problems.</p>
+          {/* 1. kicker */}
+          <p className="about-kicker" id="aboutEye">About</p>
 
-              <p className="about-body" id="aboutB1">Design school trained me to obsess over how a space makes you feel before you can explain why. Same obsession, different material. The questions didn&apos;t change. Just the rooms got smaller and moved to screens.</p>
+          {/* 2. the statement — one semantic heading, roman + italic lines */}
+          <h2 className="about-statement">
+            <span className="about-statement-roman" id="aboutH1">I started in rooms.</span>
+            <span className="about-statement-italic" id="aboutH2">Turns out software has the same problems.</span>
+          </h2>
 
-              <p className="about-body" id="aboutB2">Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re actually solving yet. That&apos;s the part most designers skip. I don&apos;t.</p>
-
-              {/* Info grid */}
-              <div className="about-info-bar" id="aboutInfo">
-                <div className="about-info-cell">
-                  <p className="info-key">Based in</p>
-                  <p className="info-val">United States</p>
-                </div>
-                <div className="about-info-cell">
-                  <p className="info-key">Focus</p>
-                  <p className="info-val">Product · AI · SaaS</p>
-                </div>
-                <div className="about-info-cell">
-                  <p className="info-key">Education</p>
-                  <p className="info-val">CU Boulder MS &apos;25</p>
-                </div>
-                <div className="about-info-cell">
-                  <p className="info-key">Status</p>
-                  <p className="info-val open">Open to full-time ✦</p>
-                </div>
-              </div>
-
-              <div className="about-btns" id="aboutBtns">
-                <Link href="/about" className="about-btn-dark">Full Story →</Link>
-                <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="about-btn-outline">Resume ↗</a>
-              </div>
+          {/* 3. the split — then | hairline | now */}
+          <div className="about-split" id="aboutSplit">
+            <div className="about-col">
+              <p className="about-col-label">Then · 2018 — 2022</p>
+              <p className="about-col-word">Rooms.</p>
+              <p className="about-col-body">Four years of interior design. Materials, light, how a ceiling height changes the way a place feels. Most of the job was working out what someone wanted a space to feel like before they had words for it.</p>
             </div>
 
-            {/* RIGHT: photo */}
-            <div className="about-right" id="aboutRight">
-              <div className="about-photo-wrap">
-                <img
-                  src="/images/sanjana.jpg"
-                  alt="Sanjana Gangishetty at CU Boulder"
-                  onError={(e) => {
-                    const img = e.target as HTMLImageElement
-                    img.style.display = 'none'
-                    const next = img.nextElementSibling as HTMLElement
-                    if (next) next.style.display = 'flex'
-                  }}
-                />
-                <span className="about-photo-ph" style={{display:'none'}}>Sanjana Gangishetty</span>
-              </div>
-            </div>
+            <div className="about-divider" aria-hidden="true" />
 
+            <div className="about-col">
+              <p className="about-col-label">Now · 2022 —</p>
+              <p className="about-col-word">Screens.</p>
+              <p className="about-col-body">AI tools, fintech, e-commerce. Same job, smaller rooms. I do my best work before the wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re solving yet.</p>
+            </div>
           </div>
+
+          {/* 4. the bridge */}
+          <p className="about-bridge" id="aboutBridge">Different material. Same question: how is this going to make someone feel?</p>
+
+          {/* 5. bottom strip — portrait, metadata line, text links */}
+          <div className="about-strip" id="aboutStrip">
+            <img
+              className="about-portrait"
+              src="/images/sanjana.jpg"
+              alt="Sanjana Gangishetty"
+              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+            />
+
+            <p className="about-meta">
+              <span className="val">United States</span>
+              <span className="sep">·</span>
+              <span className="val">Product</span>
+              <span className="sep">·</span>
+              <span className="val">AI</span>
+              <span className="sep">·</span>
+              <span className="val">SaaS</span>
+              <span className="sep">·</span>
+              <span className="val">CU Boulder MS &apos;25</span>
+              <span className="sep">·</span>
+              <span className="open">Open to full-time</span>
+            </p>
+
+            <div className="about-links">
+              <Link href="/about" className="about-link">Full story</Link>
+              <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="about-link">Résumé</a>
+            </div>
+          </div>
+
         </div>
       </section>
 
