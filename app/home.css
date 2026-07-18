@@ -721,7 +721,9 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
    The layout itself carries the pivot: two columns, one rule between them. */
 .about-section {
   background: var(--page-bg);
-  padding: var(--section-pad) 0;
+  /* Tighter top than the standard --section-pad: the section opens with a
+     small kicker, so the full gap read as emptiness. Bottom keeps the rhythm. */
+  padding: clamp(40px, 4.4vw, 72px) 0 var(--section-pad);
   position: relative; z-index: 1;
 }
 
