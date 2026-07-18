@@ -822,12 +822,20 @@ export default function HomePage() {
               {/* ── RIGHT: profile card + floating tags ── */}
               <div className="about-cardwrap">
                 <div className="about-card" id="aboutCard">
-                  <img
-                    className="about-card-photo"
-                    src="/images/sanjana.jpg"
-                    alt="Sanjana Gangishetty"
-                    onError={(e) => { (e.target as HTMLImageElement).style.visibility = 'hidden' }}
-                  />
+                  {/* the photo is the positioning context for the coffee tag, so
+                      it stays pinned over the photo at every card size */}
+                  <div className="about-photo-frame">
+                    <img
+                      className="about-card-photo"
+                      src="/images/sanjana.jpg"
+                      alt="Sanjana Gangishetty"
+                      onError={(e) => { (e.target as HTMLImageElement).style.visibility = 'hidden' }}
+                    />
+                    <span className="about-tag about-tag-2">
+                      coffee: non-negotiable
+                      <LottieAccent className="about-coffee" src={COFFEE_LOTTIE_SRC} fallback={<span aria-hidden="true">☕</span>} />
+                    </span>
+                  </div>
                   <div className="about-card-body">
                     <p className="about-card-name">
                       Sanjana Gangishetty <span className="about-pronouns">she/her</span>
@@ -841,12 +849,9 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* floating tags — deliberately placed clear of the face and name */}
+                {/* floating tags — deliberately placed clear of the face and name
+                    (the coffee tag lives inside .about-photo-frame above) */}
                 <span className="about-tag about-tag-1">Ex-interior designer</span>
-                <span className="about-tag about-tag-2">
-                  coffee: non-negotiable
-                  <LottieAccent className="about-coffee" src={COFFEE_LOTTIE_SRC} fallback={<span aria-hidden="true">☕</span>} />
-                </span>
                 <span className="about-tag about-tag-3">AI · UX · SaaS</span>
               </div>
 

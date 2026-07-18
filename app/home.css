@@ -889,8 +889,10 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 .about-coffee { display: inline-flex; width: 1.15em; height: 1.15em; align-items: center; }
 /* top-left, straddling the card's upper edge — above the face */
 .about-tag-1 { top: -16px; left: -26px; }
-/* right side, low enough to clear the face (which sits upper-centre) */
-.about-tag-2 { top: 58%; right: -34px; color: var(--accent); }
+/* pinned to the photo's lower-right — anchored to the photo (not the card) so
+   it can't drift onto the name as the card's proportions change with width */
+.about-photo-frame { position: relative; }
+.about-tag-2 { top: auto; bottom: 10%; right: -34px; color: var(--accent); }
 /* straddles the card's bottom edge, clearing the thank-you note above it */
 .about-tag-3 { bottom: -44px; left: -34px; }
 
