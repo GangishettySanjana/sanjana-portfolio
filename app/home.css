@@ -724,12 +724,15 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 }
 
 .about-panel {
-  /* swap this one line to retheme: sky #CFE6F5 · sage #D6E7D2 · butter #F2E7B0 */
-  --panel: #F2E7B0;
+  /* no fill — content sits on the page like every other section.
+     To bring a tinted panel back, set --panel to a pastel
+     (butter #F2E7B0 · sky #CFE6F5 · sage #D6E7D2). */
+  --panel: transparent;
   --accent: #C17A4F;
   background: var(--panel);
   border-radius: 34px;
-  padding: clamp(30px, 4.2vw, 62px);
+  /* keeps enough room to absorb the tags that hang off the card's edges */
+  padding: clamp(14px, 2.4vw, 40px);
   position: relative;
 }
 
@@ -800,8 +803,9 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 /* search-bar-styled link bar */
 .about-linkbar {
   display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-  background: rgba(255,255,255,0.66);
-  border: 1px solid rgba(255,255,255,0.9);
+  /* solid + a hairline so it still reads as a bar on the near-white page */
+  background: #fff;
+  border: 1px solid rgba(20,24,26,0.10);
   border-radius: 999px;
   padding: 10px 18px;
   max-width: 100%;
