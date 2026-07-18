@@ -312,7 +312,7 @@ export default function HomePage() {
         gsap.set(p, { strokeDasharray: len, strokeDashoffset: len })
       })
 
-      gsap.set(['#aboutNote', '#aboutGreeting', '#aboutIntro', '#aboutLinkbar'], { opacity: 0, y: 18 })
+      gsap.set(['#aboutNote', '#aboutGreeting', '#aboutIntro', '#aboutLinkbar', '#aboutActions'], { opacity: 0, y: 18 })
       gsap.set('#aboutCard', { opacity: 0, y: 26, scale: 0.97 })
       gsap.set(tags, { opacity: 0, scale: 0.8 })
 
@@ -324,7 +324,8 @@ export default function HomePage() {
         .to(doodles,          { strokeDashoffset: 0, duration: 0.7, ease: 'power2.out', stagger: 0.14 }, '-=0.35')
         .to('#aboutIntro',    { opacity: 1, y: 0, duration: 0.5,  ease: 'power3.out' }, '-=0.4')
         .to('#aboutLinkbar',  { opacity: 1, y: 0, duration: 0.5,  ease: 'power3.out' }, '-=0.32')
-        .to('#aboutCard',     { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: 'power3.out' }, '-=0.45')
+        .to('#aboutActions',  { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, '-=0.34')
+        .to('#aboutCard',     { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: 'power3.out' }, '-=0.5')
         .to(tags,             { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.9)', stagger: 0.1 }, '-=0.28')
 
       // gentle wave — a short burst, then a long pause (occasional, not frantic)
@@ -487,7 +488,7 @@ export default function HomePage() {
             <div className="hero-nameplate" id="hGreeting">
               <span className="hero-nameplate-name">Sanjana Gangishetty</span>
               <span className="hero-nameplate-dot">·</span>
-              <span className="hero-nameplate-loc">Based in the US · CU Boulder MS &apos;25</span>
+              <span className="hero-nameplate-loc">United States · CU Boulder MS &apos;25</span>
             </div>
             {/* Lead with the headline */}
             <h1 className="hero-headline" id="hHead">I don&apos;t wait until I know how. I build until I do.</h1>
@@ -797,9 +798,9 @@ export default function HomePage() {
                 </svg>
 
                 <p className="about-intro" id="aboutIntro">
-                  A product designer who started in interior design. I do my best work in the messy
-                  middle — especially when it&apos;s an AI that has to earn trust before anyone lets it
-                  do anything useful.
+                  Shipped AI tools, fintech products, e-commerce. I do my best work before the
+                  wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re
+                  solving yet. That&apos;s the part most designers skip. I don&apos;t.
                 </p>
 
                 <div className="about-linkbar" id="aboutLinkbar">
@@ -816,6 +817,17 @@ export default function HomePage() {
                     className="lb-cta"
                     href="mailto:gangishettysanjana084@gmail.com"
                   >work with me!</a>
+                </div>
+
+                {/* quiet text links — the full story page and the résumé */}
+                <div className="about-actions" id="aboutActions">
+                  <Link href="/about" className="about-action">Full story →</Link>
+                  <a
+                    href="/resume.pdf?v=0622"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="about-action"
+                  >Résumé ↗</a>
                 </div>
               </div>
 
@@ -843,7 +855,7 @@ export default function HomePage() {
                     <p className="about-card-row">📍 United States · CU Boulder MS &apos;25</p>
                     <p className="about-card-status">✦ Open to full-time roles</p>
                     <p className="about-card-note">
-                      Thanks so much for stopping by my corner of the internet — hope something here
+                      Thanks so much for stopping by my corner of the internet. Hope something here
                       made you smile.
                     </p>
                   </div>
@@ -851,7 +863,6 @@ export default function HomePage() {
 
                 {/* floating tags — deliberately placed clear of the face and name
                     (the coffee tag lives inside .about-photo-frame above) */}
-                <span className="about-tag about-tag-1">Ex-interior designer</span>
                 <span className="about-tag about-tag-3">AI · UX · SaaS</span>
               </div>
 

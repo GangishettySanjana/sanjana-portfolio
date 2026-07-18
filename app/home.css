@@ -728,7 +728,9 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
      To bring a tinted panel back, set --panel to a pastel
      (butter #F2E7B0 · sky #CFE6F5 · sage #D6E7D2). */
   --panel: transparent;
-  --accent: #C17A4F;
+  /* accent drives: "Sanjana!", both doodles, "work with me!", the coffee tag.
+     Matches the site's --blue (focus rings, Fireside card). */
+  --accent: #1E5DAC;
   background: var(--panel);
   border-radius: 34px;
   /* keeps enough room to absorb the tags that hang off the card's edges */
@@ -760,10 +762,23 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   color: rgba(20,24,26,0.5);
   margin-bottom: clamp(14px, 2vw, 22px);
 }
+/* ⚠️ LOCAL PREVIEW ONLY — "Noaction Italic" is a DEMO / PERSONAL-USE font
+   (see iFonts-License.txt: "License: Demo for Personal Use", © Font Liner).
+   The .otf is gitignored so it cannot deploy. Do NOT ship this: either buy a
+   web licence from the foundry, or delete this @font-face and the
+   --font-noaction reference below to fall back to Geist. */
+@font-face {
+  font-family: 'Noaction Italic';
+  src: url('/fonts/noaction-italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 .about-greeting {
-  font-family: var(--font-geist-sans), var(--body), sans-serif;
-  font-size: clamp(40px, 6vw, 72px);
-  font-weight: 700; line-height: 1.02; letter-spacing: -0.03em;
+  font-family: 'Noaction Italic', var(--font-geist-sans), var(--body), sans-serif;
+  font-size: clamp(44px, 6.6vw, 80px);
+  font-weight: 400; line-height: 1.04; letter-spacing: -0.01em;
   color: #14181A;
   margin: 0;
 }
@@ -775,12 +790,12 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   will-change: transform;
 }
 .about-name-hand {
-  font-family: var(--font-caveat), cursive;
-  font-weight: 700;
+  /* inherits the greeting's face (Noaction preview / Geist fallback) —
+     only the colour sets it apart */
   color: var(--accent);
-  font-size: 1.18em;      /* Caveat runs small — nudge it up to match */
-  line-height: 0.9;
-  letter-spacing: 0;
+  font-size: 1em;
+  line-height: inherit;
+  letter-spacing: inherit;
 }
 
 /* hand-drawn arrow pointing down at the intro */
@@ -830,6 +845,18 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 }
 .lb-cta:hover { opacity: 0.7; }
 .lb-url:focus-visible, .lb-cta:focus-visible { outline: 2px solid #1e5dac; outline-offset: 3px; border-radius: 4px; }
+
+/* quiet text links under the bar — full story + résumé (no pill buttons) */
+.about-actions { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 18px; }
+.about-action {
+  font-family: var(--font-geist-sans), var(--body), sans-serif;
+  font-size: 14px; color: #14181A; text-decoration: none;
+  border-bottom: 1px solid rgba(20,24,26,0.3);
+  padding-bottom: 2px;
+  transition: opacity 0.18s, border-color 0.18s;
+}
+.about-action:hover { opacity: 0.6; border-color: #14181A; }
+.about-action:focus-visible { outline: 2px solid #1e5dac; outline-offset: 3px; border-radius: 3px; }
 
 /* ── RIGHT: profile card + floating tags ── */
 .about-cardwrap { position: relative; }
@@ -887,8 +914,6 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   will-change: transform;
 }
 .about-coffee { display: inline-flex; width: 1.15em; height: 1.15em; align-items: center; }
-/* top-left, straddling the card's upper edge — above the face */
-.about-tag-1 { top: -16px; left: -26px; }
 /* pinned to the photo's lower-right — anchored to the photo (not the card) so
    it can't drift onto the name as the card's proportions change with width */
 .about-photo-frame { position: relative; }
@@ -912,7 +937,6 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
     align-self: flex-start;
     margin-top: 8px;
   }
-  .about-tag-1 { margin-top: 14px; }
   .about-squiggle { display: none; }
 }
 
