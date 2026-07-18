@@ -28,3 +28,7 @@ yarn-error.log*
 # build artifacts + local backups (should not be committed)
 tsconfig.tsbuildinfo
 resume-old-backup.pdf
+
+# Local-only preview font — DEMO/PERSONAL-USE licence, must not ship.
+# Replace with a licensed file (and remove this rule) before deploying.
+public/fonts/noaction-italic.otf

@@ -8,7 +8,15 @@ import { CustomEase } from 'gsap/CustomEase'
 import './home.css'
 
 const BirdScene = dynamic(() => import('@/components/BirdScene'), { ssr: false })
+const LottieAccent = dynamic(() => import('@/components/LottieAccent'), { ssr: false })
 import MaskedWordVideo from '@/components/MaskedWordVideo'
+
+/* ── About Lottie accents ───────────────────────────────────────────────
+   Drop your .lottie files into /public/lottie and point these at them,
+   e.g. '/lottie/waving-hand.lottie'. While these are empty the emoji
+   fallbacks (👋 / ☕) render instead — nothing breaks. */
+const WAVE_LOTTIE_SRC = ''
+const COFFEE_LOTTIE_SRC = ''
 import FooterMeta from '@/components/FooterMeta'
 
 export default function HomePage() {
@@ -281,52 +289,79 @@ export default function HomePage() {
     })
 
     /* ─────────────────────────────────────────────
-       13. ABOUT SECTION
+       13. ABOUT — one choreographed timeline + a few idle delights.
+       All initial states are set in GSAP (not CSS), so with JS off — or
+       under reduced-motion, where we skip this whole block — everything
+       simply renders static and visible.
     ───────────────────────────────────────────── */
-    const aboutST = { start: 'top 86%', toggleActions: 'play none none none' }
+    const aboutPanel = document.getElementById('aboutPanel')
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    gsap.to('#aboutEye', {
-      opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
-      scrollTrigger: { trigger: '#aboutEye', ...aboutST },
-    })
+    if (aboutPanel && !reduceMotion) {
+      const tags = gsap.utils.toArray<HTMLElement>('.about-tag')
+      const tagRot = [-4, 3.5, -2.5]
+      // rotation lives in GSAP so the idle float (y only) can't clobber it
+      tags.forEach((t, i) => gsap.set(t, { rotation: tagRot[i] ?? 0 }))
 
-    // Word clip reveal on the main statement (clipped by overflow:hidden)
-    ScrollTrigger.create({
-      trigger: '#aboutH1', ...aboutST,
-      onEnter() {
-        const h1 = document.getElementById('aboutH1')
-        if (h1) {
-          gsap.to(splitWords(h1), {
-            y: '0%', duration: 0.65, ease: 'reveal', stagger: 0.07,
+      // doodles draw themselves: dash the full path length, then unwind it
+      const doodles = Array.from(
+        aboutPanel.querySelectorAll<SVGPathElement>('.about-squiggle path, .about-arrow path')
+      )
+      doodles.forEach((p) => {
+        const len = p.getTotalLength()
+        gsap.set(p, { strokeDasharray: len, strokeDashoffset: len })
+      })
+
+      gsap.set(['#aboutNote', '#aboutGreeting', '#aboutIntro', '#aboutLinkbar', '#aboutActions'], { opacity: 0, y: 18 })
+      gsap.set('#aboutCard', { opacity: 0, y: 26, scale: 0.97 })
+      gsap.set(tags, { opacity: 0, scale: 0.8 })
+
+      gsap.timeline({
+        scrollTrigger: { trigger: '#aboutPanel', start: 'top 78%', toggleActions: 'play none none none' },
+      })
+        .to('#aboutNote',     { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' })
+        .to('#aboutGreeting', { opacity: 1, y: 0, duration: 0.6,  ease: 'power3.out' }, '-=0.22')
+        .to(doodles,          { strokeDashoffset: 0, duration: 0.7, ease: 'power2.out', stagger: 0.14 }, '-=0.35')
+        .to('#aboutIntro',    { opacity: 1, y: 0, duration: 0.5,  ease: 'power3.out' }, '-=0.4')
+        .to('#aboutLinkbar',  { opacity: 1, y: 0, duration: 0.5,  ease: 'power3.out' }, '-=0.32')
+        .to('#aboutActions',  { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, '-=0.34')
+        .to('#aboutCard',     { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: 'power3.out' }, '-=0.5')
+        .to(tags,             { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.9)', stagger: 0.1 }, '-=0.28')
+
+      // gentle wave — a short burst, then a long pause (occasional, not frantic)
+      const wave = aboutPanel.querySelector<HTMLElement>('.about-wave')
+      if (wave) {
+        gsap.set(wave, { transformOrigin: '70% 85%' })
+        gsap.timeline({ repeat: -1, repeatDelay: 4, delay: 1.4 })
+          .to(wave, { rotation: 16, duration: 0.24, ease: 'sine.inOut', yoyo: true, repeat: 5 })
+          .set(wave, { rotation: 0 })
+      }
+
+      // idle float on the tags — y only, so the rotation above survives
+      tags.forEach((t, i) => {
+        gsap.to(t, {
+          y: -6, duration: 2.5 + i * 0.35, ease: 'sine.inOut',
+          yoyo: true, repeat: -1, delay: 1.8 + i * 0.25,
+        })
+      })
+
+      // profile card tilts toward the cursor (fine pointers only)
+      const aboutCard = document.getElementById('aboutCard')
+      if (aboutCard && window.matchMedia('(pointer: fine)').matches) {
+        aboutCard.addEventListener('mousemove', (e: MouseEvent) => {
+          const r = aboutCard.getBoundingClientRect()
+          const x = (e.clientX - r.left) / r.width - 0.5
+          const y = (e.clientY - r.top) / r.height - 0.5
+          gsap.to(aboutCard, {
+            rotateY: x * 8, rotateX: -y * 8,
+            duration: 0.4, ease: 'power2.out', transformPerspective: 900,
           })
-        }
-      },
-    })
-
-    // Italic line — simple fade/slide (no splitWords: its overflow-visible
-    // spans left a ghost of the pre-reveal state).
-    gsap.to('#aboutH2', {
-      opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.15,
-      scrollTrigger: { trigger: '#aboutH2', ...aboutST },
-    })
-
-    // Then / Now columns cascade
-    gsap.to('.about-col', {
-      opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.12,
-      scrollTrigger: { trigger: '#aboutSplit', ...aboutST },
-    })
-
-    // The bridge line
-    gsap.to('#aboutBridge', {
-      opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
-      scrollTrigger: { trigger: '#aboutBridge', ...aboutST },
-    })
-
-    // Bottom strip (portrait + metadata + links)
-    gsap.to('#aboutStrip', {
-      opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
-      scrollTrigger: { trigger: '#aboutStrip', ...aboutST },
-    })
+        })
+        aboutCard.addEventListener('mouseleave', () => {
+          gsap.to(aboutCard, { rotateY: 0, rotateX: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)' })
+        })
+      }
+    }
 
     /* ─────────────────────────────────────────────
        14. CONNECT SECTION
@@ -453,7 +488,7 @@ export default function HomePage() {
             <div className="hero-nameplate" id="hGreeting">
               <span className="hero-nameplate-name">Sanjana Gangishetty</span>
               <span className="hero-nameplate-dot">·</span>
-              <span className="hero-nameplate-loc">Based in the US · CU Boulder MS &apos;25</span>
+              <span className="hero-nameplate-loc">United States · CU Boulder MS &apos;25</span>
             </div>
             {/* Lead with the headline */}
             <h1 className="hero-headline" id="hHead">I don&apos;t wait until I know how. I build until I do.</h1>
@@ -733,66 +768,105 @@ export default function HomePage() {
       {/* ABOUT */}
       <section className="about-section" id="about">
         <div className="container">
-          <div className="about-inner">
+          <div className="about-panel" id="aboutPanel">
 
-          {/* 1. kicker */}
-          <p className="about-kicker" id="aboutEye">About</p>
+            {/* hand-drawn squiggle, top corner (decorative) */}
+            <svg className="about-squiggle" viewBox="0 0 130 42" fill="none" aria-hidden="true">
+              <path d="M5 28C17 8 30 7 42 23s28 14 40-2 26-13 43-3" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round"/>
+            </svg>
 
-          {/* 2. the statement — one semantic heading, roman + italic lines */}
-          <h2 className="about-statement">
-            <span className="about-statement-roman" id="aboutH1">I started in rooms.</span>
-            <span className="about-statement-italic" id="aboutH2">Turns out software has the same problems.</span>
-          </h2>
+            <div className="about-grid">
 
-          {/* 3. the split — then | hairline | now */}
-          <div className="about-split" id="aboutSplit">
-            <div className="about-col">
-              <p className="about-col-label">Then · 2018 — 2022</p>
-              <p className="about-col-word">Rooms.</p>
-              <p className="about-col-body">Four years of interior design. Materials, light, how a ceiling height changes the way a place feels. Most of the job was working out what someone wanted a space to feel like before they had words for it.</p>
+              {/* ── LEFT ── */}
+              <div className="about-left">
+                <p className="about-note" id="aboutNote">About · 2026</p>
+
+                <h2 className="about-greeting" id="aboutGreeting">
+                  <span className="greet-row">
+                    Hi
+                    <LottieAccent className="about-wave" src={WAVE_LOTTIE_SRC} fallback={<span aria-hidden="true">👋</span>} />
+                  </span>
+                  <span className="greet-row">
+                    I&apos;m <span className="about-name-hand">Sanjana!</span>
+                  </span>
+                </h2>
+
+                {/* hand-drawn arrow pointing down to the intro (decorative) */}
+                <svg className="about-arrow" viewBox="0 0 56 74" fill="none" aria-hidden="true">
+                  <path d="M30 6c-16 20 14 28-2 52" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round"/>
+                  <path d="M19 48l9 12 11-11" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+
+                <p className="about-intro" id="aboutIntro">
+                  Shipped AI tools, fintech products, e-commerce. I do my best work before the
+                  wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re
+                  solving yet. That&apos;s the part most designers skip. I don&apos;t.
+                </p>
+
+                <div className="about-linkbar" id="aboutLinkbar">
+                  <span className="lb-glyph" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="2"/><path d="M13.5 13.5 18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+                  </span>
+                  <a
+                    className="lb-url"
+                    href="https://www.linkedin.com/in/sanjana-gangishetty"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >linkedin.com/in/sanjana-gangishetty</a>
+                  <a
+                    className="lb-cta"
+                    href="mailto:gangishettysanjana084@gmail.com"
+                  >work with me!</a>
+                </div>
+
+                {/* quiet text links — the full story page and the résumé */}
+                <div className="about-actions" id="aboutActions">
+                  <Link href="/about" className="about-action">Full story →</Link>
+                  <a
+                    href="/resume.pdf?v=0622"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="about-action"
+                  >Résumé ↗</a>
+                </div>
+              </div>
+
+              {/* ── RIGHT: profile card + floating tags ── */}
+              <div className="about-cardwrap">
+                <div className="about-card" id="aboutCard">
+                  {/* the photo is the positioning context for the coffee tag, so
+                      it stays pinned over the photo at every card size */}
+                  <div className="about-photo-frame">
+                    <img
+                      className="about-card-photo"
+                      src="/images/sanjana.jpg"
+                      alt="Sanjana Gangishetty"
+                      onError={(e) => { (e.target as HTMLImageElement).style.visibility = 'hidden' }}
+                    />
+                    <span className="about-tag about-tag-2">
+                      coffee: non-negotiable
+                      <LottieAccent className="about-coffee" src={COFFEE_LOTTIE_SRC} fallback={<span aria-hidden="true">☕</span>} />
+                    </span>
+                  </div>
+                  <div className="about-card-body">
+                    <p className="about-card-name">
+                      Sanjana Gangishetty <span className="about-pronouns">she/her</span>
+                    </p>
+                    <p className="about-card-row">📍 United States · CU Boulder MS &apos;25</p>
+                    <p className="about-card-status">✦ Open to full-time roles</p>
+                    <p className="about-card-note">
+                      Thanks so much for stopping by my corner of the internet. Hope something here
+                      made you smile.
+                    </p>
+                  </div>
+                </div>
+
+                {/* floating tags — deliberately placed clear of the face and name
+                    (the coffee tag lives inside .about-photo-frame above) */}
+                <span className="about-tag about-tag-3">AI · UX · SaaS</span>
+              </div>
+
             </div>
-
-            <div className="about-divider" aria-hidden="true" />
-
-            <div className="about-col">
-              <p className="about-col-label">Now · 2022 —</p>
-              <p className="about-col-word">Screens.</p>
-              <p className="about-col-body">AI tools, fintech, e-commerce. Same job, smaller rooms. I do my best work before the wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re solving yet.</p>
-            </div>
-          </div>
-
-          {/* 4. the bridge */}
-          <p className="about-bridge" id="aboutBridge">Different material. Same question: how is this going to make someone feel?</p>
-
-          {/* 5. bottom strip — portrait, metadata line, text links */}
-          <div className="about-strip" id="aboutStrip">
-            <img
-              className="about-portrait"
-              src="/images/sanjana.jpg"
-              alt="Sanjana Gangishetty"
-              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-            />
-
-            <p className="about-meta">
-              <span className="val">United States</span>
-              <span className="sep">·</span>
-              <span className="val">Product</span>
-              <span className="sep">·</span>
-              <span className="val">AI</span>
-              <span className="sep">·</span>
-              <span className="val">SaaS</span>
-              <span className="sep">·</span>
-              <span className="val">CU Boulder MS &apos;25</span>
-              <span className="sep">·</span>
-              <span className="open">Open to full-time</span>
-            </p>
-
-            <div className="about-links">
-              <Link href="/about" className="about-link">Full story</Link>
-              <a href="/resume.pdf?v=0622" target="_blank" rel="noopener noreferrer" className="about-link">Résumé</a>
-            </div>
-          </div>
-
           </div>
         </div>
       </section>
