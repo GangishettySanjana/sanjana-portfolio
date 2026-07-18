@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
-import { Source_Sans_3, Space_Grotesk, Outfit, Instrument_Serif } from 'next/font/google'
+import { Source_Sans_3, Space_Grotesk, Outfit, Instrument_Serif, Caveat } from 'next/font/google'
+// Geist isn't in Next 14's next/font/google list — use Vercel's official package
+import { GeistSans } from 'geist/font/sans'
 import Navigation from '@/components/Navigation'
 import SmoothScroll from '@/components/SmoothScroll'
 import './globals.css'
@@ -48,6 +50,14 @@ const labelFont = Outfit({
   display: 'swap',
 })
 
+// HANDWRITTEN — Caveat, for the signature name + "work with me!" link
+const caveatFont = Caveat({
+  subsets: ['latin'],
+  weight: ['600', '700'],
+  variable: '--font-caveat',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
   title: 'Sanjana Gangishetty · Product Designer',
   manifest: '/manifest.json',
@@ -85,13 +95,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${displayFont.variable} ${headingFont.variable} ${serifFont.variable} ${bodyFont.variable} ${labelFont.variable}`}
+      className={`${displayFont.variable} ${headingFont.variable} ${serifFont.variable} ${bodyFont.variable} ${labelFont.variable} ${GeistSans.variable} ${caveatFont.variable}`}
     >
       <head>
         <link rel="preconnect" href="https://api.fontshare.com"/>
         <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500,600,700,800,900&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet"/>
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap" rel="stylesheet"/>
       </head>
       <body className="bg-white text-roasted antialiased">
         <SmoothScroll />
