@@ -284,17 +284,23 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 .card-btn:hover { opacity: 0.8; transform: translateY(-2px); }
 .card-btn .btn-arrow { font-size: 18px; transition: transform 0.2s; }
 .card-btn:hover .btn-arrow { transform: translateX(4px); }
+/* Case-study preview = a raised near-white tile (soft-UI frame + emboss),
+   floated off the card so the frame and shadow read on every card color. */
 .card-right {
-  flex: 1; border-radius: 16px 16px 0 0; overflow: hidden;
-  align-self: stretch;
-  box-shadow: 0 -4px 40px rgba(0,0,0,0.15);
+  flex: 1; align-self: stretch;
   display: flex; align-items: center; justify-content: center;
+  background: var(--page-bg);       /* near-white frame (overridden per-card below → forced back) */
+  padding: 12px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 8px 8px 22px rgba(0,0,0,0.18), -8px -8px 18px rgba(255,255,255,0.3);
+  margin-bottom: 40px;              /* lift off the card bottom → floats + shadow shows */
   transform: translateY(8px) scale(1.01);
   transition: transform 0.6s ease;
-  min-height: 380px;
+  min-height: 340px;
 }
 .project-card.in-view .card-right { transform: translateY(0) scale(1); }
-.card-right img { width: 100%; height: 100%; object-fit: cover; }
+.card-right img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
 .img-placeholder {
   font-family: var(--body); font-size: 11px; color: rgba(0,0,0,0.3);
   text-align: center; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.8;
@@ -336,6 +342,8 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 .card-sparkconnect .card-category { border-color: #9F7AEA; color: #C4B5FD; }
 .card-sparkconnect .card-btn { background: #9F7AEA; color: #fff; }
 .card-sparkconnect .card-right { background: #2D1F54; display: flex; align-items: center; justify-content: center; }
+/* Force the preview frame to near-white on every card (beats the per-card bg above) */
+.project-card .card-right { background: var(--page-bg); }
 .card-sparkconnect .card-num-bg { color: rgba(159,122,234,0.10); }
 .card-sparkconnect .card-subtitle { color: rgba(232,216,255,0.65); }
 .card-sparkconnect .card-desc { color: rgba(232,216,255,0.80); }
@@ -1090,4 +1098,72 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
     top: calc(50% + 34px);
     width: 92vw;
   }
+}
+
+/* ─────────────────────────────────────────────
+   NEUMORPHIC BUTTONS (soft UI) — applied to every CTA site-wide.
+   From Uiverse.io by adamgiebl. Overrides the old dark-pill / ghost
+   treatments so all buttons read as one soft raised chip.
+   (Per-button font-size / padding are kept so each still fits its context.)
+───────────────────────────────────────────── */
+.hero-btn-primary, .hero-btn-secondary,
+.card-btn, .card-btn-secondary,
+.about-btn-dark, .about-btn-outline,
+.con-btn-primary, .con-btn-ghost,
+.bento-cta,
+.back-to-top {
+  background: var(--page-bg);
+  color: #090909;
+  border: 1px solid var(--page-bg);
+  border-radius: 12px;
+  box-shadow: 6px 6px 12px #dcdbd6, -6px -6px 12px #ffffff;
+  transition: all 0.3s;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  text-transform: none;
+}
+.hero-btn-primary:hover, .hero-btn-secondary:hover,
+.card-btn:hover, .card-btn-secondary:hover,
+.about-btn-dark:hover, .about-btn-outline:hover,
+.con-btn-primary:hover, .con-btn-ghost:hover,
+.bento-cta:hover,
+.back-to-top:hover {
+  background: var(--page-bg);
+  color: #090909;
+  border: 1px solid #ffffff;
+  opacity: 1;
+  transform: none;
+  box-shadow: 6px 6px 12px #dcdbd6, -6px -6px 12px #ffffff;
+}
+.hero-btn-primary:active, .hero-btn-secondary:active,
+.card-btn:active, .card-btn-secondary:active,
+.about-btn-dark:active, .about-btn-outline:active,
+.con-btn-primary:active, .con-btn-ghost:active,
+.bento-cta:active,
+.back-to-top:active {
+  box-shadow: 4px 4px 12px #dcdbd6, -4px -4px 12px #ffffff;
+}
+/* keep a visible keyboard focus ring */
+.hero-btn-primary:focus-visible, .hero-btn-secondary:focus-visible,
+.card-btn:focus-visible, .card-btn-secondary:focus-visible,
+.about-btn-dark:focus-visible, .about-btn-outline:focus-visible,
+.con-btn-primary:focus-visible, .con-btn-ghost:focus-visible,
+.bento-cta:focus-visible,
+.back-to-top:focus-visible {
+  outline: 2px solid #1e5dac;
+  outline-offset: 3px;
+}
+/* Project cards set per-card themed button colors at higher specificity
+   (.card-flairx .card-btn, etc.) — override them to the neumorphic chip too. */
+.project-card .card-btn,
+.project-card .card-btn-secondary {
+  background: var(--page-bg);
+  color: #090909;
+  border: 1px solid var(--page-bg);
+}
+.project-card .card-btn:hover,
+.project-card .card-btn-secondary:hover {
+  background: var(--page-bg);
+  color: #090909;
+  border: 1px solid #ffffff;
 }
