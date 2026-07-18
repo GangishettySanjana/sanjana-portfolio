@@ -796,7 +796,7 @@ export default function HomePage() {
               <h2 className="about-headline" id="aboutH1">I started in rooms.</h2>
               <p className="about-headline-italic" id="aboutH2">Turns out software has the same problems.</p>
 
-              <p className="about-body" id="aboutB1">Interior design trained me to obsess over how a space makes you feel before you can explain why. Same obsession, different material. The questions didn&apos;t change. Just the rooms got smaller and moved to screens.</p>
+              <p className="about-body" id="aboutB1">Design school trained me to obsess over how a space makes you feel before you can explain why. Same obsession, different material. The questions didn&apos;t change. Just the rooms got smaller and moved to screens.</p>
 
               <p className="about-body" id="aboutB2">Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re actually solving yet. That&apos;s the part most designers skip. I don&apos;t.</p>
 
