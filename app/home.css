@@ -33,7 +33,7 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   .hero-nameplate, .hero-body, .hero-cta-row, .hero-photo,
   #workHead, .work-header,
   .card-title, .card-subtitle, .card-desc, .card-hook, .card-btn, .card-right, .card-top-row, .stat,
-  #aboutCard, .about-card, #aboutEye, .about-eyebrow,
+  #aboutEye, .about-eyebrow, #aboutH2, .about-headline-italic,
   #aboutB1, #aboutB2, .about-body, .about-info-cell,
   #aboutBtns, .about-btns, #aboutRight, .about-right,
   #conSub, .connect-sub, #conBtns, .connect-btns, #conFooter, .connect-footer-row {
@@ -708,28 +708,13 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 }
 
 /* ── ABOUT SECTION ── */
+/* Content sits directly on the page background — same as Work / Connect.
+   No beige card, no grain. Two columns: narrative left, photo right. */
 .about-section {
   background: var(--page-bg);
-  padding: var(--section-pad-lg) 0;
+  padding: var(--section-pad) 0;
   position: relative; z-index: 1;
 }
-
-/* card wrapper — same treatment as .hero-card */
-.about-card {
-  width: 100%; max-width: var(--max-w);
-  margin: 0 auto; padding: 0 var(--gutter);
-  background-color: rgba(240,236,228,0.88);
-  border-radius: 60px; padding: 72px 72px;
-  position: relative; overflow: hidden;
-  transform: translateY(32px);
-}
-.about-card::before {
-  content: ''; position: absolute; inset: 0; border-radius: 60px;
-  pointer-events: none; z-index: 0; opacity: 0.55;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  background-repeat: repeat; background-size: 200px 200px;
-}
-.about-card > * { position: relative; z-index: 1; }
 
 .about-grid {
   display: grid;
@@ -761,12 +746,7 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   color: rgba(13,13,13,0.6);
   letter-spacing: -0.01em; line-height: 1.2;
   margin-bottom: 40px;
-  overflow: visible;
-}
-/* give word-reveal spans extra room for italic descenders */
-.about-headline-italic .word {
-  overflow: visible !important;
-  padding-bottom: 6px;
+  transform: translateY(16px); /* revealed by a simple fade/slide (no splitWords) */
 }
 .about-body {
   font-family: var(--body); font-size: 18px; font-weight: 400;
@@ -833,32 +813,33 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   50%       { box-shadow: 0 0 0 6px rgba(34,167,34,0.08); }
 }
 
-/* Info grid below photo — 2×2 */
+/* Info grid — 2×2 separated by hairlines only (no boxy rounded border) */
 .about-info-bar {
-  margin-top: 14px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 16px; overflow: hidden;
+  max-width: 460px;
+  margin: 4px 0 40px;
+  border-top: 1px solid rgba(0,0,0,0.08);
 }
 .about-info-cell {
-  padding: 16px 18px;
-  border-right: 1px solid rgba(0,0,0,0.08);
+  padding: 18px 0;
   border-bottom: 1px solid rgba(0,0,0,0.08);
   transform: translateY(12px);
 }
-/* remove right border on right column */
-.about-info-cell:nth-child(2n) { border-right: none; }
-/* remove bottom border on bottom row */
-.about-info-cell:nth-child(n+3) { border-bottom: none; }
+/* vertical hairline between the two columns, with breathing room */
+.about-info-cell:nth-child(odd) {
+  padding-right: 32px;
+  border-right: 1px solid rgba(0,0,0,0.08);
+}
+.about-info-cell:nth-child(even) { padding-left: 32px; }
 .info-key {
-  font-family: var(--body); font-size: 9px; font-weight: 600;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  color: rgba(0,0,0,0.35); margin-bottom: 5px;
+  font-family: var(--body); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(0,0,0,0.4); margin-bottom: 6px;
 }
 .info-val {
-  font-family: var(--head); font-size: 13px; font-weight: 700;
-  color: #0d0d0d; letter-spacing: -0.01em; line-height: 1.2;
+  font-family: var(--head); font-size: 14px; font-weight: 700;
+  color: #0d0d0d; letter-spacing: -0.01em; line-height: 1.3;
 }
 .info-val.open { color: #1a7a1a; }
 
@@ -1055,14 +1036,17 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   .beyond-band { margin-top: 48px; padding-top: 40px; }
   .bento-grid { grid-template-columns: 1fr; }
 
-  /* About — vertical padding now from --section-pad-lg */
-  .about-card    { padding: 48px 36px; border-radius: 36px; }
+  /* About — stacks to one column: narrative then photo */
   .about-grid    { grid-template-columns: 1fr; gap: 40px; }
   .about-right   { max-width: 320px; margin: 0 auto; }
   .about-headline { font-size: 36px; }
   .about-headline-italic { font-size: 27px; }
   .about-body    { font-size: 16px; }
   .about-btns    { flex-wrap: wrap; }
+  /* Info grid stacks to a single column with plain hairlines */
+  .about-info-bar { grid-template-columns: 1fr; max-width: 100%; }
+  .about-info-cell:nth-child(odd) { padding-right: 0; border-right: none; }
+  .about-info-cell:nth-child(even) { padding-left: 0; }
 
   /* Connect — vertical padding now from --section-pad */
   .connect-inner   { padding: 60px 0 40px; }

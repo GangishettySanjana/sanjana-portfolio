@@ -285,34 +285,29 @@ export default function HomePage() {
     ───────────────────────────────────────────── */
     const aboutST = { start: 'top 86%', toggleActions: 'play none none none' }
 
-    // Card entry — same feel as project cards
-    gsap.to('#aboutCard', {
-      opacity: 1, y: 0, duration: 1.0, ease: 'power3.out',
-      scrollTrigger: { trigger: '#aboutCard', start: 'top 88%', toggleActions: 'play none none none' },
-    })
-
     gsap.to('#aboutEye', {
       opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
       scrollTrigger: { trigger: '#aboutEye', ...aboutST },
     })
 
-    // Word clip reveal on headlines
+    // Word clip reveal on the main statement (clipped by overflow:hidden)
     ScrollTrigger.create({
       trigger: '#aboutH1', ...aboutST,
       onEnter() {
         const h1 = document.getElementById('aboutH1')
-        const h2 = document.getElementById('aboutH2')
         if (h1) {
           gsap.to(splitWords(h1), {
             y: '0%', duration: 0.65, ease: 'reveal', stagger: 0.07,
           })
         }
-        if (h2) {
-          gsap.to(splitWords(h2), {
-            y: '0%', duration: 0.6, ease: 'power3.out', stagger: 0.05, delay: 0.3,
-          })
-        }
       },
+    })
+
+    // Italic line — simple fade/slide (no splitWords: its overflow-visible
+    // spans left a ghost of the pre-reveal state).
+    gsap.to('#aboutH2', {
+      opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.15,
+      scrollTrigger: { trigger: '#aboutH2', ...aboutST },
     })
 
     gsap.to('#aboutB1', {
@@ -793,7 +788,6 @@ export default function HomePage() {
       {/* ABOUT */}
       <section className="about-section" id="about">
         <div className="container">
-          <div className="about-card" id="aboutCard">
           <div className="about-grid">
 
             {/* LEFT: narrative copy + info grid */}
@@ -849,7 +843,6 @@ export default function HomePage() {
               </div>
             </div>
 
-          </div>
           </div>
         </div>
       </section>
