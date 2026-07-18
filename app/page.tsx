@@ -733,6 +733,7 @@ export default function HomePage() {
       {/* ABOUT */}
       <section className="about-section" id="about">
         <div className="container">
+          <div className="about-inner">
 
           {/* 1. kicker */}
           <p className="about-kicker" id="aboutEye">About</p>
@@ -792,6 +793,7 @@ export default function HomePage() {
             </div>
           </div>
 
+          </div>
         </div>
       </section>
 

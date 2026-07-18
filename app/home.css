@@ -727,6 +727,13 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   position: relative; z-index: 1;
 }
 
+/* The section gets its own editorial measure. The page container is 1320px,
+   but 15px body copy caps out around a 38ch line — without this the text
+   stops less than halfway across and the leftover dumps on the right (and the
+   hairline ends up ~250px from the text it separates). Left-aligned, so the
+   section's left edge still lines up with Work / Connect. */
+.about-inner { max-width: 880px; }
+
 /* 1. kicker */
 .about-kicker {
   font-family: var(--body);
@@ -789,7 +796,9 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   font-family: var(--body);
   font-size: 15px; line-height: 1.66;
   color: #3D464D;
-  max-width: 34ch;
+  /* fills its column (~46ch at this width) so the hairline sits evenly
+     between the two text blocks rather than stranded beside one */
+  max-width: 46ch;
 }
 
 /* 4. the bridge */
