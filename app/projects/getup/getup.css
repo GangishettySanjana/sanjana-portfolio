@@ -5,7 +5,7 @@
      lg   1.333rem · xl  1.778rem · 2xl  2.369rem
      display: clamp(2rem, 5vw, 3.5rem)
    Fonts: Cormorant Garamond (display) · Instrument Sans (body)
-   Palette: Navy #002448 · Green #2BB5C2
+   Palette: Navy #002448 · Green #4DAA60
    ───────────────────────────────────────────────────────────────── */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Instrument+Sans:wght@400;500;600;700&display=swap');
@@ -34,17 +34,19 @@
   --base:       #FAFAF8;
   --surface:    rgba(0,36,72,0.028);
   --card:       rgba(0,36,72,0.042);
-  --border:     rgba(43,181,194,0.16);
-  --border-hi:  rgba(43,181,194,0.3);
+  --border:     rgba(77,170,96,0.16);
+  --border-hi:  rgba(77,170,96,0.3);
   --text:       #002448;
   --muted:      rgba(0,36,72,0.65);
   --dim:        rgba(0,36,72,0.4);
-  --accent:     #2BB5C2;
-  --accent-bg:  rgba(43,181,194,0.07);
-  --accent-bd:  rgba(43,181,194,0.25);
-  --green:      #2BB5C2;
-  --green-bg:   rgba(43,181,194,0.06);
-  --green-bd:   rgba(43,181,194,0.22);
+  --accent:     #4DAA60;
+  /* published to the shared CaseKit primitives (stats, bands, frames) */
+  --case-accent: #4DAA60;
+  --accent-bg:  rgba(77,170,96,0.07);
+  --accent-bd:  rgba(77,170,96,0.25);
+  --green:      #4DAA60;
+  --green-bg:   rgba(77,170,96,0.06);
+  --green-bd:   rgba(77,170,96,0.22);
 }
 
 /* ── base ───────────────────────────────────────────────────────── */
@@ -137,8 +139,8 @@
 /* ── hero ───────────────────────────────────────────────────────── */
 .fx-hero {
   background:
-    radial-gradient(ellipse 60% 50% at 95% 8%,  rgba(43,181,194,0.12) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 35% at 5%  92%, rgba(43,181,194,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 95% 8%,  rgba(77,170,96,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 5%  92%, rgba(77,170,96,0.07) 0%, transparent 55%),
     var(--base);
   border-bottom: 1px solid var(--border);
 }
@@ -252,9 +254,9 @@
   letter-spacing: 0.09em;
   color: var(--dim);
 }
-.fx-sum-problem  { background: rgba(43,181,194,0.05); }
+.fx-sum-problem  { background: rgba(77,170,96,0.05); }
 .fx-sum-approach { background: rgba(0,36,72,0.028); }
-.fx-sum-result   { background: rgba(43,181,194,0.08); }
+.fx-sum-result   { background: rgba(77,170,96,0.08); }
 .fx-sum-col ul {
   list-style: none;
   padding: 0; margin: 0;
@@ -394,7 +396,7 @@
   content: '→';
   position: absolute;
   left: 0;
-  color: rgba(43,181,194,0.55);
+  color: rgba(77,170,96,0.55);
 }
 
 /* ── before-state row ───────────────────────────────────────────── */
@@ -461,7 +463,7 @@
   color: var(--text);
   margin-bottom: 6px;
   text-decoration: line-through;
-  text-decoration-color: rgba(43,181,194,0.45);
+  text-decoration-color: rgba(77,170,96,0.45);
   text-decoration-thickness: 1.5px;
 }
 .fx-ruled-out-desc {
@@ -806,6 +808,9 @@
 
 /* ── responsive ─────────────────────────────────────────────────── */
 @media (max-width: 1100px) { .fx-v-nav { display: none; } }
+/* Keeps full-width figures clear of the fixed scrollspy nav; the shared
+   kit resets this to 0 below 1300px where the nav is hidden. */
+.fx-page { --cs-bleed-inset: 124px; }
 
 /* ── Tablet (≤ 860px) ────────────────────────────────────────────── */
 @media (max-width: 860px) {
