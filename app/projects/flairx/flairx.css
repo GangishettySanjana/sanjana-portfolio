@@ -40,6 +40,8 @@
   --muted:      rgba(0,36,72,0.65);
   --dim:        rgba(0,36,72,0.62); /* overridden by buildnative.css's --dim, kept in sync for docs/consistency */
   --accent:     #2BB5C2;
+  /* published to the shared CaseKit primitives (stats, bands, frames) */
+  --case-accent: #2BB5C2;
   --accent-bg:  rgba(43,181,194,0.07);
   --accent-bd:  rgba(43,181,194,0.25);
   --green:      #1a6e4a;
@@ -380,6 +382,24 @@
   display: flex;
   flex-direction: column;
   gap: 9px;
+}
+/* Under a full-bleed figure a single stacked column runs very tall and
+   strands the right-hand side. Two columns keeps the block compact. */
+.fx-bullets-inline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px 40px;
+  margin-top: 28px;
+}
+@media (max-width: 700px) {
+  .fx-bullets-inline { grid-template-columns: 1fr; }
+}
+
+/* Context lead: the two paragraphs that carry an argument, sized for
+   reading rather than scanning. */
+.fx-ctx-lead {
+  max-width: 62ch;
+  margin-bottom: 8px;
 }
 .fx-bullets li {
   font-family: var(--fx-sans);
@@ -806,6 +826,12 @@
 
 /* ── responsive ─────────────────────────────────────────────────── */
 @media (max-width: 1100px) { .fx-v-nav { display: none; } }
+/* The scrollspy nav is fixed at left: 28px and ~81px wide with no
+   background, so full-bleed figures must stop short of it or the
+   section numbers sit unreadably on top of a screenshot. Below 1100px
+   the nav is hidden, so the inset drops back to 0. */
+.fx-page { --cs-bleed-inset: 124px; }
+@media (max-width: 1100px) { .fx-page { --cs-bleed-inset: 0px; } }
 
 /* ── Tablet (≤ 860px) ────────────────────────────────────────────── */
 @media (max-width: 860px) {
