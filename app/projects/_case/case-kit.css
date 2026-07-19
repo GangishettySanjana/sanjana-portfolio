@@ -426,18 +426,19 @@
   margin: clamp(32px, 4vw, 56px) 0;
   padding-left: clamp(20px, 3vw, 38px);
   border-left: 3px solid var(--case-accent);
-  max-width: 24ch;
-  min-width: min(100%, 34ch);
 }
 .cs-quote-body {
   margin: 0;
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+  /* Sized to keep a typical one-sentence research quote on a single
+     line at desktop. The previous 20ch cap broke a 55-character quote
+     across three lines and read as a cramped column. */
+  font-size: clamp(1.35rem, 2.1vw, 2rem);
   font-style: italic;
-  line-height: 1.25;
+  line-height: 1.22;
   letter-spacing: -0.01em;
   color: #002448;
-  max-width: 20ch;
+  text-wrap: balance;
 }
 .cs-quote-attr {
   margin-top: 16px;
