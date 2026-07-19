@@ -92,20 +92,26 @@ function FlairXFlowChart() {
         <text x={620} y={183} textAnchor="middle" fill="#002448" fontSize={13} fontFamily={font} fontWeight={600}>ATS</text>
         <text x={620} y={199} textAnchor="middle" fill="#002448" fontSize={13} fontFamily={font} fontWeight={600}>Integration</text>
         <line x1={100} y1={210} x2={100} y2={248} stroke={lineColor} strokeWidth={lw} markerEnd="url(#fxarrow)"/>
-        <line x1={360} y1={210} x2={360} y2={238} stroke={lineColor} strokeWidth={lw}/>
-        <line x1={288} y1={238} x2={432} y2={238} stroke={lineColor} strokeWidth={lw}/>
-        <line x1={288} y1={238} x2={288} y2={256} stroke={lineColor} strokeWidth={lw} markerEnd="url(#fxarrow)"/>
-        <line x1={432} y1={238} x2={432} y2={256} stroke={lineColor} strokeWidth={lw} markerEnd="url(#fxarrow)"/>
+        {/* Stage 2 forks into Single / Bulk. Branch x-positions match the
+            two box centres below (276 and 444). */}
+        <line x1={360} y1={210} x2={360} y2={230} stroke={lineColor} strokeWidth={lw}/>
+        <line x1={276} y1={230} x2={444} y2={230} stroke={lineColor} strokeWidth={lw}/>
+        <line x1={276} y1={230} x2={276} y2={248} stroke={lineColor} strokeWidth={lw} markerEnd="url(#fxarrow)"/>
+        <line x1={444} y1={230} x2={444} y2={248} stroke={lineColor} strokeWidth={lw} markerEnd="url(#fxarrow)"/>
         <line x1={620} y1={210} x2={620} y2={248} stroke={lineColor} strokeWidth={lw} markerEnd="url(#fxarrow)"/>
         <rect x={10} y={252} width={180} height={78} rx={13} fill={resultFill} stroke={resultBorder} strokeWidth={lw}/>
         <text x={100} y={279} textAnchor="middle" fill="rgba(0,36,72,0.7)" fontSize={11.5} fontFamily={font}>No manual time required</text>
         <text x={100} y={297} textAnchor="middle" fill="rgba(0,36,72,0.7)" fontSize={11.5} fontFamily={font}>Clean, structured data</text>
-        <rect x={208} y={260} width={155} height={60} rx={13} fill={resultFill} stroke={resultBorder} strokeWidth={lw}/>
-        <text x={285} y={286} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Single</text>
-        <text x={285} y={304} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Upload</text>
-        <rect x={357} y={260} width={155} height={60} rx={13} fill={resultFill} stroke={resultBorder} strokeWidth={lw}/>
-        <text x={434} y={286} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Bulk</text>
-        <text x={434} y={304} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Upload</text>
+        {/* Were x=208 w=155 and x=357 w=155, i.e. spans 208–363 and
+            357–512 — a 6px overlap. Now 140 wide with a 28px gap,
+            centred on 360 and sharing the side boxes' y/height so all
+            four bottom cards sit on one baseline. */}
+        <rect x={206} y={252} width={140} height={78} rx={13} fill={resultFill} stroke={resultBorder} strokeWidth={lw}/>
+        <text x={276} y={285} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Single</text>
+        <text x={276} y={303} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Upload</text>
+        <rect x={374} y={252} width={140} height={78} rx={13} fill={resultFill} stroke={resultBorder} strokeWidth={lw}/>
+        <text x={444} y={285} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Bulk</text>
+        <text x={444} y={303} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Upload</text>
         <rect x={530} y={252} width={180} height={78} rx={13} fill={resultFill} stroke={resultBorder} strokeWidth={lw}/>
         <text x={620} y={276} textAnchor="middle" fill="rgba(0,36,72,0.7)" fontSize={11.5} fontFamily={font}>Connect to applicant</text>
         <text x={620} y={294} textAnchor="middle" fill="rgba(0,36,72,0.7)" fontSize={11.5} fontFamily={font}>tracking systems</text>
@@ -691,9 +697,7 @@ export default function FlairXPage() {
               ].map(item => <li key={item}>{item}</li>)}
             </ul>
 
-            <div style={{ maxWidth: '72%' }}>
-              <FlairXFlowChart />
-            </div>
+            <FlairXFlowChart />
             </Reveal>
           </div>
         </section>
