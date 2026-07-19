@@ -4,7 +4,13 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Reveal, CaseFigure } from '@/components/case/CaseKit'
+import {
+  Reveal,
+  CaseFigure,
+  CaseStats,
+  CaseSpecStrip,
+  CaseQuote,
+} from '@/components/case/CaseKit'
 import './aura.css'
 import '@/app/projects/_case/case-kit.css'
 import '@/app/projects/_case/buildnative.css'
@@ -235,7 +241,7 @@ export default function AuraPage() {
 
   return (
     <>
-      <div className="fx-page" style={{ paddingTop: 64 }}>
+      <div className="fx-page cs-bleed-root" style={{ paddingTop: 64 }}>
 
         {/* ── VERTICAL SCROLLSPY NAV ──────────────────────── */}
         <nav className="fx-v-nav" aria-label="Page sections">
@@ -272,6 +278,18 @@ export default function AuraPage() {
             <p className="fx-hero-sub">
               A Hyderabad florist had a loyal customer base and no digital presence. COVID changed that overnight. I designed a mobile app that replicates the personal florist experience online, live inventory, bouquet customization, and a checkout built for gifting.
             </p>
+
+            {/* Real figures from the research section: a 20-person
+                screener narrowed to 5 interviews, then 3 test rounds.
+                Sits outside .fx-summary-card so it shares the hero
+                column's left edge, as on FlairX and Fireside. */}
+            <CaseStats
+              items={[
+                { value: '20 → 5', label: 'Screened, then interviewed in depth' },
+                { value: '3', label: 'Rounds of usability testing' },
+                { value: 'End-to-end', label: 'Research through final prototype' },
+              ]}
+            />
 
             <div className="fx-summary-card">
               <div className="fx-summary-top">
@@ -340,37 +358,21 @@ export default function AuraPage() {
         </section>
 
         {/* ── 01 CONTEXT ──────────────────────────────────── */}
-        <section className="fx-sec" id="context">
+        <section className="fx-sec cs-band-tint" id="context">
           <div className="fx-container">
             <Reveal>
             <p className="fx-sec-label">01 · Context</p>
             <h2 className="fx-sec-title">A florist with no digital presence, in the middle of a lockdown.</h2>
 
-            <div className="fx-ctx-rows">
-              {[
-                {
-                  label: 'The ask',
-                  text: 'Build a mobile app that brings the in-store florist experience online without losing what makes it personal.',
-                },
-                {
-                  label: 'The situation',
-                  text: 'Small florists in Hyderabad were entirely foot-traffic dependent. COVID-19 hit and in-person shopping stopped. Loyal customers had nowhere to go.',
-                },
-                {
-                  label: 'Scope',
-                  text: 'End-to-end UX project: research, information architecture, wireframes, usability testing, and final prototype.',
-                },
-                {
-                  label: 'Context',
-                  text: 'This was completed as part of the Google UX Design Professional Certificate, but the problem was real.',
-                },
-              ].map(({ label, text }) => (
-                <div key={label} className="fx-ctx-row">
-                  <span className="fx-ctx-key">{label}</span>
-                  <p className="fx-ctx-val">{text}</p>
-                </div>
-              ))}
-            </div>
+            <CaseSpecStrip
+              items={[
+                { label: 'Role', value: 'UX Designer, end to end' },
+                { label: 'Ask', value: 'Bring the in-store florist experience online without losing what makes it personal' },
+                { label: 'Situation', value: 'Hyderabad florists were foot-traffic only when COVID-19 stopped in-person shopping' },
+                { label: 'Scope', value: 'Research, IA, wireframes, usability testing, final prototype' },
+                { label: 'Context', value: 'Google UX Design Certificate, but a real florist and a real customer base' },
+              ]}
+            />
 
             <div className="fx-prose" style={{ marginTop: 40 }}>
               <p>Small florists in Hyderabad were entirely foot-traffic dependent. No app, no website, no way to take orders online. When COVID-19 hit and in-person shopping stopped, loyal customers had nowhere to go. Aura was designed to fix that.</p>
@@ -427,9 +429,9 @@ export default function AuraPage() {
               ))}
             </div>
 
-            <blockquote className="fx-pull-quote">
+            <CaseQuote attribution="The finding that redirected the whole app, from 5 in-depth interviews.">
               &ldquo;Most people buy flowers for other people, not themselves, on a deadline, under pressure to get it right.&rdquo;
-            </blockquote>
+            </CaseQuote>
 
             <div className="fx-research-grid">
               <div className="fx-research-col">
@@ -536,9 +538,9 @@ export default function AuraPage() {
 
             <CaseFigure
               src="/projects/aura/paper-wireframes.png"
-              alt="Paper wireframes"
-              caption="Paper wireframes"
-              variant="plain"
+              alt="Paper wireframes of the browse, customise and checkout flows laid out in sequence"
+              caption="Paper let me move fast and throw a lot away. The jump from these to the final screens is three rounds of testing compressed into one image."
+              width="wide"
               style={{ marginTop: 40 }}
             />
 
@@ -565,19 +567,13 @@ export default function AuraPage() {
               <span className="fx-screen-num">01</span>
               <h3 className="fx-screen-title">Home, real-time inventory</h3>
               <p className="fx-screen-body">The home screen balances browsing and discovery. Real-time inventory status is baked in: grayed out means unavailable, soft tags signal low stock. An &lsquo;upcoming collections&rsquo; section keeps returning customers engaged with what is fresh.</p>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <img
-                  src="/projects/aura/aura-dashboard.png"
-                  alt="Aura home screen, real-time inventory"
-                  style={{
-                    display: 'block',
-                    maxWidth: 320,
-                    width: '100%',
-                    borderRadius: 32,
-                    boxShadow: '0 12px 48px rgba(0,36,72,0.12)',
-                  }}
-                />
-              </div>
+              <CaseFigure
+                src="/projects/aura/aura-dashboard.png"
+                alt="Aura home screen showing real-time inventory, with unavailable stems greyed out and low-stock items tagged"
+                caption="Inventory state is built into browsing: greyed out means unavailable, so nobody designs a bouquet they can't order."
+                width="content"
+                fit="height"
+              />
             </div>
 
             {/* Screen 02 */}
@@ -587,9 +583,10 @@ export default function AuraPage() {
               <p className="fx-screen-body">A live preview updates as users add stems. Selection is limited to current inventory. Round 2 of testing: the preview was too small. We made it take up 60% of the screen. Completion rates jumped.</p>
               <CaseFigure
                 src="/projects/aura/Bouquet customizer flow.png"
-                alt="Bouquet customizer flow"
-                caption="Bouquet customizer flow"
-                variant="browser"
+                alt="Bouquet customizer flow showing stem selection with a live preview of the arrangement"
+                caption="The preview was enlarged after round one, when testers said it read as decoration rather than the main task."
+                width="wide"
+                frame="browser"
               />
             </div>
 
@@ -624,9 +621,10 @@ export default function AuraPage() {
 
               <CaseFigure
                 src="/projects/aura/Checkout flow.png"
-                alt="Checkout flow with delivery scheduling"
-                caption="Checkout flow with delivery scheduling up front"
-                variant="browser"
+                alt="Checkout flow with the delivery date picker moved to the first step"
+                caption="The date picker moved to step one after round two, when users built full bouquets only to find their delivery date unavailable."
+                width="wide"
+                frame="browser"
               />
             </div>
 
@@ -635,18 +633,13 @@ export default function AuraPage() {
               <span className="fx-screen-num">04</span>
               <h3 className="fx-screen-title">Confirmation</h3>
               <p className="fx-screen-body">The confirmation screen had to feel good, not just functional. Order number, purchase date, a promise of an email receipt. The copy is warm because the whole product is about giving someone a gift.</p>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <img
-                  src="/projects/aura/Order confirmation.png"
-                  alt="Order confirmation screen"
-                  style={{
-                    display: 'block',
-                    maxWidth: 320,
-                    width: '100%',
-                    borderRadius: 32,
-                  }}
-                />
-              </div>
+              <CaseFigure
+                src="/projects/aura/Order confirmation.png"
+                alt="Order confirmation screen with order number, purchase date and a promise of an email receipt"
+                caption="Warm rather than merely functional, because the whole product is about giving someone a gift."
+                width="content"
+                fit="height"
+              />
             </div>
             </Reveal>
           </div>

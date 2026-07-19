@@ -4,7 +4,13 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Reveal, CaseFigure } from '@/components/case/CaseKit'
+import {
+  Reveal,
+  CaseFigure,
+  CaseStats,
+  CaseSpecStrip,
+  CaseQuote,
+} from '@/components/case/CaseKit'
 import './fireside.css'
 import '@/app/projects/_case/case-kit.css'
 import '@/app/projects/_case/buildnative.css'
@@ -267,7 +273,7 @@ export default function FiresidePage() {
 
   return (
     <>
-      <div className="fx-page" style={{ paddingTop: 64 }}>
+      <div className="fx-page cs-bleed-root" style={{ paddingTop: 64 }}>
 
         {/* ── VERTICAL SCROLLSPY NAV ──────────────────────── */}
         <nav className="fx-v-nav" aria-label="Page sections">
@@ -304,11 +310,21 @@ export default function FiresidePage() {
                 This was the first project where the interface wasn&apos;t a screen. It was a 3D topographic table with a projected display on top of physical terrain. I designed the interaction language for a wildfire exhibit that taught fire behavior to anyone who walked up, without instructions, in under 10 seconds.
               </p>
 
+              {/* Outcome lands before anyone decides whether to keep reading */}
+              <CaseStats
+                items={[
+                  { value: '4', label: 'Public events deployed at' },
+                  { value: '8–80', label: 'Age range it had to work for' },
+                  { value: '0', label: 'Instructions needed to start' },
+                ]}
+              />
+
               <CaseFigure
                 src="/projects/fireside/exhibit-in-use.png"
-                alt="Fireside exhibit in use at a public science event"
-                caption="The exhibit at a public science night"
-                variant="plain"
+                alt="Visitors gathered around the Fireside topographic table at a public science night, using it without staff guidance"
+                caption="The exhibit at a public science night. Visitors walked up and started using it without anyone explaining how."
+                width="wide"
+                priority
                 style={{ marginTop: 40, marginBottom: 8 }}
               />
 
@@ -379,7 +395,7 @@ export default function FiresidePage() {
         </section>
 
         {/* ── 01 CONTEXT ──────────────────────────────────── */}
-        <section className="fx-sec" id="context">
+        <section className="fx-sec cs-band-tint" id="context">
           <div className="fx-container">
             <Reveal>
               <p className="fx-sec-label">01 · Context</p>
@@ -390,35 +406,21 @@ export default function FiresidePage() {
                 <p>The project was developed as part of CU Boulder&apos;s community wildfire awareness initiative. The audience was everyone: families, school groups, firefighters, and retirees. The exhibit needed to work in a noisy science museum, capture attention in under 10 seconds, and teach something real in under 5 minutes.</p>
               </div>
 
-              <div className="fx-ctx-rows">
-                {[
-                  {
-                    label: 'The ask',
-                    text: 'Make wildfire science accessible and visceral to a general public audience in a high-traffic exhibit setting.',
-                  },
-                  {
-                    label: 'The constraint',
-                    text: 'No instructions. The exhibit had to be self-explanatory from the moment someone walked up.',
-                  },
-                  {
-                    label: 'Audience',
-                    text: 'Families, school groups, educators, and fire scientists. All in the same room.',
-                  },
-                  {
-                    label: 'Setting',
-                    text: 'Noisy public science museums. Short attention spans. Variable lighting.',
-                  },
-                  {
-                    label: 'Collaborators',
-                    text: 'CU Boulder design team, hardware engineers, fire science researchers.',
-                  },
-                ].map(({ label, text }) => (
-                  <div key={label} className="fx-ctx-row">
-                    <span className="fx-ctx-key">{label}</span>
-                    <p className="fx-ctx-val">{text}</p>
-                  </div>
-                ))}
-              </div>
+              {/* The constraint carries an argument, so it stays as prose;
+                  the rest compresses into a scannable strip. */}
+              <CaseQuote attribution="The single constraint the whole interaction language had to satisfy.">
+                No instructions. It had to explain itself the moment someone walked up.
+              </CaseQuote>
+
+              <CaseSpecStrip
+                items={[
+                  { label: 'Role', value: 'UX Designer' },
+                  { label: 'Ask', value: 'Make wildfire science visceral in a high-traffic exhibit' },
+                  { label: 'Audience', value: 'Families, school groups, educators, fire scientists — same room' },
+                  { label: 'Setting', value: 'Noisy museums, short attention spans, variable lighting' },
+                  { label: 'Team', value: 'CU Boulder design team, hardware engineers, fire researchers' },
+                ]}
+              />
             </Reveal>
           </div>
         </section>
@@ -485,6 +487,7 @@ export default function FiresidePage() {
                   modeLabel: 'Mode 01',
                   title: 'Information Mode',
                   img: '/projects/fireside/information-mode.png',
+                  caption: 'Ambient state. Colour encodes danger, motion encodes wind, so the terrain reads before anyone touches it.',
                   bullets: [
                     'The exhibit starts in ambient mode. Fire risk data overlaid on terrain, wind patterns animated, vegetation density visible.',
                     'Visitors absorb context passively before interacting.',
@@ -496,6 +499,7 @@ export default function FiresidePage() {
                   modeLabel: 'Mode 02',
                   title: 'Simulation Mode',
                   img: '/projects/fireside/simulation-mode.png',
+                  caption: 'Every input has an immediate consequence on the terrain. This is where the causal link lands.',
                   bullets: [
                     'Set environmental conditions: wind speed, humidity, vegetation. Watch a simulated fire spread across the physical terrain in real time.',
                     'Every input has an immediate, legible consequence on screen.',
@@ -507,13 +511,14 @@ export default function FiresidePage() {
                   modeLabel: 'Mode 03',
                   title: 'Intervention Mode',
                   img: '/projects/fireside/intervention-mode.png',
+                  caption: 'Controls are large and forgiving, but the scenarios stay layered enough for a professional to find them meaningful.',
                   bullets: [
                     'A fire is already burning. Deploy suppression resources: firebreaks, water drops, evacuation routes.',
                     'High urgency, constrained resources, real tradeoffs.',
                     'The controls are large and forgiving. The scenarios are layered enough that someone with professional fire knowledge still finds them meaningful.',
                   ],
                 },
-              ].map(({ barColor, modeLabel, title, img, bullets }) => (
+              ].map(({ barColor, modeLabel, title, img, caption, bullets }) => (
                 <div key={modeLabel} className="fx-design-block">
                   <div
                     className="fx-mode-bar"
@@ -527,7 +532,12 @@ export default function FiresidePage() {
                   >
                     {title}
                   </h3>
-                  <CaseFigure src={img} alt={title} variant="plain" />
+                  <CaseFigure
+                    src={img}
+                    alt={`${title}: ${bullets[0]}`}
+                    caption={caption}
+                    width="wide"
+                  />
                   <ul className="fx-bullets">
                     {bullets.map(item => <li key={item}>{item}</li>)}
                   </ul>

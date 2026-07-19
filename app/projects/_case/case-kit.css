@@ -45,6 +45,30 @@
   line-height: 1.6;
 }
 
+/* Hero lead paragraph. All four case studies set line-height to
+   --lh-relaxed (1.85) on ~21px type, which left the lines floating apart
+   rather than reading as one block.
+
+   The element selector is deliberate: buildnative.css caps this at 60ch
+   via `.fx-page .fx-hero-sub` and loads AFTER this file, so a matching
+   two-class selector would lose. `p.fx-hero-sub` out-specifies it. 68ch
+   keeps the lead close to the body column's right edge instead of
+   stranding it. */
+.fx-page p.fx-hero-sub,
+.fx-page .fx-hero-sub {
+  line-height: 1.4;
+  max-width: 68ch;
+}
+
+/* Each case study defines --lh-relaxed: 1.85 and applies it to summary
+   paragraphs and a number of inline-styled <p> elements. Retuning the
+   token here catches all of them at once, including the inline styles,
+   since they resolve the variable at use. This file loads after the
+   per-page stylesheets, so the same .fx-page specificity wins. */
+.fx-page {
+  --lh-relaxed: 1.6;
+}
+
 /* Headline line-height is already tight and is owned by buildnative.css,
    which loads after this file: hero 1.0, section titles 1.05. Setting it
    here would be dead CSS, so it is deliberately left alone. */
@@ -210,18 +234,16 @@
   outline-offset: 3px;
 }
 
+/* Left-aligned so the caption starts on the same edge as the figure and
+   the body copy above it, rather than floating centred under the image. */
 .cs-figcaption {
   font-family: 'Instrument Sans', system-ui, sans-serif;
   font-size: 0.8125rem;
   line-height: 1.55;
   color: rgba(0, 36, 72, 0.58);
-  text-align: center;
+  text-align: left;
   margin-top: 14px;
-  max-width: 62ch;
-  margin-inline: auto;
-}
-.cs-figure-w-full .cs-figcaption {
-  padding-inline: 6vw;
+  max-width: 68ch;
 }
 
 /* ── Lightbox ─────────────────────────────────────────────────────

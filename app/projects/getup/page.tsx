@@ -4,7 +4,13 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Reveal, CaseFigure } from '@/components/case/CaseKit'
+import {
+  Reveal,
+  CaseFigure,
+  CaseStats,
+  CaseSpecStrip,
+  CaseQuote,
+} from '@/components/case/CaseKit'
 import './getup.css'
 import '@/app/projects/_case/case-kit.css'
 import '@/app/projects/_case/buildnative.css'
@@ -52,7 +58,7 @@ export default function GetUpPage() {
 
   return (
     <>
-      <div className="fx-page" style={{ paddingTop: 64 }}>
+      <div className="fx-page cs-bleed-root" style={{ paddingTop: 64 }}>
 
         {/* ── VERTICAL SCROLLSPY NAV ──────────────────────── */}
         <nav className="fx-v-nav" aria-label="Page sections">
@@ -86,6 +92,17 @@ export default function GetUpPage() {
             <p className="fx-hero-sub">
               GetUp is a health brand backed by Jason Derulo. They were relaunching their caffeinated Energy Bites and needed a pre-order pop-up fast. No copywriter, no brand guidelines. I was the only designer. Three weeks to Figma handoff.
             </p>
+
+            {/* Real constraints from the brief: three weeks, one designer,
+                no guidelines. Sits outside .fx-summary-card so it shares the
+                hero column's left edge, as on FlairX, Fireside and Aura. */}
+            <CaseStats
+              items={[
+                { value: '3 weeks', label: 'First contact to dev-ready Figma handoff' },
+                { value: '1', label: 'Designer: brand voice, copy and design' },
+                { value: '0', label: 'Brand guidelines to work from' },
+              ]}
+            />
 
             <div className="fx-summary-card">
               <div className="fx-summary-top">
@@ -154,37 +171,21 @@ export default function GetUpPage() {
         </section>
 
         {/* ── 01 CONTEXT ──────────────────────────────────── */}
-        <section className="fx-sec" id="context">
+        <section className="fx-sec cs-band-tint" id="context">
           <div className="fx-container">
             <Reveal>
             <p className="fx-sec-label">01 · Context</p>
             <h2 className="fx-sec-title">A celebrity-backed energy brand. Three weeks. A sparse brief.</h2>
 
-            <div className="fx-ctx-rows">
-              {[
-                {
-                  label: 'The brand',
-                  text: 'GetUp is a health brand backed by Jason Derulo. Outdoor-meets-wellness, not hardcore fitness.',
-                },
-                {
-                  label: 'The ask',
-                  text: 'Design a pre-order pop-up for a caffeinated Energy Bites relaunch. Brief: vibes, not guidelines.',
-                },
-                {
-                  label: 'The constraint',
-                  text: 'Three weeks from first contact to Figma handoff ready for dev.',
-                },
-                {
-                  label: 'The team',
-                  text: 'I was the only designer. No design lead, no copywriter, no brand manager.',
-                },
-              ].map(({ label, text }) => (
-                <div key={label} className="fx-ctx-row">
-                  <span className="fx-ctx-key">{label}</span>
-                  <p className="fx-ctx-val">{text}</p>
-                </div>
-              ))}
-            </div>
+            <CaseSpecStrip
+              items={[
+                { label: 'Role', value: 'Sole designer: brand voice, copy and design' },
+                { label: 'Brand', value: 'GetUp, a Jason Derulo-backed health brand — outdoors-meets-wellness, not hardcore fitness' },
+                { label: 'Ask', value: 'A pre-order pop-up for a caffeinated Energy Bites relaunch' },
+                { label: 'Brief', value: 'Vibes, not guidelines' },
+                { label: 'Constraint', value: 'Three weeks from first contact to Figma handoff' },
+              ]}
+            />
 
             <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-base)', color: 'var(--muted)', lineHeight: 'var(--lh-relaxed)', margin: '32px 0 0' }}>
               A pop-up has to land before someone decides to close it. So the layout stays ruthless: one product, one value prop, one CTA, and nothing competing for attention.
@@ -353,9 +354,10 @@ export default function GetUpPage() {
 
             <CaseFigure
               src="/projects/getup/popup.png"
-              alt="GetUp Energy Bites pre-order pop-up, final design"
-              caption="Final design · dev-ready Figma handoff"
-              variant="browser"
+              alt="The final GetUp Energy Bites pre-order pop-up: one product image, one value proposition and a single call to action"
+              caption="One product, one value prop, one CTA. A pop-up has to land before someone decides to close it, so nothing competes for attention."
+              width="wide"
+              frame="browser"
             />
 
             <div className="fx-decisions-list">
@@ -413,9 +415,9 @@ export default function GetUpPage() {
               <p>Locking down the brand voice before touching the product meant I always knew what &apos;wrong&apos; sounded like. Every copy decision became faster because there was a filter to run it through. I&apos;d do this first on every project now.</p>
             </div>
 
-            <blockquote className="fx-pull-quote">
+            <CaseQuote attribution="The principle that made every copy decision faster, with no copywriter and no guidelines.">
               &ldquo;Brand immersion first. Copy second. Never the other way around.&rdquo;
-            </blockquote>
+            </CaseQuote>
 
             <div className="fx-prose">
               <p>
