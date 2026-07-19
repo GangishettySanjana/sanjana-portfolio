@@ -29,15 +29,16 @@
   padding-inline: clamp(20px, 3vw, 40px);
 }
 
-/* Measure. Note `ch` is the width of "0", which in Instrument Sans is
-   wider than the average character — 64ch measures ~645px and renders
-   ~78 characters per line, not 64. Kept just under the ~75-80 ceiling;
-   a flat 720px would run ~87 characters, which reads worse rather than
-   better. The "thin ribbon" look came from the 1270px container above,
-   not from this measure. */
+/* Body fills the column so its right edge matches the headline, bullets
+   and spec strip — a 645px measure inside a 960px column left a ~315px
+   void beside every paragraph and made the page read as left-hugging.
+   This is a deliberate trade: lines run ~110 characters, past the usual
+   comfortable range, in exchange for a single flush right edge. If
+   tracking back between lines starts to feel hard, raise the
+   line-height below before narrowing this again. */
 .fx-page .fx-prose,
 .fx-page .fx-ctx-lead {
-  max-width: 64ch;
+  max-width: none;
 }
 .fx-page .fx-prose p,
 .fx-page .fx-ctx-lead p {
