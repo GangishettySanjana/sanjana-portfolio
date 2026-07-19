@@ -1,29 +1,158 @@
 /* ─────────────────────────────────────────────────────────────────
    Shared case-study kit
-   One image treatment, one type hierarchy, one rhythm across all four
-   case studies. Imported by each page AFTER its own stylesheet so these
+   One image treatment, one type hierarchy, one rhythm across all case
+   studies. Imported by each page AFTER its own stylesheet so these
    rules win where they overlap.
+
+   Colour comes from --case-accent, published by <CaseRoot>. The
+   fallback keeps these usable in isolation.
    ───────────────────────────────────────────────────────────────── */
 
-/* ── Elevated, captioned image treatment ─────────────────────────── */
-.cs-figure {
-  margin: 0 0 40px;
+:root {
+  --case-accent: #2BB5C2;
 }
+
+/* ── Page layout ──────────────────────────────────────────────────
+   Every case study ships its own copy of .fx-container with
+   `max-width: none` and percentage padding, which on a wide monitor
+   stretched headlines and bullets to ~1270px while body copy stayed a
+   ~625px ribbon — hence the empty right-hand void.
+
+   These rules live here rather than in the four page stylesheets so a
+   single edit reaches flairx / fireside / aura / getup. They are scoped
+   with .fx-page to out-specify the per-page rules regardless of the
+   import order. */
+.fx-page .fx-container {
+  max-width: 1040px;
+  margin-inline: auto;
+  padding-block: clamp(56px, 6vw, 88px);
+  padding-inline: clamp(20px, 3vw, 40px);
+}
+
+/* Body fills the column so its right edge matches the headline, bullets
+   and spec strip — a 645px measure inside a 960px column left a ~315px
+   void beside every paragraph and made the page read as left-hugging.
+   This is a deliberate trade: lines run ~110 characters, past the usual
+   comfortable range, in exchange for a single flush right edge. If
+   tracking back between lines starts to feel hard, raise the
+   line-height below before narrowing this again. */
+.fx-page .fx-prose,
+.fx-page .fx-ctx-lead {
+  max-width: none;
+}
+.fx-page .fx-prose p,
+.fx-page .fx-ctx-lead p {
+  line-height: 1.6;
+}
+
+/* Headline line-height is already tight and is owned by buildnative.css,
+   which loads after this file: hero 1.0, section titles 1.05. Setting it
+   here would be dead CSS, so it is deliberately left alone. */
+
+/* The scrollspy nav is fixed at left: 28px and ~88px wide. A centred
+   1040px column leaves a gutter of (100vw - 1040) / 2, which only clears
+   the nav above ~1300px. Each case study hides it at 1100px, which was
+   right for the old full-width container but now lets the nav sit on top
+   of the content between 1100 and 1300. */
+@media (max-width: 1300px) {
+  .fx-page .fx-v-nav { display: none; }
+  .fx-page { --cs-bleed-inset: 0px; }
+}
+
+/* ── Figures ──────────────────────────────────────────────────────
+   The old treatment capped every image at the text column, which meant
+   4000px-wide product screenshots rendered ~700px and became unreadable.
+   Figures now default to the full content width and can break out
+   further. */
+
+.cs-figure {
+  margin: 0 0 clamp(28px, 3vw, 44px);
+}
+
+/* Stays inside the reading column — use for portrait/phone shots and
+   for the two halves of a before/after pair. Left-aligned, not centred,
+   so its left edge matches the headline, body and spec row. */
+.cs-figure-w-content {
+  max-width: 900px;
+  margin-inline: 0;
+}
+
+/* the default: fills the section's content width */
+.cs-figure-w-wide {
+  width: 100%;
+}
+
+/* Edge-to-edge: escapes the container's padding entirely.
+   100vw includes the vertical scrollbar, so this overflows by the
+   scrollbar width unless the page root clips — see .cs-bleed-root. */
+.cs-figure-w-full {
+  /* The gutter applies to BOTH sides. Insetting only the left (to clear
+     the fixed scrollspy nav) left the figure touching the right edge
+     while sitting 124px in on the left, which read as the image bleeding
+     off one side. Minimum 24px so it never kisses the viewport edge even
+     on pages with no side nav. */
+  --cs-gutter: max(var(--cs-bleed-inset, 0px), 24px);
+  width: calc(100vw - 2 * var(--cs-gutter));
+  max-width: none;
+  margin-left: calc(50% - 50vw + var(--cs-gutter));
+  margin-right: calc(50% - 50vw + var(--cs-gutter));
+}
+/* Put this on the case-study root to contain full-bleed children.
+   `clip` rather than `hidden` so position: sticky still works in the
+   scrollspy nav. */
+.cs-bleed-root {
+  overflow-x: clip;
+}
+/* Full-width figures now sit inside a gutter rather than running to the
+   viewport edge, so they keep the card's border and radius like every
+   other figure. */
+
 .cs-figure-frame {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(43, 181, 194, 0.18);
   background: #fff;
-  box-shadow: 0 22px 54px -26px rgba(0, 36, 72, 0.30);
 }
+.cs-frame-card,
+.cs-frame-browser {
+  border: 1px solid color-mix(in srgb, var(--case-accent) 18%, transparent);
+  box-shadow:
+    0 2px 6px -2px rgba(0, 36, 72, 0.10),
+    0 24px 60px -28px rgba(0, 36, 72, 0.32);
+}
+.cs-frame-bare {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  border-radius: 0;
+}
+
 .cs-figure-img {
   width: 100%;
+  height: auto;
   display: block;
 }
+/* legacy 'hero' variant kept for the other case studies */
 .cs-figure-hero .cs-figure-img {
   aspect-ratio: 16 / 9;
   object-fit: cover;
+}
+
+/* Portrait shots: bound by viewport height so a tall screenshot doesn't
+   turn one edge case into 1500px of scrolling. */
+.cs-figure-tall .cs-figure-frame {
+  display: flex;
+  justify-content: center;
+  background: #fff;
+}
+.cs-figure-tall .cs-figure-img {
+  max-height: 76vh;
+  width: auto;
+  max-width: 100%;
+}
+.cs-figure-tall .cs-figure-zoom {
+  width: auto;
+  max-width: 100%;
 }
 
 /* browser chrome for product screenshots */
@@ -42,14 +171,305 @@
   background: rgba(0, 36, 72, 0.12);
 }
 
+/* zoom affordance — the button is a bare wrapper around the image */
+.cs-figure-zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: zoom-in;
+  position: relative;
+  font: inherit;
+  color: inherit;
+}
+.cs-zoom-hint {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0, 36, 72, 0.82);
+  color: #fff;
+  font-family: 'Instrument Sans', system-ui, sans-serif;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  pointer-events: none;
+}
+.cs-figure-zoom:hover .cs-zoom-hint,
+.cs-figure-zoom:focus-visible .cs-zoom-hint {
+  opacity: 1;
+  transform: none;
+}
+.cs-figure-zoom:focus-visible {
+  outline: 2px solid var(--case-accent);
+  outline-offset: 3px;
+}
+
 .cs-figcaption {
   font-family: 'Instrument Sans', system-ui, sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: rgba(0, 36, 72, 0.4);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: rgba(0, 36, 72, 0.58);
   text-align: center;
   margin-top: 14px;
+  max-width: 62ch;
+  margin-inline: auto;
+}
+.cs-figure-w-full .cs-figcaption {
+  padding-inline: 6vw;
+}
+
+/* ── Lightbox ─────────────────────────────────────────────────────
+   Full-resolution view. The only place these screenshots are truly
+   legible. */
+.cs-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 18, 36, 0.94);
+  /* NOT flex-centred: a child wider than the viewport gets its overflow
+     clipped on the left under flex centring, and these images are meant
+     to exceed the viewport. `margin: auto` on the image centres it while
+     staying scrollable in both directions. */
+  display: block;
+  padding: clamp(16px, 4vw, 56px);
+  overflow: auto;
+  cursor: zoom-out;
+  animation: cs-lb-in 0.18s ease-out;
+}
+@keyframes cs-lb-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+/* Renders at native resolution so the UI detail is actually readable —
+   fitting to the viewport would only match the inline size and make the
+   zoom pointless. The overlay scrolls. */
+.cs-lightbox-img {
+  display: block;
+  margin: auto;
+  max-width: none;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  cursor: default;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.6);
+}
+/* On small screens native size is unusable panning, so fit instead. */
+@media (max-width: 860px) {
+  .cs-lightbox-img { max-width: 100%; }
+}
+.cs-lightbox-close {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.10);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cs-lightbox-close:hover { background: rgba(255, 255, 255, 0.2); }
+.cs-lightbox-close:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* ── Stats band ───────────────────────────────────────────────────
+   Big numbers, small labels. */
+.cs-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(20px, 3vw, 48px);
+  margin: clamp(32px, 4vw, 56px) 0;
+}
+.cs-stats-plain {
+  padding: clamp(26px, 3vw, 38px) 0;
+  border-top: 1px solid color-mix(in srgb, var(--case-accent) 26%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--case-accent) 26%, transparent);
+}
+.cs-stats-band {
+  padding: clamp(34px, 4vw, 56px) clamp(24px, 4vw, 56px);
+  border-radius: 22px;
+  background: var(--case-accent);
+}
+.cs-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cs-stat-value {
+  font-family: 'Instrument Sans', system-ui, sans-serif;
+  /* capped so a compound value like "2 hrs → 30 min" doesn't break
+     mid-phrase inside a three-up grid */
+  font-size: clamp(1.75rem, 3.1vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--case-accent);
+  text-wrap: balance;
+}
+.cs-stat-label {
+  font-family: 'Instrument Sans', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: rgba(0, 36, 72, 0.6);
+  max-width: 26ch;
+}
+/* on the saturated band the type flips to read against the accent */
+.cs-stats-band .cs-stat-value { color: #fff; }
+.cs-stats-band .cs-stat-label { color: rgba(255, 255, 255, 0.88); }
+
+/* ── Before / After ───────────────────────────────────────────────── */
+.cs-ba {
+  margin: clamp(28px, 3.5vw, 48px) 0;
+}
+.cs-ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 3vw, 44px);
+  align-items: start;
+}
+.cs-ba-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.cs-ba-tag {
+  font-family: 'Instrument Sans', system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+.cs-ba-tag-before {
+  background: rgba(0, 36, 72, 0.07);
+  color: rgba(0, 36, 72, 0.62);
+}
+.cs-ba-tag-after {
+  background: var(--case-accent);
+  color: #fff;
+}
+.cs-ba-note {
+  font-family: 'Instrument Sans', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  color: rgba(0, 36, 72, 0.58);
+}
+/* the halves already sit in their own column — don't re-center them */
+.cs-ba-side .cs-figure { margin-bottom: 0; }
+.cs-ba-side .cs-figure-w-content { max-width: none; }
+/* The old screen is portrait and the redesign is landscape. Left free,
+   the portrait shot renders ~3× taller and visually swamps the pair, so
+   bound both to a shared height and letterbox on white. */
+.cs-ba-side .cs-figure-img {
+  max-height: 560px;
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
+  object-fit: contain;
+  background: #fff;
+}
+.cs-ba-side .cs-figure-zoom { display: flex; justify-content: center; }
+.cs-ba-caption {
+  font-family: 'Instrument Sans', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: rgba(0, 36, 72, 0.58);
+  text-align: center;
+  margin: 20px auto 0;
+  max-width: 66ch;
+}
+
+/* ── Spec strip ───────────────────────────────────────────────────
+   Replaces the stacked label/paragraph rows. */
+.cs-spec {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: clamp(18px, 2.4vw, 34px);
+  margin: clamp(26px, 3vw, 40px) 0;
+  padding: clamp(24px, 3vw, 34px) 0;
+  border-top: 1px solid rgba(0, 36, 72, 0.1);
+  border-bottom: 1px solid rgba(0, 36, 72, 0.1);
+}
+.cs-spec-item { display: flex; flex-direction: column; gap: 7px; }
+.cs-spec-key {
+  font-family: 'Instrument Sans', system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--case-accent) 78%, #002448);
+}
+.cs-spec-val {
+  margin: 0;
+  font-family: 'Instrument Sans', system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: rgba(0, 36, 72, 0.82);
+}
+
+/* ── Pull quote ───────────────────────────────────────────────────── */
+.cs-quote {
+  margin: clamp(32px, 4vw, 56px) 0;
+  padding-left: clamp(20px, 3vw, 38px);
+  border-left: 3px solid var(--case-accent);
+}
+.cs-quote-body {
+  margin: 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  /* Sized to keep a typical one-sentence research quote on a single
+     line at desktop. The previous 20ch cap broke a 55-character quote
+     across three lines and read as a cramped column. */
+  font-size: clamp(1.35rem, 2.1vw, 2rem);
+  font-style: italic;
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  color: #002448;
+  text-wrap: balance;
+}
+.cs-quote-attr {
+  margin-top: 16px;
+  font-family: 'Instrument Sans', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  color: rgba(0, 36, 72, 0.55);
+}
+
+/* ── Section bands ────────────────────────────────────────────────
+   Stops the page reading as one continuous off-white document. */
+.cs-band-tint {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--case-accent) 7%, transparent),
+      color-mix(in srgb, var(--case-accent) 3%, transparent)
+    );
+}
+.cs-band-accent {
+  background: var(--case-accent);
+  color: #fff;
+}
+.cs-band-accent h2,
+.cs-band-accent h3,
+.cs-band-accent p,
+.cs-band-accent li { color: #fff; }
+.cs-band-ink {
+  background: #002448;
+  color: #fff;
 }
 
 /* ── Hierarchy: upright Cormorant display, italic reserved for quotes ── */
@@ -78,6 +498,8 @@
     transition: opacity 0.4s ease;
     transform: none;
   }
+  .cs-lightbox { animation: none; }
+  .cs-zoom-hint { transition: none; }
 }
 
 /* ── Hero visual sits a touch wider and grander than body figures ──── */
@@ -87,4 +509,12 @@
 }
 .cs-hero-figure .cs-figure-frame {
   box-shadow: 0 30px 70px -30px rgba(0, 36, 72, 0.38);
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  /* stacked, so each screen still gets full width rather than half */
+  .cs-ba-grid { grid-template-columns: 1fr; gap: 34px; }
+  .cs-quote { max-width: none; }
+  .cs-zoom-hint { display: none; } /* no hover on touch */
 }

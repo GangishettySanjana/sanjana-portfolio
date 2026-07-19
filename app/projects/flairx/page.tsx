@@ -4,7 +4,14 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Reveal, CaseFigure } from '@/components/case/CaseKit'
+import {
+  Reveal,
+  CaseFigure,
+  CaseStats,
+  CaseBeforeAfter,
+  CaseSpecStrip,
+  CaseQuote,
+} from '@/components/case/CaseKit'
 import './flairx.css'
 import '@/app/projects/_case/case-kit.css'
 import '@/app/projects/_case/buildnative.css'
@@ -16,6 +23,8 @@ const FX = {
   case2:        '/flairx/decision-2.png',
   entryPoint:   '/flairx/Screenshot%202025-12-08%20at%2011.07.15%20AM%201.jpg',
   singleUpload: '/flairx/single-upload-flow.png',
+  /* one screen rather than the 3-panel composite — used for before/after */
+  singleScreen: '/flairx/single-upload.png',
   bulkUpload:   '/flairx/bulk-upload-1.png',
   csvUpload:    '/flairx/csv-upload.png',
   edgeCase1:    '/flairx/mixed-uploads.png',
@@ -83,20 +92,26 @@ function FlairXFlowChart() {
         <text x={620} y={183} textAnchor="middle" fill="#002448" fontSize={13} fontFamily={font} fontWeight={600}>ATS</text>
         <text x={620} y={199} textAnchor="middle" fill="#002448" fontSize={13} fontFamily={font} fontWeight={600}>Integration</text>
         <line x1={100} y1={210} x2={100} y2={248} stroke={lineColor} strokeWidth={lw} markerEnd="url(#fxarrow)"/>
-        <line x1={360} y1={210} x2={360} y2={238} stroke={lineColor} strokeWidth={lw}/>
-        <line x1={288} y1={238} x2={432} y2={238} stroke={lineColor} strokeWidth={lw}/>
-        <line x1={288} y1={238} x2={288} y2={256} stroke={lineColor} strokeWidth={lw} markerEnd="url(#fxarrow)"/>
-        <line x1={432} y1={238} x2={432} y2={256} stroke={lineColor} strokeWidth={lw} markerEnd="url(#fxarrow)"/>
+        {/* Stage 2 forks into Single / Bulk. Branch x-positions match the
+            two box centres below (276 and 444). */}
+        <line x1={360} y1={210} x2={360} y2={230} stroke={lineColor} strokeWidth={lw}/>
+        <line x1={276} y1={230} x2={444} y2={230} stroke={lineColor} strokeWidth={lw}/>
+        <line x1={276} y1={230} x2={276} y2={248} stroke={lineColor} strokeWidth={lw} markerEnd="url(#fxarrow)"/>
+        <line x1={444} y1={230} x2={444} y2={248} stroke={lineColor} strokeWidth={lw} markerEnd="url(#fxarrow)"/>
         <line x1={620} y1={210} x2={620} y2={248} stroke={lineColor} strokeWidth={lw} markerEnd="url(#fxarrow)"/>
         <rect x={10} y={252} width={180} height={78} rx={13} fill={resultFill} stroke={resultBorder} strokeWidth={lw}/>
         <text x={100} y={279} textAnchor="middle" fill="rgba(0,36,72,0.7)" fontSize={11.5} fontFamily={font}>No manual time required</text>
         <text x={100} y={297} textAnchor="middle" fill="rgba(0,36,72,0.7)" fontSize={11.5} fontFamily={font}>Clean, structured data</text>
-        <rect x={208} y={260} width={155} height={60} rx={13} fill={resultFill} stroke={resultBorder} strokeWidth={lw}/>
-        <text x={285} y={286} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Single</text>
-        <text x={285} y={304} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Upload</text>
-        <rect x={357} y={260} width={155} height={60} rx={13} fill={resultFill} stroke={resultBorder} strokeWidth={lw}/>
-        <text x={434} y={286} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Bulk</text>
-        <text x={434} y={304} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Upload</text>
+        {/* Were x=208 w=155 and x=357 w=155, i.e. spans 208–363 and
+            357–512 — a 6px overlap. Now 140 wide with a 28px gap,
+            centred on 360 and sharing the side boxes' y/height so all
+            four bottom cards sit on one baseline. */}
+        <rect x={206} y={252} width={140} height={78} rx={13} fill={resultFill} stroke={resultBorder} strokeWidth={lw}/>
+        <text x={276} y={285} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Single</text>
+        <text x={276} y={303} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Upload</text>
+        <rect x={374} y={252} width={140} height={78} rx={13} fill={resultFill} stroke={resultBorder} strokeWidth={lw}/>
+        <text x={444} y={285} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Bulk</text>
+        <text x={444} y={303} textAnchor="middle" fill="#002448" fontSize={12.5} fontFamily={font} fontWeight={600}>Upload</text>
         <rect x={530} y={252} width={180} height={78} rx={13} fill={resultFill} stroke={resultBorder} strokeWidth={lw}/>
         <text x={620} y={276} textAnchor="middle" fill="rgba(0,36,72,0.7)" fontSize={11.5} fontFamily={font}>Connect to applicant</text>
         <text x={620} y={294} textAnchor="middle" fill="rgba(0,36,72,0.7)" fontSize={11.5} fontFamily={font}>tracking systems</text>
@@ -434,7 +449,7 @@ export default function FlairXPage() {
 
   return (
     <>
-      <div className="fx-page" style={{ paddingTop: 64 }}>
+      <div className="fx-page cs-bleed-root" style={{ paddingTop: 64 }}>
 
         {/* ── VERTICAL SCROLLSPY NAV ──────────────────────── */}
         <nav className="fx-v-nav" aria-label="Page sections">
@@ -474,12 +489,23 @@ export default function FlairXPage() {
               I redesigned the intake flow across all three upload paths until that dropped to 30 min.
             </p>
 
+            {/* Outcome lands before anyone decides whether to keep reading */}
+            <CaseStats
+              items={[
+                { value: '2 hrs → 30 min', label: 'To process a résumé batch' },
+                { value: '+130', label: 'Hires sourced through the new flow' },
+                { value: '3', label: 'Upload paths redesigned at once' },
+              ]}
+            />
+
             <div className="cs-hero-figure">
               <CaseFigure
                 src={FX.entryPoint}
                 alt="FlairX candidate upload screen, the entry point to the redesigned intake flow"
-                variant="plain"
-                maxWidth={880}
+                width="wide"
+                frame="browser"
+                caption="The redesigned entry point: drop in a résumé and the AI fills the fields, leaving the recruiter to check rather than type."
+                priority
               />
             </div>
 
@@ -556,45 +582,36 @@ export default function FlairXPage() {
             <p className="fx-sec-label">01 · Context</p>
             <h2 className="fx-sec-title">The intake flow was slow and manual. I had three workflows to fix at once.</h2>
 
-            <div className="fx-ctx-rows">
-              {[
-                {
-                  label: 'The ask',
-                  text: 'Make the whole candidate intake process faster, and make the AI that was already built into the product actually worth having.',
-                },
-                {
-                  label: 'What I inherited',
-                  text: "Every field typed by hand. Every time. A recruiter couldn't start scheduling until they'd finished data entry, which could take hours depending on the batch size.",
-                },
-                {
-                  label: 'The scope',
-                  text: 'Résumé parsing, bulk uploads, and ATS integrations. All three redesigned at the same time, not one at a time.',
-                },
-                {
-                  label: 'The constraint',
-                  text: "Recruiters had to stay in control. The automation was there to save time, not to make the system feel like a black box. If it can't tell you what it did, it shouldn't do it quietly.",
-                },
-                {
-                  label: 'Collaborators',
-                  text: 'Founder/CEO, product team, frontend and backend engineers.',
-                },
-                {
-                  label: 'Timeline',
-                  text: 'Month 1: discovery sprint (6 recruiter interviews, flow mapping, competitive audit). Month 2: design, wireframes, prototypes, 3 rounds of testing with internal users. Month 3: final designs, edge case coverage, dev handoff.',
-                },
-              ].map(({ label, text }) => (
-                <div key={label} className="fx-ctx-row">
-                  <span className="fx-ctx-key">{label}</span>
-                  <p className="fx-ctx-val">{text}</p>
-                </div>
-              ))}
+            {/* The two that carry an argument stay as prose; the rest
+                compress into a scannable strip. */}
+            <div className="fx-prose fx-ctx-lead">
+              <p>
+                Every field was typed by hand. Every time. A recruiter couldn&apos;t start
+                scheduling until they&apos;d finished data entry, which could take hours
+                depending on the batch size.
+              </p>
+              <p>
+                The constraint was that recruiters had to stay in control. The automation was
+                there to save time, not to make the system feel like a black box. If it
+                can&apos;t tell you what it did, it shouldn&apos;t do it quietly.
+              </p>
             </div>
+
+            <CaseSpecStrip
+              items={[
+                { label: 'Role', value: 'Founding Product Designer' },
+                { label: 'Scope', value: 'Résumé parsing, bulk upload, ATS integration — all three at once' },
+                { label: 'Team', value: 'Founder/CEO, product, frontend + backend engineers' },
+                { label: 'Timeline', value: '3 months: discovery sprint, design and testing, handoff' },
+                { label: 'Research', value: '6 recruiter interviews, 3 rounds of testing' },
+              ]}
+            />
             </Reveal>
           </div>
         </section>
 
         {/* ── 02 PROBLEM ──────────────────────────────────── */}
-        <section className="fx-sec fx-sec-alt" id="problem">
+        <section className="fx-sec cs-band-tint" id="problem">
           <div className="fx-container">
             <Reveal>
             <p className="fx-sec-label">02 · The Problem</p>
@@ -610,13 +627,24 @@ export default function FlairXPage() {
               ].map(item => <li key={item}>{item}</li>)}
             </ul>
 
-            <blockquote className="fx-pull-quote">
+            <CaseQuote attribution="Recruiter, from 6 structured interviews during a 2-week discovery sprint, before any design work began.">
               &ldquo;Why am I entering the same information again and again?&rdquo;
-            </blockquote>
+            </CaseQuote>
 
-            <p style={{ fontFamily: 'var(--fx-sans)', fontSize: 'var(--type-sm)', color: 'var(--dim)', lineHeight: 'var(--lh-normal)', margin: '0 0 20px', fontStyle: 'italic' }}>
-              These quotes came from structured interviews with 6 recruiters at FlairX during a 2-week discovery sprint at the start of the project, before any design work began.
-            </p>
+            {/* The baseline, in the recruiter's own screen */}
+            <CaseBeforeAfter
+              before={{
+                src: FX.beforeMockup,
+                alt: 'The original FlairX candidate intake screen: a long form with every field empty and typed by hand',
+                note: 'Every field entered manually',
+              }}
+              after={{
+                src: FX.singleScreen,
+                alt: 'The redesigned intake screen: the résumé is parsed and the fields arrive pre-filled for review',
+                note: 'AI fills, recruiter reviews',
+              }}
+              caption="The same task, before and after. The redesign did not remove the form, it changed who fills it in first."
+            />
 
             <div className="fx-evidence-row">
               {[
@@ -669,9 +697,7 @@ export default function FlairXPage() {
               ].map(item => <li key={item}>{item}</li>)}
             </ul>
 
-            <div style={{ maxWidth: '72%' }}>
-              <FlairXFlowChart />
-            </div>
+            <FlairXFlowChart />
             </Reveal>
           </div>
         </section>
@@ -776,7 +802,8 @@ export default function FlairXPage() {
               {
                 title: 'Single upload',
                 img: FX.singleUpload,
-                alt: 'Single upload flow',
+                alt: 'Single upload flow shown across three steps: drop the résumé, review the parsed fields, confirm the candidate',
+                caption: 'Upload, review, confirm on one page. The recruiter is editing what the AI extracted, not typing from scratch.',
                 bullets: [
                   'Drop in a résumé, the system fills in the fields',
                   'Review what it got right. Fix what it missed.',
@@ -787,7 +814,8 @@ export default function FlairXPage() {
               {
                 title: 'Bulk upload',
                 img: FX.bulkUpload,
-                alt: 'Bulk upload flow',
+                alt: 'Bulk upload flow showing a batch of résumés parsing in real time into a reviewable table',
+                caption: 'Parsing progress is visible per file, and incomplete fields are fixed inline in the table rather than in a separate form.',
                 bullets: [
                   'Drop in a batch of résumés, all processed at once',
                   'Parsing progress shows in real time as files come through',
@@ -798,7 +826,8 @@ export default function FlairXPage() {
               {
                 title: 'CSV upload',
                 img: FX.csvUpload,
-                alt: 'CSV upload flow',
+                alt: 'CSV upload flow showing spreadsheet columns being mapped to candidate fields with mismatches flagged',
+                caption: 'Column mapping is shown and confirmed before anything is committed, so a bad spreadsheet never silently lands in the pipeline.',
                 bullets: [
                   'For teams who work from spreadsheets',
                   'System maps CSV columns to candidate fields automatically',
@@ -806,11 +835,19 @@ export default function FlairXPage() {
                   'Fix conflicts inline before anything is imported',
                 ],
               },
-            ].map(({ title, img, alt, bullets }) => (
+            ].map(({ title, img, alt, caption, bullets }) => (
               <div key={title} className="fx-design-block">
                 <h3 className="fx-design-title">{title}</h3>
-                <CaseFigure src={img} alt={alt} variant="browser" />
-                <ul className="fx-bullets">
+                {/* full-bleed: these are ~3600px composites and need every
+                    pixel of width they can get before the lightbox */}
+                <CaseFigure
+                  src={img}
+                  alt={alt}
+                  caption={caption}
+                  width="full"
+                  frame="browser"
+                />
+                <ul className="fx-bullets fx-bullets-inline">
                   {bullets.map(item => <li key={item}>{item}</li>)}
                 </ul>
               </div>
@@ -844,7 +881,14 @@ export default function FlairXPage() {
 
             <div style={{ marginBottom: 48 }}>
               <span className="fx-sub-label">Mixed uploading: some files fail, some go through</span>
-              <CaseFigure src={FX.edgeCase1} alt="Mixed upload states" caption="Files split across uploading, failed, and done states" variant="browser" />
+              <CaseFigure
+                src={FX.edgeCase1}
+                alt="A batch mid-upload with files split across uploading, failed, and completed states"
+                caption="One file failing doesn't stop the others. Cancelling only stops what is still uploading; completed files stay."
+                width="content"
+                fit="height"
+                frame="browser"
+              />
               <ul className="fx-bullets">
                 {[
                   'One file failing does not stop the others',
@@ -857,7 +901,14 @@ export default function FlairXPage() {
 
             <div style={{ marginBottom: 48 }}>
               <span className="fx-sub-label">When the AI misses fields</span>
-              <CaseFigure src={FX.edgeCase2} alt="Missing fields after parsing" caption="Only the fields the AI missed get flagged inline" variant="browser" />
+              <CaseFigure
+                src={FX.edgeCase2}
+                alt="A parsed candidate row with only the fields the AI could not extract flagged for attention"
+                caption="Only the broken fields get flagged. What used to mean starting over now takes a few seconds."
+                width="content"
+                fit="height"
+                frame="browser"
+              />
               <ul className="fx-bullets">
                 {[
                   'Required fields the AI could not extract show inline in the review table',
@@ -946,27 +997,29 @@ export default function FlairXPage() {
             <p className="fx-sec-label">08 · Impact</p>
             <h2 className="fx-sec-title">It shipped, it worked, and it changed how the team hired.</h2>
 
+            {/* the numbers pop on the accent before the detail below */}
+            <CaseStats
+              tone="band"
+              items={[
+                { value: '2 hrs → 30 min', label: 'To process a batch of résumés' },
+                { value: '130', label: 'Hires sourced through the flow in six months' },
+                { value: '0', label: 'Manual duplicate checks left' },
+              ]}
+            />
+
             <div className="fx-outcomes">
               {[
+                /* The headline numbers live in the band above — these
+                   carry the detail and the caveats, not a repeat. */
                 {
                   num: '01',
-                  metric: '2 hrs → 30 min',
-                  desc: 'Processing a batch of résumés went from 2 hrs to a coffee break.',
+                  metric: 'What the 130 does and does not claim',
+                  desc: 'Those candidates were hired from roles sourced and processed entirely through the redesigned intake flow in the first six months (founder-reported, from pipeline data). The redesign owns the intake, not the hiring call, but every one of those hires moved through it.',
                 },
                 {
                   num: '02',
-                  metric: '130 hires through the flow',
-                  desc: '130 candidates were hired from roles sourced and processed entirely through the redesigned intake flow in the first six months (founder-reported, from pipeline data). The redesign owns the intake, not the hiring call, but every one of those hires moved through it.',
-                },
-                {
-                  num: '03',
-                  metric: 'Duplicates eliminated',
-                  desc: 'The system catches repeated entries automatically. Nobody has to check by hand anymore.',
-                },
-                {
-                  num: '04',
                   metric: 'Bulk uploads got reliable',
-                  desc: 'Recruiters stopped dreading high-volume days. They knew what was happening at every step.',
+                  desc: 'Recruiters stopped dreading high-volume days. They knew what was happening at every step, and duplicates got caught without anyone checking by hand.',
                 },
               ].map(({ num, metric, desc }) => (
                 <div key={num} className="fx-outcome-item">
