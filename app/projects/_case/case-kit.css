@@ -12,6 +12,52 @@
   --case-accent: #2BB5C2;
 }
 
+/* ── Page layout ──────────────────────────────────────────────────
+   Every case study ships its own copy of .fx-container with
+   `max-width: none` and percentage padding, which on a wide monitor
+   stretched headlines and bullets to ~1270px while body copy stayed a
+   ~625px ribbon — hence the empty right-hand void.
+
+   These rules live here rather than in the four page stylesheets so a
+   single edit reaches flairx / fireside / aura / getup. They are scoped
+   with .fx-page to out-specify the per-page rules regardless of the
+   import order. */
+.fx-page .fx-container {
+  max-width: 1040px;
+  margin-inline: auto;
+  padding-block: clamp(56px, 6vw, 88px);
+  padding-inline: clamp(20px, 3vw, 40px);
+}
+
+/* Measure. Note `ch` is the width of "0", which in Instrument Sans is
+   wider than the average character — 64ch measures ~645px and renders
+   ~78 characters per line, not 64. Kept just under the ~75-80 ceiling;
+   a flat 720px would run ~87 characters, which reads worse rather than
+   better. The "thin ribbon" look came from the 1270px container above,
+   not from this measure. */
+.fx-page .fx-prose,
+.fx-page .fx-ctx-lead {
+  max-width: 64ch;
+}
+.fx-page .fx-prose p,
+.fx-page .fx-ctx-lead p {
+  line-height: 1.6;
+}
+
+/* Headline line-height is already tight and is owned by buildnative.css,
+   which loads after this file: hero 1.0, section titles 1.05. Setting it
+   here would be dead CSS, so it is deliberately left alone. */
+
+/* The scrollspy nav is fixed at left: 28px and ~88px wide. A centred
+   1040px column leaves a gutter of (100vw - 1040) / 2, which only clears
+   the nav above ~1300px. Each case study hides it at 1100px, which was
+   right for the old full-width container but now lets the nav sit on top
+   of the content between 1100 and 1300. */
+@media (max-width: 1300px) {
+  .fx-page .fx-v-nav { display: none; }
+  .fx-page { --cs-bleed-inset: 0px; }
+}
+
 /* ── Figures ──────────────────────────────────────────────────────
    The old treatment capped every image at the text column, which meant
    4000px-wide product screenshots rendered ~700px and became unreadable.
@@ -22,11 +68,12 @@
   margin: 0 0 clamp(28px, 3vw, 44px);
 }
 
-/* stays inside the reading column — use for portrait/phone shots and
-   for the two halves of a before/after pair */
+/* Stays inside the reading column — use for portrait/phone shots and
+   for the two halves of a before/after pair. Left-aligned, not centred,
+   so its left edge matches the headline, body and spec row. */
 .cs-figure-w-content {
   max-width: 900px;
-  margin-inline: auto;
+  margin-inline: 0;
 }
 
 /* the default: fills the section's content width */
