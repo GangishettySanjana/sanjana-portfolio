@@ -86,13 +86,16 @@
    100vw includes the vertical scrollbar, so this overflows by the
    scrollbar width unless the page root clips — see .cs-bleed-root. */
 .cs-figure-w-full {
-  /* --cs-bleed-inset keeps the image clear of a fixed side nav; pages
-     without one leave it at 0 and get true edge-to-edge. */
-  width: calc(100vw - var(--cs-bleed-inset, 0px));
+  /* The gutter applies to BOTH sides. Insetting only the left (to clear
+     the fixed scrollspy nav) left the figure touching the right edge
+     while sitting 124px in on the left, which read as the image bleeding
+     off one side. Minimum 24px so it never kisses the viewport edge even
+     on pages with no side nav. */
+  --cs-gutter: max(var(--cs-bleed-inset, 0px), 24px);
+  width: calc(100vw - 2 * var(--cs-gutter));
   max-width: none;
-  margin-left: calc(50% - 50vw + var(--cs-bleed-inset, 0px));
-  margin-right: calc(50% - 50vw);
-  border-radius: 0;
+  margin-left: calc(50% - 50vw + var(--cs-gutter));
+  margin-right: calc(50% - 50vw + var(--cs-gutter));
 }
 /* Put this on the case-study root to contain full-bleed children.
    `clip` rather than `hidden` so position: sticky still works in the
@@ -100,11 +103,9 @@
 .cs-bleed-root {
   overflow-x: clip;
 }
-.cs-figure-w-full .cs-figure-frame {
-  border-radius: 0;
-  border-left: none;
-  border-right: none;
-}
+/* Full-width figures now sit inside a gutter rather than running to the
+   viewport edge, so they keep the card's border and radius like every
+   other figure. */
 
 .cs-figure-frame {
   position: relative;
