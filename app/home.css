@@ -762,23 +762,14 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   color: rgba(20,24,26,0.5);
   margin-bottom: clamp(14px, 2vw, 22px);
 }
-/* ⚠️ LOCAL PREVIEW ONLY — "Noaction Italic" is a DEMO / PERSONAL-USE font
-   (see iFonts-License.txt: "License: Demo for Personal Use", © Font Liner).
-   The .otf is gitignored so it cannot deploy. Do NOT ship this: either buy a
-   web licence from the foundry, or delete this @font-face and the
-   --font-noaction reference below to fall back to Geist. */
-@font-face {
-  font-family: 'Noaction Italic';
-  src: url('/fonts/noaction-italic.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* Instrument Serif italic — the same face as the hero headline, so the
+   greeting reads as part of the same voice. SIL OFL, already loaded by
+   next/font, so it costs no extra request. */
 .about-greeting {
-  font-family: 'Noaction Italic', var(--font-geist-sans), var(--body), sans-serif;
-  font-size: clamp(44px, 6.6vw, 80px);
-  font-weight: 400; line-height: 1.04; letter-spacing: -0.01em;
+  font-family: var(--head-serif);
+  font-style: italic;
+  font-size: clamp(46px, 7vw, 84px);
+  font-weight: 400; line-height: 1.02; letter-spacing: -0.015em;
   color: #14181A;
   margin: 0;
 }
@@ -790,8 +781,8 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   will-change: transform;
 }
 .about-name-hand {
-  /* inherits the greeting's face (Noaction preview / Geist fallback) —
-     only the colour sets it apart */
+  /* inherits the greeting's Instrument Serif italic — only the colour
+     sets the name apart */
   color: var(--accent);
   font-size: 1em;
   line-height: inherit;
