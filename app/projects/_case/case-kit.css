@@ -210,18 +210,16 @@
   outline-offset: 3px;
 }
 
+/* Left-aligned so the caption starts on the same edge as the figure and
+   the body copy above it, rather than floating centred under the image. */
 .cs-figcaption {
   font-family: 'Instrument Sans', system-ui, sans-serif;
   font-size: 0.8125rem;
   line-height: 1.55;
   color: rgba(0, 36, 72, 0.58);
-  text-align: center;
+  text-align: left;
   margin-top: 14px;
-  max-width: 62ch;
-  margin-inline: auto;
-}
-.cs-figure-w-full .cs-figcaption {
-  padding-inline: 6vw;
+  max-width: 68ch;
 }
 
 /* ── Lightbox ─────────────────────────────────────────────────────
