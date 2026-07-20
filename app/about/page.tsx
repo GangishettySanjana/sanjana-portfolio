@@ -173,14 +173,14 @@ export default function AboutPage() {
       }
 
   return (
-    <main style={{ background: '#F7F3EE' }}>
+    <main style={{ background: 'var(--page-bg, #FAFAF8)' }}>
 
       {/* ── 1 · OPENER + PORTRAIT ─────────────────────────────── */}
       <section style={{
-        background: '#FDFAF5', position: 'relative', overflow: 'hidden',
+        background: 'var(--page-bg, #FAFAF8)', position: 'relative', overflow: 'hidden',
         padding: `var(--section-pad-lg) ${PAD_X}`,
       }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.25, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.12, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', top: -120, right: '18%', width: 460, height: 460, background: 'radial-gradient(circle, rgba(168,128,212,0.10) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
 
         <div className="about-opener" style={{ position: 'relative', zIndex: 1, maxWidth: 1180, margin: '0 auto' }}>
@@ -242,8 +242,8 @@ export default function AboutPage() {
       </section>
 
       {/* ── 2 · THE JOURNEY ───────────────────────────────────── */}
-      <section style={{ background: '#F7F3EE', position: 'relative', overflow: 'hidden', padding: `var(--section-pad) ${PAD_X}` }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.3, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
+      <section style={{ background: 'linear-gradient(180deg, rgba(0,36,72,0.018), rgba(0,36,72,0.03))', position: 'relative', overflow: 'hidden', padding: `var(--section-pad) ${PAD_X}` }}>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.12, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto' }}>
           <motion.div {...rise}>
             <Kicker>The journey</Kicker>
@@ -287,7 +287,7 @@ export default function AboutPage() {
 
       {/* ── 3 · THE HUMAN BIT ─────────────────────────────────── */}
       <section style={{ background: '#fff', position: 'relative', overflow: 'hidden', padding: `var(--section-pad) 0` }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.25, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.12, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto', padding: `0 ${PAD_X}` }}>
 
           <motion.div {...rise}>
@@ -367,7 +367,7 @@ export default function AboutPage() {
 
       {/* ── 4 · WHAT I'M LOOKING FOR + CONTACT ────────────────── */}
       <motion.section {...rise} style={{ background: '#111827', position: 'relative', overflow: 'hidden', padding: `var(--section-pad) ${PAD_X}` }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.4, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.18, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
         <div aria-hidden="true" style={{ position: 'absolute', top: -10, right: 32, fontSize: 'clamp(120px, 16vw, 200px)', lineHeight: 1, fontFamily: SERIF, color: 'rgba(255,255,255,0.05)', pointerEvents: 'none', userSelect: 'none', zIndex: 0 }}>&rdquo;</div>
 
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto' }}>
