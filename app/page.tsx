@@ -712,6 +712,13 @@ export default function HomePage() {
                 <a className="bento-cta" href="/projects/sparkconnect">View case study <span className="cta-arrow">→</span></a>
               </div>
 
+              {/* POV piece, folded in from the retired Explorations section */}
+              <a className="bento-tile bento-tile--text bento-tile--feature" href="/explorations/openrouter">
+                <p className="bento-tag">POV · OpenRouter</p>
+                <p className="bento-text">500+ AI models, no guidance on which to use. I designed a wizard that takes you from zero context to a working API call in four questions.</p>
+                <span className="bento-cta">Live prototype <span className="cta-arrow">→</span></span>
+              </a>
+
               <div className="bento-tile bento-tile--text">
                 <p className="bento-tag">On my mind</p>
                 <p className="bento-text">Why seamlessness is so rare. Most products get close and then sort of&nbsp;&hellip; stop.</p>
@@ -722,48 +729,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* EXPLORATIONS */}
-      <section className="explorations-section" id="explorations">
-        <div className="container">
-          <div className="work-header">
-            <div>
-              <p className="work-eyebrow">Explorations</p>
-              <h2 className="work-title">Use Cases &amp; POVs</h2>
-            </div>
-            <p className="work-sub">Takes on AI products: how they feel to use, where they fall short. More on the way.</p>
-          </div>
-
-          <div className="exp-grid">
-
-            {/* Exploration 01 — OpenRouter Model Match */}
-            <a className="exp-card exp-card--linked" href="/explorations/openrouter">
-              <div className="exp-card-top">
-                <span className="exp-tag">OpenRouter</span>
-                <span className="exp-num">01</span>
-              </div>
-              <h3 className="exp-title">500 models. I still couldn&apos;t pick one.</h3>
-              <p className="exp-desc">OpenRouter gives developers access to 500+ AI models, but no guidance on which one to use. I designed a recommendation wizard that takes you from zero context to a working API call in four questions. Live prototype included.</p>
-              <div className="exp-footer">
-                <span className="exp-status exp-status--live">Live prototype →</span>
-              </div>
-            </a>
-
-            {/* Exploration 02 — Alexa for Shopping Memory Layer */}
-            <a className="exp-card exp-card--linked" href="https://alexa-for-shopping.vercel.app" target="_blank" rel="noopener noreferrer">
-              <div className="exp-card-top">
-                <span className="exp-tag">Amazon</span>
-                <span className="exp-num">02</span>
-              </div>
-              <h3 className="exp-title">Alexa remembers your cart. Not you.</h3>
-              <p className="exp-desc">Alexa for Shopping treats every session as a blank slate. I designed a memory layer that carries context across sessions: past purchases, preferences, family patterns. With it, Alexa can give recommendations that actually fit your life. Live prototype included.</p>
-              <div className="exp-footer">
-                <span className="exp-status exp-status--live">Live prototype →</span>
-              </div>
-            </a>
-
-          </div>
-        </div>
-      </section>
 
       {/* ABOUT */}
       <section className="about-section" id="about">

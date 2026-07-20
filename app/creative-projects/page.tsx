@@ -18,7 +18,7 @@ export default function CreativeProjectsPage() {
       <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `clamp(96px, 12vh, 140px) ${GUTTER} 120px` }}>
 
         {/* Back */}
-        <Link href="/#explorations" style={{ fontFamily: BODY, fontSize: 13, fontWeight: 600, letterSpacing: '0.01em', color: 'rgba(0,0,0,0.45)', textDecoration: 'none' }}>
+        <Link href="/#work" style={{ fontFamily: BODY, fontSize: 13, fontWeight: 600, letterSpacing: '0.01em', color: 'rgba(0,0,0,0.45)', textDecoration: 'none' }}>
           ← Back to portfolio
         </Link>
 
