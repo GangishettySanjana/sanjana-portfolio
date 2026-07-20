@@ -362,6 +362,13 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   text-transform: uppercase; color: #C4B5FD; margin-bottom: 14px;
 }
 
+/* Adjacent sections each contribute a full --section-pad, so the work
+   section's bottom pad and the About section's top pad stacked into ~200px
+   of nothing between the last bento tile and the greeting, before
+   .about-panel added its own on top. The work section already supplies the
+   separation, so the one that follows it does not need to. */
+.work-section + .about-section { padding-top: 0; }
+
 /* ── BEYOND THE CASE STUDIES — quiet bento band ── */
 .beyond-band { margin-top: 64px; padding-top: 56px; border-top: 1px solid rgba(0,0,0,0.1); }
 .beyond-eyebrow {
