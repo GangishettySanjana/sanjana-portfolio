@@ -444,6 +444,10 @@ a.bento-tile:hover {
 .bento-tile--feature { justify-content: flex-start; border-color: rgba(30,93,172,0.22); }
 .bento-cta {
   margin-top: auto; padding-top: 16px;
+  /* the tile is a flex column with align-items: stretch, which blockifies
+     this and stretched the clickable box to the full tile width while the
+     text sat left inside it. flex-start makes it hug its own text. */
+  align-self: flex-start;
   display: inline-flex; align-items: center; gap: 6px;
   font-family: var(--head); font-size: 12.5px; font-weight: 700;
   letter-spacing: 0.02em; color: var(--blue); text-decoration: none;
