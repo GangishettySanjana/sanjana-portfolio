@@ -372,7 +372,7 @@ export default function AboutPage() {
 
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto' }}>
           <Kicker dark>What I&apos;m looking for</Kicker>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 'clamp(28px, 3.6vw, 48px)', lineHeight: 1.15, letterSpacing: '0.01em', color: '#fff', margin: '0 0 18px', maxWidth: '20ch' }}>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 'clamp(28px, 3.6vw, 48px)', lineHeight: 1.15, letterSpacing: '0.01em', color: '#fff', margin: '0 0 18px', maxWidth: '38ch' }}>
             I want to work somewhere that starts with the person, not the feature list.
           </h2>
           <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, margin: '0 0 36px', maxWidth: '62ch' }}>
