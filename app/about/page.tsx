@@ -1,6 +1,7 @@
 'use client'
 
 import { motion, useReducedMotion } from 'framer-motion'
+import IdBadge from '@/components/IdBadge'
 
 /* ─────────────────────────────────────────────────────────────────
    About page — four sections, each with one visual anchor:
@@ -243,11 +244,11 @@ export default function AboutPage() {
 
           {/* portrait */}
           <motion.div {...rise} transition={{ ...(rise as { transition?: object }).transition, delay: 0.12 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/sanjana-hero.png"
-              alt="Sanjana Gangishetty, photographed outdoors against greenery"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 20, display: 'block', maxHeight: 560 }}
+            <IdBadge
+              photo="/images/sanjana-hero.png"
+              alt="Sanjana Gangishetty"
+              name="Sanjana"
+              role="Product Designer"
             />
           </motion.div>
         </div>
