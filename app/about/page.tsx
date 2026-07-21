@@ -144,12 +144,16 @@ const SERIF = 'var(--font-serif), Georgia, serif'
 const SANS = "'Satoshi', sans-serif"
 const PAD_X = 'clamp(32px, 7vw, 96px)'
 
-/* Spotify episode ID — the part after /episode/ in the share link,
-   e.g. https://open.spotify.com/episode/4rOoJ6Egrf8K2IrywzwOMk
-                                          ^^^^^^^^^^^^^^^^^^^^^^
-   While this is empty the block renders nothing, so the live page is
-   never showing an empty player. */
-const SPOTIFY_EPISODE_ID = ''
+/* Spotify episode. This is a video episode, hence the /video path and the
+   16:9 frame rather than the short audio-only player.
+
+   Two params from Spotify's copy-paste snippet are deliberately dropped:
+   t=45 would start every visitor 45 seconds in, and si=... is a share
+   identifier tied to the session the link was copied from.
+
+   Empty ID renders nothing, so the page never shows an empty player. */
+const SPOTIFY_EPISODE_ID = '7I5EGVw51a9Y68yW5Aqv7z'
+const SPOTIFY_IS_VIDEO = true
 
 const EMAIL = 'gangishettysanjana084@gmail.com'
 const LINKEDIN = 'https://www.linkedin.com/in/sanjana-gangishetty'
@@ -300,16 +304,15 @@ export default function AboutPage() {
                   I talked through all of this on a podcast, with the professor who started it.
                 </p>
               </div>
-              <iframe
-                title="Podcast episode: Sanjana Gangishetty on her path into design"
-                src={`https://open.spotify.com/embed/episode/${SPOTIFY_EPISODE_ID}?utm_source=generator`}
-                width="100%"
-                height="232"
-                frameBorder="0"
-                loading="lazy"
-                allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                style={{ borderRadius: 14, display: 'block', border: 0 }}
-              />
+              <div className="about-podcast-frame">
+                <iframe
+                  title="Podcast episode: Sanjana Gangishetty on her path into design"
+                  src={`https://open.spotify.com/embed/episode/${SPOTIFY_EPISODE_ID}${SPOTIFY_IS_VIDEO ? '/video' : ''}?utm_source=generator`}
+                  loading="lazy"
+                  allowFullScreen
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                />
+              </div>
             </motion.div>
           )}
         </div>
