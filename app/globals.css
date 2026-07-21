@@ -619,6 +619,260 @@ aside::-webkit-scrollbar { display: none; }
 .about-beat-left  .about-beat-watermark { left: calc(50% + clamp(24px, 3vw, 44px)); }
 .about-beat-right .about-beat-watermark { right: calc(50% + clamp(24px, 3vw, 44px)); }
 
+/* ── Lanyard ID badge ─────────────────────────────────────────────
+   Recolour the whole thing from --badge-accent. */
+.idbadge {
+  --badge-accent: #BE3A2B;
+  --badge-card: #F5F0E4;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 92px;          /* room for the lanyard above the card */
+  filter: drop-shadow(0 26px 34px rgba(40, 50, 30, 0.28));
+}
+
+/* Everything below the pivot swings together. transform-origin sits at
+   the very top, at the clip, so the card arcs the way it would on a real
+   lanyard rather than spinning about its own middle. */
+.idbadge-swing {
+  /* Positioning context for the lanyard. Without it the absolutely
+     positioned strap resolves against .idbadge, which is wider than the
+     card, and hangs off to one side instead of centred over it. */
+  position: relative;
+  width: min(300px, 100%);
+  transform-origin: top center;
+  will-change: transform;
+  /* overshoot on release, so it settles instead of stopping dead */
+  transition: transform 1.15s cubic-bezier(0.18, 0.9, 0.24, 1.06);
+  touch-action: pan-y;   /* vertical scrolling still works over the badge */
+  cursor: grab;
+}
+.idbadge-swing.is-dragging {
+  transition: none;      /* follow the pointer 1:1 while held */
+  cursor: grabbing;
+}
+
+/* lanyard: a single strap running up out of frame */
+/* Centred with auto margins rather than left: 50% + translateX(-50%):
+   the percentage resolved against a different width than the element
+   actually rendered at, leaving the strap ~7px left of the card. */
+.idbadge-lanyard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 30px;
+  height: 110px;
+  margin-inline: auto;
+  pointer-events: none;
+}
+.idbadge-strap {
+  position: absolute;
+  top: -60px;
+  left: 2px;
+  width: 26px;
+  height: 168px;
+  background:
+    /* the little flecks running down the webbing */
+    radial-gradient(circle 3px at 50% 26px,  rgba(255,255,255,0.85) 98%, transparent 100%),
+    radial-gradient(circle 3px at 50% 74px,  rgba(255,255,255,0.85) 98%, transparent 100%),
+    radial-gradient(circle 3px at 50% 122px, rgba(255,255,255,0.85) 98%, transparent 100%),
+    linear-gradient(90deg, rgba(0,0,0,0.16), transparent 42%, rgba(255,255,255,0.14) 62%, transparent),
+    var(--badge-accent);
+  border-radius: 3px;
+}
+.idbadge-clip {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  right: 0;
+  width: 34px;
+  height: 26px;
+  margin-inline: auto;
+  border: 3px solid #b9b6ad;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #e4e1d8, #c3c0b6);
+}
+
+/* the card */
+.idbadge-card {
+  position: relative;
+  /* border-box so width: 100% matches the swing wrapper exactly. As
+     content-box the padding pushed the card wider than its wrapper, so
+     its centre drifted off the strap's. */
+  box-sizing: border-box;
+  width: 100%;
+  background: var(--badge-card);
+  border-radius: 16px;
+  padding: 40px 20px 26px 30px;
+  color: var(--badge-accent);
+}
+/* chevron tab the clip sits in */
+.idbadge-tab {
+  position: absolute;
+  top: -22px;
+  left: 0;
+  right: 0;
+  width: 78px;
+  height: 46px;
+  margin-inline: auto;
+  background: var(--badge-accent);
+  border-radius: 6px 6px 0 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 72%, 0 100%);
+}
+.idbadge-tab::after {
+  content: '';
+  position: absolute;
+  inset: 5px 7px 12px;
+  border: 1.5px dashed rgba(255, 255, 255, 0.9);
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+}
+/* scalloped left edge */
+.idbadge-scallop {
+  position: absolute;
+  top: 26px;
+  bottom: 26px;
+  left: 6px;
+  width: 15px;
+  background: radial-gradient(circle 7.5px at 0 9px, var(--badge-accent) 98%, transparent 100%);
+  background-size: 15px 18px;
+  background-repeat: repeat-y;
+}
+
+.idbadge-body { position: relative; text-align: center; }
+.idbadge-photo {
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0 auto 18px;
+  width: 78%;
+  aspect-ratio: 4 / 5;
+  background: #8d949a;
+}
+.idbadge-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.idbadge-name {
+  font-family: var(--head, 'Cabinet Grotesk'), sans-serif;
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin: 0 0 6px;
+  color: var(--badge-accent);
+}
+.idbadge-role {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 15px;
+  margin: 0 0 22px;
+  color: var(--badge-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* barcode: irregular bar widths so it does not read as a pattern */
+.idbadge-barcode {
+  height: 34px;
+  margin: 0 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    #17171a 0 2px, transparent 2px 4px,
+    #17171a 4px 5px, transparent 5px 8px,
+    #17171a 8px 11px, transparent 11px 13px,
+    #17171a 13px 14px, transparent 14px 18px
+  );
+}
+.idbadge-star {
+  position: absolute;
+  right: -26px;
+  bottom: -22px;
+  width: 92px;
+  height: 92px;
+  color: var(--badge-accent);
+}
+
+@media (max-width: 900px) {
+  .idbadge { padding-top: 76px; }
+  .idbadge-swing { width: min(268px, 100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .idbadge-swing { transition: none; cursor: default; }
+}
+
+/* ── About page: sage wall with dappled leaf shadows ──────────────
+   Built in CSS rather than as a photo: no asset to download, and it
+   scales to any viewport instead of tiling or cropping.
+
+   Layer order is top-down. The light wash sits ON TOP of the shadow
+   bands, which is what keeps ~#111 body copy readable over a mid-tone
+   green — without it the greys in the copy drop below usable contrast.
+   Drop the wash alpha to deepen the green, raise it to lighten. */
+.about-texture {
+  background-color: #94AA7B;
+  background-image:
+    /* readability wash */
+    linear-gradient(rgba(250, 250, 248, 0.56), rgba(250, 250, 248, 0.56)),
+    /* dappled shadow bands, three passes at different angles and scales
+       so the repeat never reads as a pattern */
+    linear-gradient(
+      114deg,
+      transparent 0%, rgba(52, 72, 38, 0.30) 14%, transparent 30%,
+      rgba(52, 72, 38, 0.20) 46%, transparent 60%,
+      rgba(52, 72, 38, 0.26) 78%, transparent 94%
+    ),
+    linear-gradient(
+      128deg,
+      transparent 6%, rgba(44, 62, 32, 0.22) 26%, transparent 44%,
+      rgba(44, 62, 32, 0.16) 66%, transparent 88%
+    ),
+    radial-gradient(ellipse 70% 45% at 78% 12%, rgba(168, 190, 140, 0.45), transparent 70%);
+  background-size: 100% 100%, 165% 145%, 235% 190%, 100% 100%;
+  background-position: 0 0, 12% 0, 78% 22%, 0 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+/* The sections sit transparent so the wall shows through; the dark
+   closing panel keeps its own background. */
+.about-texture > section:not(.about-close) { background: transparent !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* fixed attachment can judder on some setups; scroll is the safe default */
+  .about-texture { background-attachment: scroll; }
+}
+@media (max-width: 900px) {
+  .about-texture { background-attachment: scroll; }
+}
+
+/* Podcast embed, closing out the journey section. Sits on the same
+   measure as the beats above it so it reads as part of that story
+   rather than a bolted-on widget. */
+.about-podcast {
+  margin-top: clamp(32px, 4vw, 48px);
+  padding-top: clamp(28px, 3.5vw, 40px);
+  border-top: 1px solid rgba(13, 13, 13, 0.1);
+}
+.about-podcast-intro {
+  max-width: none;
+  margin-bottom: clamp(18px, 2.2vw, 26px);
+}
+/* Embedded as audio rather than video, so this is a fixed-height player
+   bar instead of a 16:9 frame. */
+/* Spans the full content column so it shares a right edge with the
+   "Along the way" row and the section container above it. Capping it at
+   820px left the player stopping short of everything else, giving the
+   block three different right edges. */
+.about-podcast-frame {
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.about-podcast-frame iframe {
+  width: 100%;
+  height: 152px;
+  border: 0;
+  display: block;
+}
+
 /* the collapsed milestones, one line */
 .about-alongtheway {
   display: flex;

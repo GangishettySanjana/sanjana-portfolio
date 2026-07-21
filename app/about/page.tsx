@@ -1,6 +1,7 @@
 'use client'
 
 import { motion, useReducedMotion } from 'framer-motion'
+import IdBadge from '@/components/IdBadge'
 
 /* ─────────────────────────────────────────────────────────────────
    About page — four sections, each with one visual anchor:
@@ -144,6 +145,18 @@ const SERIF = 'var(--font-serif), Georgia, serif'
 const SANS = "'Satoshi', sans-serif"
 const PAD_X = 'clamp(32px, 7vw, 96px)'
 
+/* Spotify episode. It is published as a video episode, but embedded as
+   audio on purpose: the /video path is dropped so this renders as the
+   compact player rather than a 16:9 frame that dominates the section.
+
+   Two params from Spotify's copy-paste snippet are deliberately dropped:
+   t=45 would start every visitor 45 seconds in, and si=... is a share
+   identifier tied to the session the link was copied from.
+
+   Empty ID renders nothing, so the page never shows an empty player. */
+const SPOTIFY_EPISODE_ID = '7I5EGVw51a9Y68yW5Aqv7z'
+const SPOTIFY_IS_VIDEO = false
+
 const EMAIL = 'gangishettysanjana084@gmail.com'
 const LINKEDIN = 'https://www.linkedin.com/in/sanjana-gangishetty'
 const RESUME = '/resume.pdf?v=0622'
@@ -173,7 +186,7 @@ export default function AboutPage() {
       }
 
   return (
-    <main style={{ background: 'var(--page-bg, #FAFAF8)' }}>
+    <main className="about-texture">
 
       {/* ── 1 · OPENER + PORTRAIT ─────────────────────────────── */}
       <section style={{
@@ -208,10 +221,10 @@ export default function AboutPage() {
               hi, it means a lot<br />that you&apos;re here ✦
             </h1>
 
-            <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: '#555', lineHeight: 1.6, margin: '0 0 16px' }}>
+            <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: '#414141', lineHeight: 1.6, margin: '0 0 16px' }}>
               I&apos;m Sanjana. ~7 years in design, ~3 in product, studying it, working in it, thinking about it. I started in interior spaces and moved into product design. That background shapes how I work now. It just means I learned early how to figure out what something needs to feel like before anyone has words for it.
             </p>
-            <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: '#555', lineHeight: 1.6, margin: '0 0 32px' }}>
+            <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: '#414141', lineHeight: 1.6, margin: '0 0 32px' }}>
               These days I design digital products. AI workflows, interactive exhibits, things people actually want to use. What I care about most is the gap between <em style={{ fontStyle: 'italic', color: '#111' }}>technically works</em> and <em style={{ fontStyle: 'italic', color: '#111' }}>actually good.</em>
             </p>
 
@@ -231,11 +244,11 @@ export default function AboutPage() {
 
           {/* portrait */}
           <motion.div {...rise} transition={{ ...(rise as { transition?: object }).transition, delay: 0.12 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/sanjana-hero.png"
-              alt="Sanjana Gangishetty, photographed outdoors against greenery"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 20, display: 'block', maxHeight: 560 }}
+            <IdBadge
+              photo="/images/sanjana-hero.png"
+              alt="Sanjana Gangishetty"
+              name="Sanjana"
+              role="Product Designer"
             />
           </motion.div>
         </div>
@@ -282,6 +295,28 @@ export default function AboutPage() {
             <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#16a34a' }}>Now</span>
             <span style={{ fontFamily: SANS, fontSize: 15, color: 'rgba(13,13,13,0.62)' }}>{NOW_BEAT.detail}</span>
           </motion.p>
+
+          {SPOTIFY_EPISODE_ID && (
+            <motion.div id="podcast" className="about-podcast" {...rise}>
+              <div className="about-podcast-intro">
+                <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.4)' }}>
+                  The long version
+                </span>
+                <p style={{ fontFamily: SERIF, fontSize: 'clamp(18px, 1.9vw, 25px)', lineHeight: 1.25, color: '#111827', margin: '10px 0 0' }}>
+                  I talked through all of this on a podcast, with the professor who started it.
+                </p>
+              </div>
+              <div className="about-podcast-frame">
+                <iframe
+                  title="Podcast episode: Sanjana Gangishetty on her path into design"
+                  src={`https://open.spotify.com/embed/episode/${SPOTIFY_EPISODE_ID}${SPOTIFY_IS_VIDEO ? '/video' : ''}?utm_source=generator`}
+                  loading="lazy"
+                  allowFullScreen
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                />
+              </div>
+            </motion.div>
+          )}
         </div>
       </section>
 
@@ -366,7 +401,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── 4 · WHAT I'M LOOKING FOR + CONTACT ────────────────── */}
-      <motion.section {...rise} style={{ background: '#111827', position: 'relative', overflow: 'hidden', padding: `var(--section-pad) ${PAD_X}` }}>
+      <motion.section {...rise} className="about-close" style={{ background: '#111827', position: 'relative', overflow: 'hidden', padding: `var(--section-pad) ${PAD_X}` }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.18, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
         <div aria-hidden="true" style={{ position: 'absolute', top: -10, right: 32, fontSize: 'clamp(120px, 16vw, 200px)', lineHeight: 1, fontFamily: SERIF, color: 'rgba(255,255,255,0.05)', pointerEvents: 'none', userSelect: 'none', zIndex: 0 }}>&rdquo;</div>
 
