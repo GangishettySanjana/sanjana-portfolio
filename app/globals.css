@@ -632,42 +632,64 @@ aside::-webkit-scrollbar { display: none; }
   filter: drop-shadow(0 26px 34px rgba(40, 50, 30, 0.28));
 }
 
-/* lanyard: two straps converging into a clip */
+/* Everything below the pivot swings together. transform-origin sits at
+   the very top, at the clip, so the card arcs the way it would on a real
+   lanyard rather than spinning about its own middle. */
+.idbadge-swing {
+  /* Positioning context for the lanyard. Without it the absolutely
+     positioned strap resolves against .idbadge, which is wider than the
+     card, and hangs off to one side instead of centred over it. */
+  position: relative;
+  width: min(300px, 100%);
+  transform-origin: top center;
+  will-change: transform;
+  /* overshoot on release, so it settles instead of stopping dead */
+  transition: transform 1.15s cubic-bezier(0.18, 0.9, 0.24, 1.06);
+  touch-action: pan-y;   /* vertical scrolling still works over the badge */
+  cursor: grab;
+}
+.idbadge-swing.is-dragging {
+  transition: none;      /* follow the pointer 1:1 while held */
+  cursor: grabbing;
+}
+
+/* lanyard: a single strap running up out of frame */
+/* Centred with auto margins rather than left: 50% + translateX(-50%):
+   the percentage resolved against a different width than the element
+   actually rendered at, leaving the strap ~7px left of the card. */
 .idbadge-lanyard {
   position: absolute;
   top: 0;
-  left: 50%;
-  width: 190px;
+  left: 0;
+  right: 0;
+  width: 30px;
   height: 110px;
-  transform: translateX(-50%);
+  margin-inline: auto;
   pointer-events: none;
 }
 .idbadge-strap {
   position: absolute;
-  top: -46px;
+  top: -60px;
+  left: 2px;
   width: 26px;
-  height: 150px;
+  height: 168px;
   background:
     /* the little flecks running down the webbing */
-    radial-gradient(circle 3px at 50% 18px, rgba(255,255,255,0.85) 98%, transparent 100%),
-    radial-gradient(circle 3px at 50% 58px, rgba(255,255,255,0.85) 98%, transparent 100%),
-    radial-gradient(circle 3px at 50% 98px, rgba(255,255,255,0.85) 98%, transparent 100%),
+    radial-gradient(circle 3px at 50% 26px,  rgba(255,255,255,0.85) 98%, transparent 100%),
+    radial-gradient(circle 3px at 50% 74px,  rgba(255,255,255,0.85) 98%, transparent 100%),
+    radial-gradient(circle 3px at 50% 122px, rgba(255,255,255,0.85) 98%, transparent 100%),
     linear-gradient(90deg, rgba(0,0,0,0.16), transparent 42%, rgba(255,255,255,0.14) 62%, transparent),
     var(--badge-accent);
   border-radius: 3px;
 }
-/* transform-origin is the bottom, so a NEGATIVE angle swings the top of
-   the left strap outward and a POSITIVE one swings the right strap out.
-   Reversed, both tops converge and the straps collapse into one band. */
-.idbadge-strap-l { left: 74px;  transform: rotate(-15deg); transform-origin: bottom center; }
-.idbadge-strap-r { right: 74px; transform: rotate(15deg);  transform-origin: bottom center; }
 .idbadge-clip {
   position: absolute;
   bottom: -6px;
-  left: 50%;
+  left: 0;
+  right: 0;
   width: 34px;
   height: 26px;
-  transform: translateX(-50%);
+  margin-inline: auto;
   border: 3px solid #b9b6ad;
   border-radius: 6px;
   background: linear-gradient(180deg, #e4e1d8, #c3c0b6);
@@ -676,21 +698,25 @@ aside::-webkit-scrollbar { display: none; }
 /* the card */
 .idbadge-card {
   position: relative;
-  width: min(300px, 100%);
+  /* border-box so width: 100% matches the swing wrapper exactly. As
+     content-box the padding pushed the card wider than its wrapper, so
+     its centre drifted off the strap's. */
+  box-sizing: border-box;
+  width: 100%;
   background: var(--badge-card);
   border-radius: 16px;
   padding: 40px 20px 26px 30px;
-  transform: rotate(-1.5deg);
   color: var(--badge-accent);
 }
 /* chevron tab the clip sits in */
 .idbadge-tab {
   position: absolute;
   top: -22px;
-  left: 50%;
+  left: 0;
+  right: 0;
   width: 78px;
   height: 46px;
-  transform: translateX(-50%);
+  margin-inline: auto;
   background: var(--badge-accent);
   border-radius: 6px 6px 0 0;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 72%, 0 100%);
@@ -767,7 +793,10 @@ aside::-webkit-scrollbar { display: none; }
 
 @media (max-width: 900px) {
   .idbadge { padding-top: 76px; }
-  .idbadge-card { width: min(268px, 100%); }
+  .idbadge-swing { width: min(268px, 100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .idbadge-swing { transition: none; cursor: default; }
 }
 
 /* ── About page: sage wall with dappled leaf shadows ──────────────
