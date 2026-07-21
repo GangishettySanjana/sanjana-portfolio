@@ -85,14 +85,14 @@ video { pointer-events: none; }
   border: 1px solid var(--page-bg, #FAFAF8);
   border-radius: 12px;
   color: #090909;
-  box-shadow: 6px 6px 12px #dcdbd6, -6px -6px 12px #ffffff;
+  box-shadow: 0 6px 16px -6px rgba(0,36,72,0.22);
   transition: all 0.3s;
 }
 .fancy::before { display: none; }
 .fancy .fancy-text { padding-left: 0; text-align: center; }
 .fancy:hover { color: #090909; background-color: var(--page-bg, #FAFAF8); border-color: #ffffff; }
 .fancy:hover .fancy-text { padding-left: 0; }
-.fancy:active { box-shadow: 4px 4px 12px #dcdbd6, -4px -4px 12px #ffffff; }
+.fancy:active { box-shadow: 0 3px 8px -4px rgba(0,36,72,0.28); }
 .fancy:focus-visible { outline: 2px solid #1e5dac; outline-offset: 3px; }
 
 /* Removed the 'NCL Gasdrifo' @font-face — it pointed at a Demo .otf

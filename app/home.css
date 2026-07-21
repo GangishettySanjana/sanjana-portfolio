@@ -1256,7 +1256,7 @@ a.bento-tile:hover {
   color: #090909;
   border: 1px solid var(--page-bg);
   border-radius: 12px;
-  box-shadow: 6px 6px 12px #dcdbd6, -6px -6px 12px #ffffff;
+  box-shadow: 0 6px 16px -6px rgba(0,36,72,0.22);
   transition: all 0.3s;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
@@ -1271,13 +1271,13 @@ a.bento-tile:hover {
   border: 1px solid #ffffff;
   opacity: 1;
   transform: none;
-  box-shadow: 6px 6px 12px #dcdbd6, -6px -6px 12px #ffffff;
+  box-shadow: 0 6px 16px -6px rgba(0,36,72,0.22);
 }
 .hero-btn-primary:active, .hero-btn-secondary:active,
 .card-btn:active, .card-btn-secondary:active,
 .con-btn-primary:active, .con-btn-ghost:active,
 .back-to-top:active {
-  box-shadow: 4px 4px 12px #dcdbd6, -4px -4px 12px #ffffff;
+  box-shadow: 0 3px 8px -4px rgba(0,36,72,0.28);
 }
 /* keep a visible keyboard focus ring */
 .hero-btn-primary:focus-visible, .hero-btn-secondary:focus-visible,
