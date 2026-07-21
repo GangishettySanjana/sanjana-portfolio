@@ -468,7 +468,24 @@ a.bento-tile:hover {
   letter-spacing: 0.02em; color: var(--blue); text-decoration: none;
   transition: gap 0.2s ease;
 }
-.bento-cta:hover { gap: 11px; }
+/* Deliberately NOT the site-wide neumorphic pill. That treatment needs the
+   button background to match what sits behind it, and this is the only CTA
+   on a white tile rather than on --page-bg — so the button read as a
+   different shade than its tile, and the white -6px -6px highlight landed
+   on white as a halo. A quiet outlined pill sits cleanly on the card. */
+.bento-cta {
+  background: rgba(30,93,172,0.05);
+  border: 1px solid rgba(30,93,172,0.18);
+  border-radius: 999px;
+  box-shadow: none;
+  transition: background 0.2s, border-color 0.2s, gap 0.2s ease;
+}
+.bento-cta:hover {
+  gap: 11px;
+  background: rgba(30,93,172,0.1);
+  border-color: rgba(30,93,172,0.35);
+  box-shadow: none;
+}
 .bento-cta .cta-arrow { transition: transform 0.2s ease; }
 .bento-cta:hover .cta-arrow { transform: translateX(2px); }
 .bento-tile--project { padding: 0; overflow: hidden; justify-content: flex-end; position: relative; }
@@ -1234,7 +1251,6 @@ a.bento-tile:hover {
 .hero-btn-primary, .hero-btn-secondary,
 .card-btn, .card-btn-secondary,
 .con-btn-primary, .con-btn-ghost,
-.bento-cta,
 .back-to-top {
   background: var(--page-bg);
   color: #090909;
@@ -1249,7 +1265,6 @@ a.bento-tile:hover {
 .hero-btn-primary:hover, .hero-btn-secondary:hover,
 .card-btn:hover, .card-btn-secondary:hover,
 .con-btn-primary:hover, .con-btn-ghost:hover,
-.bento-cta:hover,
 .back-to-top:hover {
   background: var(--page-bg);
   color: #090909;
@@ -1261,7 +1276,6 @@ a.bento-tile:hover {
 .hero-btn-primary:active, .hero-btn-secondary:active,
 .card-btn:active, .card-btn-secondary:active,
 .con-btn-primary:active, .con-btn-ghost:active,
-.bento-cta:active,
 .back-to-top:active {
   box-shadow: 4px 4px 12px #dcdbd6, -4px -4px 12px #ffffff;
 }
