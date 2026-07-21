@@ -144,8 +144,9 @@ const SERIF = 'var(--font-serif), Georgia, serif'
 const SANS = "'Satoshi', sans-serif"
 const PAD_X = 'clamp(32px, 7vw, 96px)'
 
-/* Spotify episode. This is a video episode, hence the /video path and the
-   16:9 frame rather than the short audio-only player.
+/* Spotify episode. It is published as a video episode, but embedded as
+   audio on purpose: the /video path is dropped so this renders as the
+   compact player rather than a 16:9 frame that dominates the section.
 
    Two params from Spotify's copy-paste snippet are deliberately dropped:
    t=45 would start every visitor 45 seconds in, and si=... is a share
@@ -153,7 +154,7 @@ const PAD_X = 'clamp(32px, 7vw, 96px)'
 
    Empty ID renders nothing, so the page never shows an empty player. */
 const SPOTIFY_EPISODE_ID = '7I5EGVw51a9Y68yW5Aqv7z'
-const SPOTIFY_IS_VIDEO = true
+const SPOTIFY_IS_VIDEO = false
 
 const EMAIL = 'gangishettysanjana084@gmail.com'
 const LINKEDIN = 'https://www.linkedin.com/in/sanjana-gangishetty'
@@ -300,7 +301,7 @@ export default function AboutPage() {
                 <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.4)' }}>
                   The long version
                 </span>
-                <p style={{ fontFamily: SERIF, fontSize: 'clamp(20px, 2.2vw, 28px)', lineHeight: 1.2, color: '#111827', margin: '10px 0 0' }}>
+                <p style={{ fontFamily: SERIF, fontSize: 'clamp(18px, 1.9vw, 25px)', lineHeight: 1.25, color: '#111827', margin: '10px 0 0' }}>
                   I talked through all of this on a podcast, with the professor who started it.
                 </p>
               </div>
