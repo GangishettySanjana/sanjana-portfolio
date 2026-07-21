@@ -39,8 +39,11 @@ video { pointer-events: none; }
   color: #000;
   cursor: pointer;
   display: inline-block;
-  font-family: var(--font-label), sans-serif;
-  font-weight: 700;
+  /* Geist, matching every other CTA. Uppercase and the wider tracking are
+     kept here deliberately: at 11px this is a nav micro-label, and setting
+     it sentence case would shrink its presence next to the wordmark. */
+  font-family: var(--font-geist-sans), var(--font-label), sans-serif;
+  font-weight: 600;
   letter-spacing: 0.08em;
   outline: none;
   overflow: visible;
@@ -85,14 +88,14 @@ video { pointer-events: none; }
   border: 1px solid var(--page-bg, #FAFAF8);
   border-radius: 12px;
   color: #090909;
-  box-shadow: 6px 6px 12px #dcdbd6, -6px -6px 12px #ffffff;
+  box-shadow: 0 6px 16px -6px rgba(0,36,72,0.22);
   transition: all 0.3s;
 }
 .fancy::before { display: none; }
 .fancy .fancy-text { padding-left: 0; text-align: center; }
 .fancy:hover { color: #090909; background-color: var(--page-bg, #FAFAF8); border-color: #ffffff; }
 .fancy:hover .fancy-text { padding-left: 0; }
-.fancy:active { box-shadow: 4px 4px 12px #dcdbd6, -4px -4px 12px #ffffff; }
+.fancy:active { box-shadow: 0 3px 8px -4px rgba(0,36,72,0.28); }
 .fancy:focus-visible { outline: 2px solid #1e5dac; outline-offset: 3px; }
 
 /* Removed the 'NCL Gasdrifo' @font-face — it pointed at a Demo .otf

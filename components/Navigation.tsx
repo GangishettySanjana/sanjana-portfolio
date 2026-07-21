@@ -56,7 +56,6 @@ export default function Navigation() {
 
   const mobileNavItems = [
     { label: 'Work',           href: '/#work' },
-    { label: 'Explorations',   href: '/#explorations' },
     { label: 'Creative',       href: '/creative-projects' },
     { label: 'About',          href: '/#about' },
     { label: "Let's Connect",  href: 'https://www.linkedin.com/in/sanjana-gangishetty' },
@@ -144,7 +143,6 @@ export default function Navigation() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 2, flexShrink: 0 }}>
             {[
               { label: 'Work', href: '/#work' },
-              { label: 'Explorations', href: '/#explorations' },
               { label: 'Creative', href: '/creative-projects' },
               { label: 'About', href: '/#about' },
             ].map(({ label, href }) => (

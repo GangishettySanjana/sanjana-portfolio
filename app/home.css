@@ -362,6 +362,13 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   text-transform: uppercase; color: #C4B5FD; margin-bottom: 14px;
 }
 
+/* Adjacent sections each contribute a full --section-pad, so the work
+   section's bottom pad and the About section's top pad stacked into ~200px
+   of nothing between the last bento tile and the greeting, before
+   .about-panel added its own on top. The work section already supplies the
+   separation, so the one that follows it does not need to. */
+.work-section + .about-section { padding-top: 0; }
+
 /* ── BEYOND THE CASE STUDIES — quiet bento band ── */
 .beyond-band { margin-top: 64px; padding-top: 56px; border-top: 1px solid rgba(0,0,0,0.1); }
 .beyond-eyebrow {
@@ -375,17 +382,57 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
   align-items: stretch;   /* every tile matches the tallest in its row */
   gap: 16px;
 }
+/* The two feature tiles run wide, so the band reads as a bento rather
+   than a uniform 3-across grid. 7 tiles then fill 9 cells exactly. */
+.bento-tile--feature { grid-column: span 2; }
+
 .bento-tile {
+  position: relative;
+  overflow: hidden;
   background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px;
   padding: 24px; display: flex; flex-direction: column; justify-content: center;
   min-height: 180px; text-decoration: none; color: inherit;
-  transition: border-color 0.2s, transform 0.2s;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
-a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px); }
+/* One soft abstract shape per tile, bleeding off a corner. Each tile gets
+   its own hue and corner from the nth-child rules below, so the band has
+   movement without anything competing with the type. */
+.bento-tile::after {
+  content: '';
+  position: absolute;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bento-tile > * { position: relative; z-index: 1; }
+
+.bento-tile:nth-child(1)::after { background: radial-gradient(circle, rgba(30,93,172,0.16), transparent 70%);  top: -110px; right: -80px; }
+.bento-tile:nth-child(2)::after { background: radial-gradient(circle, rgba(232,211,192,0.55), transparent 70%); bottom: -120px; left: -70px; }
+.bento-tile:nth-child(5)::after { background: radial-gradient(circle, rgba(43,181,194,0.14), transparent 70%);  top: -120px; left: 30%; }
+.bento-tile:nth-child(6)::after { background: radial-gradient(circle, rgba(168,128,212,0.14), transparent 70%); bottom: -130px; right: 8%; }
+.bento-tile:nth-child(7)::after { background: radial-gradient(circle, rgba(77,170,96,0.14), transparent 70%);   top: -100px; right: -90px; }
+
+/* the shape drifts on hover — the only motion in the band */
+a.bento-tile:hover::after { transform: translate(-14px, 14px) scale(1.12); }
+a.bento-tile:hover {
+  border-color: rgba(0,0,0,0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -28px rgba(0,36,72,0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento-tile, .bento-tile::after { transition: none; }
+  a.bento-tile:hover { transform: none; }
+  a.bento-tile:hover::after { transform: none; }
+}
 .bento-tile--stat { align-items: center; justify-content: center; text-align: center; }
 .bento-stat-num {
-  font-family: var(--head); font-size: 48px; font-weight: 800; line-height: 1;
-  margin-bottom: 8px;
+  font-family: var(--head-serif); font-size: 72px; font-weight: 400; line-height: 0.9;
+  letter-spacing: -0.03em; margin-bottom: 8px;
+  background: linear-gradient(140deg, #1e5dac, #2BB5C2);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .bento-stat-label {
   font-family: var(--body); font-size: 12px; letter-spacing: 0.08em;
@@ -401,15 +448,48 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   line-height: 1.5; letter-spacing: -0.005em;
 }
 /* Featured tile with an explicit call-to-action (hackathon finalist) */
-.bento-tile--feature { justify-content: flex-start; border-color: rgba(30,93,172,0.28); background: rgba(30,93,172,0.03); }
+.bento-tile--feature { justify-content: flex-start; border-color: rgba(30,93,172,0.22); }
+.bento-tile--feature .bento-text { margin-bottom: 18px; }
 .bento-cta {
-  margin-top: auto; padding-top: 16px;
+  /* This picks up the site-wide neumorphic pill (background + dual shadow).
+     It previously carried padding: 16px 0 0 0 — spacing meant for a bare
+     text link, back before the pill existed — which left the label jammed
+     into the pill's bottom-left corner with 1px of clearance. Symmetric
+     padding now, and the gap from the paragraph above moved to a margin
+     on the text so it is outside the pill. */
+  margin-top: auto;
+  padding: 10px 18px;
+  /* the tile is a flex column with align-items: stretch, which blockifies
+     this and stretched the clickable box to the full tile width while the
+     text sat left inside it. flex-start makes it hug its own text. */
+  align-self: flex-start;
   display: inline-flex; align-items: center; gap: 6px;
-  font-family: var(--head); font-size: 12.5px; font-weight: 700;
-  letter-spacing: 0.02em; color: var(--blue); text-decoration: none;
+  /* Geist to match the other CTAs. This rule sets it locally because
+     .bento-cta was pulled out of the shared button block to drop the
+     neumorphic halo, so it no longer inherits from there. */
+  font-family: var(--font-geist-sans), var(--body), system-ui, sans-serif;
+  font-size: 12.5px; font-weight: 600;
+  letter-spacing: 0.015em; color: var(--blue); text-decoration: none;
   transition: gap 0.2s ease;
 }
-.bento-cta:hover { gap: 11px; }
+/* Deliberately NOT the site-wide neumorphic pill. That treatment needs the
+   button background to match what sits behind it, and this is the only CTA
+   on a white tile rather than on --page-bg — so the button read as a
+   different shade than its tile, and the white -6px -6px highlight landed
+   on white as a halo. A quiet outlined pill sits cleanly on the card. */
+.bento-cta {
+  background: rgba(30,93,172,0.05);
+  border: 1px solid rgba(30,93,172,0.18);
+  border-radius: 999px;
+  box-shadow: none;
+  transition: background 0.2s, border-color 0.2s, gap 0.2s ease;
+}
+.bento-cta:hover {
+  gap: 11px;
+  background: rgba(30,93,172,0.1);
+  border-color: rgba(30,93,172,0.35);
+  box-shadow: none;
+}
 .bento-cta .cta-arrow { transition: transform 0.2s ease; }
 .bento-cta:hover .cta-arrow { transform: translateX(2px); }
 .bento-tile--project { padding: 0; overflow: hidden; justify-content: flex-end; position: relative; }
@@ -1120,6 +1200,8 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
   /* Beyond band — single column on mobile */
   .beyond-band { margin-top: 48px; padding-top: 40px; }
   .bento-grid { grid-template-columns: 1fr; }
+  /* a 2-column span would overflow a single-column grid */
+  .bento-tile--feature { grid-column: span 1; }
 
 
   /* Connect — vertical padding now from --section-pad */
@@ -1173,13 +1255,19 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 .hero-btn-primary, .hero-btn-secondary,
 .card-btn, .card-btn-secondary,
 .con-btn-primary, .con-btn-ghost,
-.bento-cta,
 .back-to-top {
   background: var(--page-bg);
   color: #090909;
   border: 1px solid var(--page-bg);
   border-radius: 12px;
-  box-shadow: 6px 6px 12px #dcdbd6, -6px -6px 12px #ffffff;
+  box-shadow: 0 6px 16px -6px rgba(0,36,72,0.22);
+  /* Geist is built for interface labels; --head (Cabinet Grotesk) is a
+     display face and at 700 it read blocky at button sizes. Family,
+     weight and tracking are set here so every CTA matches; per-button
+     font-size and padding stay local so each still fits its context. */
+  font-family: var(--font-geist-sans), var(--body), system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.015em;
   transition: all 0.3s;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
@@ -1188,21 +1276,19 @@ a.bento-tile:hover { border-color: rgba(0,0,0,0.2); transform: translateY(-2px);
 .hero-btn-primary:hover, .hero-btn-secondary:hover,
 .card-btn:hover, .card-btn-secondary:hover,
 .con-btn-primary:hover, .con-btn-ghost:hover,
-.bento-cta:hover,
 .back-to-top:hover {
   background: var(--page-bg);
   color: #090909;
   border: 1px solid #ffffff;
   opacity: 1;
   transform: none;
-  box-shadow: 6px 6px 12px #dcdbd6, -6px -6px 12px #ffffff;
+  box-shadow: 0 6px 16px -6px rgba(0,36,72,0.22);
 }
 .hero-btn-primary:active, .hero-btn-secondary:active,
 .card-btn:active, .card-btn-secondary:active,
 .con-btn-primary:active, .con-btn-ghost:active,
-.bento-cta:active,
 .back-to-top:active {
-  box-shadow: 4px 4px 12px #dcdbd6, -4px -4px 12px #ffffff;
+  box-shadow: 0 3px 8px -4px rgba(0,36,72,0.28);
 }
 /* keep a visible keyboard focus ring */
 .hero-btn-primary:focus-visible, .hero-btn-secondary:focus-visible,
