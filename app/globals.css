@@ -633,9 +633,12 @@ aside::-webkit-scrollbar { display: none; }
 }
 /* Embedded as audio rather than video, so this is a fixed-height player
    bar instead of a 16:9 frame. */
+/* Spans the full content column so it shares a right edge with the
+   "Along the way" row and the section container above it. Capping it at
+   820px left the player stopping short of everything else, giving the
+   block three different right edges. */
 .about-podcast-frame {
   width: 100%;
-  max-width: 820px;
   border-radius: 14px;
   overflow: hidden;
 }
