@@ -39,8 +39,11 @@ video { pointer-events: none; }
   color: #000;
   cursor: pointer;
   display: inline-block;
-  font-family: var(--font-label), sans-serif;
-  font-weight: 700;
+  /* Geist, matching every other CTA. Uppercase and the wider tracking are
+     kept here deliberately: at 11px this is a nav micro-label, and setting
+     it sentence case would shrink its presence next to the wordmark. */
+  font-family: var(--font-geist-sans), var(--font-label), sans-serif;
+  font-weight: 600;
   letter-spacing: 0.08em;
   outline: none;
   overflow: visible;

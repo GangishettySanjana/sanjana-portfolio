@@ -464,8 +464,12 @@ a.bento-tile:hover {
      text sat left inside it. flex-start makes it hug its own text. */
   align-self: flex-start;
   display: inline-flex; align-items: center; gap: 6px;
-  font-family: var(--head); font-size: 12.5px; font-weight: 700;
-  letter-spacing: 0.02em; color: var(--blue); text-decoration: none;
+  /* Geist to match the other CTAs. This rule sets it locally because
+     .bento-cta was pulled out of the shared button block to drop the
+     neumorphic halo, so it no longer inherits from there. */
+  font-family: var(--font-geist-sans), var(--body), system-ui, sans-serif;
+  font-size: 12.5px; font-weight: 600;
+  letter-spacing: 0.015em; color: var(--blue); text-decoration: none;
   transition: gap 0.2s ease;
 }
 /* Deliberately NOT the site-wide neumorphic pill. That treatment needs the
@@ -1257,6 +1261,13 @@ a.bento-tile:hover {
   border: 1px solid var(--page-bg);
   border-radius: 12px;
   box-shadow: 0 6px 16px -6px rgba(0,36,72,0.22);
+  /* Geist is built for interface labels; --head (Cabinet Grotesk) is a
+     display face and at 700 it read blocky at button sizes. Family,
+     weight and tracking are set here so every CTA matches; per-button
+     font-size and padding stay local so each still fits its context. */
+  font-family: var(--font-geist-sans), var(--body), system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.015em;
   transition: all 0.3s;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
