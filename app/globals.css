@@ -619,6 +619,50 @@ aside::-webkit-scrollbar { display: none; }
 .about-beat-left  .about-beat-watermark { left: calc(50% + clamp(24px, 3vw, 44px)); }
 .about-beat-right .about-beat-watermark { right: calc(50% + clamp(24px, 3vw, 44px)); }
 
+/* ── About page: sage wall with dappled leaf shadows ──────────────
+   Built in CSS rather than as a photo: no asset to download, and it
+   scales to any viewport instead of tiling or cropping.
+
+   Layer order is top-down. The light wash sits ON TOP of the shadow
+   bands, which is what keeps ~#111 body copy readable over a mid-tone
+   green — without it the greys in the copy drop below usable contrast.
+   Drop the wash alpha to deepen the green, raise it to lighten. */
+.about-texture {
+  background-color: #94AA7B;
+  background-image:
+    /* readability wash */
+    linear-gradient(rgba(250, 250, 248, 0.42), rgba(250, 250, 248, 0.42)),
+    /* dappled shadow bands, three passes at different angles and scales
+       so the repeat never reads as a pattern */
+    linear-gradient(
+      114deg,
+      transparent 0%, rgba(52, 72, 38, 0.30) 14%, transparent 30%,
+      rgba(52, 72, 38, 0.20) 46%, transparent 60%,
+      rgba(52, 72, 38, 0.26) 78%, transparent 94%
+    ),
+    linear-gradient(
+      128deg,
+      transparent 6%, rgba(44, 62, 32, 0.22) 26%, transparent 44%,
+      rgba(44, 62, 32, 0.16) 66%, transparent 88%
+    ),
+    radial-gradient(ellipse 70% 45% at 78% 12%, rgba(168, 190, 140, 0.45), transparent 70%);
+  background-size: 100% 100%, 165% 145%, 235% 190%, 100% 100%;
+  background-position: 0 0, 12% 0, 78% 22%, 0 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+/* The sections sit transparent so the wall shows through; the dark
+   closing panel keeps its own background. */
+.about-texture > section:not(.about-close) { background: transparent !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* fixed attachment can judder on some setups; scroll is the safe default */
+  .about-texture { background-attachment: scroll; }
+}
+@media (max-width: 900px) {
+  .about-texture { background-attachment: scroll; }
+}
+
 /* Podcast embed, closing out the journey section. Sits on the same
    measure as the beats above it so it reads as part of that story
    rather than a bolted-on widget. */

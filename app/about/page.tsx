@@ -185,7 +185,7 @@ export default function AboutPage() {
       }
 
   return (
-    <main style={{ background: 'var(--page-bg, #FAFAF8)' }}>
+    <main className="about-texture">
 
       {/* ── 1 · OPENER + PORTRAIT ─────────────────────────────── */}
       <section style={{
@@ -220,10 +220,10 @@ export default function AboutPage() {
               hi, it means a lot<br />that you&apos;re here ✦
             </h1>
 
-            <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: '#555', lineHeight: 1.6, margin: '0 0 16px' }}>
+            <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: '#414141', lineHeight: 1.6, margin: '0 0 16px' }}>
               I&apos;m Sanjana. ~7 years in design, ~3 in product, studying it, working in it, thinking about it. I started in interior spaces and moved into product design. That background shapes how I work now. It just means I learned early how to figure out what something needs to feel like before anyone has words for it.
             </p>
-            <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: '#555', lineHeight: 1.6, margin: '0 0 32px' }}>
+            <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: '#414141', lineHeight: 1.6, margin: '0 0 32px' }}>
               These days I design digital products. AI workflows, interactive exhibits, things people actually want to use. What I care about most is the gap between <em style={{ fontStyle: 'italic', color: '#111' }}>technically works</em> and <em style={{ fontStyle: 'italic', color: '#111' }}>actually good.</em>
             </p>
 
@@ -400,7 +400,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── 4 · WHAT I'M LOOKING FOR + CONTACT ────────────────── */}
-      <motion.section {...rise} style={{ background: '#111827', position: 'relative', overflow: 'hidden', padding: `var(--section-pad) ${PAD_X}` }}>
+      <motion.section {...rise} className="about-close" style={{ background: '#111827', position: 'relative', overflow: 'hidden', padding: `var(--section-pad) ${PAD_X}` }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.18, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
         <div aria-hidden="true" style={{ position: 'absolute', top: -10, right: 32, fontSize: 'clamp(120px, 16vw, 200px)', lineHeight: 1, fontFamily: SERIF, color: 'rgba(255,255,255,0.05)', pointerEvents: 'none', userSelect: 'none', zIndex: 0 }}>&rdquo;</div>
 
