@@ -619,6 +619,19 @@ aside::-webkit-scrollbar { display: none; }
 .about-beat-left  .about-beat-watermark { left: calc(50% + clamp(24px, 3vw, 44px)); }
 .about-beat-right .about-beat-watermark { right: calc(50% + clamp(24px, 3vw, 44px)); }
 
+/* Podcast embed, closing out the journey section. Sits on the same
+   measure as the beats above it so it reads as part of that story
+   rather than a bolted-on widget. */
+.about-podcast {
+  margin-top: clamp(32px, 4vw, 48px);
+  padding-top: clamp(28px, 3.5vw, 40px);
+  border-top: 1px solid rgba(13, 13, 13, 0.1);
+}
+.about-podcast-intro {
+  max-width: 44ch;
+  margin-bottom: clamp(18px, 2.2vw, 26px);
+}
+
 /* the collapsed milestones, one line */
 .about-alongtheway {
   display: flex;

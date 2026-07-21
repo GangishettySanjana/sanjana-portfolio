@@ -144,6 +144,13 @@ const SERIF = 'var(--font-serif), Georgia, serif'
 const SANS = "'Satoshi', sans-serif"
 const PAD_X = 'clamp(32px, 7vw, 96px)'
 
+/* Spotify episode ID — the part after /episode/ in the share link,
+   e.g. https://open.spotify.com/episode/4rOoJ6Egrf8K2IrywzwOMk
+                                          ^^^^^^^^^^^^^^^^^^^^^^
+   While this is empty the block renders nothing, so the live page is
+   never showing an empty player. */
+const SPOTIFY_EPISODE_ID = ''
+
 const EMAIL = 'gangishettysanjana084@gmail.com'
 const LINKEDIN = 'https://www.linkedin.com/in/sanjana-gangishetty'
 const RESUME = '/resume.pdf?v=0622'
@@ -282,6 +289,29 @@ export default function AboutPage() {
             <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#16a34a' }}>Now</span>
             <span style={{ fontFamily: SANS, fontSize: 15, color: 'rgba(13,13,13,0.62)' }}>{NOW_BEAT.detail}</span>
           </motion.p>
+
+          {SPOTIFY_EPISODE_ID && (
+            <motion.div id="podcast" className="about-podcast" {...rise}>
+              <div className="about-podcast-intro">
+                <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.4)' }}>
+                  The long version
+                </span>
+                <p style={{ fontFamily: SERIF, fontSize: 'clamp(20px, 2.2vw, 28px)', lineHeight: 1.2, color: '#111827', margin: '10px 0 0' }}>
+                  I talked through all of this on a podcast, with the professor who started it.
+                </p>
+              </div>
+              <iframe
+                title="Podcast episode: Sanjana Gangishetty on her path into design"
+                src={`https://open.spotify.com/embed/episode/${SPOTIFY_EPISODE_ID}?utm_source=generator`}
+                width="100%"
+                height="232"
+                frameBorder="0"
+                loading="lazy"
+                allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                style={{ borderRadius: 14, display: 'block', border: 0 }}
+              />
+            </motion.div>
+          )}
         </div>
       </section>
 
