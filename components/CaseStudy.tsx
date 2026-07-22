@@ -6,7 +6,9 @@ import Link from 'next/link'
 import { type Project } from '@/data/projects'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { CaseFigure, CaseStats } from '@/components/case/CaseKit'
 import '@/app/projects/flairx-case.css'
+import '@/app/projects/_case/case-kit.css'
 
 // ── Type scale (Impeccable: 5 clear sizes, ~1.333 ratio, 16px base minimum)
 // xs  : 12px, legal, placeholder labels
@@ -214,6 +216,8 @@ export default function CaseStudy({ project }: { project: Project }) {
 `}</style>
       <div className="case-layout" style={{
         maxWidth: 1100, margin: '0 auto',
+        /* publishes this project's accent to the shared CaseKit primitives */
+        ['--case-accent' as string]: PROJECT_ACCENT[project.slug] ?? '#2BB5C2',
         padding: 'clamp(100px, 10vh, 130px) clamp(24px, 5vw, 60px) 100px',
         display: 'flex', gap: 60, alignItems: 'flex-start',
       }}>
@@ -1989,21 +1993,18 @@ function SparkConnectContent({ project, sectionRefs }: { project: Project; secti
     <p style={{ fontFamily: 'var(--font-body), Georgia, serif', fontSize: 17, color: 'rgba(0,36,72,0.8)', lineHeight: 1.75, margin: 0 }}>{text}</p>
   )
 
-  // Screenshot in a light browser chrome frame, shown at natural aspect (no crop)
+  /* Was a bespoke figure with a centred caption and no zoom. Now the shared
+     CaseFigure: same browser chrome, plus click-to-enlarge at native
+     resolution — which matters here because the content column is only
+     ~700px and these are full product screenshots. */
   const Shot = ({ src, alt, caption, chrome = true }: { src: string; alt: string; caption?: string; chrome?: boolean }) => (
-    <figure style={{ margin: '28px 0 4px' }}>
-      <div style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(0,36,72,0.1)', boxShadow: '0 24px 56px -30px rgba(0,36,72,0.35)', background: '#fff' }}>
-        {chrome && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '11px 16px', borderBottom: '1px solid rgba(0,36,72,0.07)', background: '#fafafa' }} aria-hidden>
-            <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'rgba(0,36,72,0.12)' }} />
-            <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'rgba(0,36,72,0.12)' }} />
-            <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'rgba(0,36,72,0.12)' }} />
-          </div>
-        )}
-        <img src={src} alt={alt} loading="lazy" style={{ width: '100%', height: 'auto', display: 'block' }} />
-      </div>
-      {caption && <figcaption style={{ fontFamily: 'var(--font-label), sans-serif', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: 'rgba(0,36,72,0.4)', textAlign: 'center' as const, marginTop: 14 }}>{caption}</figcaption>}
-    </figure>
+    <CaseFigure
+      src={src}
+      alt={alt}
+      caption={caption}
+      width="wide"
+      frame={chrome ? 'browser' : 'card'}
+    />
   )
 
   const LiveCTA = ({ block = false }: { block?: boolean }) => (
@@ -2033,6 +2034,8 @@ function SparkConnectContent({ project, sectionRefs }: { project: Project; secti
         {label('Overview')}
         {heading('The WIP community had the network. It just didn’t have the product.')}
         {body('Built in a 48-hour Women in Product hackathon. WIP is one of the strongest product communities out there — tens of thousands of women across every level and company. But when someone needed a referral, they were still cold-messaging strangers on LinkedIn. The network existed. There was just no product to activate it. So I designed and shipped one.')}
+        {/* Driven off project.stats so the band and the data cannot drift apart */}
+        {project.stats?.length ? <CaseStats items={project.stats} /> : null}
         <Shot src="/sparkconnect/search.png" alt="SparkConnect Find a Referrer screen with search, filters, and referrer cards" caption="The shipped product — browse and filter WIP members open to referring" />
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' as const, marginTop: 24 }}>
           <LiveCTA />
