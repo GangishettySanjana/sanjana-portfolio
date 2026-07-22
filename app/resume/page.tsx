@@ -77,10 +77,10 @@ export default function ResumePage() {
               {/* Summary */}
               <Section title="Summary">
                 <p style={{ fontFamily: 'var(--font-body, Georgia, serif)', fontSize: 15, color: '#374151', lineHeight: 1.75, margin: 0 }}>
-                  UX designer who came from interior design and never quite let go of the spatial thinking that comes with it. Spent the past few years at CU Boulder making AI-powered products feel less like tools and more like collaborators. Comfortable in 0→1 chaos, obsessed with the moment a messy research finding becomes a clear design decision.
+                  Product Designer with 4 years of experience shipping enterprise fintech, AI-native, and consumer products across mobile and web. Owns end-to-end product design from user research and prototyping through to production, with expertise in design systems, interaction design, and React-based design-to-code workflows. Built a 45-component system used daily by 4 engineers.
                 </p>
                 <div style={{ display: 'flex', gap: 12, marginTop: 16, flexWrap: 'wrap' }}>
-                  {['2h → 30m recruiter workflow', '30% faster insights', '5% conversion lift'].map(m => (
+                  {['2h → 30m recruiter workflow', '30% faster time-to-insight', '20% conversion lift'].map(m => (
                     <span key={m} style={{ fontFamily: 'var(--font-label, sans-serif)', fontSize: 11, letterSpacing: '0.06em', color: teal, background: 'rgba(26,122,122,0.07)', borderRadius: 6, padding: '5px 10px' }}>{m}</span>
                   ))}
                 </div>
@@ -89,44 +89,58 @@ export default function ResumePage() {
               {/* Experience */}
               <Section title="Experience">
                 <Experience
-                  role="Product Designer (placeholder title — confirm)"
+                  role="Product Designer"
                   company="Northern Trust"
-                  period="Jan 2026 – Jun 2026"
+                  period="Jan 2026 – Present"
                   location="Chicago, IL"
                   bullets={[
-                    'Placeholder — replace with real Northern Trust accomplishments before sharing this resume.',
+                    'Reduced time-to-insight by 30% across 3 core modules by restructuring dense financial workflows into layered, progressive-disclosure views aligned with how operations teams actually reviewed and acted on data.',
+                    'Aligned 3 cross-functional groups through findings from 8 user interviews and usage-data analysis, letting Product, Engineering and Compliance resolve workflow requirements before development.',
+                    'Accelerated concept validation for an enterprise AI operations platform by prototyping LLM-assisted dashboards in Figma, surfacing trust signals, information hierarchy and interaction behaviour before engineering investment.',
+                    'Standardised the internal AI workflow suite by building reusable human-AI interaction patterns and shared design-system conventions for complex financial decision workflows.',
                   ]}
                 />
                 <Experience
                   role="Founding Product Designer"
-                  company="FlairxAI"
+                  company="Flairx AI"
                   period="Apr 2025 – Dec 2025"
                   location="Remote"
                   bullets={[
-                    'Redesigned the recruiter intake and review workflow, cutting review time from 2 hours to 30 minutes and contributing to 130 hires sourced through the redesigned flow.',
-                    'Designed three distinct upload paths (single, bulk, CSV) so recruiters could trust AI-assisted screening without feeling like it was making decisions for them.',
-                    'Owned the product design function as the first design hire, working directly with founders from 0→1.',
+                    'Built a 45-component design system adopted by a 4-engineer team across mobile and web, defining tokens, variants, auto layout, documentation and design-to-code handoff as the founding designer.',
+                    'Shipped the 0-to-1 AI hiring MVP in 3 weeks, two months early, owning discovery, wireframing, prototyping and UX/UI across 4 core workflows with zero WCAG 2.1 AA violations at handoff.',
+                    'Reduced résumé processing from hours to minutes and interview scheduling by 75%, from two hours to 30 minutes, through single, bulk and CSV upload flows with inline validation and duplicate detection.',
+                    'Cut candidate evaluation time from 40 minutes to 5 by redesigning dashboard information architecture, validating workflows through user research and usability testing, and surfacing decision-critical insights up front.',
                   ]}
                 />
                 <Experience
-                  role="UX Designer"
-                  company="Keel Foundation"
-                  period="Aug 2023 – Dec 2023"
-                  location="Boulder, CO"
-                  bullets={[
-                    'Designed ATLAS, a wildfire simulation exhibit for the Denver Museum, from concept through fabrication-ready deliverables.',
-                    'Conducted contextual research with 15 museum visitors; insights shaped spatial layout and interaction model.',
-                    'Delivered interactive prototype and brand identity across exhibit touchpoints.',
-                  ]}
-                />
-                <Experience
-                  role="UX Design Consultant"
-                  company="Getup Nutrition · Distro"
-                  period="2022 – 2023"
+                  role="Product Designer, UI/UX"
+                  company="Getup Nutrition"
+                  period="Feb 2025 – Apr 2025"
                   location="Remote"
                   bullets={[
-                    'Led product redesign for Getup Nutrition (DTC supplement brand); A/B tested checkout flow, lifting conversion by 5%.',
-                    'Designed investor-facing deck and product UI for Distro, a music-distribution startup; featured on Product Hunt.',
+                    'Reduced customer service handling time by 22% by building a scalable design system and refining conversion-focused UX/UI flows across the consumer e-commerce experience.',
+                    'Increased sales conversion by 20% by shipping a high-visibility celebrity partnership pop-up connecting brand storytelling, product discovery, checkout and newsletter acquisition.',
+                    'Improved internal satisfaction by 30% through cross-functional workshops and rapid Lovable prototypes, validating interaction design decisions and accelerating user-testing cycles without engineering support.',
+                  ]}
+                />
+                <Experience
+                  role="Product Designer, UI/UX"
+                  company="Keel Foundation"
+                  period="Sep 2024 – Feb 2025"
+                  location="Boulder, CO"
+                  bullets={[
+                    'Owned the end-to-end information architecture redesign, reducing navigation complexity by 40% across customer and stakeholder workflows through usability testing with 12 participants, user-flow restructuring and progressive disclosure.',
+                    'Increased user satisfaction by 15% by translating research findings into journey maps and evidence-backed user narratives, securing design approval from non-technical leadership for the shipped internal navigation experience.',
+                  ]}
+                />
+                <Experience
+                  role="UX Researcher · Distro"
+                  company="Applied fintech project"
+                  period="Jan 2024 – May 2024"
+                  location="CU Boulder"
+                  bullets={[
+                    'Redirected a 5-month applied fintech project by owning end-to-end foundational and generative user research with financial advisors, uncovering unmet needs through user interviews and structured synthesis.',
+                    "Established the team's redesign roadmap through 3 research-to-design deliverables — personas, journey maps and concept flows — translating interview findings into actionable product direction.",
                   ]}
                 />
               </Section>
@@ -139,13 +153,13 @@ export default function ResumePage() {
               {/* Education */}
               <SideSection title="Education">
                 <div style={{ marginBottom: 20 }}>
-                  <p style={{ fontFamily: 'var(--font-heading, Georgia, serif)', fontSize: 14, fontWeight: 700, color: navy, margin: '0 0 2px' }}>MS · Human-Computer Interaction</p>
+                  <p style={{ fontFamily: 'var(--font-heading, Georgia, serif)', fontSize: 14, fontWeight: 700, color: navy, margin: '0 0 2px' }}>MS · Creative Technology &amp; Design (HCI)</p>
                   <p style={{ fontFamily: 'var(--font-label, sans-serif)', fontSize: 12, color: teal, margin: '0 0 2px', letterSpacing: '0.04em' }}>University of Colorado Boulder</p>
                   <p style={{ fontFamily: 'var(--font-label, sans-serif)', fontSize: 11, color: muted, margin: 0, letterSpacing: '0.04em' }}>2023 – 2025</p>
                 </div>
                 <div>
-                  <p style={{ fontFamily: 'var(--font-heading, Georgia, serif)', fontSize: 14, fontWeight: 700, color: navy, margin: '0 0 2px' }}>B.Arch · Interior Design</p>
-                  <p style={{ fontFamily: 'var(--font-label, sans-serif)', fontSize: 12, color: teal, margin: '0 0 2px', letterSpacing: '0.04em' }}>Woxsen University, India</p>
+                  <p style={{ fontFamily: 'var(--font-heading, Georgia, serif)', fontSize: 14, fontWeight: 700, color: navy, margin: '0 0 2px' }}>Bachelor&rsquo;s in Design (Honors)</p>
+                  <p style={{ fontFamily: 'var(--font-label, sans-serif)', fontSize: 12, color: teal, margin: '0 0 2px', letterSpacing: '0.04em' }}>Woxsen School of Arts &amp; Design, India</p>
                   <p style={{ fontFamily: 'var(--font-label, sans-serif)', fontSize: 11, color: muted, margin: 0, letterSpacing: '0.04em' }}>2018 – 2022</p>
                 </div>
               </SideSection>

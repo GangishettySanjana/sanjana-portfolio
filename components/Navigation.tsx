@@ -59,7 +59,7 @@ export default function Navigation() {
     { label: 'Creative',       href: '/creative-projects' },
     { label: 'About',          href: '/#about' },
     { label: "Let's Connect",  href: 'https://www.linkedin.com/in/sanjana-gangishetty' },
-    { label: 'Resume',         href: '/resume.pdf?v=0622', external: true },
+    { label: 'Resume',         href: '/resume.pdf?v=0722', external: true },
   ]
 
   return (
@@ -164,7 +164,7 @@ export default function Navigation() {
             ))}
             <div style={{ width: 12 }} />
             <a
-              href="/resume.pdf?v=0622"
+              href="/resume.pdf?v=0722"
               target="_blank"
               rel="noopener noreferrer"
               style={{ ...linkStyle, fontWeight: 500 }}

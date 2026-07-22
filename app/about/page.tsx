@@ -159,7 +159,7 @@ const SPOTIFY_IS_VIDEO = false
 
 const EMAIL = 'gangishettysanjana084@gmail.com'
 const LINKEDIN = 'https://www.linkedin.com/in/sanjana-gangishetty'
-const RESUME = '/resume.pdf?v=0622'
+const RESUME = '/resume.pdf?v=0722'
 
 function Kicker({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return (
