@@ -31,8 +31,11 @@ const btnBase: React.CSSProperties = {
   fontWeight: 600,
   letterSpacing: '0.08em',
   textTransform: 'uppercase',
-  padding: '11px 20px',
+  padding: '13px 20px',
   borderRadius: 999,
+  display: 'inline-flex',
+  alignItems: 'center',
+  minHeight: 44,
   textDecoration: 'none',
 }
 
@@ -68,6 +71,14 @@ export default function ResumePage() {
             textTransform: 'uppercase',
             color: navy,
             textDecoration: 'none',
+            /* 18px of text is not a touch target; pad it to 44px so it is
+               tappable on a phone. Negative inline margin keeps the label
+               optically flush with the container edge. */
+            display: 'inline-flex',
+            alignItems: 'center',
+            minHeight: 44,
+            padding: '0 10px',
+            marginInline: -10,
           }}
         >
           ← Back

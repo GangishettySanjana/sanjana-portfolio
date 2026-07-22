@@ -458,7 +458,10 @@ a.bento-tile:hover {
      padding now, and the gap from the paragraph above moved to a margin
      on the text so it is outside the pill. */
   margin-top: auto;
+  /* min-height 44 keeps this a valid touch target on mobile; the padding
+     alone rendered it 41px tall. */
   padding: 10px 18px;
+  min-height: 44px;
   /* the tile is a flex column with align-items: stretch, which blockifies
      this and stretched the clickable box to the full tile width while the
      text sat left inside it. flex-start makes it hug its own text. */
