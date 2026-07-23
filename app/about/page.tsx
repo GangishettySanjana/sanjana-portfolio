@@ -22,7 +22,7 @@ const timeline = [
     whisper: 'Woxsen School of Arts and Design. Four years.',
     detail: 'I started in interior design, working out what a room should feel like before anyone had the words for it. Turns out that is most of what design is, in any medium.',
     tag: 'Education',
-    color: '#A880D4',
+    color: '#BE3A2B',
     photo: '/journey/2018-school.jpg',
     pivot: false,
   },
@@ -32,7 +32,7 @@ const timeline = [
     whisper: 'Most people hated it. I did not.',
     detail: 'Sketchbooks, Zoom critiques, late nights going down design rabbit holes. Honestly a good year for me. I graduated with more clarity than I had going in.',
     tag: 'Education',
-    color: '#A880D4',
+    color: '#BE3A2B',
     photo: '/journey/2020-covid.jpg',
     pivot: false,
   },
@@ -42,7 +42,7 @@ const timeline = [
     whisper: 'Interior designer on paper. Curious about everything else.',
     detail: 'Walked out with first class distinction and no real plan. Three months later I started an internship that answered a question I didn\'t know I was asking.',
     tag: 'Education',
-    color: '#A880D4',
+    color: '#BE3A2B',
     photo: '/journey/2022-grad-ceremony.jpg',
     pivot: false,
   },
@@ -52,7 +52,7 @@ const timeline = [
     whisper: 'Three months. One UX project. Pretty obvious from there.',
     detail: 'My first UX project, and it just clicked. I had been looking for a creative community, curious what being part of tech would actually feel like. This was it. Same instinct, new medium.',
     tag: 'Work',
-    color: '#2BB5C2',
+    color: '#BE3A2B',
     photo: '/journey/2022-telltales.jpg',
     pivot: true,
   },
@@ -62,7 +62,7 @@ const timeline = [
     whisper: 'Aug 2, 2022. Foundations of User Experience Design. Coursera verified.',
     detail: 'Got the Google UX cert right after. Screener surveys, usability testing, journey maps. It put names to things I\'d already been doing by feel.',
     tag: 'Education',
-    color: '#A880D4',
+    color: '#BE3A2B',
     photo: '/journey/2022-google-cert.jpg',
     pivot: false,
   },
@@ -72,7 +72,7 @@ const timeline = [
     whisper: 'Bouquet app, six interiors, one acceptance email.',
     detail: 'Built Aura, a bouquet customization app for a Hyderabad florist. Then a full-time role at MySassy Interiors where I ran six projects on my own. The interior design background kept showing up in ways I didn\'t expect. I was applying to master\'s programs the whole time. Eventually I got in.',
     tag: 'Work',
-    color: '#2BB5C2',
+    color: '#BE3A2B',
     pivot: false,
   },
   {
@@ -81,7 +81,7 @@ const timeline = [
     whisper: 'One overstuffed suitcase. The Rockies.',
     detail: 'Packed everything and moved to Boulder for the master\'s program. Two years on AI tools, interactive exhibits, product launches. Being the only person in the room who\'d designed physical spaces mattered more than I thought it would.',
     tag: 'Education',
-    color: '#A880D4',
+    color: '#BE3A2B',
     photo: '/journey/2023-boulder.jpg',
     pivot: false,
   },
@@ -91,7 +91,7 @@ const timeline = [
     whisper: 'Five years. Two countries. One direction.',
     detail: 'A master\'s, then a run of real work across AI, fintech, exhibits, e-commerce. What I keep chasing is the thing that pulled me in: staying in the learning cycle, close to people who make things.',
     tag: 'Education',
-    color: '#A880D4',
+    color: '#BE3A2B',
     photo: '/journey/2025-grad.jpg',
     pivot: false,
   },
@@ -101,7 +101,7 @@ const timeline = [
     whisper: 'Open to work. Standards intact. Coffee: non-negotiable.',
     detail: 'Still curious, still building, looking for the team that cares about the difference between technically works and actually good.',
     tag: 'Open',
-    color: '#4ade80',
+    color: '#BE3A2B',
     pivot: false,
   },
 ]
@@ -134,7 +134,7 @@ const principles = [
 ]
 
 
-const CARD_COLORS = ['#A880D4', '#2BB5C2', '#F59E0B', '#4ade80', '#F472B6', '#60A5FA']
+const CARD_COLORS = Array(6).fill('#BE3A2B')  // one red accent, was a rainbow
 
 /* The three beats that carry the story. The rest collapse to one line. */
 const BIG_BEATS = [timeline[0], timeline[3], timeline[7]]
@@ -192,8 +192,6 @@ export default function AboutPage() {
         background: 'var(--page-bg, #FAFAF8)', position: 'relative', overflow: 'hidden',
         padding: `var(--section-pad-lg) ${PAD_X}`,
       }}>
-        <div style={{ position: 'absolute', top: -120, right: '18%', width: 460, height: 460, background: 'radial-gradient(circle, rgba(168,128,212,0.10) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
-
         <div className="about-opener" style={{ position: 'relative', zIndex: 1, maxWidth: 1180, margin: '0 auto' }}>
           {/* text column */}
           <motion.div {...rise}>
@@ -273,7 +271,7 @@ export default function AboutPage() {
             {BIG_BEATS.map((beat, i) => (
               <motion.div key={beat.year + beat.title} className={`about-beat ${i % 2 ? 'about-beat-right' : 'about-beat-left'}`} {...rise}>
                 <span className="about-beat-watermark" aria-hidden="true" style={{ fontFamily: SERIF }}>{beat.year}</span>
-                <div className="about-beat-card" style={{ borderTop: `3px solid ${beat.color}`, background: beat.pivot ? 'rgba(43,181,194,0.07)' : '#fff' }}>
+                <div className="about-beat-card" style={{ borderTop: `3px solid ${beat.color}`, background: beat.pivot ? 'rgba(190,58,43,0.06)' : '#fff' }}>
                   <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: beat.color }}>
                     {beat.year} · {beat.tag}{beat.pivot ? ' · the pivot' : ''}
                   </span>
@@ -294,7 +292,7 @@ export default function AboutPage() {
           </motion.p>
 
           <motion.p className="about-alongtheway" {...rise} style={{ borderTop: 'none', marginTop: 0 }}>
-            <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#16a34a' }}>Now</span>
+            <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#BE3A2B' }}>Now</span>
             <span style={{ fontFamily: SANS, fontSize: 15, color: 'rgba(13,13,13,0.62)' }}>{NOW_BEAT.detail}</span>
           </motion.p>
 
@@ -388,9 +386,9 @@ export default function AboutPage() {
           <motion.div {...rise}><Kicker>Right now</Kicker></motion.div>
           <div className="about-now-grid">
             {[
-              { label: 'Reading', value: "Clock In by Emily the Recruiter. Genuinely a little funny that I'm reading a career book mid-job-search, but here we are. It's making me think harder about what I actually want, not just what I think I'm supposed to want.", color: '#D97706' },
-              { label: 'Building', value: "Learning to build real things with Claude Code. I'm a designer who can now ship her own ideas without waiting on anyone. Still wrapping my head around that one.", color: '#0BB4CC' },
-              { label: 'Thinking about', value: "Why seamlessness is so rare. Most products get close and then sort of... stop. I think about this more than is probably healthy.", color: '#9B5DE5' },
+              { label: 'Reading', value: "Clock In by Emily the Recruiter. Genuinely a little funny that I'm reading a career book mid-job-search, but here we are. It's making me think harder about what I actually want, not just what I think I'm supposed to want.", color: '#BE3A2B' },
+              { label: 'Building', value: "Learning to build real things with Claude Code. I'm a designer who can now ship her own ideas without waiting on anyone. Still wrapping my head around that one.", color: '#BE3A2B' },
+              { label: 'Thinking about', value: "Why seamlessness is so rare. Most products get close and then sort of... stop. I think about this more than is probably healthy.", color: '#BE3A2B' },
             ].map(item => (
               <motion.div key={item.label} {...rise} style={{ borderLeft: `3px solid ${item.color}`, paddingLeft: 18 }}>
                 <span style={{ fontFamily: SANS, fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: item.color }}>{item.label}</span>
