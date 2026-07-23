@@ -245,7 +245,7 @@ export default function AboutPage() {
           {/* portrait */}
           <motion.div {...rise} transition={{ ...(rise as { transition?: object }).transition, delay: 0.12 }}>
             <IdBadge
-              photo="/images/sanjana-hero.png"
+              photo="/images/sanjana-badge.jpg"
               alt="Sanjana Gangishetty"
               name="Sanjana"
               role="Product Designer"
