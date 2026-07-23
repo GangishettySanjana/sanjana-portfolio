@@ -414,6 +414,23 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 .bento-tile:nth-child(6)::after { background: radial-gradient(circle, rgba(168,128,212,0.14), transparent 70%); bottom: -130px; right: 8%; }
 .bento-tile:nth-child(7)::after { background: radial-gradient(circle, rgba(77,170,96,0.14), transparent 70%);   top: -100px; right: -90px; }
 
+/* podcast tile — a link like the project tiles, so it gets the same lift.
+   The glyph sits in a small filled circle to read as "play". */
+.bento-tile--podcast { text-decoration: none; color: inherit; }
+.bento-podcast-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-size: 7px;
+  margin-right: 5px;
+  padding-left: 1px;      /* optically centres the triangle */
+  vertical-align: middle;
+}
+
 /* the shape drifts on hover — the only motion in the band */
 a.bento-tile:hover::after { transform: translate(-14px, 14px) scale(1.12); }
 a.bento-tile:hover {

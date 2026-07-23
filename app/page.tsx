@@ -719,10 +719,15 @@ export default function HomePage() {
                 <span className="bento-cta">Live prototype <span className="cta-arrow">→</span></span>
               </a>
 
-              <div className="bento-tile bento-tile--text">
-                <p className="bento-tag">On my mind</p>
-                <p className="bento-text">Why seamlessness is so rare. Most products get close and then sort of&nbsp;&hellip; stop.</p>
-              </div>
+              {/* Replaced "On my mind" with the podcast — links down to the
+                  player on the About page rather than embedding a second one. */}
+              <Link className="bento-tile bento-tile--text bento-tile--podcast" href="/about#podcast">
+                <p className="bento-tag">
+                  <span className="bento-podcast-glyph" aria-hidden="true">▶</span> Podcast
+                </p>
+                <p className="bento-text">I talked through my whole path into design, with the professor who started it.</p>
+                <span className="bento-cta">Listen <span className="cta-arrow">→</span></span>
+              </Link>
 
             </div>
           </div>
