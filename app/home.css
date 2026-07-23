@@ -389,9 +389,9 @@ body { font-family: var(--body); background: var(--page-bg); overflow-x: hidden;
 .bento-tile {
   position: relative;
   overflow: hidden;
-  /* soft white->cream gradient gives the panel depth on its own, so it no
-     longer needs a decorative corner blob to avoid reading as empty */
-  background: linear-gradient(158deg, #FFFFFF 0%, #F1EFE7 100%);
+  /* clean white; the shadow and inset highlight carry the depth. (Was a
+     white->cream #F1EFE7 gradient — the warm tint has been removed.) */
+  background: #FFFFFF;
   border: 1px solid rgba(0,0,0,0.05);
   border-radius: 20px;
   box-shadow:
