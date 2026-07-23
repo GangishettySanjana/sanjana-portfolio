@@ -199,16 +199,21 @@ export default function AboutPage() {
         <div className="about-opener" style={{ position: 'relative', zIndex: 1, maxWidth: 1180, margin: '0 auto' }}>
           {/* text column */}
           <motion.div {...rise}>
+            {/* white frosted glass — reads cleanly over the sage wall; the
+                green dot stays as the live "available" signal */}
             <span style={{
               display: 'inline-flex', alignItems: 'center', gap: 7,
-              background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.3)',
+              background: 'rgba(255,255,255,0.55)',
+              backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255,255,255,0.7)',
+              boxShadow: '0 2px 10px -4px rgba(0,36,72,0.18), inset 0 1px 0 rgba(255,255,255,0.6)',
               borderRadius: 999, padding: '6px 14px', marginBottom: 28,
               fontFamily: SANS, fontSize: 11, fontWeight: 700,
-              color: '#16a34a', letterSpacing: '0.06em', textTransform: 'uppercase',
+              color: 'rgba(20,24,26,0.78)', letterSpacing: '0.06em', textTransform: 'uppercase',
             }}>
               <span style={{ position: 'relative', display: 'inline-flex' }}>
-                <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#4ade80', display: 'block' }} />
-                {!reduce && <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: '#4ade80', animation: 'ping 1.5s cubic-bezier(0,0,0.2,1) infinite', opacity: 0.5 }} />}
+                <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#16a34a', display: 'block' }} />
+                {!reduce && <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: '#16a34a', animation: 'ping 1.5s cubic-bezier(0,0,0.2,1) infinite', opacity: 0.5 }} />}
               </span>
               Open to work
             </span>
