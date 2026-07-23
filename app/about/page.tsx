@@ -18,9 +18,9 @@ import IdBadge from '@/components/IdBadge'
 const timeline = [
   {
     year: '2018',
-    title: 'Interior design. Yes, interior design.',
+    title: 'Interior design.',
     whisper: 'Woxsen School of Arts and Design. Four years.',
-    detail: 'Four years studying interior design. Rooms, materials, how light shifts when you change the ceiling height. Most of the job was figuring out what someone wanted a place to feel like before they had words for it. I liked it a lot. I just didn\'t know it was also training me for something else.',
+    detail: 'I started in interior design, working out what a room should feel like before anyone had the words for it. Turns out that is most of what design is, in any medium.',
     tag: 'Education',
     color: '#A880D4',
     photo: '/journey/2018-school.jpg',
@@ -48,9 +48,9 @@ const timeline = [
   },
   {
     year: '2022',
-    title: 'Tell Design Tales. Everything shifts.',
+    title: 'The first screen.',
     whisper: 'Three months. One UX project. Pretty obvious from there.',
-    detail: 'My first internship put me on a UX project for the studio\'s website. I just liked it. Like, genuinely, immediately. Four years thinking about how spaces make people feel. Turns out that\'s basically what UX is. Different medium, same question.',
+    detail: 'My first UX project, and it just clicked. I had been looking for a creative community, curious what being part of tech would actually feel like. This was it. Same instinct, new medium.',
     tag: 'Work',
     color: '#2BB5C2',
     photo: '/journey/2022-telltales.jpg',
@@ -87,9 +87,9 @@ const timeline = [
   },
   {
     year: '2025',
-    title: 'MS, Human-Computer Interaction.',
+    title: 'Still in the cycle.',
     whisper: 'Five years. Two countries. One direction.',
-    detail: 'FlairX, Fireside Interactive, GetUp. AI recruiter workflows, a wildfire simulation exhibit, a celebrity product launch. Graduated. The work spread across a lot of industries, but it kept circling back to the same question: what does this person actually need?',
+    detail: 'A master\'s, then a run of real work across AI, fintech, exhibits, e-commerce. What I keep chasing is the thing that pulled me in: staying in the learning cycle, close to people who make things.',
     tag: 'Education',
     color: '#A880D4',
     photo: '/journey/2025-grad.jpg',
@@ -99,7 +99,7 @@ const timeline = [
     year: 'Now',
     title: 'Looking for the right team.',
     whisper: 'Open to work. Standards intact. Coffee: non-negotiable.',
-    detail: 'I want to work somewhere that cares about the difference between something that technically works and something that\'s actually good. If that sounds like your team, let\'s talk.',
+    detail: 'Still curious, still building, looking for the team that cares about the difference between technically works and actually good.',
     tag: 'Open',
     color: '#4ade80',
     pivot: false,
@@ -133,7 +133,6 @@ const principles = [
   },
 ]
 
-const GRAIN = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E\")"
 
 const CARD_COLORS = ['#A880D4', '#2BB5C2', '#F59E0B', '#4ade80', '#F472B6', '#60A5FA']
 
@@ -193,7 +192,6 @@ export default function AboutPage() {
         background: 'var(--page-bg, #FAFAF8)', position: 'relative', overflow: 'hidden',
         padding: `var(--section-pad-lg) ${PAD_X}`,
       }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.12, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', top: -120, right: '18%', width: 460, height: 460, background: 'radial-gradient(circle, rgba(168,128,212,0.10) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
 
         <div className="about-opener" style={{ position: 'relative', zIndex: 1, maxWidth: 1180, margin: '0 auto' }}>
@@ -261,7 +259,6 @@ export default function AboutPage() {
 
       {/* ── 2 · THE JOURNEY ───────────────────────────────────── */}
       <section style={{ background: 'linear-gradient(180deg, rgba(0,36,72,0.018), rgba(0,36,72,0.03))', position: 'relative', overflow: 'hidden', padding: `var(--section-pad) ${PAD_X}` }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.12, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto' }}>
           <motion.div {...rise}>
             <Kicker>The journey</Kicker>
@@ -327,7 +324,6 @@ export default function AboutPage() {
 
       {/* ── 3 · THE HUMAN BIT ─────────────────────────────────── */}
       <section style={{ background: '#fff', position: 'relative', overflow: 'hidden', padding: `var(--section-pad) 0` }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.12, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto', padding: `0 ${PAD_X}` }}>
 
           <motion.div {...rise}>
@@ -407,7 +403,6 @@ export default function AboutPage() {
 
       {/* ── 4 · WHAT I'M LOOKING FOR + CONTACT ────────────────── */}
       <motion.section {...rise} className="about-close" style={{ background: '#111827', position: 'relative', overflow: 'hidden', padding: `var(--section-pad) ${PAD_X}` }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.18, backgroundImage: GRAIN, backgroundRepeat: 'repeat', backgroundSize: '180px 180px', pointerEvents: 'none' }} />
         <div aria-hidden="true" style={{ position: 'absolute', top: -10, right: 32, fontSize: 'clamp(120px, 16vw, 200px)', lineHeight: 1, fontFamily: SERIF, color: 'rgba(255,255,255,0.05)', pointerEvents: 'none', userSelect: 'none', zIndex: 0 }}>&rdquo;</div>
 
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto' }}>
