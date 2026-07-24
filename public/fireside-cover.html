@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fireside cover</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#fff;display:flex;justify-content:center;}
+
+  .cover{width:100%;max-width:1296px;aspect-ratio:1296/1017;}
+  .panel{width:100%;height:100%;background:#e6f0ef;border-radius:16px;padding:0 6%;
+    display:flex;align-items:center;gap:4.5%;overflow:hidden;}
+
+  .ftext{flex:1;}
+  .wordmark{font-size:1.9vw;font-weight:700;letter-spacing:0.28em;color:#3c6a6a;margin-bottom:3.4%;}
+  h1{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:3.4vw;line-height:1.08;
+    color:#232323;letter-spacing:-.5px;margin-bottom:4%;}
+  .sub{font-size:1.5vw;line-height:1.5;color:#4f6664;max-width:26ch;margin-bottom:6%;}
+  .stats{display:flex;gap:1.6%;flex-wrap:wrap;}
+  .stat{background:#fff;border-radius:12px;padding:1.6% 2.6%;text-align:center;
+    box-shadow:0 .6vw 1.2vw -.6vw rgba(40,80,75,0.28);}
+  .stat b{display:block;font-family:Georgia,serif;font-size:1.9vw;color:#2f5f5c;line-height:1;}
+  .stat span{font-size:.9vw;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#6a8582;}
+
+  .fpic{flex:0 0 42%;display:flex;align-items:center;justify-content:center;}
+  .frame{width:100%;border-radius:1.4vw;overflow:hidden;aspect-ratio:4/3.4;
+    box-shadow:0 4vw 6vw -3vw rgba(20,50,48,0.5);}
+  .frame img{width:100%;height:100%;object-fit:cover;display:block;}
+</style>
+</head>
+<body>
+  <div class="cover">
+    <div class="panel">
+      <div class="ftext">
+        <div class="wordmark">FIRESIDE</div>
+        <h1>A 3D table a 9-year-old understood in 15 seconds.</h1>
+        <p class="sub">An interactive wildfire exhibit at CU Boulder — designed for hands, not manuals.</p>
+        <div class="stats">
+          <div class="stat"><b>15s</b><span>To understand</span></div>
+          <div class="stat"><b>0</b><span>Instructions</span></div>
+          <div class="stat"><b>8&ndash;80</b><span>Ages reached</span></div>
+        </div>
+      </div>
+      <div class="fpic">
+        <div class="frame"><img src="/projects/fireside/exhibit-in-use.png" alt="Fireside exhibit"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
