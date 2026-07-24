@@ -800,12 +800,29 @@ aside::-webkit-scrollbar { display: none; }
 }
 
 /* ── About page background ─────────────────────────────────────────
-   Flat warm cream. (Was a CSS sage wall with dappled leaf shadows —
-   replaced with this solid tone.) */
+   Same sky as the homepage, pinned behind the content so it stays put
+   while the page scrolls. A soft white scrim over it keeps the body
+   text readable without hiding the sky. */
 .about-texture {
-  background-color: #F6F3EE;
+  background-color: #eaf1f8;
+  position: relative;
+  isolation: isolate;
 }
-/* The sections sit transparent so the background shows through; the dark
+.about-texture::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: url(/sky.png) center / cover no-repeat;
+}
+.about-texture::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.70) 100%);
+}
+/* The sections sit transparent so the sky shows through; the dark
    closing panel keeps its own. */
 .about-texture > section:not(.about-close) { background: transparent !important; }
 
