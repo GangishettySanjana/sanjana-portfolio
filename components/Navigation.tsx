@@ -1,10 +1,12 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 
 export default function Navigation() {
+  const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [musicPlaying, setMusicPlaying] = useState(false)
@@ -61,6 +63,9 @@ export default function Navigation() {
     { label: "Let's Connect",  href: 'https://www.linkedin.com/in/sanjana-gangishetty' },
     { label: 'Resume',         href: '/resume.pdf?v=0722', external: true },
   ]
+
+  // The redesigned homepage ships its own nav; hide the global one there.
+  if (pathname === '/') return null
 
   return (
     <>

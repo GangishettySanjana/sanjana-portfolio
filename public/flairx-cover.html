@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FlairX cover</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#fff;display:flex;justify-content:center;}
+  .serif{font-family:Georgia,'Times New Roman',serif;}
+
+  .cover{width:100%;max-width:1296px;aspect-ratio:1296/1017;background:transparent;}
+  .panel{width:100%;height:100%;background:#e4f3f4;border-radius:16px;
+    padding:5.2% 6%;display:flex;flex-direction:column;justify-content:center;}
+
+  .logo{display:flex;align-items:center;gap:6px;margin-bottom:3.4%;}
+  .logo .name{font-family:Georgia,serif;font-weight:700;font-size:2.0vw;color:#16375c;}
+  .logo svg{width:1.8vw;height:1.8vw;}
+
+  h1{font-family:Georgia,serif;font-weight:700;font-size:3.6vw;line-height:1.06;color:#232323;
+    letter-spacing:-.5px;margin-bottom:5%;}
+
+  /* before -> after, big + high contrast */
+  .demo{display:flex;align-items:center;gap:2.4%;}
+  .col{flex:1;display:flex;flex-direction:column;gap:1.1vw;}
+  .col .h{font-size:1.35vw;font-weight:700;color:#4a4a4a;margin-bottom:.6%;letter-spacing:.02em;}
+  .r{border-radius:10px;padding:2.5% 3.5%;display:flex;justify-content:space-between;align-items:center;
+    font-size:1.35vw;font-weight:600;}
+  .r.bad{background:#f6dcdc;color:#8a3b3b;}
+  .r.bad .x{font-weight:800;}
+  .r.good{background:#c6e2ce;color:#265236;}
+  .r.good .v{font-weight:800;color:#2f8f52;}
+  .arrow{flex:0 0 6%;display:flex;align-items:center;justify-content:center;}
+  .arrow svg{width:100%;}
+
+  .stat{margin-top:8%;display:flex;align-items:center;gap:3%;}
+  .bigstat{background:#16375c;color:#fff;border-radius:14px;padding:2.2% 4%;
+    font-family:Georgia,serif;font-weight:700;font-size:2.7vw;white-space:nowrap;}
+  .bigstat span{font-size:1.2vw;font-weight:600;display:block;font-family:Inter,sans-serif;
+    letter-spacing:.06em;text-transform:uppercase;opacity:.8;margin-top:2px;}
+  .chips{display:flex;gap:2.4%;flex:1;}
+  .chip{flex:1;background:#c6e2ce;border-radius:12px;padding:2% 2.4%;text-align:center;
+    font-weight:700;font-size:1.4vw;color:#265236;}
+</style>
+</head>
+<body>
+  <div class="cover">
+    <div class="panel">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 2a6 6 0 0 0-4 10.5c.7.7 1 1.3 1 2.5h6c0-1.2.3-1.8 1-2.5A6 6 0 0 0 12 2Z" stroke="#16375c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="name">FlairX</span>
+      </div>
+
+      <h1>Your talent pool is a mess.<br>We fixed it.</h1>
+
+      <div class="demo">
+        <div class="col">
+          <span class="h">Before</span>
+          <div class="r bad">Alex Johnson <span class="x">✕ failed</span></div>
+          <div class="r bad">Tom Baker <span class="x">✕ missing</span></div>
+          <div class="r bad">Sarah Chen <span class="x">✕ error</span></div>
+        </div>
+        <div class="arrow"><svg viewBox="0 0 60 24"><path d="M2 12h50m0 0-9-7m9 7-9 7" stroke="#2BB5C2" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="col">
+          <span class="h">After</span>
+          <div class="r good">Alex Johnson <span class="v">✓</span></div>
+          <div class="r good">Tom Baker <span class="v">✓</span></div>
+          <div class="r good">Sarah Chen <span class="v">✓</span></div>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="bigstat">2 hrs → 30 mins<span>recruiter intake</span></div>
+        <div class="chips">
+          <div class="chip">↓ Duplicates</div>
+          <div class="chip">↑ Accuracy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
