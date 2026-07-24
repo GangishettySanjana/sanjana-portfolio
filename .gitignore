@@ -29,6 +29,10 @@ yarn-error.log*
 tsconfig.tsbuildinfo
 resume-old-backup.pdf
 
+# local working notes / prompt drafts — not part of the site
+CLAUDE-CODE-PROMPT-*.md
+LOVABLE-*.md
+
 # Local-only preview font — DEMO/PERSONAL-USE licence, must not ship.
 # Replace with a licensed file (and remove this rule) before deploying.
 public/fonts/noaction-italic.otf
