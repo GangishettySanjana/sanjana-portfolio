@@ -27,7 +27,7 @@ export default function HomePage() {
     const seamEl = document.querySelector('.home-v2 .seam') as HTMLElement | null
     const onMove = (e: PointerEvent) => {
       if (seamEl && e.clientY >= seamEl.getBoundingClientRect().top) { lastX = e.clientX; lastY = e.clientY; return }
-      if (lastX == null) { lastX = e.clientX; lastY = e.clientY; spawn(e.clientX, e.clientY); return }
+      if (lastX == null || lastY == null) { lastX = e.clientX; lastY = e.clientY; spawn(e.clientX, e.clientY); return }
       if (Math.hypot(e.clientX - lastX, e.clientY - lastY) < GAP) return
       lastX = e.clientX; lastY = e.clientY; spawn(e.clientX, e.clientY)
     }
