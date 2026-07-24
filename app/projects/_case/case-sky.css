@@ -1,0 +1,215 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Case-study "sky" skin — matches the redesigned homepage.
+   Imported LAST (after case-kit.css + buildnative.css) so it wins.
+   Pure re-skin: no markup/content changes beyond two optional seam
+   divs (.fx-sky-seam / .fx-sky-seam-up).
+
+   Language: fixed sky backdrop → white reading body → sky footer,
+   Instrument Serif headlines, Inter body, blue accent. Mirrors
+   app/home-v2.css and the /about treatment.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.fx-page {
+  /* Re-point every token the fx-/cs- classes already consume. */
+  --fx-display: var(--font-serif), 'Instrument Serif', Georgia, serif;
+  --fx-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --fx-mono: 'Inter', system-ui, sans-serif;
+
+  --base: transparent;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --border: rgba(20, 28, 40, 0.10);
+  --border-hi: rgba(20, 28, 40, 0.20);
+  --text: #1c2a3a;
+  --muted: rgba(28, 42, 58, 0.62);
+  --dim: rgba(28, 42, 58, 0.55);
+  --accent: #2f6bd6;
+  --accent-bg: rgba(47, 107, 214, 0.08);
+  --accent-bd: rgba(47, 107, 214, 0.26);
+  --green: #2f6bd6;
+  --green-bg: rgba(47, 107, 214, 0.07);
+  --green-bd: rgba(47, 107, 214, 0.22);
+
+  --case-accent: #2f6bd6;
+
+  font-family: var(--fx-sans);
+  color: var(--text);
+  background: transparent;
+  position: relative;
+  isolation: isolate;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Fixed sky backdrop + soft scrim, exactly like the homepage / about. */
+.fx-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: url(/sky.png) center / cover no-repeat;
+}
+.fx-page::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.60) 100%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fx-page::before { animation: fxSkyLive 46s ease-in-out infinite alternate; transform-origin: 60% 40%; will-change: transform; }
+}
+@keyframes fxSkyLive { 0% { transform: scale(1.04); } 100% { transform: scale(1.10) translate(-1.6%, -1%); } }
+
+/* ── Hero + footer float on the sky; the reading body is a white slab ── */
+.fx-page .fx-hero { background: transparent; }
+.fx-page .fx-footer { background: transparent; }
+
+/* Every content section paints white so long-form copy stays on paper.
+   Stacked full-width, they read as one continuous white region. */
+.fx-page .fx-sec { background: #ffffff; border-top: 1px solid var(--border); }
+
+/* Rhythm bands, retuned to the blue language. */
+.fx-page .fx-sec.cs-band-tint,
+.fx-page .fx-sec-alt {
+  background: linear-gradient(180deg, rgba(47,107,214,0.05), rgba(47,107,214,0.02));
+}
+.fx-page .fx-sec.cs-band-accent { background: #2f6bd6; }
+.fx-page .fx-sec.cs-band-ink { background: #12233a; }
+
+/* Seams: sky → white and white → sky (mirrors home-v2 .seam / .seam-up). */
+.fx-page .fx-sky-seam {
+  height: 150px; margin-bottom: -1px;
+  background: linear-gradient(180deg, transparent 0%, #ffffff 92%);
+}
+.fx-page .fx-sky-seam-up {
+  height: 170px; margin-top: -1px;
+  background: linear-gradient(180deg, #ffffff 8%, transparent 100%);
+}
+
+/* ── Typography ─────────────────────────────────────────────────── */
+.fx-page .fx-hero-title,
+.fx-page .fx-sec-title,
+.fx-page .fx-design-title,
+.fx-page .fx-decision-body h3 {
+  font-family: var(--fx-display);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.fx-page .fx-hero-title {
+  line-height: 1.06;
+  font-size: clamp(2.5rem, 5.2vw, 4.2rem);
+  max-width: 18ch;
+  white-space: normal !important;
+}
+.fx-page .fx-sec-title {
+  line-height: 1.12;
+  font-size: clamp(1.9rem, 3.2vw, 2.9rem);
+}
+.fx-page .fx-hero-sub { font-family: var(--fx-sans); color: var(--muted); }
+
+/* Eyebrows / labels → Inter uppercase, blue (home-v2 .eyebrow). */
+.fx-page .fx-eyebrow,
+.fx-page .fx-sec-label {
+  font-family: var(--fx-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--accent);
+}
+.fx-page .fx-smeta-k,
+.fx-page .fx-sum-label,
+.fx-page .fx-reflection-label {
+  font-family: var(--fx-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--accent);
+}
+.fx-page .fx-smeta-v { font-family: var(--fx-sans); color: var(--text); }
+.fx-page .fx-status-live {
+  font-family: var(--fx-sans); text-transform: uppercase; letter-spacing: 0.08em;
+  font-weight: 700; font-size: 11px; color: var(--accent);
+}
+
+/* ── Back links → blue Inter (home-v2 .fgo) ── */
+.fx-page .fx-back-link,
+.fx-page .fx-footer-back {
+  font-family: var(--fx-sans); text-transform: none; letter-spacing: 0;
+  font-weight: 700; color: var(--accent); text-decoration: none;
+}
+.fx-page .fx-back-link:hover,
+.fx-page .fx-footer-back:hover { text-decoration: underline; }
+
+/* ── Scrollspy rail → blue, Inter ── */
+.fx-page .fx-v-fill { background: var(--accent); }
+.fx-page .fx-v-link { font-family: var(--fx-sans); text-transform: none; letter-spacing: 0; }
+.fx-page .fx-v-link.fx-v-on .fx-v-num { color: var(--accent); }
+
+/* ── Decision numerals: soft outlined serif figures ── */
+.fx-page .fx-decision-num {
+  font-family: var(--fx-display); color: transparent;
+  -webkit-text-stroke: 1.5px var(--border-hi);
+}
+
+/* ── Impact metrics ── */
+.fx-page .fx-outcome-num { font-family: var(--fx-sans); color: var(--accent); }
+.fx-page .fx-outcome-metric {
+  font-family: var(--fx-display); font-weight: 400; font-style: normal;
+  letter-spacing: -0.01em; color: var(--text);
+  font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+}
+.fx-page .fx-outcome-desc { font-family: var(--fx-sans); color: var(--muted); }
+
+/* ── Stats (CaseStats) → serif figures, blue labels ── */
+.fx-page .cs-stat-value { font-family: var(--fx-display); font-weight: 400; letter-spacing: -0.01em; color: var(--accent); }
+.fx-page .cs-stat-label { font-family: var(--fx-sans); color: var(--muted); }
+.fx-page .cs-stats-plain { border-color: var(--accent-bd); }
+.fx-page .cs-stats-band { background: #2f6bd6; }
+.fx-page .cs-spec-key { font-family: var(--fx-sans); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; color: var(--accent); }
+.fx-page .cs-spec-val { font-family: var(--fx-sans); color: var(--text); }
+
+/* ── Quotes → Instrument Serif italic, blue rule ── */
+.fx-page .fx-pull-quote {
+  font-family: var(--fx-display); font-weight: 400; font-style: italic;
+  letter-spacing: -0.005em; background: var(--accent-bg);
+  border: 1px solid var(--accent-bd); border-radius: 16px;
+}
+.fx-page .fx-footer-quote {
+  font-family: var(--fx-display); font-style: italic; font-weight: 400;
+  color: var(--text);
+}
+.fx-page .cs-quote { border-left-color: var(--accent); }
+.fx-page .cs-quote-body { font-family: var(--fx-display); color: var(--text); }
+
+/* ── Before / After tags → blue ── */
+.fx-page .cs-ba-tag-after { background: var(--accent); }
+
+/* ── Figures: soft radius + homepage shadow ── */
+.fx-page .cs-figure-frame { border-radius: 18px; }
+.fx-page .cs-frame-card,
+.fx-page .cs-frame-browser {
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px -22px rgba(20,28,40,0.32), 0 3px 10px -6px rgba(20,28,40,0.12);
+}
+.fx-page .cs-figcaption,
+.fx-page .fx-img-caption { font-family: var(--fx-sans); color: var(--muted); }
+
+/* ── Soft radii on cards / pills (undo the Swiss square-off) ── */
+.fx-page .worked-pill,
+.fx-page .fx-card-grid-item,
+.fx-page .fx-two-col-item,
+.fx-page .fx-reflection-callout { border-radius: 14px; }
+.fx-page .fx-summary-card { border-radius: 18px; }
+
+/* Summary card floats on the sky in the hero → give it a paper surface. */
+.fx-page .fx-hero .fx-summary-card {
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 22px 46px -28px rgba(20,28,40,0.28);
+  padding: clamp(24px, 3.4vw, 40px);
+}

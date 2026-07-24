@@ -14,6 +14,7 @@ import {
 import './fireside.css'
 import '@/app/projects/_case/case-kit.css'
 import '@/app/projects/_case/buildnative.css'
+import '@/app/projects/_case/case-sky.css'
 
 /* ── Interactive fire-spread simulation ───────────────────────────── */
 const SIM_COLS = 30
@@ -470,6 +471,9 @@ export default function FiresidePage() {
           </div>
         </section>
 
+        {/* seam: sky fades into the white reading body */}
+        <div className="fx-sky-seam" aria-hidden="true" />
+
         {/* ── 03 THE SOLUTION ─────────────────────────────── */}
         <section className="fx-sec" id="solution">
           <div className="fx-container">
@@ -740,6 +744,9 @@ export default function FiresidePage() {
             </Reveal>
           </div>
         </section>
+
+        {/* seam: white body fades back into the sky footer */}
+        <div className="fx-sky-seam-up" aria-hidden="true" />
 
         {/* ── FOOTER ──────────────────────────────────────── */}
         <footer className="fx-footer">

@@ -14,6 +14,7 @@ import {
 import './getup.css'
 import '@/app/projects/_case/case-kit.css'
 import '@/app/projects/_case/buildnative.css'
+import '@/app/projects/_case/case-sky.css'
 
 /* ── Page ─────────────────────────────────────────────────────────── */
 export default function GetUpPage() {
@@ -242,6 +243,9 @@ export default function GetUpPage() {
             </Reveal>
           </div>
         </section>
+
+        {/* seam: sky fades into the white reading body */}
+        <div className="fx-sky-seam" aria-hidden="true" />
 
         {/* ── 03 THE BRIEF ────────────────────────────────── */}
         <section className="fx-sec" id="brief">
@@ -492,6 +496,9 @@ export default function GetUpPage() {
             </Reveal>
           </div>
         </section>
+
+        {/* seam: white body fades back into the sky footer */}
+        <div className="fx-sky-seam-up" aria-hidden="true" />
 
         {/* ── FOOTER ──────────────────────────────────────── */}
         <footer className="fx-footer">

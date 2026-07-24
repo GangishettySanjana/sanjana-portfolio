@@ -15,6 +15,7 @@ import {
 import './flairx.css'
 import '@/app/projects/_case/case-kit.css'
 import '@/app/projects/_case/buildnative.css'
+import '@/app/projects/_case/case-sky.css'
 
 /* ── FlairX image map ─────────────────────────────────────────────── */
 const FX = {
@@ -575,6 +576,9 @@ export default function FlairXPage() {
           </div>
         </section>
 
+        {/* seam: sky fades into the white reading body */}
+        <div className="fx-sky-seam" aria-hidden="true" />
+
         {/* ── 01 CONTEXT ──────────────────────────────────── */}
         <section className="fx-sec" id="context">
           <div className="fx-container">
@@ -1098,6 +1102,9 @@ export default function FlairXPage() {
             </Reveal>
           </div>
         </section>
+
+        {/* seam: white body fades back into the sky footer */}
+        <div className="fx-sky-seam-up" aria-hidden="true" />
 
         {/* ── FOOTER ──────────────────────────────────────── */}
         <footer className="fx-footer">
