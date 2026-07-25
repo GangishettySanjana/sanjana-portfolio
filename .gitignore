@@ -33,6 +33,10 @@ resume-old-backup.pdf
 CLAUDE-CODE-PROMPT-*.md
 LOVABLE-*.md
 
+# /brag launch-video output (generated locally)
+brag-output/
+brag-output-*/
+
 # Local-only preview font — DEMO/PERSONAL-USE licence, must not ship.
 # Replace with a licensed file (and remove this rule) before deploying.
 public/fonts/noaction-italic.otf
