@@ -5,6 +5,7 @@ import { Source_Sans_3, Space_Grotesk, Outfit, Instrument_Serif, Caveat } from '
 import { GeistSans } from 'geist/font/sans'
 import Navigation from '@/components/Navigation'
 import SmoothScroll from '@/components/SmoothScroll'
+import ChatWidget from '@/components/ChatWidget'
 import './globals.css'
 
 // DISPLAY — Space Grotesk: clean structured grotesk, bold and modern (no serif curves)
@@ -105,6 +106,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScroll />
         <Navigation />
         {children}
+        <ChatWidget />
         <Analytics />
       </body>
     </html>
