@@ -69,6 +69,10 @@ export default function HomePage() {
       ;(el as HTMLElement).style.transitionDelay = (Math.min(i, 6) * 0.05) + 's'
       io.observe(el)
     })
+    // bento tiles get their own local stagger (the global delay above flattens past index 6)
+    document.querySelectorAll('.home-v2 .bento .reveal').forEach((el, j) => {
+      ;(el as HTMLElement).style.transitionDelay = (j * 0.06) + 's'
+    })
 
     /* ── fortune cookies (event delegation) ── */
     const fortunes = [

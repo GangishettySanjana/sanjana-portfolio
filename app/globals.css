@@ -89,7 +89,7 @@ video { pointer-events: none; }
   border-radius: 12px;
   color: #090909;
   box-shadow: 0 6px 16px -6px rgba(0,36,72,0.22);
-  transition: all 0.3s;
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 .fancy::before { display: none; }
 .fancy .fancy-text { padding-left: 0; text-align: center; }
@@ -344,7 +344,7 @@ aside::-webkit-scrollbar { display: none; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   border-radius: 999px;
-  transition: all var(--duration-base) var(--ease-spring);
+  transition: color var(--duration-base) var(--ease-spring), background-color var(--duration-base) var(--ease-spring), box-shadow var(--duration-base) var(--ease-spring), transform var(--duration-base) var(--ease-spring);
 }
 
 .view-toggle-btn.active {

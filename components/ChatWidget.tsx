@@ -343,10 +343,11 @@ export default function ChatWidget() {
       {/* Floating bar, always visible, right aligned at the bottom */}
       <motion.button
         onClick={() => setOpen(!open)}
-        className="fixed z-50 w-14 h-14 flex items-center justify-center bg-white/20 backdrop-blur-2xl rounded-full shadow-stamp border border-white/30 hover:bg-white/30 transition-all"
+        className="fixed z-50 w-14 h-14 flex items-center justify-center bg-white/20 backdrop-blur-2xl rounded-full shadow-stamp border border-white/30 hover:bg-white/30 transition-colors"
         style={{ bottom: '25px', right: '25px' }}
         initial={{ y: 90, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
+        whileTap={{ scale: 0.92 }}
         transition={{ delay: 1.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
         <span className="text-[#8e8e93]" aria-hidden>
@@ -387,7 +388,7 @@ export default function ChatWidget() {
         <button
           type="submit"
           disabled={!input.trim() || loading}
-          className="shrink-0 w-9 h-9 rounded-full bg-[#1c1c1e] text-white flex items-center justify-center disabled:opacity-25 hover:bg-black transition-colors"
+          className="shrink-0 w-9 h-9 rounded-full bg-[#1c1c1e] text-white flex items-center justify-center disabled:opacity-25 hover:bg-black transition active:scale-90"
           aria-label="Send message"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">

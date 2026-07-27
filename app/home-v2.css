@@ -260,3 +260,39 @@
   .home-v2 .b-getup,.home-v2 .b-pov{grid-column:span 1;}
   .home-v2 .feature h3{font-size:clamp(30px,8vw,40px);}
 }
+
+/* ── Motion polish (Emil Kowalski audit) ─────────────────────────── */
+/* #3 — pressables acknowledge the tap with a subtle scale-down */
+.home-v2 .nav-resume:active,
+.home-v2 .a-actions a:active,
+.home-v2 .foot .btn:active{transform:scale(0.96);transition:transform 120ms cubic-bezier(0.23,1,0.32,1);}
+
+/* #1 — on touch, a tap fires :hover; don't let cards/buttons lift under a finger */
+@media (hover:none){
+  .home-v2 .nav-resume:hover,
+  .home-v2 a.tag.link:hover,
+  .home-v2 .tile:hover,
+  .home-v2 .a-actions a:hover,
+  .home-v2 .foot .btn:hover{transform:none;}
+  .home-v2 .feature:hover .ffig img{transform:none;}
+}
+
+/* #5 — hero "Previously in" pills cascade in on load (30–80ms stagger) */
+.home-v2 .prev .p{animation:pillIn .5s cubic-bezier(.2,.8,.2,1) both;}
+.home-v2 .prev .p:nth-child(2){animation-delay:.05s}
+.home-v2 .prev .p:nth-child(3){animation-delay:.11s}
+.home-v2 .prev .p:nth-child(4){animation-delay:.17s}
+.home-v2 .prev .p:nth-child(5){animation-delay:.23s}
+.home-v2 .prev .p:nth-child(6){animation-delay:.29s}
+@keyframes pillIn{from{opacity:0;transform:translateY(9px);}to{opacity:1;transform:none;}}
+
+/* Missed opportunity — the "open to work" dot gets a gentle live pulse */
+.home-v2 .status .dot{position:relative;}
+.home-v2 .status .dot::after{content:"";position:absolute;inset:0;border-radius:50%;
+  box-shadow:0 0 0 3px rgba(37,194,110,0.45);animation:dotPulse 2.6s ease-out infinite;}
+@keyframes dotPulse{0%{transform:scale(1);opacity:.6;}70%,100%{transform:scale(2.7);opacity:0;}}
+
+@media (prefers-reduced-motion:reduce){
+  .home-v2 .prev .p{animation:none;}
+  .home-v2 .status .dot::after{animation:none;}
+}
