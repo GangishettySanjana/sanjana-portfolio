@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface Message {
@@ -48,6 +49,7 @@ const EGGS: { test: RegExp; emojis: string[]; count: number }[] = [
 interface Egg { id: number; emoji: string; x: number; delay: number; size: number; rotate: number }
 
 export default function ChatWidget() {
+  const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
@@ -174,6 +176,9 @@ export default function ChatWidget() {
     sendMessage(input)
   }
 
+  // Keep the assistant off the game routes (so it doesn't show inside the embed).
+  if (pathname.startsWith('/play')) return null
+
   return (
     <>
       {/* Chat panel, opens above the bar */}
@@ -236,7 +241,7 @@ export default function ChatWidget() {
               {messages.length === 0 && (
                 <div className="space-y-4">
                   <p className="font-body text-[15px] text-[#1c1c1e] leading-relaxed">
-                    Hey! I&apos;m Sanju 👋 Ask me anything, about my work, my process, what I&apos;m looking for, or just say hi.
+                    I&apos;m Sanju 👋 ask me anything about my work, my process, or what I&apos;m looking for.
                   </p>
                   <div className="space-y-2">
                     {SUGGESTED_QUESTIONS.slice(0, 4).map((q) => (
@@ -334,7 +339,7 @@ export default function ChatWidget() {
             </div>
 
             <p className="px-4 pb-3 pt-2 text-[10px] leading-snug text-text-faint font-body text-center border-t border-[var(--color-border)]">
-              AI assistant trained on my work. Answers may be imperfect.
+              An AI assistant trained on my work, so answers may be imperfect.
             </p>
           </motion.div>
         )}

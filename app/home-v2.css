@@ -27,7 +27,7 @@
 
 /* ── nav ── */
 .home-v2 nav{position:relative;z-index:8;display:flex;align-items:center;justify-content:space-between;
-  padding:18px clamp(24px,5vw,64px);gap:16px;}
+  max-width:1200px;margin:0 auto;padding:18px clamp(24px,5vw,40px);gap:16px;}
 .home-v2 .nav-left{display:flex;align-items:center;gap:16px;min-width:0;}
 .home-v2 .brand{font-family:var(--font-serif),'Instrument Serif',Georgia,serif;font-style:normal;font-size:29px;
   letter-spacing:0;color:var(--ink);line-height:1;white-space:nowrap;}
@@ -296,3 +296,32 @@
   .home-v2 .prev .p{animation:none;}
   .home-v2 .status .dot::after{animation:none;}
 }
+
+/* ── Fun stuff — playable experiments band ───────────────────────── */
+.home-v2 .funstuff{position:relative;z-index:1;
+  background:linear-gradient(180deg,rgba(47,107,214,0.05),rgba(47,107,214,0.02));
+  padding:104px 0 88px;}   /* top clears the fixed nav with breathing room */
+.home-v2 .funstuff .wrap{max-width:1120px;margin:0 auto;padding:0 clamp(24px,5vw,40px);}
+.home-v2 .fun-grid{display:flex;flex-direction:column;align-items:center;gap:48px;margin-top:30px;}
+.home-v2 .fun-item{display:flex;flex-direction:column;width:100%;max-width:480px;}
+.home-v2 .fun-embed{position:relative;border-radius:20px;overflow:hidden;background:#fff;
+  border:1px solid var(--line);box-shadow:0 22px 46px -28px rgba(20,28,40,0.28);
+  aspect-ratio:4/5;transition:transform .25s ease, box-shadow .25s ease;}
+.home-v2 .fun-embed:hover{transform:translateY(-4px);box-shadow:0 30px 56px -26px rgba(20,28,40,0.4);}
+.home-v2 .fun-embed iframe{width:100%;height:100%;border:0;display:block;}
+.home-v2 .fun-embed.tall{aspect-ratio:3/4;}
+/* wide slot: full content width so an embedded app hits its own desktop breakpoints.
+   Height is responsive — the embedded game stacks (tall) on narrow screens and
+   goes two-column (shorter) once the frame is wide enough. */
+.home-v2 .fun-item.wide{max-width:none;}
+.home-v2 .fun-embed.wide{aspect-ratio:auto;height:1160px;}
+@media (min-width:1080px){ .home-v2 .fun-embed.wide{height:945px;} }
+.home-v2 .fun-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;text-align:center;padding:24px;color:var(--muted);
+  background:radial-gradient(120% 120% at 50% 0%, #f3f7ff, #eaf0f8);}
+.home-v2 .fun-ph span{font-size:46px;line-height:1;}
+.home-v2 .fun-ph p{font-size:18px;font-weight:600;color:var(--ink);}
+.home-v2 .fun-ph small{font-size:12.5px;}
+.home-v2 .fun-cap{margin-top:12px;font-size:14px;font-weight:600;color:var(--ink);}
+@media(max-width:640px){ .home-v2 .fun-grid{grid-template-columns:1fr;} }
+@media (hover:none){ .home-v2 .fun-embed:hover{transform:none;} }

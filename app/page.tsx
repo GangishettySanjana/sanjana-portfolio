@@ -133,7 +133,7 @@ export default function HomePage() {
             <span className="status"><span className="dot" /> Currently looking for a role</span>
           </div>
           <div className="navlinks">
-            <a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a>
+            <a href="#work">Work</a><a href="#about">About</a><a href="/fun">Fun</a><a href="#contact">Contact</a>
             <a className="nav-resume" href="/resume.pdf?v=0722" target="_blank" rel="noopener noreferrer">Résumé ↗</a>
           </div>
         </nav>

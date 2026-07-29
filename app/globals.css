@@ -1169,3 +1169,47 @@ aside::-webkit-scrollbar { display: none; }
     opacity: 0.82;
   }
 }
+
+/* ── Unified site nav (matches the homepage sky nav) ──────────────── */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+.site-nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; max-width: 1200px; margin: 0 auto;
+  padding: 14px clamp(20px, 5vw, 40px);
+}
+.site-nav.scrolled {
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom-color: rgba(20, 28, 40, 0.06);
+}
+.site-nav-left { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.site-brand {
+  font-family: var(--font-serif), 'Instrument Serif', Georgia, serif;
+  font-size: 26px; line-height: 1; color: #1c2a3a; text-decoration: none; white-space: nowrap;
+}
+.site-status {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12.5px; font-weight: 600; color: rgba(28, 42, 58, 0.62); white-space: nowrap;
+}
+.site-dot { width: 8px; height: 8px; border-radius: 50%; background: #25c26e; box-shadow: 0 0 0 3px rgba(37,194,110,0.2); }
+.site-links { display: flex; align-items: center; gap: 22px; font-size: 14px; font-weight: 500; }
+.site-links a { color: #1c2a3a; text-decoration: none; opacity: 0.85; transition: opacity 0.15s; }
+.site-links a:hover { opacity: 1; }
+.site-resume {
+  background: #1c2a3a; color: #fff !important; opacity: 1 !important;
+  padding: 9px 18px; border-radius: 999px; font-weight: 600;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.site-resume:hover { transform: translateY(-1px); box-shadow: 0 10px 20px -10px rgba(20,40,70,0.5); }
+@media (max-width: 760px) {
+  .site-status { display: none; }
+  .site-links a:not(.site-resume) { display: none; }
+  .site-brand { font-size: 21px; }
+  .site-nav { padding: 12px 20px; }
+}
+@media (hover: none) { .site-resume:hover { transform: none; } }
