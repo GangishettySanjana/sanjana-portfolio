@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
@@ -26,9 +27,14 @@ import { setLenis } from '@/lib/smoothScroll'
  * - Fully torn down on unmount (rAF cancelled, listener removed, lenis destroyed).
  */
 export default function SmoothScroll() {
+  const pathname = usePathname()
   useEffect(() => {
     if (typeof window === 'undefined') return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    // Skip smooth scroll on pages with a full-height embedded game iframe: the
+    // iframe captures wheel events, so Lenis never receives them and the page
+    // can't scroll. Native scroll bubbles wheel past the iframe correctly.
+    if (pathname === '/fun' || pathname.startsWith('/play')) return
 
     const NAV_OFFSET = -84 // fixed nav clearance (matches scroll-padding-top)
 
@@ -88,7 +94,7 @@ export default function SmoothScroll() {
       setLenis(null)
       lenis.destroy()
     }
-  }, [])
+  }, [pathname])
 
   return null
 }
