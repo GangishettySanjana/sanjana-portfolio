@@ -95,13 +95,13 @@
   font-size:12.5px;color:var(--muted);letter-spacing:0.02em;}
 
 /* cursor sticker trail */
-.home-v2 .trail{position:fixed;z-index:20;display:flex;align-items:center;justify-content:center;
+.trail{position:fixed;z-index:20;display:flex;align-items:center;justify-content:center;
   width:72px;height:72px;border-radius:20px;background:#fff;
   box-shadow:0 16px 30px -14px rgba(20,40,70,0.45);font-size:36px;line-height:1;pointer-events:none;
   transform:translate(-50%,-50%) scale(0.5) rotate(var(--rot,0deg));opacity:0;
   transition:transform .5s cubic-bezier(.2,.9,.3,1.2), opacity .5s ease;will-change:transform,opacity;}
-.home-v2 .trail.show{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(var(--rot,0deg));}
-.home-v2 .trail.hide{opacity:0;transform:translate(-50%,-150%) scale(0.7) rotate(var(--rot,0deg));}
+.trail.show{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(var(--rot,0deg));}
+.trail.hide{opacity:0;transform:translate(-50%,-150%) scale(0.7) rotate(var(--rot,0deg));}
 
 /* ── SEAM: sky fades into white ── */
 .home-v2 .seam{position:relative;z-index:1;height:210px;margin-top:-1px;
