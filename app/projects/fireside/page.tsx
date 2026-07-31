@@ -417,7 +417,7 @@ export default function FiresidePage() {
                 items={[
                   { label: 'Role', value: 'UX Designer' },
                   { label: 'Ask', value: 'Make wildfire science visceral in a high-traffic exhibit' },
-                  { label: 'Audience', value: 'Families, school groups, educators, fire scientists — same room' },
+                  { label: 'Audience', value: 'Families, school groups, educators, fire scientists, all in the same room' },
                   { label: 'Setting', value: 'Noisy museums, short attention spans, variable lighting' },
                   { label: 'Team', value: 'CU Boulder design team, hardware engineers, fire researchers' },
                 ]}

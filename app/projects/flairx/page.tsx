@@ -604,7 +604,7 @@ export default function FlairXPage() {
             <CaseSpecStrip
               items={[
                 { label: 'Role', value: 'Founding Product Designer' },
-                { label: 'Scope', value: 'Résumé parsing, bulk upload, ATS integration — all three at once' },
+                { label: 'Scope', value: 'Résumé parsing, bulk upload, ATS integration, all three at once' },
                 { label: 'Team', value: 'Founder/CEO, product, frontend + backend engineers' },
                 { label: 'Timeline', value: '3 months: discovery sprint, design and testing, handoff' },
                 { label: 'Research', value: '6 recruiter interviews, 3 rounds of testing' },

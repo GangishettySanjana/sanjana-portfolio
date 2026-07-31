@@ -181,7 +181,7 @@ export default function GetUpPage() {
             <CaseSpecStrip
               items={[
                 { label: 'Role', value: 'Sole designer: brand voice, copy and design' },
-                { label: 'Brand', value: 'GetUp, a Jason Derulo-backed health brand — outdoors-meets-wellness, not hardcore fitness' },
+                { label: 'Brand', value: 'GetUp, a Jason Derulo-backed health brand: outdoors-meets-wellness, not hardcore fitness' },
                 { label: 'Ask', value: 'A pre-order pop-up for a caffeinated Energy Bites relaunch' },
                 { label: 'Brief', value: 'Vibes, not guidelines' },
                 { label: 'Constraint', value: 'Three weeks from first contact to Figma handoff' },
