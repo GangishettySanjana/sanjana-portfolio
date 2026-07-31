@@ -29,11 +29,11 @@ export default function FunPage() {
               </div>
               <span className="fun-cap">Three Refusals · snakes, ladders &amp; the ones you refuse</span>
             </div>
-            <div className="fun-item">
-              <div className="fun-embed">
-                <div className="fun-ph"><span>✦</span><p>And another here</p><small>web toys play live, right in the page</small></div>
+            <div className="fun-item wide">
+              <div className="fun-embed leaf">
+                <iframe src="/looseleaf.html" title="Looseleaf — write it out, then let it go" loading="lazy" allow="microphone" />
               </div>
-              <span className="fun-cap">Experiment name</span>
+              <span className="fun-cap">Looseleaf · write down what&rsquo;s weighing on you, then let it go</span>
             </div>
           </div>
         </div>

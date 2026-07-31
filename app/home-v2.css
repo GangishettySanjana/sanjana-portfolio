@@ -316,6 +316,10 @@
 .home-v2 .fun-item.wide{max-width:none;}
 .home-v2 .fun-embed.wide{aspect-ratio:auto;height:1160px;}
 @media (min-width:1080px){ .home-v2 .fun-embed.wide{height:945px;} }
+/* leaf slot: Looseleaf is a full-page landscape toy — give it a wide, shorter
+   frame so the prompt, canvas, and bottom controls all show without cropping. */
+.home-v2 .fun-embed.leaf{aspect-ratio:auto;height:600px;}
+@media (min-width:1080px){ .home-v2 .fun-embed.leaf{height:680px;} }
 .home-v2 .fun-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:8px;text-align:center;padding:24px;color:var(--muted);
   background:radial-gradient(120% 120% at 50% 0%, #f3f7ff, #eaf0f8);}
