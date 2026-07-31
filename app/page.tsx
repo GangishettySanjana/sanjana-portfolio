@@ -159,7 +159,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <p className="hint">move your cursor — a little trail of me ✦</p>
+        <p className="hint">move your cursor, a little trail of me ✦</p>
 
         <div className="wall">
           <div className="mrow-wrap"><div className="mrow" id="rowA" /></div>
@@ -185,7 +185,7 @@ export default function HomePage() {
                   <span className="fidx">01 / 03</span>
                   <p className="ftag">Product Design · AI recruiting</p>
                   <h3>FlairX</h3>
-                  <p className="fhook">Recruiters spent 2 hours just getting candidates into the system. I got it to 30 minutes — the whole flow, from research to ship.</p>
+                  <p className="fhook">Recruiters spent 2 hours just getting candidates into the system. I got it to 30 minutes. The whole flow, from research to ship.</p>
                   <a className="fgo" href="/projects/flairx">View case study →</a>
                 </div>
               </div>
@@ -212,7 +212,7 @@ export default function HomePage() {
                   <span className="fidx">03 / 03</span>
                   <p className="ftag">Mobile app · e-commerce</p>
                   <h3>Aura</h3>
-                  <p className="fhook">Gifting, rebuilt around how people actually browse, decide, and check out — the full UX flow end to end.</p>
+                  <p className="fhook">Gifting, rebuilt around how people actually browse, decide, and check out. The full flow, end to end.</p>
                   <a className="fgo" href="/projects/aura">View case study →</a>
                 </div>
               </div>
@@ -222,7 +222,7 @@ export default function HomePage() {
           <div className="bento">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <a className="tile b-getup reveal" href="/projects/getup"><div className="imgwrap"><img src="/images/getup.png" alt="" /></div><span className="cap">GetUp · brand</span></a>
-            <a className="tile ttile b-aitm reveal" href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer"><span className="k">Self-initiated · live</span><p className="t">AI Trust Meter — shows how grounded an AI answer really is.</p><span className="cta">Try live demo ↗</span></a>
+            <a className="tile ttile b-aitm reveal" href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer"><span className="k">Self-initiated · live</span><p className="t">AI Trust Meter shows how grounded an AI answer really is.</p><span className="cta">Try live demo ↗</span></a>
             <div className="tile ttile b-stat reveal"><span className="k">Selected work</span><div className="big">5</div><span className="t">case studies, shipped end-to-end</span></div>
             <div className="tile ttile b-pov reveal"><span className="k">POV · OpenRouter</span><p className="t">500+ AI models, no guidance. I designed a wizard that gets you to a working API call in four questions.</p><span className="cta">Live prototype →</span></div>
             <a className="tile ttile b-pod reveal" href="https://open.spotify.com/episode/7I5EGVw51a9Y68yW5Aqv7z" target="_blank" rel="noopener noreferrer"><span className="k">▶ Podcast</span><p className="t">I talked through my whole path into design.</p><span className="cta">Listen →</span></a>
