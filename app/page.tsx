@@ -157,8 +157,8 @@ export default function HomePage() {
               </span>
               I&apos;m Sanjana</p>
             <span className="pill">Product Designer · designs &amp; ships</span>
-            <h1>I look for the harmony between what people need and what a product can do. Then I build it, to see if I found it.</h1>
-            <p className="sub">I design across AI, fintech, and e-commerce. Last project, I cut a recruiter&apos;s intake from 2 hours to 30 minutes.</p>
+            <h1>I make the confusing parts of a product feel easy.</h1>
+            <p className="sub">Seven years in design, three in product, mostly AI and fintech. The messier the problem, the more I like it.</p>
             <div className="divider" />
             <div className="prev">
               <span className="lbl">Previously in</span>
