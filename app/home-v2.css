@@ -34,18 +34,36 @@
 .home-v2 .status{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;
   color:var(--muted);white-space:nowrap;}
 .home-v2 .status .dot{width:8px;height:8px;border-radius:50%;background:#25c26e;box-shadow:0 0 0 3px rgba(37,194,110,0.2);}
+.home-v2 .nav-right{display:flex;align-items:center;gap:24px;}
 .home-v2 .navlinks{display:flex;align-items:center;gap:24px;font-size:14px;font-weight:500;}
 .home-v2 .navlinks a{color:var(--ink);text-decoration:none;opacity:0.85;transition:opacity .15s;}
 .home-v2 .navlinks a:hover{opacity:1;}
+/* hamburger — hidden on desktop, shown under 760px */
+.home-v2 .nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;
+  padding:0;border:0;background:transparent;cursor:pointer;border-radius:10px;}
+.home-v2 .nav-toggle span{display:block;width:20px;height:2px;border-radius:2px;background:var(--ink);
+  margin:0 auto;transition:transform .22s ease, opacity .22s ease;}
+.home-v2 .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.home-v2 .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+.home-v2 .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 .home-v2 .nav-resume{background:var(--ink);color:#fff !important;opacity:1 !important;padding:9px 18px;
   border-radius:999px;font-weight:600;transition:transform .18s ease, box-shadow .18s ease;}
 .home-v2 .nav-resume:hover{transform:translateY(-1px);box-shadow:0 10px 20px -10px rgba(20,40,70,0.5);}
 @media(max-width:760px){
   .home-v2 .status{display:none;}
-  .home-v2 .navlinks a:not(.nav-resume){display:none;}   /* hide section links; keep Résumé */
   .home-v2 .brand{font-size:21px;}
-  .home-v2 nav{padding:16px 20px;gap:10px;}
+  .home-v2 nav{padding:16px 20px;gap:10px;z-index:30;}   /* above the cursor trail (z-index 20) */
+  .home-v2 .nav-right{gap:12px;}
   .home-v2 .nav-resume{padding:8px 15px;font-size:13px;}
+  .home-v2 .nav-toggle{display:flex;}
+  /* section links collapse into a dropdown panel toggled by the hamburger */
+  .home-v2 .navlinks{position:absolute;top:calc(100% + 8px);right:20px;flex-direction:column;align-items:stretch;
+    gap:2px;padding:8px;background:#fff;border:1px solid var(--line);border-radius:16px;min-width:180px;
+    box-shadow:0 24px 46px -24px rgba(20,40,70,0.4);opacity:0;transform:translateY(-8px);pointer-events:none;
+    transition:opacity .18s ease, transform .18s ease;font-size:15px;}
+  .home-v2 .navlinks.open{opacity:1;transform:translateY(0);pointer-events:auto;}
+  .home-v2 .navlinks a{padding:11px 14px;border-radius:10px;opacity:1;}
+  .home-v2 .navlinks a:hover{background:rgba(20,40,70,0.05);}
 }
 
 /* ── HERO screen ── */

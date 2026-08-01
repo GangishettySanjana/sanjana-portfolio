@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './home-v2.css'
 
 export default function HomePage() {
+  const [menuOpen, setMenuOpen] = useState(false)
   useEffect(() => {
     const host = document.body
 
@@ -132,9 +133,17 @@ export default function HomePage() {
             <span className="brand">Sanjana Gangishetty</span>
             <span className="status"><span className="dot" /> Currently looking for a role</span>
           </div>
-          <div className="navlinks">
-            <a href="#work">Work</a><a href="#about">About</a><a href="/fun">Fun</a><a href="#contact">Contact</a>
+          <div className="nav-right">
+            <div className={`navlinks${menuOpen ? ' open' : ''}`}>
+              <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
+              <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+              <a href="/fun" onClick={() => setMenuOpen(false)}>Fun</a>
+              <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+            </div>
             <a className="nav-resume" href="/resume.pdf?v=0722" target="_blank" rel="noopener noreferrer">Résumé ↗</a>
+            <button className="nav-toggle" aria-label="Menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(v => !v)}>
+              <span /><span /><span />
+            </button>
           </div>
         </nav>
 

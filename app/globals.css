@@ -1197,9 +1197,17 @@ aside::-webkit-scrollbar { display: none; }
   font-size: 12.5px; font-weight: 600; color: rgba(28, 42, 58, 0.62); white-space: nowrap;
 }
 .site-dot { width: 8px; height: 8px; border-radius: 50%; background: #25c26e; box-shadow: 0 0 0 3px rgba(37,194,110,0.2); }
+.site-nav-right { display: flex; align-items: center; gap: 22px; }
 .site-links { display: flex; align-items: center; gap: 22px; font-size: 14px; font-weight: 500; }
 .site-links a { color: #1c2a3a; text-decoration: none; opacity: 0.85; transition: opacity 0.15s; }
 .site-links a:hover { opacity: 1; }
+.site-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px;
+  padding: 0; border: 0; background: transparent; cursor: pointer; border-radius: 10px; }
+.site-toggle span { display: block; width: 20px; height: 2px; border-radius: 2px; background: #1c2a3a;
+  margin: 0 auto; transition: transform 0.22s ease, opacity 0.22s ease; }
+.site-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.site-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.site-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .site-resume {
   background: #1c2a3a; color: #fff !important; opacity: 1 !important;
   padding: 9px 18px; border-radius: 999px; font-weight: 600;
@@ -1208,8 +1216,19 @@ aside::-webkit-scrollbar { display: none; }
 .site-resume:hover { transform: translateY(-1px); box-shadow: 0 10px 20px -10px rgba(20,40,70,0.5); }
 @media (max-width: 760px) {
   .site-status { display: none; }
-  .site-links a:not(.site-resume) { display: none; }
   .site-brand { font-size: 21px; }
-  .site-nav { padding: 12px 20px; }
+  .site-nav-inner { padding: 12px 20px; position: relative; }
+  .site-nav-right { gap: 12px; }
+  .site-toggle { display: flex; }
+  .site-links {
+    position: absolute; top: calc(100% + 8px); right: 20px; flex-direction: column; align-items: stretch;
+    gap: 2px; padding: 8px; background: #fff; border: 1px solid rgba(20,28,40,0.1); border-radius: 16px;
+    min-width: 180px; box-shadow: 0 24px 46px -24px rgba(20,40,70,0.4); font-size: 15px;
+    opacity: 0; transform: translateY(-8px); pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+  .site-links.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .site-links a { padding: 11px 14px; border-radius: 10px; opacity: 1; }
+  .site-links a:hover { background: rgba(20,40,70,0.05); }
 }
 @media (hover: none) { .site-resume:hover { transform: none; } }

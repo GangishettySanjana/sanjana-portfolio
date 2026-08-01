@@ -14,6 +14,7 @@ import Link from 'next/link'
 export default function Navigation() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -32,13 +33,18 @@ export default function Navigation() {
           <Link href="/" className="site-brand">Sanjana Gangishetty</Link>
           <span className="site-status"><span className="site-dot" />Currently looking for a role</span>
         </div>
-        <nav className="site-links">
-          <Link href="/#work">Work</Link>
-          <Link href="/#about">About</Link>
-          <Link href="/fun">Fun</Link>
-          <Link href="/#contact">Contact</Link>
+        <div className="site-nav-right">
+          <nav className={`site-links${menuOpen ? ' open' : ''}`}>
+            <Link href="/#work" onClick={() => setMenuOpen(false)}>Work</Link>
+            <Link href="/#about" onClick={() => setMenuOpen(false)}>About</Link>
+            <Link href="/fun" onClick={() => setMenuOpen(false)}>Fun</Link>
+            <Link href="/#contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+          </nav>
           <a className="site-resume" href="/resume.pdf?v=0722" target="_blank" rel="noopener noreferrer">Résumé ↗</a>
-        </nav>
+          <button className="site-toggle" aria-label="Menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(v => !v)}>
+            <span /><span /><span />
+          </button>
+        </div>
       </div>
     </header>
   )
