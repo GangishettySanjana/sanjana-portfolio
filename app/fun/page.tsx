@@ -24,6 +24,13 @@ export default function FunPage() {
               Duplicate a .fun-item per game; delete that slot's .fun-ph once its iframe is in. */}
           <div className="fun-grid">
             <div className="fun-item wide">
+              <span className="fun-note">📷 Heads up: this one uses your camera for hand tracking, so you&rsquo;ll see your webcam feed on screen. Prefer not to? Say no to the camera and mouse controls still work.</span>
+              <div className="fun-embed leaf">
+                <iframe src="/solar-system.html" title="Solar System — steer the planets with your hand" loading="lazy" allow="camera" />
+              </div>
+              <span className="fun-cap">Solar System · wave your hand at the camera and spin the planets</span>
+            </div>
+            <div className="fun-item wide">
               <div className="fun-embed wide">
                 <iframe src="/play/karma?embed=1" title="Three Refusals — a karma game" loading="lazy" />
               </div>
@@ -34,12 +41,6 @@ export default function FunPage() {
                 <iframe src="/looseleaf.html" title="Looseleaf — write it out, then let it go" loading="lazy" allow="microphone" />
               </div>
               <span className="fun-cap">Looseleaf · write down what&rsquo;s weighing on you, then let it go</span>
-            </div>
-            <div className="fun-item wide">
-              <div className="fun-embed leaf">
-                <iframe src="/solar-system.html" title="Solar System — steer the planets with your hand" loading="lazy" allow="camera" />
-              </div>
-              <span className="fun-cap">Solar System · wave your hand at the camera and spin the planets</span>
             </div>
           </div>
         </div>

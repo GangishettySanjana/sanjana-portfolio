@@ -345,5 +345,9 @@
 .home-v2 .fun-ph p{font-size:18px;font-weight:600;color:var(--ink);}
 .home-v2 .fun-ph small{font-size:12.5px;}
 .home-v2 .fun-cap{margin-top:12px;font-size:14px;font-weight:600;color:var(--ink);}
+/* camera heads-up for the Solar System toy */
+.home-v2 .fun-note{align-self:flex-start;max-width:640px;margin-bottom:12px;font-size:13px;font-weight:500;line-height:1.5;
+  color:#8a5a2b;background:rgba(246,224,196,0.55);border:1px solid rgba(200,150,90,0.35);
+  padding:8px 14px;border-radius:14px;}
 @media(max-width:640px){ .home-v2 .fun-grid{grid-template-columns:1fr;} }
 @media (hover:none){ .home-v2 .fun-embed:hover{transform:none;} }
