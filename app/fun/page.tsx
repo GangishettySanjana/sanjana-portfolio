@@ -35,6 +35,12 @@ export default function FunPage() {
               </div>
               <span className="fun-cap">Looseleaf · write down what&rsquo;s weighing on you, then let it go</span>
             </div>
+            <div className="fun-item wide">
+              <div className="fun-embed leaf">
+                <iframe src="/solar-system.html" title="Solar System — steer the planets with your hand" loading="lazy" allow="camera" />
+              </div>
+              <span className="fun-cap">Solar System · wave your hand at the camera and spin the planets</span>
+            </div>
           </div>
         </div>
       </section>
