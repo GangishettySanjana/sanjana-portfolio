@@ -31,7 +31,7 @@ export default function Navigation() {
       <div className="site-nav-inner">
         <div className="site-nav-left">
           <Link href="/" className="site-brand">Sanjana Gangishetty</Link>
-          <span className="site-status"><span className="site-dot" />Currently looking for a role</span>
+          <Link href="/recruiters" className="site-status site-status-link"><span className="site-dot" />Currently looking for a role <span className="site-status-cta">· see if we&rsquo;re a match ↗</span></Link>
         </div>
         <div className="site-nav-right">
           <nav className={`site-links${menuOpen ? ' open' : ''}`}>

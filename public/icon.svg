@@ -1,12 +1,19 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- 5 petals, blush, alternating shades for a bit of depth -->
-  <ellipse cx="16" cy="9" rx="3.8" ry="5.8" fill="#F0D6D6" transform="rotate(0, 16, 16)"/>
-  <ellipse cx="16" cy="9" rx="3.8" ry="5.8" fill="#E8CBCB" transform="rotate(72, 16, 16)"/>
-  <ellipse cx="16" cy="9" rx="3.8" ry="5.8" fill="#F0D6D6" transform="rotate(144, 16, 16)"/>
-  <ellipse cx="16" cy="9" rx="3.8" ry="5.8" fill="#E8CBCB" transform="rotate(216, 16, 16)"/>
-  <ellipse cx="16" cy="9" rx="3.8" ry="5.8" fill="#F0D6D6" transform="rotate(288, 16, 16)"/>
-
-  <!-- Center -->
-  <circle cx="16" cy="16" r="4" fill="#F5D76E"/>
-  <circle cx="16" cy="16" r="2" fill="#E8B84B"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9cc7f2"/>
+      <stop offset="1" stop-color="#d3e8fb"/>
+    </linearGradient>
+    <linearGradient id="cloud" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e4eefb"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7.5" fill="url(#sky)"/>
+  <g transform="translate(4.9 7.6) scale(0.94)" opacity="0.16">
+    <path fill="#3f6ea3" d="M19.35 10.04A7.49 7.49 0 0 0 12 4 7.49 7.49 0 0 0 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+  </g>
+  <g transform="translate(4.9 6.4) scale(0.94)">
+    <path fill="url(#cloud)" d="M19.35 10.04A7.49 7.49 0 0 0 12 4 7.49 7.49 0 0 0 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+  </g>
 </svg>

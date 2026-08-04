@@ -1196,6 +1196,9 @@ aside::-webkit-scrollbar { display: none; }
   display: inline-flex; align-items: center; gap: 7px;
   font-size: 12.5px; font-weight: 600; color: rgba(28, 42, 58, 0.62); white-space: nowrap;
 }
+a.site-status { text-decoration: none; transition: color 0.15s ease; }
+.site-status-cta { color: #1c2a3a; }
+a.site-status:hover .site-status-cta { text-decoration: underline; text-underline-offset: 2px; }
 .site-dot { width: 8px; height: 8px; border-radius: 50%; background: #25c26e; box-shadow: 0 0 0 3px rgba(37,194,110,0.2); }
 .site-nav-right { display: flex; align-items: center; gap: 22px; }
 .site-links { display: flex; align-items: center; gap: 22px; font-size: 14px; font-weight: 500; }

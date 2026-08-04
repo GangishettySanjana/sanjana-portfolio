@@ -131,7 +131,7 @@ export default function HomePage() {
         <nav>
           <div className="nav-left">
             <span className="brand">Sanjana Gangishetty</span>
-            <span className="status"><span className="dot" /> Currently looking for a role</span>
+            <a href="/recruiters" className="status status-link"><span className="dot" /> Currently looking for a role <span className="status-cta">· see if we&rsquo;re a match ↗</span></a>
           </div>
           <div className="nav-right">
             <div className={`navlinks${menuOpen ? ' open' : ''}`}>

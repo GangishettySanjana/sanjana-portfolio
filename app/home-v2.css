@@ -4,7 +4,7 @@
    ────────────────────────────────────────────────────────────────── */
 .home-v2{
   --ink:#1c2a3a; --muted:rgba(28,42,58,0.62);
-  --serif:Georgia,'Times New Roman',serif;
+  --serif:var(--font-serif),'Instrument Serif',Georgia,serif;
   --pill:rgba(255,255,255,0.55); --pill-line:rgba(255,255,255,0.75);
   --skill:#eceef1; --blue:#2f6bd6;
   --card:#fff; --line:rgba(20,28,40,0.08);
@@ -33,6 +33,9 @@
   letter-spacing:0;color:var(--ink);line-height:1;white-space:nowrap;}
 .home-v2 .status{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;
   color:var(--muted);white-space:nowrap;}
+.home-v2 a.status{text-decoration:none;transition:color .15s ease;}
+.home-v2 .status-cta{color:var(--ink);}
+.home-v2 a.status:hover .status-cta{text-decoration:underline;text-underline-offset:2px;}
 .home-v2 .status .dot{width:8px;height:8px;border-radius:50%;background:#25c26e;box-shadow:0 0 0 3px rgba(37,194,110,0.2);}
 .home-v2 .nav-right{display:flex;align-items:center;gap:24px;}
 .home-v2 .navlinks{display:flex;align-items:center;gap:24px;font-size:14px;font-weight:500;}

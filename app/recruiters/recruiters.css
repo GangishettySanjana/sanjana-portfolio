@@ -1,0 +1,69 @@
+/* SKETCH — For-recruiters JD matcher. Scoped under .home-v2, sky look. */
+.home-v2 .rec { position: relative; z-index: 1; padding: 112px 0 96px; }
+/* align to the same content grid as the nav + rest of the site */
+.home-v2 .rec .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 40px); }
+.home-v2 .rec-back { display: inline-block; margin-bottom: 26px; }
+
+/* full-width intro; the line runs the length of the content column */
+.home-v2 .rec-head { margin-bottom: 30px; }
+.home-v2 .rec-title {
+  font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 3.6vw, 46px);
+  line-height: 1.12; letter-spacing: -0.01em; margin: 6px 0 16px; text-wrap: balance;
+}
+.home-v2 .rec .lede { max-width: none; text-wrap: pretty; margin-bottom: 0; }
+.home-v2 .rec-panel { display: flex; flex-direction: column; }
+@media (max-width: 900px) {
+  .home-v2 .rec { padding-top: 96px; }
+}
+
+.home-v2 .rec-input {
+  width: 100%; min-height: 240px; resize: vertical;
+  background: rgba(255, 255, 255, 0.82); border: 1px solid var(--line); border-radius: 18px;
+  padding: 16px 18px; font: inherit; font-size: 15px; line-height: 1.55; color: var(--ink);
+  box-shadow: 0 16px 40px -28px rgba(20, 40, 70, 0.35); backdrop-filter: blur(6px);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.home-v2 .rec-input:focus { outline: none; border-color: rgba(43, 120, 200, 0.5); box-shadow: 0 18px 44px -26px rgba(20, 40, 70, 0.45); }
+.home-v2 .rec-input::placeholder { color: rgba(28, 42, 58, 0.4); }
+
+.home-v2 .rec-actions { display: flex; align-items: center; gap: 18px; margin-top: 16px; }
+.home-v2 .rec-go {
+  background: var(--ink); color: #fff; border: 0; border-radius: 999px;
+  padding: 12px 26px; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+.home-v2 .rec-go:hover { transform: translateY(-1px); box-shadow: 0 12px 24px -12px rgba(20, 40, 70, 0.5); }
+.home-v2 .rec-go:active { transform: scale(0.97); }
+.home-v2 .rec-go:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
+.home-v2 .rec-sample {
+  background: none; border: 0; padding: 0; cursor: pointer; font: inherit; font-size: 14px;
+  font-weight: 600; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; opacity: 0.75;
+}
+.home-v2 .rec-sample:hover { opacity: 1; }
+
+.home-v2 .rec-result {
+  max-width: 760px; margin-top: 44px; background: rgba(255, 255, 255, 0.9); border: 1px solid var(--line);
+  border-radius: 20px; padding: 26px 26px 22px; box-shadow: 0 24px 54px -30px rgba(20, 40, 70, 0.4);
+  animation: recIn 0.3s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+@keyframes recIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.home-v2 .rec-verdict {
+  font-family: var(--serif); font-size: clamp(19px, 2.4vw, 24px); line-height: 1.35;
+  color: var(--ink); margin-bottom: 20px; text-wrap: balance;
+}
+.home-v2 .rec-block { margin-top: 18px; }
+.home-v2 .rec-h {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px;
+}
+.home-v2 .rec-h::before { content: ""; width: 9px; height: 9px; border-radius: 50%; }
+.home-v2 .rec-h-fit { color: #2f8f52; }
+.home-v2 .rec-h-fit::before { background: #35b06a; }
+.home-v2 .rec-h-ramp { color: #b07a2b; }
+.home-v2 .rec-h-ramp::before { background: #e0a94a; }
+.home-v2 .rec-block ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.home-v2 .rec-block li { font-size: 15px; line-height: 1.55; color: var(--muted); }
+.home-v2 .rec-cap { display: block; font-weight: 600; color: var(--ink); margin-bottom: 1px; }
+.home-v2 .rec-foot { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+.home-v2 .rec-foot a { color: var(--ink); font-weight: 600; }
+.home-v2 .rec-empty { font-size: 15px; color: var(--muted); }
