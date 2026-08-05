@@ -75,7 +75,7 @@ export default function RecruitersPage() {
         <div className="wrap">
           <div className="rec-head">
             <p className="eyebrow">For recruiters</p>
-            <h2 className="rec-title">Wondering if I&rsquo;m a fit? Paste the role.</h2>
+            <h2 className="rec-title">Wondering if I&rsquo;m a&nbsp;fit? Paste the&nbsp;role.</h2>
             <p className="lede">Drop in a job description and I&rsquo;ll map it against my real experience: where I line up, and where I&rsquo;d ramp. Honest, no fluff.</p>
           </div>
 
