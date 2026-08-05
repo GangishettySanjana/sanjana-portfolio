@@ -1233,5 +1233,9 @@ a.site-status:hover .site-status-cta { text-decoration: underline; text-underlin
   .site-links.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
   .site-links a { padding: 11px 14px; border-radius: 10px; opacity: 1; }
   .site-links a:hover { background: rgba(20,40,70,0.05); }
+  .site-links .only-mobile { color: #2f6bd6; font-weight: 600; }
 }
+/* recruiters link shows in the mobile dropdown only; desktop uses the status link */
+.site-links .only-mobile { display: none; }
+@media (max-width: 760px) { .site-links .only-mobile { display: block; } }
 @media (hover: none) { .site-resume:hover { transform: none; } }

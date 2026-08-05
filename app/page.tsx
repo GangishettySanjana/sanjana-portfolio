@@ -139,6 +139,7 @@ export default function HomePage() {
               <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
               <a href="/fun" onClick={() => setMenuOpen(false)}>Fun</a>
               <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+              <a href="/recruiters" className="only-mobile" onClick={() => setMenuOpen(false)}>See if we&rsquo;re a match ↗</a>
             </div>
             <a className="nav-resume" href="/resume.pdf?v=0722" target="_blank" rel="noopener noreferrer">Résumé ↗</a>
             <button className="nav-toggle" aria-label="Menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(v => !v)}>

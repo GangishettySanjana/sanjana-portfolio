@@ -39,6 +39,7 @@ export default function Navigation() {
             <Link href="/#about" onClick={() => setMenuOpen(false)}>About</Link>
             <Link href="/fun" onClick={() => setMenuOpen(false)}>Fun</Link>
             <Link href="/#contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+            <Link href="/recruiters" className="only-mobile" onClick={() => setMenuOpen(false)}>See if we&rsquo;re a match ↗</Link>
           </nav>
           <a className="site-resume" href="/resume.pdf?v=0722" target="_blank" rel="noopener noreferrer">Résumé ↗</a>
           <button className="site-toggle" aria-label="Menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(v => !v)}>
