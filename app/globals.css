@@ -195,6 +195,78 @@ aside::-webkit-scrollbar { display: none; }
   color: var(--color-text);
 }
 
+/* Intro curtain: white screen cycling "hello", then lifts away with a curved
+   bottom edge (curtain-open reveal). */
+.preloader {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 99;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff;
+}
+.preloader-word {
+  position: relative; z-index: 1;
+  color: #1c2a3a;
+  font-family: var(--font-serif), 'Instrument Serif', Georgia, serif;
+  font-size: clamp(30px, 5vw, 52px); line-height: 1;
+}
+.preloader-curve {
+  position: absolute; top: 0; left: 0; width: 100%; height: calc(100% + 300px);
+}
+.preloader-curve path { fill: #fff; }
+
+/* iMessage-style Sanju chat */
+.imsg {
+  position: relative; max-width: 80%; padding: 8px 13px; border-radius: 18px;
+  font-size: 14.5px; line-height: 1.38; word-break: break-word;
+  font-family: var(--font-body), 'Inter', system-ui, sans-serif;
+}
+.imsg-received { background: #e9e9eb; color: #1c1c1e; border-bottom-left-radius: 5px; }
+.imsg-sent { background: #0a7cff; color: #fff; border-bottom-right-radius: 5px; }
+.imsg-received::before {
+  content: ""; position: absolute; bottom: 0; left: -5px; width: 16px; height: 15px;
+  background: #e9e9eb; border-bottom-right-radius: 16px;
+}
+.imsg-received::after {
+  content: ""; position: absolute; bottom: 0; left: -13px; width: 18px; height: 15px;
+  background: #fff; border-bottom-right-radius: 12px;
+}
+.imsg-sent::before {
+  content: ""; position: absolute; bottom: 0; right: -5px; width: 16px; height: 15px;
+  background: #0a7cff; border-bottom-left-radius: 16px;
+}
+.imsg-sent::after {
+  content: ""; position: absolute; bottom: 0; right: -13px; width: 18px; height: 15px;
+  background: #fff; border-bottom-left-radius: 12px;
+}
+.imsg-chip {
+  font-size: 12.5px; color: #0a7cff; border: 1px solid rgba(10, 124, 255, 0.4);
+  border-radius: 999px; padding: 6px 13px; background: #fff; text-align: left;
+  transition: background 0.15s ease, transform 0.12s ease;
+}
+.imsg-chip:hover { background: rgba(10, 124, 255, 0.07); }
+.imsg-chip:active { transform: scale(0.97); }
+.imsg-inputbar {
+  display: flex; align-items: center; gap: 8px; padding: 9px 11px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06); background: #fff;
+}
+.imsg-input {
+  flex: 1; min-width: 0; border: 1px solid #d5d5da; border-radius: 999px;
+  padding: 8px 15px; font-size: 14.5px; line-height: 1.2; outline: none;
+  background: #fff; color: #1c1c1e;
+}
+.imsg-input::placeholder { color: #a1a1a6; }
+.imsg-input:focus { border-color: #0a7cff; }
+.imsg-send {
+  width: 30px; height: 30px; border-radius: 999px; background: #0a7cff; color: #fff;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: background 0.15s ease, transform 0.12s ease;
+}
+.imsg-send:disabled { background: #c7c7cc; }
+.imsg-send:not(:disabled):active { transform: scale(0.9); }
+.imsg-disclaimer {
+  padding: 4px 14px 10px; font-size: 10px; line-height: 1.4; text-align: center;
+  color: #a1a1a6; font-family: var(--font-body), 'Inter', system-ui, sans-serif;
+}
+
 /* ─────────────────────────────────────────────────
    TYPOGRAPHY
 ───────────────────────────────────────────────── */

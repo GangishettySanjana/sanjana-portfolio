@@ -6,6 +6,7 @@ import { GeistSans } from 'geist/font/sans'
 import Navigation from '@/components/Navigation'
 import SmoothScroll from '@/components/SmoothScroll'
 import ChatWidget from '@/components/ChatWidget'
+import Intro from '@/components/Intro'
 import './globals.css'
 
 // DISPLAY — Space Grotesk: clean structured grotesk, bold and modern (no serif curves)
@@ -103,6 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500,600,700,800,900&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet"/>
       </head>
       <body className="bg-white text-roasted antialiased">
+        <Intro />
         <SmoothScroll />
         <Navigation />
         {children}
