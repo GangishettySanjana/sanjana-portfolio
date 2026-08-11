@@ -337,6 +337,8 @@ export default function ChatWidget() {
       {/* Floating bar, always visible, right aligned at the bottom */}
       <motion.button
         onClick={() => setOpen(!open)}
+        aria-label={open ? 'Close chat with Sanju' : 'Chat with Sanju, an AI assistant'}
+        aria-pressed={open}
         className="fixed z-50 w-14 h-14 flex items-center justify-center bg-white/20 backdrop-blur-2xl rounded-full shadow-stamp border border-white/30 hover:bg-white/30 transition-colors"
         style={{ bottom: '25px', right: '25px' }}
         initial={{ y: 90, opacity: 0 }}

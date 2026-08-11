@@ -1117,7 +1117,7 @@ a.bento-tile:hover {
 .footer-meta { display: inline-flex; align-items: center; gap: 14px; }
 .footer-availability {
   display: inline-flex; align-items: center; gap: 7px;
-  color: rgba(0,0,0,0.42); letter-spacing: 0.04em;
+  color: rgba(0,0,0,0.62); letter-spacing: 0.04em;
 }
 .footer-availability-dot {
   width: 7px; height: 7px; border-radius: 999px;

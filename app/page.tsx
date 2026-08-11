@@ -5,14 +5,20 @@ import './home-v2.css'
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [marqueePaused, setMarqueePaused] = useState(false)
   useEffect(() => {
     const host = document.body
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    // Respect reduced motion: start the skill marquees paused (WCAG 2.3.3).
+    if (reduceMotion) setMarqueePaused(true)
 
-    /* ── cursor sticker trail (hero only) ── */
+    /* ── cursor sticker trail (hero only) — skipped under reduced motion,
+       same as every other animated bit of this page. */
     const stickers = ['☕','🎨','🏔️','🐶','🧁','🥾','🎙️','🪨','🎧','🌸','✦']
     let idx = 0, lastX: number | null = null, lastY: number | null = null
     const GAP = 78, MAX = 14
     const spawn = (x: number, y: number) => {
+      if (reduceMotion) return
       const el = document.createElement('div')
       el.className = 'trail'
       el.textContent = stickers[idx % stickers.length]; idx++
@@ -171,9 +177,18 @@ export default function HomePage() {
 
         <p className="hint">move your cursor, a little trail of me ✦</p>
 
-        <div className="wall">
+        <div className={`wall${marqueePaused ? ' paused' : ''}`}>
           <div className="mrow-wrap"><div className="mrow" id="rowA" /></div>
           <div className="mrow-wrap"><div className="mrow rev" id="rowB" /></div>
+          <button
+            type="button"
+            className="marquee-toggle"
+            aria-pressed={marqueePaused}
+            aria-label={marqueePaused ? 'Play scrolling skills' : 'Pause scrolling skills'}
+            onClick={() => setMarqueePaused(v => !v)}
+          >
+            {marqueePaused ? '▶' : '‖'}
+          </button>
         </div>
       </div>
 
@@ -231,7 +246,7 @@ export default function HomePage() {
 
           <div className="bento">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <a className="tile b-getup reveal" href="/projects/getup"><div className="imgwrap"><img src="/images/getup.png" alt="" /></div><span className="cap">GetUp · brand</span></a>
+            <a className="tile b-getup reveal" href="/projects/getup"><div className="imgwrap"><img src="/images/getup.png" alt="GetUp brand identity" /></div><span className="cap">GetUp · brand</span></a>
             <a className="tile ttile b-aitm reveal" href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer"><span className="k">Self-initiated · live</span><p className="t">AI Trust Meter shows how grounded an AI answer really is.</p><span className="cta">Try live demo ↗</span></a>
             <div className="tile ttile b-stat reveal"><span className="k">Selected work</span><div className="big">5</div><span className="t">case studies, shipped end-to-end</span></div>
             <div className="tile ttile b-pov reveal"><span className="k">POV · OpenRouter</span><p className="t">500+ AI models, no guidance. I designed a wizard that gets you to a working API call in four questions.</p><span className="cta">Live prototype →</span></div>
@@ -290,11 +305,11 @@ export default function HomePage() {
             <div className="bowl">
               <div className="plate" />
               <div className="cookies">
-                <button className="ck c-bl" data-i="0" aria-label="fortune cookie">🥠</button>
-                <button className="ck c-br" data-i="1" aria-label="fortune cookie">🥠</button>
-                <button className="ck c-fl" data-i="2" aria-label="fortune cookie">🥠</button>
-                <button className="ck c-fr" data-i="3" aria-label="fortune cookie">🥠</button>
-                <button className="ck c-top" data-i="4" aria-label="fortune cookie">🥠</button>
+                <button className="ck c-bl" data-i="0" aria-label="Fortune cookie 1 of 5">🥠</button>
+                <button className="ck c-br" data-i="1" aria-label="Fortune cookie 2 of 5">🥠</button>
+                <button className="ck c-fl" data-i="2" aria-label="Fortune cookie 3 of 5">🥠</button>
+                <button className="ck c-fr" data-i="3" aria-label="Fortune cookie 4 of 5">🥠</button>
+                <button className="ck c-top" data-i="4" aria-label="Fortune cookie 5 of 5">🥠</button>
               </div>
             </div>
             <p className="fhint">pick a cookie ✦</p>

@@ -88,7 +88,7 @@ const timeline = [
   {
     year: '2025',
     title: 'Still in the cycle.',
-    whisper: 'Five years. Two countries. One direction.',
+    whisper: 'Seven years. Two countries. One direction.',
     detail: 'A master\'s, then a run of real work across AI, fintech, exhibits, e-commerce. What I keep chasing is the thing that pulled me in: staying in the learning cycle, close to people who make things.',
     tag: 'Education',
     color: '#BE3A2B',
@@ -165,7 +165,7 @@ function Kicker({ children, dark = false }: { children: React.ReactNode; dark?: 
     <p style={{
       fontFamily: SANS, fontSize: 11, fontWeight: 700,
       letterSpacing: '0.14em', textTransform: 'uppercase',
-      color: dark ? 'rgba(255,255,255,0.35)' : 'rgba(13,13,13,0.35)',
+      color: dark ? 'rgba(255,255,255,0.5)' : 'rgba(13,13,13,0.62)',
       margin: '0 0 16px',
     }}>{children}</p>
   )
@@ -261,7 +261,7 @@ export default function AboutPage() {
           <motion.div {...rise}>
             <Kicker>The journey</Kicker>
             <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 'clamp(32px, 4.2vw, 54px)', lineHeight: 1.1, letterSpacing: '0.01em', color: '#111827', margin: '0 0 clamp(40px, 5vw, 64px)' }}>
-              Interior design to product. Five years, two countries.
+              Interior design to product. Seven years, two countries.
             </h2>
           </motion.div>
 
@@ -276,7 +276,7 @@ export default function AboutPage() {
                     {beat.year} · {beat.tag}{beat.pivot ? ' · the pivot' : ''}
                   </span>
                   <h3 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 'clamp(21px, 2.1vw, 28px)', lineHeight: 1.15, color: '#111827', margin: '10px 0 8px' }}>{beat.title}</h3>
-                  <p style={{ fontFamily: SANS, fontSize: 13, color: 'rgba(13,13,13,0.45)', margin: '0 0 12px', fontStyle: 'italic' }}>{beat.whisper}</p>
+                  <p style={{ fontFamily: SANS, fontSize: 13, color: 'rgba(13,13,13,0.62)', margin: '0 0 12px', fontStyle: 'italic' }}>{beat.whisper}</p>
                   <p style={{ fontFamily: SANS, fontSize: 15, color: 'rgba(13,13,13,0.62)', lineHeight: 1.6, margin: 0 }}>{beat.detail}</p>
                 </div>
               </motion.div>
@@ -285,7 +285,7 @@ export default function AboutPage() {
 
           {/* everything else, compressed to one line */}
           <motion.p className="about-alongtheway" {...rise}>
-            <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.4)' }}>Along the way</span>
+            <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.62)' }}>Along the way</span>
             <span style={{ fontFamily: SANS, fontSize: 15, color: 'rgba(13,13,13,0.62)' }}>
               Google UX cert · moved to Boulder · shipped Aura · six interiors, mostly solo
             </span>
@@ -299,7 +299,7 @@ export default function AboutPage() {
           {SPOTIFY_EPISODE_ID && (
             <motion.div id="podcast" className="about-podcast" {...rise}>
               <div className="about-podcast-intro">
-                <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.4)' }}>
+                <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.62)' }}>
                   The long version
                 </span>
                 <p style={{ fontFamily: SERIF, fontSize: 'clamp(18px, 1.9vw, 25px)', lineHeight: 1.25, color: '#111827', margin: '10px 0 0' }}>
@@ -337,7 +337,7 @@ export default function AboutPage() {
               <motion.div key={card.title} className="about-principle" {...rise}>
                 <span style={{ fontFamily: SANS, fontWeight: 700, fontSize: 12, color: CARD_COLORS[i], letterSpacing: '0.06em' }}>0{i + 1}</span>
                 <h3 style={{ fontFamily: SANS, fontSize: 16, fontWeight: 700, color: '#111827', margin: '6px 0 6px', lineHeight: 1.25 }}>{card.title}</h3>
-                <p style={{ fontFamily: SANS, fontSize: 14, color: 'rgba(13,13,13,0.55)', lineHeight: 1.6, margin: 0 }}>{card.body}</p>
+                <p style={{ fontFamily: SANS, fontSize: 14, color: 'rgba(13,13,13,0.62)', lineHeight: 1.6, margin: 0 }}>{card.body}</p>
               </motion.div>
             ))}
           </div>
@@ -347,11 +347,11 @@ export default function AboutPage() {
             <h3 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 'clamp(26px, 3.2vw, 40px)', lineHeight: 1.15, letterSpacing: '0.01em', color: '#111827', margin: '0 0 18px' }}>
               I exist outside of Figma, I promise.
             </h3>
-            <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: 'rgba(13,13,13,0.55)', lineHeight: 1.6, margin: 0, maxWidth: '68ch' }}>
+            <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: 'rgba(13,13,13,0.62)', lineHeight: 1.6, margin: 0, maxWidth: '68ch' }}>
               Outside of work I am usually in the kitchen. Baking something I found at 11pm, or cooking for people I love. I travel whenever I get the chance. I watch shows with a level of commitment that is honestly a little embarrassing. Some of my best ideas show up on long flights or over a really good meal.
             </p>
             {/* interests, one inline line rather than a second marquee */}
-            <p style={{ fontFamily: SANS, fontSize: 13, color: 'rgba(13,13,13,0.42)', margin: '18px 0 0', letterSpacing: '0.02em' }}>
+            <p style={{ fontFamily: SANS, fontSize: 13, color: 'rgba(13,13,13,0.6)', margin: '18px 0 0', letterSpacing: '0.02em' }}>
               Baking ✦ Travelling ✦ Cooking ✦ Hanging with friends ✦ Binge-watching shows
             </p>
           </motion.div>
@@ -430,7 +430,7 @@ export default function AboutPage() {
               letterSpacing: '0.08em', textTransform: 'uppercase', textDecoration: 'none',
             }}>Résumé ↗</a>
           </div>
-          <p style={{ fontFamily: SANS, fontSize: 13, color: 'rgba(255,255,255,0.4)', margin: '22px 0 0' }}>{EMAIL}</p>
+          <p style={{ fontFamily: SANS, fontSize: 13, color: 'rgba(255,255,255,0.5)', margin: '22px 0 0' }}>{EMAIL}</p>
         </div>
       </motion.section>
     </main>

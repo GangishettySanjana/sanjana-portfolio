@@ -3,7 +3,7 @@
    Ported from the figma-hero-experiment prototype. Class-scoped.
    ────────────────────────────────────────────────────────────────── */
 .home-v2{
-  --ink:#1c2a3a; --muted:rgba(28,42,58,0.62);
+  --ink:#1c2a3a; --muted:rgba(28,42,58,0.72);
   --serif:var(--font-serif),'Instrument Serif',Georgia,serif;
   --pill:rgba(255,255,255,0.55); --pill-line:rgba(255,255,255,0.75);
   --skill:#eceef1; --blue:#2f6bd6;
@@ -20,8 +20,10 @@
 .home-v2 #sky{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
   transform-origin:60% 40%;animation:skyLive 46s ease-in-out infinite alternate;will-change:transform;}
 @keyframes skyLive{0%{transform:scale(1.04) translate(0,0);}100%{transform:scale(1.11) translate(-2.2%,-1.4%);}}
+/* white glow behind the hero text — strengthened so body copy always clears
+   AA contrast over the photographic sky, not just over its lighter areas. */
 .home-v2 .sky-tint{position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(46% 40% at 50% 40%, rgba(255,255,255,0.5), transparent 66%),
+  background:radial-gradient(48% 42% at 50% 40%, rgba(255,255,255,0.66), transparent 72%),
     linear-gradient(180deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.05) 34%, rgba(210,233,252,0.08) 100%);}
 @media (prefers-reduced-motion:reduce){ .home-v2 #sky{animation:none;transform:scale(1.02);} }
 
@@ -41,6 +43,10 @@
 .home-v2 .navlinks{display:flex;align-items:center;gap:24px;font-size:14px;font-weight:500;}
 .home-v2 .navlinks a{color:var(--ink);text-decoration:none;opacity:0.85;transition:opacity .15s;}
 .home-v2 .navlinks a:hover{opacity:1;}
+.home-v2 .navlinks a:focus-visible,
+.home-v2 .nav-resume:focus-visible,
+.home-v2 .nav-toggle:focus-visible,
+.home-v2 a.status:focus-visible{outline:2px solid #1e5dac;outline-offset:3px;border-radius:4px;}
 /* hamburger — hidden on desktop, shown under 760px */
 .home-v2 .nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;
   padding:0;border:0;background:transparent;cursor:pointer;border-radius:10px;}
@@ -103,7 +109,18 @@
 .home-v2 .mrow{display:flex;gap:12px;width:max-content;padding-left:12px;animation:mscroll 34s linear infinite;}
 .home-v2 .mrow.rev{animation-duration:40s;animation-direction:reverse;}
 .home-v2 .wall:hover .mrow{animation-play-state:paused;}
+.home-v2 .wall.paused .mrow{animation-play-state:paused;}
 @keyframes mscroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+/* Explicit pause control (WCAG 2.2.2) — hover-pause alone leaves keyboard
+   and touch visitors with no way to stop the auto-scroll. */
+.home-v2 .marquee-toggle{position:absolute;left:16px;bottom:16px;z-index:7;
+  width:32px;height:32px;border-radius:50%;border:1px solid rgba(28,42,58,0.14);
+  background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  color:var(--ink);font-size:12px;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 16px -8px rgba(20,40,70,0.3);}
+.home-v2 .marquee-toggle:hover{background:#fff;}
+.home-v2 .marquee-toggle:focus-visible{outline:2px solid #1e5dac;outline-offset:2px;}
 .home-v2 .tag{background:var(--skill);border-radius:12px;padding:11px 20px;font-size:14px;font-weight:600;
   color:#2a3542;box-shadow:0 2px 0 rgba(255,255,255,0.5) inset;white-space:nowrap;
   transition:background .35s ease, color .35s ease, transform .35s ease, box-shadow .35s ease;}
