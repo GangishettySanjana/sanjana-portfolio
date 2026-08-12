@@ -275,7 +275,7 @@ export default function AuraPage() {
               ← Back to work
             </Link>
             <p className="fx-eyebrow">Google UX Certificate · E-commerce · Mobile App</p>
-            <h1 className="fx-hero-title">An Online Florist Built Around the Gift, Not the Purchase</h1>
+            <h1 className="fx-hero-title fx-title-1line">An Online Florist Built Around the Gift, Not the Purchase</h1>
             <p className="fx-hero-sub">
               A Hyderabad florist had a loyal customer base and no digital presence. COVID changed that overnight. I designed a mobile app that replicates the personal florist experience online, live inventory, bouquet customization, and a checkout built for gifting.
             </p>

@@ -306,7 +306,7 @@ export default function FiresidePage() {
             <Reveal>
               <Link href="/#work" className="fx-back-link" onClick={() => sessionStorage.setItem('skipIntro', '1')}>← Back to work</Link>
               <p className="fx-eyebrow">Academic Project · CU Boulder · UX Design</p>
-              <h1 className="fx-hero-title">Designing a Wildfire Exhibit Anyone Could Use</h1>
+              <h1 className="fx-hero-title fx-title-1line">Designing a Wildfire Exhibit Anyone Could Use</h1>
               <p className="fx-hero-sub">
                 This was the first project where the interface wasn&apos;t a screen. It was a 3D topographic table with a projected display on top of physical terrain. I designed the interaction language for a wildfire exhibit that taught fire behavior to anyone who walked up, without instructions, in under 10 seconds.
               </p>

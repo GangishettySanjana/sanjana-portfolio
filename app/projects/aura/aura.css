@@ -146,6 +146,18 @@
 }
 .fx-hero .fx-container { padding-top: 80px; padding-bottom: 72px; }
 
+/* Keep the hero headline on a single line. This title is long (56 chars), so
+   the type scales down a step to fit the column at desktop; it wraps on
+   narrow screens so it never overflows. */
+.fx-page .fx-hero-title.fx-title-1line {
+  white-space: nowrap !important;
+  max-width: none;
+  font-size: clamp(1.6rem, 3.4vw, 42px);
+}
+@media (max-width: 820px) {
+  .fx-page .fx-hero-title.fx-title-1line { white-space: normal !important; font-size: clamp(2rem, 4vw, 3rem); }
+}
+
 .fx-hero-title {
   font-family: var(--fx-display);
   font-size: var(--type-display);    /* clamp(2rem, 5vw, 3.5rem) */

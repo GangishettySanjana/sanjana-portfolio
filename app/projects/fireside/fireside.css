@@ -147,6 +147,14 @@
 }
 .fx-hero .fx-container { padding-top: 80px; padding-bottom: 72px; }
 
+/* Keep the hero headline on a single line (out-specifies the case-sky rule,
+   which otherwise wraps it with max-width:18ch). Falls back to wrapping on
+   narrow screens so it never overflows. */
+.fx-page .fx-hero-title.fx-title-1line { white-space: nowrap !important; max-width: none; }
+@media (max-width: 820px) {
+  .fx-page .fx-hero-title.fx-title-1line { white-space: normal !important; }
+}
+
 .fx-hero-title {
   font-family: var(--fx-display);
   font-size: var(--type-display);    /* clamp(2rem, 5vw, 3.5rem) */
