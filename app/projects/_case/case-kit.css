@@ -23,10 +23,12 @@
    with .fx-page to out-specify the per-page rules regardless of the
    import order. */
 .fx-page .fx-container {
-  max-width: 1040px;
+  /* Match the site nav column (.site-nav-inner) exactly so the case-study
+     content aligns to the wordmark / nav on the left and right edges. */
+  max-width: 1200px;
   margin-inline: auto;
   padding-block: clamp(56px, 6vw, 88px);
-  padding-inline: clamp(20px, 3vw, 40px);
+  padding-inline: clamp(20px, 5vw, 40px);
 }
 
 /* Body fills the column so its right edge matches the headline, bullets

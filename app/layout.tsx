@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
-import { Source_Sans_3, Space_Grotesk, Outfit, Instrument_Serif, Caveat } from 'next/font/google'
+import { Source_Sans_3, Space_Grotesk, Outfit, Caveat } from 'next/font/google'
+import localFont from 'next/font/local'
 // Geist isn't in Next 14's next/font/google list — use Vercel's official package
 import { GeistSans } from 'geist/font/sans'
 import Navigation from '@/components/Navigation'
@@ -17,12 +18,16 @@ const displayFont = Space_Grotesk({
   display: 'swap',
 })
 
-// SERIF DISPLAY — Instrument Serif: light editorial serif for the display
-// headlines only (Marimba-like tone). Single weight (400) + italic.
-const serifFont = Instrument_Serif({
-  subsets: ['latin'],
-  weight: ['400'],
-  style: ['normal', 'italic'],
+// DISPLAY FONT — General Sans (self-hosted). Confident modern grotesk; carries
+// the whole site's display voice on the --font-serif variable (name kept so
+// every var(--font-serif)/var(--serif) reference swaps at once).
+const serifFont = localFont({
+  src: [
+    { path: './fonts/GeneralSans-Regular.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/GeneralSans-Medium.woff2', weight: '500', style: 'normal' },
+    { path: './fonts/GeneralSans-Semibold.woff2', weight: '600', style: 'normal' },
+    { path: './fonts/GeneralSans-Bold.woff2', weight: '700', style: 'normal' },
+  ],
   variable: '--font-serif',
   display: 'swap',
 })

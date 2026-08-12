@@ -7,7 +7,7 @@
 /* full-width intro; the line runs the length of the content column */
 .home-v2 .rec-head { margin-bottom: 30px; }
 .home-v2 .rec-title {
-  font-family: var(--serif); font-weight: 400; font-size: clamp(24px, 8.4vw, 46px);
+  font-family: var(--serif); font-weight: 600; font-size: clamp(24px, 7.4vw, 42px);
   line-height: 1.12; letter-spacing: -0.01em; margin: 6px 0 16px; white-space: nowrap;
 }
 .home-v2 .rec .lede { max-width: none; text-wrap: pretty; margin-bottom: 0; }
@@ -48,7 +48,7 @@
 }
 @keyframes recIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 .home-v2 .rec-verdict {
-  font-family: var(--serif); font-size: clamp(19px, 2.4vw, 24px); line-height: 1.35;
+  font-family: var(--serif); font-weight: 600; font-size: clamp(19px, 2.4vw, 24px); line-height: 1.35;
   color: var(--ink); margin-bottom: 20px; text-wrap: balance;
 }
 .home-v2 .rec-block { margin-top: 18px; }

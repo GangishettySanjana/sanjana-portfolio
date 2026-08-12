@@ -484,7 +484,7 @@ export default function FlairXPage() {
             <Reveal>
             <Link href="/#work" className="fx-back-link" onClick={() => sessionStorage.setItem('skipIntro', '1')}>← Back to work</Link>
             <p className="fx-eyebrow">Product Design · Live Product · FlairX AI</p>
-            <h1 className="fx-hero-title" style={{ whiteSpace: 'nowrap' }}>Redesigning the Recruiter Workflow</h1>
+            <h1 className="fx-hero-title fx-title-1line">Redesigning the Recruiter Workflow</h1>
             <p className="fx-hero-sub">
               Recruiters at FlairX were spending 2 hrs just getting candidates into the system.
               I redesigned the intake flow across all three upload paths until that dropped to 30 min.
@@ -498,17 +498,6 @@ export default function FlairXPage() {
                 { value: '3', label: 'Upload paths redesigned at once' },
               ]}
             />
-
-            <div className="cs-hero-figure">
-              <CaseFigure
-                src={FX.entryPoint}
-                alt="FlairX candidate upload screen, the entry point to the redesigned intake flow"
-                width="wide"
-                frame="browser"
-                caption="The redesigned entry point: drop in a résumé and the AI fills the fields, leaving the recruiter to check rather than type."
-                priority
-              />
-            </div>
 
             <div className="fx-summary-card">
               <div className="fx-summary-top">
@@ -609,6 +598,14 @@ export default function FlairXPage() {
                 { label: 'Timeline', value: '3 months: discovery sprint, design and testing, handoff' },
                 { label: 'Research', value: '6 recruiter interviews, 3 rounds of testing' },
               ]}
+            />
+
+            <CaseFigure
+              src={FX.entryPoint}
+              alt="FlairX candidate upload screen, the entry point to the redesigned intake flow"
+              width="wide"
+              frame="browser"
+              caption="The redesigned entry point: drop in a résumé and the AI fills the fields, leaving the recruiter to check rather than type."
             />
             </Reveal>
           </div>

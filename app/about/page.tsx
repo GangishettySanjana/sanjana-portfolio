@@ -215,8 +215,8 @@ export default function AboutPage() {
             </span>
 
             <h1 style={{
-              fontFamily: SERIF, fontWeight: 400,
-              fontSize: 'clamp(36px, 4.6vw, 60px)', lineHeight: 1.1,
+              fontFamily: SERIF, fontWeight: 600,
+              fontSize: 'clamp(30px, 3.6vw, 44px)', lineHeight: 1.1,
               letterSpacing: '0.01em', color: '#111827', margin: '0 0 26px',
             }}>
               hi, it means a lot<br />that you&apos;re here ✦
@@ -260,7 +260,7 @@ export default function AboutPage() {
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto' }}>
           <motion.div {...rise}>
             <Kicker>The journey</Kicker>
-            <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 'clamp(32px, 4.2vw, 54px)', lineHeight: 1.1, letterSpacing: '0.01em', color: '#111827', margin: '0 0 clamp(40px, 5vw, 64px)' }}>
+            <h2 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(26px, 3vw, 38px)', lineHeight: 1.1, letterSpacing: '0.01em', color: '#111827', margin: '0 0 clamp(40px, 5vw, 64px)' }}>
               Interior design to product. Seven years, two countries.
             </h2>
           </motion.div>
@@ -275,7 +275,7 @@ export default function AboutPage() {
                   <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: beat.color }}>
                     {beat.year} · {beat.tag}{beat.pivot ? ' · the pivot' : ''}
                   </span>
-                  <h3 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 'clamp(21px, 2.1vw, 28px)', lineHeight: 1.15, color: '#111827', margin: '10px 0 8px' }}>{beat.title}</h3>
+                  <h3 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(21px, 2.1vw, 28px)', lineHeight: 1.15, color: '#111827', margin: '10px 0 8px' }}>{beat.title}</h3>
                   <p style={{ fontFamily: SANS, fontSize: 13, color: 'rgba(13,13,13,0.62)', margin: '0 0 12px', fontStyle: 'italic' }}>{beat.whisper}</p>
                   <p style={{ fontFamily: SANS, fontSize: 15, color: 'rgba(13,13,13,0.62)', lineHeight: 1.6, margin: 0 }}>{beat.detail}</p>
                 </div>
@@ -326,7 +326,7 @@ export default function AboutPage() {
 
           <motion.div {...rise}>
             <Kicker>How I work</Kicker>
-            <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 'clamp(32px, 4.2vw, 54px)', lineHeight: 1.1, letterSpacing: '0.01em', color: '#111827', margin: '0 0 36px' }}>
+            <h2 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(26px, 3vw, 38px)', lineHeight: 1.1, letterSpacing: '0.01em', color: '#111827', margin: '0 0 36px' }}>
               Six things that don&apos;t change.
             </h2>
           </motion.div>
@@ -344,7 +344,7 @@ export default function AboutPage() {
 
           <motion.div {...rise} style={{ marginTop: 'clamp(48px, 6vw, 72px)', paddingTop: 'clamp(40px, 5vw, 56px)', borderTop: '1px solid rgba(13,13,13,0.1)' }}>
             <Kicker>Outside of design</Kicker>
-            <h3 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 'clamp(26px, 3.2vw, 40px)', lineHeight: 1.15, letterSpacing: '0.01em', color: '#111827', margin: '0 0 18px' }}>
+            <h3 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(24px, 2.6vw, 32px)', lineHeight: 1.15, letterSpacing: '0.01em', color: '#111827', margin: '0 0 18px' }}>
               I exist outside of Figma, I promise.
             </h3>
             <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: 'rgba(13,13,13,0.62)', lineHeight: 1.6, margin: 0, maxWidth: '68ch' }}>
@@ -405,7 +405,7 @@ export default function AboutPage() {
 
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto' }}>
           <Kicker dark>What I&apos;m looking for</Kicker>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 'clamp(28px, 3.6vw, 48px)', lineHeight: 1.15, letterSpacing: '0.01em', color: '#fff', margin: '0 0 18px', maxWidth: '38ch' }}>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(26px, 3vw, 38px)', lineHeight: 1.15, letterSpacing: '0.01em', color: '#fff', margin: '0 0 18px', maxWidth: '38ch' }}>
             I want to work somewhere that starts with the person, not the feature list.
           </h2>
           <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, margin: '0 0 36px', maxWidth: '62ch' }}>

@@ -92,20 +92,20 @@
 .fx-page .fx-design-title,
 .fx-page .fx-decision-body h3 {
   font-family: var(--fx-display);
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
   letter-spacing: -0.01em;
   color: var(--text);
 }
 .fx-page .fx-hero-title {
   line-height: 1.06;
-  font-size: clamp(2.5rem, 5.2vw, 4.2rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   max-width: 18ch;
   white-space: normal !important;
 }
 .fx-page .fx-sec-title {
   line-height: 1.12;
-  font-size: clamp(1.9rem, 3.2vw, 2.9rem);
+  font-size: clamp(1.7rem, 2.8vw, 2.4rem);
 }
 .fx-page .fx-hero-sub { font-family: var(--fx-sans); color: var(--muted); }
 

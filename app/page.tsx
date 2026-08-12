@@ -1,11 +1,35 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import './home-v2.css'
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [marqueePaused, setMarqueePaused] = useState(false)
+  const previewRef = useRef<HTMLDivElement>(null)
+
+  // Small "view" cue (eye) that follows the cursor while hovering a work row.
+  const placePreview = (x: number, y: number) => {
+    const box = previewRef.current
+    if (!box) return
+    box.style.left = x + 'px'
+    box.style.top = y + 'px'
+  }
+  const showPreview = (e: React.MouseEvent) => {
+    const box = previewRef.current
+    if (!box) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (window.matchMedia('(hover: none)').matches) return
+    placePreview(e.clientX, e.clientY)
+    box.classList.add('on')
+  }
+  const movePreview = (e: React.MouseEvent) => {
+    placePreview(e.clientX, e.clientY)
+  }
+  const hidePreview = () => {
+    previewRef.current?.classList.remove('on')
+  }
   useEffect(() => {
     const host = document.body
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -137,15 +161,15 @@ export default function HomePage() {
         <nav>
           <div className="nav-left">
             <span className="brand">Sanjana Gangishetty</span>
-            <a href="/recruiters" className="status status-link"><span className="dot" /> Currently looking for a role <span className="status-cta">· see if we&rsquo;re a match ↗</span></a>
+            <Link href="/recruiters" className="status status-link"><span className="dot" /> Currently looking for a role <span className="status-cta">· see if we&rsquo;re a match ↗</span></Link>
           </div>
           <div className="nav-right">
             <div className={`navlinks${menuOpen ? ' open' : ''}`}>
               <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
               <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-              <a href="/fun" onClick={() => setMenuOpen(false)}>Fun</a>
+              <Link href="/fun" onClick={() => setMenuOpen(false)}>Fun</Link>
               <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
-              <a href="/recruiters" className="only-mobile" onClick={() => setMenuOpen(false)}>See if we&rsquo;re a match ↗</a>
+              <Link href="/recruiters" className="only-mobile" onClick={() => setMenuOpen(false)}>See if we&rsquo;re a match ↗</Link>
             </div>
             <a className="nav-resume" href="/resume.pdf?v=0722" target="_blank" rel="noopener noreferrer">Résumé ↗</a>
             <button className="nav-toggle" aria-label="Menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(v => !v)}>
@@ -199,59 +223,43 @@ export default function HomePage() {
       <section className="work" id="work">
         <div className="wrap">
           <p className="eyebrow reveal">Selected work</p>
-          <h2 className="title reveal">Things I designed, then built</h2>
-          <p className="lede reveal">Different problems, same question underneath: why does this feel harder than it should?</p>
 
-          <div className="features">
-            <div className="feature reveal">
-              <div className="fwrap">
-                <div className="ffig embed"><iframe src="/flairx-cover.html" title="FlairX case-study cover" scrolling="no" /></div>
-                <div className="ftxt">
-                  <span className="fidx">01 / 03</span>
-                  <p className="ftag">Product Design · AI recruiting</p>
-                  <h3>FlairX</h3>
-                  <p className="fhook">Recruiters spent 2 hours just getting candidates into the system. I got it to 30 minutes. The whole flow, from research to ship.</p>
-                  <a className="fgo" href="/projects/flairx">View case study →</a>
-                </div>
-              </div>
-            </div>
-
-            <div className="feature flip reveal">
-              <div className="fwrap">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <div className="ffig match"><img src="/projects/fireside/exhibit-in-use.png" alt="Fireside exhibit" /></div>
-                <div className="ftxt">
-                  <span className="fidx">02 / 03</span>
-                  <p className="ftag">Interactive exhibit · CU Boulder</p>
-                  <h3>Fireside</h3>
-                  <p className="fhook">A 3D projected table a 9-year-old understood in 15 seconds, with no instructions. Designed for hands, not manuals.</p>
-                  <a className="fgo" href="/projects/fireside">View case study →</a>
-                </div>
-              </div>
-            </div>
-
-            <div className="feature reveal">
-              <div className="fwrap">
-                <div className="ffig embed"><iframe src="/aura-cover.html" title="Aura case-study cover" scrolling="no" /></div>
-                <div className="ftxt">
-                  <span className="fidx">03 / 03</span>
-                  <p className="ftag">Mobile app · e-commerce</p>
-                  <h3>Aura</h3>
-                  <p className="fhook">Gifting, rebuilt around how people actually browse, decide, and check out. The full flow, end to end.</p>
-                  <a className="fgo" href="/projects/aura">View case study →</a>
-                </div>
-              </div>
-            </div>
+          <div className="work-table reveal">
+            {[
+              { num: '01', name: 'FlairX', impact: 'Cut résumé screening from 2 hours to 30 minutes', href: '/projects/flairx' },
+              { num: '02', name: 'Fireside', impact: 'Made wildfire behavior clear in 15 seconds', href: '/projects/fireside' },
+              { num: '03', name: 'Aura', impact: 'Designed the gifting flow end to end', href: '/projects/aura' },
+            ].map((p) => (
+              <Link
+                key={p.name}
+                className="wt-row"
+                href={p.href}
+                onMouseEnter={showPreview}
+                onMouseMove={movePreview}
+                onMouseLeave={hidePreview}
+              >
+                <span className="wt-c-num">{p.num}</span>
+                <span className="wt-c-mid">
+                  <span className="wt-c-name">{p.name}</span>
+                  <span className="wt-c-impact">{p.impact}</span>
+                </span>
+                <span className="wt-c-arrow" aria-hidden="true">→</span>
+              </Link>
+            ))}
           </div>
 
-          <div className="bento">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <a className="tile b-getup reveal" href="/projects/getup"><div className="imgwrap"><img src="/images/getup.png" alt="GetUp brand identity" /></div><span className="cap">GetUp · brand</span></a>
+          {/* Cursor-follow "view" cue for the work rows. */}
+          <div className="wt-preview" ref={previewRef} aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </div>
+
+          <p className="eyebrow reveal wt-other-label">Other work</p>
+          <div className="bento bento-2">
             <a className="tile ttile b-aitm reveal" href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer"><span className="k">Self-initiated · live</span><p className="t">AI Trust Meter shows how grounded an AI answer really is.</p><span className="cta">Try live demo ↗</span></a>
-            <div className="tile ttile b-stat reveal"><span className="k">Selected work</span><div className="big">5</div><span className="t">case studies, shipped end-to-end</span></div>
             <div className="tile ttile b-pov reveal"><span className="k">POV · OpenRouter</span><p className="t">500+ AI models, no guidance. I designed a wizard that gets you to a working API call in four questions.</p><span className="cta">Live prototype →</span></div>
-            <a className="tile ttile b-pod reveal" href="https://open.spotify.com/episode/7I5EGVw51a9Y68yW5Aqv7z" target="_blank" rel="noopener noreferrer"><span className="k">▶ Podcast</span><p className="t">I talked through my whole path into design.</p><span className="cta">Listen →</span></a>
-            <div className="tile ttile b-bake reveal"><span className="k">Off the clock</span><p className="t">Baking, hiking, and painting little rocks. Coffee, always.</p></div>
           </div>
         </div>
       </section>
@@ -270,7 +278,8 @@ export default function HomePage() {
               <h2>I&apos;m Sanjana, Product Designer</h2>
               <p className="a-story">Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re solving yet. That&apos;s the part most designers skip. I don&apos;t.</p>
               <div className="a-actions">
-                <a className="solid" href="/about">Full story →</a>
+                <Link className="solid" href="/about">Full story →</Link>
+                <a className="ghost" href="https://open.spotify.com/episode/7I5EGVw51a9Y68yW5Aqv7z" target="_blank" rel="noopener noreferrer">Listen to my story ↗</a>
                 <a className="ghost" href="/resume.pdf?v=0722" target="_blank" rel="noopener noreferrer">Résumé ↗</a>
               </div>
             </div>
