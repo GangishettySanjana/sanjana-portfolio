@@ -167,7 +167,7 @@
 .home-v2 .wt-c-num{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;align-self:start;padding-top:4px;}
 .home-v2 .wt-c-mid{display:flex;flex-direction:column;gap:5px;min-width:0;}
 .home-v2 .wt-c-name{font-family:var(--serif);font-weight:600;font-size:clamp(20px,2vw,26px);letter-spacing:-0.01em;line-height:1.1;}
-.home-v2 .wt-c-impact{font-size:13.5px;line-height:1.35;color:var(--muted);}
+.home-v2 .wt-c-impact{font-size:13.5px;line-height:1.4;color:var(--muted);max-width:62ch;text-wrap:pretty;}
 .home-v2 .wt-c-type{font-size:14px;color:var(--muted);}
 .home-v2 .wt-c-out{font-size:14px;color:var(--muted);}
 .home-v2 .wt-c-arrow{font-size:18px;color:var(--muted);justify-self:end;transition:transform .2s ease,color .2s ease;}

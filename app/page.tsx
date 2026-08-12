@@ -226,9 +226,9 @@ export default function HomePage() {
 
           <div className="work-table reveal">
             {[
-              { num: '01', name: 'FlairX', impact: 'Cut résumé screening from 2 hours to 30 minutes', href: '/projects/flairx' },
-              { num: '02', name: 'Fireside', impact: 'Made wildfire behavior clear in 15 seconds', href: '/projects/fireside' },
-              { num: '03', name: 'Aura', impact: 'Designed the gifting flow end to end', href: '/projects/aura' },
+              { num: '01', name: 'FlairX', impact: 'Recruiters spent 2 hours just getting candidates into the system. I got it to 30 minutes. The whole flow, from research to ship.', href: '/projects/flairx' },
+              { num: '02', name: 'Fireside', impact: 'A 3D projected table a 9-year-old understood in 15 seconds, with no instructions. Designed for hands, not manuals.', href: '/projects/fireside' },
+              { num: '03', name: 'Aura', impact: 'Gifting, rebuilt around how people actually browse, decide, and check out. The full flow, end to end.', href: '/projects/aura' },
             ].map((p) => (
               <Link
                 key={p.name}
