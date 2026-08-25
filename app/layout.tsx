@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
-import { Source_Sans_3, Space_Grotesk, Outfit, Caveat } from 'next/font/google'
+import { Source_Sans_3, Space_Grotesk, Outfit, Caveat, Instrument_Serif } from 'next/font/google'
 import localFont from 'next/font/local'
 // Geist isn't in Next 14's next/font/google list — use Vercel's official package
 import { GeistSans } from 'geist/font/sans'
@@ -65,6 +65,15 @@ const caveatFont = Caveat({
   display: 'swap',
 })
 
+// TRUE SERIF — Instrument Serif: editorial contrast for fortune slips, About hero, pull quotes
+const instrumentSerifFont = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-instrument-serif',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
   title: 'Sanjana Gangishetty · Product Designer',
   manifest: '/manifest.json',
@@ -102,7 +111,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${displayFont.variable} ${headingFont.variable} ${serifFont.variable} ${bodyFont.variable} ${labelFont.variable} ${GeistSans.variable} ${caveatFont.variable}`}
+      className={`${displayFont.variable} ${headingFont.variable} ${serifFont.variable} ${bodyFont.variable} ${labelFont.variable} ${GeistSans.variable} ${caveatFont.variable} ${instrumentSerifFont.variable}`}
     >
       <head>
         <link rel="preconnect" href="https://api.fontshare.com"/>

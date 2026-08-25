@@ -96,6 +96,33 @@ export default function LandingPage() {
 
           <div className="mt-10 space-y-8">
             <CaseCard
+              tone="bg-[#0f1b2d]"
+              title="Meridian — Advisor Risk Console"
+              subtitle="Redesigning a private-wealth risk tool so advisors identify over-exposed clients in 30 seconds, not 40 minutes."
+              tags={['Fintech · B2B', 'Self-initiated', 'Working Prototype']}
+            >
+              <div className="relative min-h-[260px] overflow-hidden rounded-3xl md:min-h-[360px]" style={{background:'linear-gradient(158deg,#0f1b2d 0%,#1a2d46 60%,#0d1824 100%)'}}>
+                {/* grid lines */}
+                <div style={{position:'absolute',inset:0,backgroundImage:'linear-gradient(rgba(100,160,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(100,160,255,.07) 1px,transparent 1px)',backgroundSize:'28px 28px'}} />
+                {/* blue accent bottom bar */}
+                <div style={{position:'absolute',bottom:0,left:0,right:0,height:'3px',background:'linear-gradient(90deg,#3b82f6,#60a5fa,#2563eb)',opacity:.7}} />
+                {/* risk bars */}
+                <div style={{position:'absolute',inset:0,display:'flex',alignItems:'flex-end',gap:'8px',padding:'40px 32px 20px'}}>
+                  {[{h:'28%',c:'#3b82f6'},{h:'52%',c:'#60a5fa'},{h:'70%',c:'#fbbf24'},{h:'88%',c:'#ef4444'},{h:'45%',c:'#60a5fa'},{h:'22%',c:'#3b82f6'},{h:'60%',c:'#fbbf24'},{h:'94%',c:'#ef4444'},{h:'38%',c:'#60a5fa'},{h:'55%',c:'#fbbf24'}].map((bar, i) => (
+                    <div key={i} style={{flex:1,height:bar.h,background:bar.c,opacity:.6,borderRadius:'3px 3px 0 0'}} />
+                  ))}
+                </div>
+                {/* tag */}
+                <div style={{position:'absolute',top:'16px',right:'16px',fontSize:'9px',fontWeight:600,letterSpacing:'.06em',textTransform:'uppercase',color:'rgba(147,197,253,.85)',background:'rgba(59,130,246,.12)',border:'1px solid rgba(59,130,246,.22)',borderRadius:'5px',padding:'4px 9px'}}>Risk Console</div>
+                {/* stat */}
+                <div style={{position:'absolute',bottom:'24px',left:'32px',color:'rgba(255,255,255,.9)'}}>
+                  <div style={{fontSize:'28px',fontWeight:700,letterSpacing:'-.02em',lineHeight:1}}>40 min <span style={{fontSize:'18px',color:'rgba(147,197,253,.7)'}}>→</span> 30 sec</div>
+                  <div style={{fontSize:'11px',color:'rgba(147,197,253,.65)',marginTop:'4px',letterSpacing:'.04em'}}>time to identify over-exposed clients</div>
+                </div>
+              </div>
+            </CaseCard>
+
+            <CaseCard
               tone="bg-[#E8F6FB]"
               title="AI-Powered Hiring Workflow Redesign"
               subtitle="Streamlining resume parsing, bulk uploads, and candidate intake."

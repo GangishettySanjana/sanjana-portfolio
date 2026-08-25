@@ -141,6 +141,7 @@ const BIG_BEATS = [timeline[0], timeline[3], timeline[7]]
 const NOW_BEAT = timeline[8]
 
 const SERIF = 'var(--font-serif), Georgia, serif'
+const SERIF_TRUE = 'var(--font-instrument-serif), Georgia, serif'
 const SANS = "'Satoshi', sans-serif"
 const PAD_X = 'clamp(32px, 7vw, 96px)'
 
@@ -215,11 +216,11 @@ export default function AboutPage() {
             </span>
 
             <h1 style={{
-              fontFamily: SERIF, fontWeight: 600,
-              fontSize: 'clamp(30px, 3.6vw, 44px)', lineHeight: 1.1,
-              letterSpacing: '0.01em', color: '#111827', margin: '0 0 26px',
+              fontFamily: SERIF_TRUE, fontWeight: 400, fontStyle: 'italic',
+              fontSize: 'clamp(34px, 4vw, 50px)', lineHeight: 1.15,
+              letterSpacing: '0em', color: '#111827', margin: '0 0 26px',
             }}>
-              hi, it means a lot<br />that you&apos;re here ✦
+              hi, it means a lot<br />that you&apos;re here
             </h1>
 
             <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: '#414141', lineHeight: 1.6, margin: '0 0 16px' }}>
@@ -244,7 +245,7 @@ export default function AboutPage() {
           </motion.div>
 
           {/* portrait */}
-          <motion.div {...rise} transition={{ ...(rise as { transition?: object }).transition, delay: 0.12 }}>
+          <motion.div {...rise} transition={{ ...(rise as { transition?: object }).transition, delay: 0.12 }} style={{ transform: 'scale(0.85)', transformOrigin: 'top center' }}>
             <IdBadge
               photo="/images/sanjana-badge.jpg"
               alt="Sanjana Gangishetty"
@@ -260,7 +261,7 @@ export default function AboutPage() {
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto' }}>
           <motion.div {...rise}>
             <Kicker>The journey</Kicker>
-            <h2 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(26px, 3vw, 38px)', lineHeight: 1.1, letterSpacing: '0.01em', color: '#111827', margin: '0 0 clamp(40px, 5vw, 64px)' }}>
+            <h2 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(20px, 2.4vw, 30px)', lineHeight: 1.1, letterSpacing: '-0.02em', color: '#111827', margin: '0 0 clamp(40px, 5vw, 64px)' }}>
               Interior design to product. Seven years, two countries.
             </h2>
           </motion.div>
@@ -272,10 +273,10 @@ export default function AboutPage() {
               <motion.div key={beat.year + beat.title} className={`about-beat ${i % 2 ? 'about-beat-right' : 'about-beat-left'}`} {...rise}>
                 <span className="about-beat-watermark" aria-hidden="true" style={{ fontFamily: SERIF }}>{beat.year}</span>
                 <div className="about-beat-card" style={{ borderTop: `3px solid ${beat.color}`, background: beat.pivot ? 'rgba(190,58,43,0.06)' : '#fff' }}>
-                  <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: beat.color }}>
+                  <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#8a9ab0' }}>
                     {beat.year} · {beat.tag}{beat.pivot ? ' · the pivot' : ''}
                   </span>
-                  <h3 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(21px, 2.1vw, 28px)', lineHeight: 1.15, color: '#111827', margin: '10px 0 8px' }}>{beat.title}</h3>
+                  <h3 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(21px, 2.1vw, 28px)', lineHeight: 1.15, color: '#111827', margin: '12px 0 12px' }}>{beat.title}</h3>
                   <p style={{ fontFamily: SANS, fontSize: 13, color: 'rgba(13,13,13,0.62)', margin: '0 0 12px', fontStyle: 'italic' }}>{beat.whisper}</p>
                   <p style={{ fontFamily: SANS, fontSize: 15, color: 'rgba(13,13,13,0.62)', lineHeight: 1.6, margin: 0 }}>{beat.detail}</p>
                 </div>
@@ -326,7 +327,7 @@ export default function AboutPage() {
 
           <motion.div {...rise}>
             <Kicker>How I work</Kicker>
-            <h2 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(26px, 3vw, 38px)', lineHeight: 1.1, letterSpacing: '0.01em', color: '#111827', margin: '0 0 36px' }}>
+            <h2 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(20px, 2.4vw, 30px)', lineHeight: 1.1, letterSpacing: '-0.02em', color: '#111827', margin: '0 0 36px' }}>
               Six things that don&apos;t change.
             </h2>
           </motion.div>
@@ -335,7 +336,7 @@ export default function AboutPage() {
           <div className="about-principles">
             {principles.map((card, i) => (
               <motion.div key={card.title} className="about-principle" {...rise}>
-                <span style={{ fontFamily: SANS, fontWeight: 700, fontSize: 12, color: CARD_COLORS[i], letterSpacing: '0.06em' }}>0{i + 1}</span>
+                <span style={{ fontFamily: SANS, fontWeight: 700, fontSize: 12, color: '#8a9ab0', letterSpacing: '0.06em' }}>0{i + 1}</span>
                 <h3 style={{ fontFamily: SANS, fontSize: 16, fontWeight: 700, color: '#111827', margin: '6px 0 6px', lineHeight: 1.25 }}>{card.title}</h3>
                 <p style={{ fontFamily: SANS, fontSize: 14, color: 'rgba(13,13,13,0.62)', lineHeight: 1.6, margin: 0 }}>{card.body}</p>
               </motion.div>
@@ -344,7 +345,7 @@ export default function AboutPage() {
 
           <motion.div {...rise} style={{ marginTop: 'clamp(48px, 6vw, 72px)', paddingTop: 'clamp(40px, 5vw, 56px)', borderTop: '1px solid rgba(13,13,13,0.1)' }}>
             <Kicker>Outside of design</Kicker>
-            <h3 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(24px, 2.6vw, 32px)', lineHeight: 1.15, letterSpacing: '0.01em', color: '#111827', margin: '0 0 18px' }}>
+            <h3 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(20px, 2.4vw, 30px)', lineHeight: 1.15, letterSpacing: '-0.02em', color: '#111827', margin: '0 0 18px' }}>
               I exist outside of Figma, I promise.
             </h3>
             <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: 'rgba(13,13,13,0.62)', lineHeight: 1.6, margin: 0, maxWidth: '68ch' }}>
@@ -405,7 +406,7 @@ export default function AboutPage() {
 
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto' }}>
           <Kicker dark>What I&apos;m looking for</Kicker>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(26px, 3vw, 38px)', lineHeight: 1.15, letterSpacing: '0.01em', color: '#fff', margin: '0 0 18px', maxWidth: '38ch' }}>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 'clamp(20px, 2.4vw, 30px)', lineHeight: 1.15, letterSpacing: '-0.02em', color: '#fff', margin: '0 0 18px', maxWidth: '38ch' }}>
             I want to work somewhere that starts with the person, not the feature list.
           </h2>
           <p style={{ fontFamily: SANS, fontSize: 'clamp(15px, 1.3vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, margin: '0 0 36px', maxWidth: '62ch' }}>

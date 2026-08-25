@@ -692,7 +692,7 @@ aside::-webkit-scrollbar { display: none; }
   top: -6px;
   font-size: clamp(48px, 7vw, 92px);
   line-height: 1;
-  color: rgba(13, 13, 13, 0.06);
+  color: rgba(13, 13, 13, 0.04);
   pointer-events: none;
   user-select: none;
 }
@@ -863,12 +863,7 @@ aside::-webkit-scrollbar { display: none; }
   );
 }
 .idbadge-star {
-  position: absolute;
-  right: -26px;
-  bottom: -22px;
-  width: 92px;
-  height: 92px;
-  color: var(--badge-accent);
+  display: none;
 }
 
 @media (max-width: 900px) {

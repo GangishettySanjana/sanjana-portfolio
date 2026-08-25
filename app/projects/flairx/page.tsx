@@ -483,7 +483,10 @@ export default function FlairXPage() {
           <div className="fx-container">
             <Reveal>
             <Link href="/#work" className="fx-back-link" onClick={() => sessionStorage.setItem('skipIntro', '1')}>← Back to work</Link>
-            <p className="fx-eyebrow">Product Design · Live Product · FlairX AI</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+              <p className="fx-eyebrow" style={{ margin: 0 }}>Product Design · FlairX AI</p>
+              <span className="fx-status-live">Live Product</span>
+            </div>
             <h1 className="fx-hero-title fx-title-1line">Redesigning the Recruiter Workflow</h1>
             <p className="fx-hero-sub">
               Recruiters at FlairX were spending 2 hrs just getting candidates into the system.
@@ -504,7 +507,6 @@ export default function FlairXPage() {
                 <p className="fx-summary-hmw">
                   <strong>The challenge:</strong> Make the AI worth using without making recruiters feel like it was making decisions for them. Single upload, bulk, CSV. Three different paths, each with its own way of breaking, each with its own trust problem.
                 </p>
-                <span className="fx-status-live">Live Product</span>
               </div>
               <div className="fx-summary-meta">
                 <div className="fx-smeta-item">
@@ -522,10 +524,6 @@ export default function FlairXPage() {
                 <div className="fx-smeta-item">
                   <span className="fx-smeta-k">Duration</span>
                   <span className="fx-smeta-v">Apr – Dec 2025</span>
-                </div>
-                <div className="fx-smeta-item">
-                  <span className="fx-smeta-k">Tools</span>
-                  <span className="fx-smeta-v">Figma · Notion · Jira · Lovable · Claude</span>
                 </div>
               </div>
               <div className="fx-summary-cols">

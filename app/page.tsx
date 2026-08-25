@@ -226,9 +226,10 @@ export default function HomePage() {
 
           <div className="work-table reveal">
             {[
-              { num: '01', name: 'FlairX', impact: 'Recruiters spent 2 hours just getting candidates into the system. I got it to 30 minutes. The whole flow, from research to ship.', href: '/projects/flairx' },
-              { num: '02', name: 'Fireside', impact: 'A 3D projected table a 9-year-old understood in 15 seconds, with no instructions. Designed for hands, not manuals.', href: '/projects/fireside' },
-              { num: '03', name: 'Aura', impact: 'Gifting, rebuilt around how people actually browse, decide, and check out. The full flow, end to end.', href: '/projects/aura' },
+              { num: '01', name: 'FlairX', tag: 'AI · HR Tech', impact: 'Recruiters spent 2 hours just getting candidates into the system. I got it to 30 minutes. The whole flow, from research to ship.', href: '/projects/flairx' },
+              { num: '02', name: 'Fireside', tag: 'Hardware · 0→1', impact: 'A 3D projected table a 9-year-old understood in 15 seconds, with no instructions. Designed for hands, not manuals.', href: '/projects/fireside' },
+              { num: '03', name: 'Meridian', tag: 'Fintech · Risk', impact: 'Wealth advisors were spending 40 minutes hunting for over-exposed clients. I redesigned the risk console. Now it takes 30 seconds.', href: '/projects/meridian' },
+              { num: '04', name: 'Aura', tag: 'E-Commerce · 0→1', impact: 'Gifting, rebuilt around how people actually browse, decide, and check out. The full flow, end to end.', href: '/projects/aura' },
             ].map((p) => (
               <Link
                 key={p.name}
@@ -241,6 +242,7 @@ export default function HomePage() {
                 <span className="wt-c-num">{p.num}</span>
                 <span className="wt-c-mid">
                   <span className="wt-c-name">{p.name}</span>
+                  <span className="wt-c-tag">{p.tag}</span>
                   <span className="wt-c-impact">{p.impact}</span>
                 </span>
                 <span className="wt-c-arrow" aria-hidden="true">→</span>
@@ -279,7 +281,6 @@ export default function HomePage() {
               <p className="a-story">Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re solving yet. That&apos;s the part most designers skip. I don&apos;t.</p>
               <div className="a-actions">
                 <Link className="solid" href="/about">Full story →</Link>
-                <a className="ghost" href="https://open.spotify.com/episode/7I5EGVw51a9Y68yW5Aqv7z" target="_blank" rel="noopener noreferrer">Listen to my story ↗</a>
                 <a className="ghost" href="/resume.pdf?v=0722" target="_blank" rel="noopener noreferrer">Résumé ↗</a>
               </div>
             </div>
