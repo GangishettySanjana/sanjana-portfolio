@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { gsap } from 'gsap'
 import './home-v2.css'
 
 export default function HomePage() {
@@ -138,6 +139,38 @@ export default function HomePage() {
     cookiesEl?.addEventListener('click', onCookieClick)
     refill?.addEventListener('click', onRefill)
 
+    /* ── Daily UI stacked card interaction ── */
+    const CARD_H = 480   // total card height
+    const TAB_H  = 64    // visible tab strip when collapsed
+
+    const scards = Array.from(document.querySelectorAll<HTMLElement>('.home-v2 .du-scard'))
+    let stackOrder = scards.map((_, i) => i)
+
+    const layoutStack = () => {
+      stackOrder.forEach((cardIdx, pos) => {
+        const el = scards[cardIdx]
+        if (!el) return
+        const y = pos === 0 ? 0 : CARD_H - TAB_H * (stackOrder.length - pos)
+        el.style.zIndex = String(stackOrder.length - pos)
+        if (!reduceMotion) {
+          gsap.to(el, { y, duration: 0.55, ease: 'power3.out' })
+        } else {
+          el.style.transform = `translateY(${y}px)`
+        }
+      })
+    }
+    layoutStack()
+
+    scards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const idx = Number(card.dataset.index)
+        const pos = stackOrder.indexOf(idx)
+        if (pos === 0) return
+        stackOrder = [idx, ...stackOrder.filter(i => i !== idx)]
+        layoutStack()
+      })
+    })
+
     return () => {
       window.removeEventListener('pointermove', onMove)
       window.clearInterval(intervalId)
@@ -166,6 +199,7 @@ export default function HomePage() {
           <div className="nav-right">
             <div className={`navlinks${menuOpen ? ' open' : ''}`}>
               <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
+              <a href="#daily-ui" onClick={() => setMenuOpen(false)}>Daily UI</a>
               <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
               <Link href="/fun" onClick={() => setMenuOpen(false)}>Fun</Link>
               <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
@@ -262,6 +296,33 @@ export default function HomePage() {
           <div className="bento bento-2">
             <a className="tile ttile b-aitm reveal" href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer"><span className="k">Self-initiated · live</span><p className="t">AI Trust Meter shows how grounded an AI answer really is.</p><span className="cta">Try live demo ↗</span></a>
             <div className="tile ttile b-pov reveal"><span className="k">POV · OpenRouter</span><p className="t">500+ AI models, no guidance. I designed a wizard that gets you to a working API call in four questions.</p><span className="cta">Live prototype →</span></div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ DAILY UI ══ */}
+      <section className="daily-ui" id="daily-ui">
+        <div className="wrap">
+          <div className="du-header reveal">
+            <p className="eyebrow">Daily UI Challenge</p>
+            <span className="du-counter">Day 4 of 100</span>
+          </div>
+          <p className="du-sub reveal">One prompt. One artifact. Every day.</p>
+          <div className="du-stack reveal" id="du-stack">
+            {([
+              { day: '01', prompt: 'Sign Up',              video: '/daily-ui/001.mp4', href: '#' },
+              { day: '02', prompt: 'Credit Card Checkout', video: '/daily-ui/002.mp4', href: '#' },
+              { day: '03', prompt: 'Landing Page',         video: '/daily-ui/003.mp4', href: '#' },
+            ] as { day: string; prompt: string; video: string; href: string }[]).map((item, i) => (
+              <div key={item.day} className="du-scard" data-index={i}>
+                <video src={item.video} autoPlay muted loop playsInline className="du-svideo" />
+                <div className="du-stab">
+                  <span className="du-day">Day {item.day}</span>
+                  <span className="du-prompt">{item.prompt}</span>
+                  <a href={item.href} target="_blank" rel="noopener noreferrer" className="du-cta" onClick={e => e.stopPropagation()}>View →</a>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
