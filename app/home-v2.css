@@ -452,3 +452,10 @@
   padding:8px 14px;border-radius:14px;}
 @media(max-width:640px){ .home-v2 .fun-grid{grid-template-columns:1fr;} }
 @media (hover:none){ .home-v2 .fun-embed:hover{transform:none;} }
+
+/* ── identity / bond-type card ── */
+.bond-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 48px) 80px;
+}
