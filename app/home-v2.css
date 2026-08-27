@@ -90,8 +90,8 @@
 .home-v2 .pill{background:var(--pill);border:1px solid var(--pill-line);border-radius:999px;
   padding:11px 22px;font-size:14px;font-weight:500;backdrop-filter:blur(6px);
   box-shadow:0 8px 20px -12px rgba(20,40,70,0.3);}
-.home-v2 h1{font-family:var(--serif);font-weight:600;font-size:clamp(22px,3.5vw,42px);
-  line-height:1.2;letter-spacing:10px;margin-top:20px;max-width:30ch;text-wrap:balance;}
+.home-v2 h1{font-family:var(--serif);font-weight:600;font-size:clamp(32px,3.5vw,52px);
+  line-height:1.2;letter-spacing:4px;margin-top:20px;max-width:30ch;text-wrap:balance;}
 .home-v2 .sub{font-size:clamp(15px,1.5vw,17px);line-height:1.62;color:var(--muted);max-width:54ch;margin-top:14px;text-wrap:pretty;}
 .home-v2 .divider{width:min(680px,86%);height:1px;margin:22px auto 0;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,0.9),transparent);}
