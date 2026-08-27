@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import TyperHero from '@/components/TyperHero'
 import './home-v2.css'
 
 export default function HomePage() {
@@ -189,7 +190,7 @@ export default function HomePage() {
               </span>
               I&apos;m Sanjana</p>
             <span className="pill">Product Designer · designs &amp; ships</span>
-            <h1>Designing better human experiences for an AI-first world.</h1>
+            <TyperHero />
             <p className="sub">Seven years in design, three in product, mostly AI and fintech. The messier the problem, the more I like it.</p>
             <div className="divider" />
             <div className="prev">

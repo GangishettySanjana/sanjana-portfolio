@@ -21,7 +21,11 @@ export default function Intro() {
       setMounted(false)
       return
     }
-    const t = setTimeout(() => setShow(false), 2200)
+    const t = setTimeout(() => {
+      setShow(false)
+      // fire after exit animation completes (~1s slide-up)
+      setTimeout(() => window.dispatchEvent(new CustomEvent('curtain-done')), 1050)
+    }, 2200)
     return () => clearTimeout(t)
   }, [])
 
