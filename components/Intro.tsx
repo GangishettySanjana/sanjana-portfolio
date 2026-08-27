@@ -1,19 +1,22 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { AnimatePresence } from 'framer-motion'
 import Preloader from './Preloader'
 
-/**
- * Shows the intro curtain on every full page load (refresh / direct entry).
- * It does NOT replay on in-site navigation, since the layout stays mounted.
- * Skipped entirely under reduced motion.
- */
+const NO_CURTAIN_PATHS = ['/daily-ui']
+
 export default function Intro() {
+  const pathname = usePathname()
   const [show, setShow] = useState(true)
   const [mounted, setMounted] = useState(true)
 
   useEffect(() => {
+    if (NO_CURTAIN_PATHS.some(p => pathname.startsWith(p))) {
+      setMounted(false)
+      return
+    }
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setMounted(false)
       return

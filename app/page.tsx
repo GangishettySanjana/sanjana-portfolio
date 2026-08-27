@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { gsap } from 'gsap'
 import './home-v2.css'
 
 export default function HomePage() {
@@ -138,38 +137,6 @@ export default function HomePage() {
     }
     cookiesEl?.addEventListener('click', onCookieClick)
     refill?.addEventListener('click', onRefill)
-
-    /* ── Daily UI stacked card interaction ── */
-    const CARD_H = 480   // total card height
-    const TAB_H  = 64    // visible tab strip when collapsed
-
-    const scards = Array.from(document.querySelectorAll<HTMLElement>('.home-v2 .du-scard'))
-    let stackOrder = scards.map((_, i) => i)
-
-    const layoutStack = () => {
-      stackOrder.forEach((cardIdx, pos) => {
-        const el = scards[cardIdx]
-        if (!el) return
-        const y = pos === 0 ? 0 : CARD_H - TAB_H * (stackOrder.length - pos)
-        el.style.zIndex = String(stackOrder.length - pos)
-        if (!reduceMotion) {
-          gsap.to(el, { y, duration: 0.55, ease: 'power3.out' })
-        } else {
-          el.style.transform = `translateY(${y}px)`
-        }
-      })
-    }
-    layoutStack()
-
-    scards.forEach((card) => {
-      card.addEventListener('click', () => {
-        const idx = Number(card.dataset.index)
-        const pos = stackOrder.indexOf(idx)
-        if (pos === 0) return
-        stackOrder = [idx, ...stackOrder.filter(i => i !== idx)]
-        layoutStack()
-      })
-    })
 
     return () => {
       window.removeEventListener('pointermove', onMove)
@@ -307,21 +274,24 @@ export default function HomePage() {
             <p className="eyebrow">Daily UI Challenge</p>
             <span className="du-counter">Day 4 of 100</span>
           </div>
-          <p className="du-sub reveal">One prompt. One artifact. Every day.</p>
-          <div className="du-stack reveal" id="du-stack">
+          <div className="du-subrow reveal">
+            <a href="/daily-ui" className="du-see-all">See all →</a>
+          </div>
+          <div className="du-grid reveal">
             {([
               { day: '01', prompt: 'Sign Up',              video: '/daily-ui/001.mp4', href: '#' },
               { day: '02', prompt: 'Credit Card Checkout', video: '/daily-ui/002.mp4', href: '#' },
-              { day: '03', prompt: 'Landing Page',         video: '/daily-ui/003.mp4', href: '#' },
-            ] as { day: string; prompt: string; video: string; href: string }[]).map((item, i) => (
-              <div key={item.day} className="du-scard" data-index={i}>
-                <video src={item.video} autoPlay muted loop playsInline className="du-svideo" />
-                <div className="du-stab">
+              { day: '04', prompt: 'Calculator',           video: '/daily-ui/004.mov', href: '#' },
+            ] as { day: string; prompt: string; video: string; href: string }[]).map((item) => (
+              <a key={item.day} href={item.href} target="_blank" rel="noopener noreferrer" className="du-card">
+                <div className="du-video-wrap">
+                  <video src={item.video} autoPlay muted loop playsInline className="du-video" />
+                </div>
+                <div className="du-info">
                   <span className="du-day">Day {item.day}</span>
                   <span className="du-prompt">{item.prompt}</span>
-                  <a href={item.href} target="_blank" rel="noopener noreferrer" className="du-cta" onClick={e => e.stopPropagation()}>View →</a>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
