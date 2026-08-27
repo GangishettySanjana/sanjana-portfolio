@@ -214,7 +214,7 @@ aside::-webkit-scrollbar { display: none; }
   position: relative; z-index: 1;
   color: #1c2a3a;
   font-family: var(--font-serif), 'Instrument Serif', Georgia, serif;
-  font-size: clamp(30px, 5vw, 52px); line-height: 1;
+  font-size: clamp(30px, 5vw, 52px); line-height: 1; letter-spacing: 10px;
 }
 .preloader-curve {
   position: absolute; top: 0; left: 0; width: 100%; height: calc(100% + 300px);

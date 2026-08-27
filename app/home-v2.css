@@ -91,7 +91,7 @@
   padding:11px 22px;font-size:14px;font-weight:500;backdrop-filter:blur(6px);
   box-shadow:0 8px 20px -12px rgba(20,40,70,0.3);}
 .home-v2 h1{font-family:var(--serif);font-weight:600;font-size:clamp(22px,3.5vw,42px);
-  line-height:1.2;letter-spacing:-0.025em;margin-top:20px;max-width:30ch;text-wrap:balance;}
+  line-height:1.2;letter-spacing:10px;margin-top:20px;max-width:30ch;text-wrap:balance;}
 .home-v2 .sub{font-size:clamp(15px,1.5vw,17px);line-height:1.62;color:var(--muted);max-width:54ch;margin-top:14px;text-wrap:pretty;}
 .home-v2 .divider{width:min(680px,86%);height:1px;margin:22px auto 0;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,0.9),transparent);}
@@ -266,64 +266,32 @@
 .home-v2 .seam-up{position:relative;z-index:1;height:220px;margin-top:-1px;
   background:linear-gradient(180deg,#ffffff 6%, transparent 100%);}
 
-/* ── ABOUT ── */
-/* ── daily ui ──────────────────────────────────────────────────────── */
-.home-v2 .daily-ui{padding:40px 0 72px;background:#ffffff;}
+/* ── DAILY UI ── */
+.home-v2 .daily-ui{padding:40px 0 56px;background:#ffffff;}
 .home-v2 .daily-ui .wrap{max-width:1100px;margin:0 auto;padding:0 clamp(24px,5vw,64px);}
-.home-v2 .du-header{display:flex;align-items:center;gap:14px;margin-bottom:8px;}
+.home-v2 .du-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
 .home-v2 .du-counter{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
   color:var(--blue);background:rgba(47,107,214,0.08);border:1px solid rgba(47,107,214,0.15);
   padding:4px 10px;border-radius:999px;}
-.home-v2 .du-sub{font-size:14px;color:var(--muted);margin-bottom:36px;font-style:italic;}
-
-/* stacked card interaction */
-.home-v2 .du-stack{
-  position:relative;
-  height:calc(480px + 64px * 2); /* card + 2 tab strips */
-  margin-bottom:0;
-}
-.home-v2 .du-scard{
-  position:absolute;
-  top:0;left:0;right:0;
-  height:480px;
-  border-radius:20px;
-  overflow:hidden;
-  cursor:pointer;
-  background:#f0f0ee;
-  border:1px solid var(--line);
-  box-shadow:0 4px 24px -8px rgba(28,42,58,0.12);
-  will-change:transform;
-}
-.home-v2 .du-scard:first-child{cursor:default;}
-.home-v2 .du-svideo{
-  width:100%;height:100%;
-  object-fit:cover;
-  display:block;
-  pointer-events:none;
-}
-.home-v2 .du-stab{
-  position:absolute;
-  bottom:0;left:0;right:0;
-  height:64px;
-  display:flex;align-items:center;gap:16px;
-  padding:0 28px;
-  background:rgba(255,255,255,0.88);
-  backdrop-filter:blur(8px);
-  border-top:1px solid var(--line);
-}
-.home-v2 .du-day{font-size:10px;font-weight:700;letter-spacing:0.12em;
-  text-transform:uppercase;color:var(--muted);white-space:nowrap;}
-.home-v2 .du-prompt{font-size:15px;font-weight:600;color:var(--ink);flex:1;}
-.home-v2 .du-cta{font-size:12px;font-weight:700;color:var(--blue);
-  text-decoration:none;white-space:nowrap;flex-shrink:0;}
-.home-v2 .du-cta:hover{opacity:0.7;}
-
-@media (max-width:640px){
-  .home-v2 .du-stack{height:calc(320px + 56px * 2);}
-  .home-v2 .du-scard{height:320px;}
-  .home-v2 .du-stab{height:56px;padding:0 20px;}
+.home-v2 .du-subrow{display:flex;justify-content:flex-end;margin-bottom:20px;}
+.home-v2 .du-see-all{font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;}
+.home-v2 .du-see-all:hover{opacity:0.7;}
+.home-v2 .du-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.home-v2 .du-card{display:block;border-radius:14px;overflow:hidden;text-decoration:none;
+  border:1px solid var(--line);box-shadow:0 2px 12px -4px rgba(28,42,58,0.08);
+  transition:transform .2s ease,box-shadow .2s ease;}
+.home-v2 .du-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px -6px rgba(28,42,58,0.16);}
+.home-v2 .du-video-wrap{overflow:hidden;height:220px;}
+.home-v2 .du-video{width:100%;height:100%;object-fit:cover;display:block;}
+.home-v2 .du-info{padding:12px 16px;display:flex;flex-direction:column;gap:3px;}
+.home-v2 .du-day{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.home-v2 .du-prompt{font-size:13px;font-weight:600;color:var(--ink);}
+@media(max-width:640px){
+  .home-v2 .du-grid{grid-template-columns:1fr;}
+  .home-v2 .du-video-wrap{height:200px;}
 }
 
+/* ── ABOUT ── */
 .home-v2 .about{position:relative;z-index:1;background:#ffffff;padding:8px 0 60px;}
 .home-v2 .about .wrap{max-width:1000px;margin:0 auto;padding:0 clamp(24px,5vw,40px);}
 .home-v2 .eyebrow2{font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(28,42,58,0.65);}
