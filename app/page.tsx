@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { BondTypeCard } from '@/components/bond-type/BondTypeCard'
 import './home-v2.css'
 
 export default function HomePage() {
@@ -297,11 +296,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ══ IDENTITY CARD ══ */}
-      <div className="bond-wrap">
-        <BondTypeCard />
-      </div>
 
       {/* ══ ABOUT ══ */}
       <section className="about" id="about">
