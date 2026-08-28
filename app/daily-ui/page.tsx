@@ -7,6 +7,7 @@ const entries = [
   { day: '02', prompt: 'Credit Card Checkout', video: '/daily-ui/002.mp4', href: '#' },
   { day: '03', prompt: 'Landing Page',         video: '/daily-ui/003.mp4', href: '#' },
   { day: '04', prompt: 'Calculator',           video: '/daily-ui/004.mov', href: '#' },
+  { day: '05', prompt: 'User Profile',         video: '/daily-ui/005.mov', href: '#' },
 ]
 
 export default function DailyUIPage() {
