@@ -123,7 +123,7 @@
 .home-v2 .marquee-toggle:focus-visible{outline:2px solid #1e5dac;outline-offset:2px;}
 .home-v2 .tag{background:var(--skill);border-radius:12px;padding:11px 20px;font-size:14px;font-weight:600;
   color:#2a3542;box-shadow:0 2px 0 rgba(255,255,255,0.5) inset;white-space:nowrap;
-  transition:background .35s ease, color .35s ease, transform .35s ease, box-shadow .35s ease;}
+  transition:background .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease;}
 .home-v2 .tag.on{background:#2f6bd6;color:#fff;transform:translateY(-3px) scale(1.06);
   box-shadow:0 12px 22px -10px rgba(47,107,214,0.6);}
 .home-v2 .tag.fun{background:#fff;color:#41506a;font-weight:500;box-shadow:0 8px 18px -10px rgba(20,40,70,0.32);}
@@ -394,6 +394,7 @@
   .home-v2 .a-actions a:hover,
   .home-v2 .foot .btn:hover{transform:none;}
   .home-v2 .feature:hover .ffig img{transform:none;}
+  .home-v2 .work-table:hover .wt-row{opacity:1;}
 }
 
 /* #5 — hero "Previously in" pills cascade in on load (30–80ms stagger) */
@@ -414,6 +415,7 @@
 @media (prefers-reduced-motion:reduce){
   .home-v2 .prev .p{animation:none;}
   .home-v2 .status .dot::after{animation:none;}
+  .home-v2 .reveal{opacity:1;transform:none;transition:none;}
 }
 
 /* ── Fun stuff — playable experiments band ───────────────────────── */

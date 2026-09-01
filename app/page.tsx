@@ -273,16 +273,16 @@ export default function HomePage() {
         <div className="wrap">
           <div className="du-header reveal">
             <p className="eyebrow">Daily UI Challenge</p>
-            <span className="du-counter">Day 4 of 100</span>
+            <span className="du-counter">Day 5 of 100</span>
           </div>
           <div className="du-subrow reveal">
             <a href="/daily-ui" className="du-see-all">See all →</a>
           </div>
           <div className="du-grid reveal">
             {([
-              { day: '01', prompt: 'Sign Up',              video: '/daily-ui/001.mp4', href: '#' },
-              { day: '02', prompt: 'Credit Card Checkout', video: '/daily-ui/002.mp4', href: '#' },
-              { day: '04', prompt: 'Calculator',           video: '/daily-ui/004.mov', href: '#' },
+              { day: '03', prompt: 'Landing Page',         video: '/daily-ui/003.mp4', href: '#' },
+              { day: '04', prompt: 'Calculator',           video: '/daily-ui/004.mp4', href: '#' },
+              { day: '05', prompt: 'User Profile',         video: '/daily-ui/005.mp4', href: '#' },
             ] as { day: string; prompt: string; video: string; href: string }[]).map((item) => (
               <a key={item.day} href={item.href} target="_blank" rel="noopener noreferrer" className="du-card">
                 <div className="du-video-wrap">
