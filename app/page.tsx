@@ -289,7 +289,6 @@ export default function HomePage() {
                   <video src={item.video} autoPlay muted loop playsInline className="du-video" />
                 </div>
                 <div className="du-info">
-                  <span className="du-day">Day {item.day}</span>
                   <span className="du-prompt">{item.prompt}</span>
                 </div>
               </a>

@@ -6,8 +6,11 @@ const entries = [
   { day: '01', prompt: 'Sign Up',              video: '/daily-ui/001.mp4', href: '#' },
   { day: '02', prompt: 'Credit Card Checkout', video: '/daily-ui/002.mp4', href: '#' },
   { day: '03', prompt: 'Landing Page',         video: '/daily-ui/003.mp4', href: '#' },
-  { day: '04', prompt: 'Calculator',           video: '/daily-ui/004.mov', href: '#' },
+  { day: '04', prompt: 'Calculator',           video: '/daily-ui/004.mp4', href: '#' },
   { day: '05', prompt: 'User Profile',         video: '/daily-ui/005.mp4', href: '#' },
+  { day: '07', prompt: 'Settings',             video: '/daily-ui/007.mp4', href: '#' },
+  { day: '08', prompt: '404 Page',             video: '/daily-ui/008.mp4', href: '#' },
+  { day: '09', prompt: 'Music Player',         video: '/daily-ui/009.mp4', href: '#' },
 ]
 
 export default function DailyUIPage() {
@@ -30,7 +33,6 @@ export default function DailyUIPage() {
               <video src={item.video} autoPlay muted loop playsInline className="dui-video" />
             </div>
             <div className="dui-meta">
-              <span className="dui-day">Day {item.day}</span>
               <span className="dui-prompt">{item.prompt}</span>
             </div>
           </a>
