@@ -8,9 +8,9 @@ const entries = [
   { day: '03', prompt: 'Landing Page',         video: '/daily-ui/003.mp4', href: '#' },
   { day: '04', prompt: 'Calculator',           video: '/daily-ui/004.mp4', href: '#' },
   { day: '05', prompt: 'User Profile',         video: '/daily-ui/005.mp4', href: '#' },
-  { day: '07', prompt: 'Settings',             video: '/daily-ui/007.mp4', href: '#' },
-  { day: '08', prompt: '404 Page',             video: '/daily-ui/008.mp4', href: '#' },
-  { day: '09', prompt: 'Music Player',         video: '/daily-ui/009.mp4', href: '#' },
+  { day: '07', prompt: '404 Page',             video: '/daily-ui/007.mp4', href: '#' },
+  { day: '08', prompt: 'Music Player',         video: '/daily-ui/008.mp4', href: '#' },
+  { day: '09', prompt: 'Settings',             video: '/daily-ui/009.mp4', href: '#' },
 ]
 
 export default function DailyUIPage() {
