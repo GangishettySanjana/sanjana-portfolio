@@ -121,8 +121,23 @@
 @media (hover: hover) {
   .dui-card:hover .dui-overlay { opacity: 1; transform: translateY(0); }
 }
+.dui-card:focus-within .dui-overlay { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) {
   .dui-overlay { transition: opacity 0.15s ease; transform: none; }
+}
+
+/* note visible on touch devices (no hover) */
+.dui-card-note {
+  display: none;
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(28,42,58,0.62);
+  padding: 12px 14px 14px;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+@media (hover: none) {
+  .dui-card-note { display: block; }
 }
 .dui-overlay-prompt {
   font-size: 11px;
@@ -133,32 +148,13 @@
   margin: 0;
 }
 .dui-overlay-note {
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.7;
   color: rgba(220, 232, 250, 0.92);
   letter-spacing: -0.01em;
   margin: 0;
 }
 
-.dui-meta {
-  padding: 12px 14px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.dui-day {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(28,42,58,0.38);
-}
-.dui-prompt {
-  font-size: 13px;
-  font-weight: 700;
-  color: #1c2a3a;
-  letter-spacing: -0.01em;
-}
 
 @media (max-width: 860px) {
   .dui-gallery { grid-template-columns: repeat(2, 1fr); }

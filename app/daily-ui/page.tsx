@@ -5,35 +5,35 @@ import './daily-ui.css'
 const entries = [
   {
     day: '01', prompt: 'Sign Up', video: '/daily-ui/001.mp4', href: '#',
-    note: 'Exploring form hierarchy and accessible input states. Where do labels live, how does error feel vs function, and what does trust look like at the moment someone hands over an email.',
+    note: 'A signup screen with email and password fields, floating labels, and an inline error state. I was working out how errors should feel. Informative without making you feel like you did something wrong.',
   },
   {
     day: '02', prompt: 'Credit Card Checkout', video: '/daily-ui/002.mp4', href: '#',
-    note: 'Payment UX is all about trust signals at the exact moment of hesitation. Explored card flip animation with CSS transforms and how visual rhythm affects perceived security.',
+    note: 'The card number field is the most anxious moment in any checkout. I worked on the flip animation between front and back, and figured out that timing it wrong makes the whole thing feel fake.',
   },
   {
     day: '03', prompt: 'Landing Page', video: '/daily-ui/003.mp4', href: '#',
-    note: 'Hero composition and visual hierarchy — specifically how type pairing and whitespace carry a message before anyone reads a word. Exploring scroll momentum as a design tool.',
+    note: 'A landing page for an architecture studio. Full-bleed imagery, minimal navigation, a lot of negative space. I was working out how much the typeface and spacing carry the brand feeling before anyone reads a word.',
   },
   {
     day: '04', prompt: 'Calculator', video: '/daily-ui/004.mp4', href: '#',
-    note: 'Grid layout precision and interaction state logic. Constraints in a calculator surface reveal a lot about how affordances communicate intent — every key has to feel inevitable.',
+    note: 'A calorie calculator for a health app. The challenge is not the math. It\'s getting someone to actually log their food without it feeling like homework. I focused on making input fast and the results feel worth seeing.',
   },
   {
     day: '05', prompt: 'User Profile', video: '/daily-ui/005.mp4', href: '#',
-    note: 'Data-dense layouts that stay readable. Exploring stat cards, avatar systems, and how to make personal data feel like a portrait rather than a database row.',
+    note: 'A music profile is about taste as much as activity. What you\'ve played, what you\'ve saved, who you listen with. I got into how to make those numbers feel like a portrait of someone rather than just their listening data.',
   },
   {
     day: '07', prompt: '404 Page', video: '/daily-ui/007.mp4', href: '#',
-    note: 'Error states as a design moment. Turning friction into something worth pausing on — exploring how illustration and tone can make a dead end feel intentional.',
+    note: 'A 404 page is already a failure. I wanted to know what it takes to make that moment feel intentional rather than broken. Turns out the copy matters as much as the illustration.',
   },
   {
     day: '08', prompt: 'Music Player', video: '/daily-ui/008.mp4', href: '#',
-    note: 'Vinyl UI metaphors and playback state animation. How physical object logic translates into interaction — and when the analogy starts to break in interesting ways.',
+    note: 'A music player for a car dashboard. Controls that work at a glance, large enough to tap without looking, and a display that gives you what you need without making you read. Different constraints than a phone UI.',
   },
   {
-    day: '09', prompt: 'Settings', video: '/daily-ui/009.mp4', href: '#',
-    note: 'Toggle design systems and preference UIs. Exploring how to make configuration feel like control — not a form, not a menu, but a space that feels like yours.',
+    day: '09', prompt: 'Social Share', video: '/daily-ui/009.mp4', href: '#',
+    note: 'A share screen is a small surface with a big job. You\'re asking someone to put their name behind something. I got into what makes that feel easy versus what makes it feel like a commitment.',
   },
 ]
 
@@ -45,25 +45,22 @@ export default function DailyUIPage() {
         <div className="dui-header-inner">
           <h1 className="dui-title">Daily UI Challenge</h1>
           <p className="dui-subtitle">
-            Daily UI prompts built with Claude Code — each one an experiment at the intersection of design and AI-assisted building.
+            Daily UI gives you a prompt a day for 100 days. I design each one, come up with a concept, then build it in code using AI tools like Claude Code, Cursor, and Replit. The learning is about better prompting, token usage, and building design systems that AI can actually understand. Hover any card to see the notes.
           </p>
-          <div className="dui-header-actions">
-            <a href="mailto:sanjanagangishetty0@gmail.com" className="dui-about-link">Drop me an email</a>
-            <a href="#" className="dui-about-link dui-about-link--cta">Book a call</a>
-          </div>
         </div>
       </div>
 
       <main className="dui-gallery">
         {entries.map((item) => (
-          <a key={item.day} href={item.href} target="_blank" rel="noopener noreferrer" className="dui-card">
+          <a key={item.day} href={item.video} target="_blank" rel="noopener noreferrer" className="dui-card" aria-label={`${item.prompt} — view recording`}>
             <div className="dui-video-wrap">
               <video src={item.video} autoPlay muted loop playsInline className="dui-video" />
-              <div className="dui-overlay" aria-hidden="true">
+              <div className="dui-overlay" role="region" aria-label={item.prompt}>
                 <p className="dui-overlay-prompt">{item.prompt}</p>
                 <p className="dui-overlay-note">{item.note}</p>
               </div>
             </div>
+            <p className="dui-card-note">{item.note}</p>
           </a>
         ))}
       </main>

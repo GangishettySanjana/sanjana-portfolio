@@ -273,7 +273,6 @@ export default function HomePage() {
         <div className="wrap">
           <div className="du-header reveal">
             <p className="eyebrow">Daily UI Challenge</p>
-            <span className="du-counter">Day 5 of 100</span>
           </div>
           <div className="du-subrow reveal">
             <a href="/daily-ui" className="du-see-all">See all →</a>
