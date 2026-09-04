@@ -44,34 +44,24 @@
 }
 .dui-back:hover { color: #1c2a3a; }
 
-.dui-title-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 6px;
-}
 .dui-title {
   font-size: clamp(22px, 3vw, 32px);
   font-weight: 800;
   color: #1c2a3a;
   letter-spacing: -0.03em;
+  margin-bottom: 14px;
 }
-.dui-badge {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #2f6bd6;
-  background: rgba(47,107,214,0.08);
-  border: 1px solid rgba(47,107,214,0.18);
-  padding: 3px 9px;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-.dui-tagline {
+.dui-subtitle {
   font-size: 14px;
-  color: rgba(28,42,58,0.5);
-  font-style: italic;
+  line-height: 1.75;
+  color: rgba(28,42,58,0.58);
+  letter-spacing: -0.01em;
+  margin: 0 0 20px;
+}
+.dui-header-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 /* ── gallery ── */
@@ -79,15 +69,15 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 24px clamp(20px, 5vw, 40px) 80px;
-  columns: 3;
-  column-gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: start;
 }
 
 .dui-card {
   display: block;
   text-decoration: none;
-  break-inside: avoid;
-  margin-bottom: 16px;
   background: #fff;
   border-radius: 14px;
   overflow: hidden;
@@ -116,16 +106,16 @@
 .dui-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(10, 14, 22, 0.86);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  padding: 20px 18px;
+  background: rgba(8, 12, 22, 0.42);
+  backdrop-filter: blur(10px) saturate(1.6);
+  -webkit-backdrop-filter: blur(10px) saturate(1.6);
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.22s ease, transform 0.22s ease;
+  transform: translateY(5px);
+  transition: opacity 0.24s ease, transform 0.24s ease;
   pointer-events: none;
 }
 @media (hover: hover) {
@@ -134,10 +124,18 @@
 @media (prefers-reduced-motion: reduce) {
   .dui-overlay { transition: opacity 0.15s ease; transform: none; }
 }
+.dui-overlay-prompt {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+}
 .dui-overlay-note {
-  font-size: 12.5px;
+  font-size: 12px;
   line-height: 1.6;
-  color: rgba(220, 230, 245, 0.9);
+  color: rgba(220, 232, 250, 0.92);
   letter-spacing: -0.01em;
   margin: 0;
 }
@@ -163,10 +161,10 @@
 }
 
 @media (max-width: 860px) {
-  .dui-gallery { columns: 2; }
+  .dui-gallery { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 520px) {
-  .dui-gallery { columns: 1; }
+  .dui-gallery { grid-template-columns: 1fr; }
 }
 
 /* ── footer note ── */

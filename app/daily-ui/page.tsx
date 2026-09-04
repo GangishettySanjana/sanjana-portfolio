@@ -43,9 +43,13 @@ export default function DailyUIPage() {
       <img className="dui-sky" src="/sky.png" alt="" />
       <div className="dui-header">
         <div className="dui-header-inner">
-          <div className="dui-title-row">
-            <h1 className="dui-title">Daily UI Challenge</h1>
-            <span className="dui-badge">Day {entries.length} of 100</span>
+          <h1 className="dui-title">Daily UI Challenge</h1>
+          <p className="dui-subtitle">
+            Daily UI prompts built with Claude Code — each one an experiment at the intersection of design and AI-assisted building.
+          </p>
+          <div className="dui-header-actions">
+            <a href="mailto:sanjanagangishetty0@gmail.com" className="dui-about-link">Drop me an email</a>
+            <a href="#" className="dui-about-link dui-about-link--cta">Book a call</a>
           </div>
         </div>
       </div>
@@ -56,32 +60,14 @@ export default function DailyUIPage() {
             <div className="dui-video-wrap">
               <video src={item.video} autoPlay muted loop playsInline className="dui-video" />
               <div className="dui-overlay" aria-hidden="true">
+                <p className="dui-overlay-prompt">{item.prompt}</p>
                 <p className="dui-overlay-note">{item.note}</p>
               </div>
-            </div>
-            <div className="dui-meta">
-              <span className="dui-prompt">{item.prompt}</span>
             </div>
           </a>
         ))}
       </main>
 
-      <section className="dui-about">
-        <div className="dui-about-inner">
-          <p className="dui-about-text">
-            These explorations are part of my development practice with Claude Code. This portfolio,
-            the experiments inside it, and a lot of work I haven&apos;t posted yet all sit at the
-            intersection of design and AI-assisted building — which is where I spend most of my time.
-            I&apos;m using this space to track what I&apos;m learning: how to optimise Claude token usage,
-            how design system thinking translates into prompt design, and what happens when you push
-            both at once. If something resonates, I&apos;d love to hear from you.
-          </p>
-          <div className="dui-about-actions">
-            <a href="mailto:sanjanagangishetty0@gmail.com" className="dui-about-link">Drop me an email</a>
-            <a href="#" className="dui-about-link dui-about-link--cta">Book a call</a>
-          </div>
-        </div>
-      </section>
     </div>
   )
 }
