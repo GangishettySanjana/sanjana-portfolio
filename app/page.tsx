@@ -191,7 +191,7 @@ export default function HomePage() {
               I&apos;m Sanjana</p>
             <span className="pill">Product Designer · designs &amp; ships</span>
             <TyperHero />
-            <p className="sub">Seven years in design, three in product, mostly AI and fintech. The messier the problem, the more I like it.</p>
+            <p className="sub">3 years in product, 7 in design. Mostly AI and fintech. The messier the problem, the more I like it.</p>
             <div className="divider" />
             <div className="prev">
               <span className="lbl">Previously in</span>
@@ -229,8 +229,8 @@ export default function HomePage() {
           <div className="work-table reveal">
             {[
               { num: '01', name: 'FlairX', tag: 'AI · HR Tech', impact: 'Recruiters spent 2 hours just getting candidates into the system. I got it to 30 minutes. The whole flow, from research to ship.', href: '/projects/flairx' },
-              { num: '02', name: 'Fireside', tag: 'Hardware · 0→1', impact: 'A 3D projected table a 9-year-old understood in 15 seconds, with no instructions. Designed for hands, not manuals.', href: '/projects/fireside' },
-              { num: '03', name: 'Meridian', tag: 'Fintech · Risk', impact: 'Wealth advisors were spending 40 minutes hunting for over-exposed clients. I redesigned the risk console. Now it takes 30 seconds.', href: '/projects/meridian' },
+              { num: '02', name: 'Meridian', tag: 'Fintech · Risk', impact: 'Wealth advisors were spending 40 minutes hunting for over-exposed clients. I redesigned the risk console. Now it takes 30 seconds.', href: '/projects/meridian' },
+              { num: '03', name: 'Fireside', tag: 'Hardware · 0→1', impact: 'A 3D projected table a 9-year-old understood in 15 seconds, with no instructions. Designed for hands, not manuals.', href: '/projects/fireside' },
               { num: '04', name: 'Aura', tag: 'E-Commerce · 0→1', impact: 'Gifting, rebuilt around how people actually browse, decide, and check out. The full flow, end to end.', href: '/projects/aura' },
             ].map((p) => (
               <Link
@@ -308,7 +308,7 @@ export default function HomePage() {
             <div className="a-text">
               <p className="eyebrow2">Nice to meet you</p>
               <h2>I&apos;m Sanjana, Product Designer</h2>
-              <p className="a-story">Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re solving yet. That&apos;s the part most designers skip. I don&apos;t.</p>
+              <p className="a-story">Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re solving yet. That&apos;s the part I care about most.</p>
               <div className="a-actions">
                 <Link className="solid" href="/about">Full story →</Link>
                 <a className="ghost" href="/resume.pdf?v=0722" target="_blank" rel="noopener noreferrer">Résumé ↗</a>

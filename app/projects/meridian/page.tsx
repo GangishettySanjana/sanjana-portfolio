@@ -486,10 +486,6 @@ export default function MeridianPage() {
       {/* ── FOOTER ──────────────────────────────────── */}
       <footer className="mx-footer">
         <div className="mx-container">
-          <blockquote className="mx-footer-quote">
-            &ldquo;The most dangerous risk is the one nobody noticed.&rdquo;
-            <cite>The problem Meridian was built to solve</cite>
-          </blockquote>
           <Link href="/#work" className="mx-footer-back" onClick={() => sessionStorage.setItem('skipIntro', '1')}>
             ← Back to work
           </Link>
