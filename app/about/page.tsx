@@ -191,9 +191,9 @@ export default function AboutPage() {
       {/* ── 1 · OPENER + PORTRAIT ─────────────────────────────── */}
       <section style={{
         background: 'var(--page-bg, #FAFAF8)', position: 'relative', overflow: 'hidden',
-        padding: `var(--section-pad-lg) ${PAD_X}`,
+        padding: `var(--section-pad-lg) 0`,
       }}>
-        <div className="about-opener" style={{ position: 'relative', zIndex: 1, maxWidth: 1180, margin: '0 auto' }}>
+        <div className="about-opener" style={{ position: 'relative', zIndex: 1, maxWidth: 1200, margin: '0 auto', paddingInline: 'clamp(20px, 5vw, 40px)' }}>
           {/* text column */}
           <motion.div {...rise}>
             {/* white frosted glass — reads cleanly over the sage wall; the

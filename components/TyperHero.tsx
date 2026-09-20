@@ -3,6 +3,9 @@
 import { useEffect, useRef } from 'react'
 import { Typer } from '@/lib/typer'
 
+// persists across client-side navigations; resets on hard reload (curtain replays then too)
+let introHasPlayed = false
+
 export default function TyperHero() {
   const ref = useRef<HTMLHeadingElement>(null)
 
@@ -14,7 +17,13 @@ export default function TyperHero() {
 
     if (reduced) return () => typer.destroy()
 
-    const onDone = () => typer.in()
+    // Curtain already played this session — show immediately without re-waiting
+    if (introHasPlayed) {
+      const t = setTimeout(() => typer.in(), 80)
+      return () => { clearTimeout(t); typer.destroy() }
+    }
+
+    const onDone = () => { introHasPlayed = true; typer.in() }
     window.addEventListener('curtain-done', onDone, { once: true })
 
     return () => {

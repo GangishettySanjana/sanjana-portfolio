@@ -409,22 +409,22 @@ export default function FlairXPage() {
     gsap.registerPlugin(ScrollTrigger)
 
     const NAV = [
-      { id: 'context',    num: '01', label: 'Context'    },
-      { id: 'problem',    num: '02', label: 'Problem'    },
-      { id: 'ideation',   num: '03', label: 'Ideation'   },
-      { id: 'decisions',  num: '04', label: 'Decisions'  },
-      { id: 'finals',        num: '05', label: 'Finals'      },
-      { id: 'ats-prototype', num: '06', label: 'ATS Flow'    },
-      { id: 'edgecases',     num: '07', label: 'Edge Cases'  },
-      { id: 'impact',     num: '08', label: 'Impact'     },
-      { id: 'handoff',    num: '09', label: 'Handoff'  },
-      { id: 'reflection', num: '10', label: 'Reflection' },
+      { id: 'context',       num: '01', label: 'Context'    },
+      { id: 'problem',       num: '02', label: 'Problem'    },
+      { id: 'ideation',      num: '03', label: 'Ideation'   },
+      { id: 'decisions',     num: '04', label: 'Decisions'  },
+      { id: 'finals',        num: '05', label: 'Finals'     },
+      { id: 'ats-prototype', num: '06', label: 'ATS Flow'   },
+      { id: 'edgecases',     num: '07', label: 'Edge Cases' },
+      { id: 'impact',        num: '08', label: 'Impact'     },
+      { id: 'handoff',       num: '09', label: 'Handoff'    },
+      { id: 'reflection',    num: '10', label: 'Reflection' },
     ]
 
-    const sections   = NAV.map(n => document.getElementById(n.id)).filter(Boolean) as HTMLElement[]
-    const vLinks     = Array.from(document.querySelectorAll('.fx-v-link')) as HTMLElement[]
-    const fill       = document.querySelector('.fx-v-fill') as HTMLElement | null
-    const total      = sections.length
+    const sections = NAV.map(n => document.getElementById(n.id)).filter(Boolean) as HTMLElement[]
+    const vLinks   = Array.from(document.querySelectorAll('.fx-v-link')) as HTMLElement[]
+    const fill     = document.querySelector('.fx-v-fill') as HTMLElement | null
+    const total    = sections.length
 
     function activate(index: number) {
       if (fill) {
@@ -455,7 +455,7 @@ export default function FlairXPage() {
         {/* ── VERTICAL SCROLLSPY NAV ──────────────────────── */}
         <nav className="fx-v-nav" aria-label="Page sections">
           <div className="fx-v-track">
-            <div className="fx-v-fill" style={{ height: '12.5%' }}></div>
+            <div className="fx-v-fill" style={{ height: '10%' }}></div>
           </div>
           <div className="fx-v-items">
             {[

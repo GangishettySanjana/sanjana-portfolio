@@ -479,7 +479,7 @@ a.bento-tile:hover {
   /* Geist to match the other CTAs. This rule sets it locally because
      .bento-cta was pulled out of the shared button block to drop the
      neumorphic halo, so it no longer inherits from there. */
-  font-family: var(--font-geist-sans), var(--body), system-ui, sans-serif;
+  font-family: var(--body), system-ui, sans-serif;
   font-size: 12.5px; font-weight: 600;
   letter-spacing: 0.015em; color: var(--blue); text-decoration: none;
   transition: gap 0.2s ease;
@@ -848,7 +848,7 @@ a.bento-tile:hover {
 
 /* ── LEFT ── */
 .about-note {
-  font-family: var(--font-geist-sans), var(--body), sans-serif;
+  font-family: var(--body), sans-serif;
   font-size: 11px; font-weight: 600;
   letter-spacing: 0.2em; text-transform: uppercase;
   color: rgba(20,24,26,0.5);
@@ -891,48 +891,17 @@ a.bento-tile:hover {
 }
 
 .about-intro {
-  font-family: var(--font-geist-sans), var(--body), sans-serif;
+  font-family: var(--body), sans-serif;
   font-size: clamp(15px, 1.3vw, 17px);
   line-height: 1.65; color: rgba(20,24,26,0.76);
   max-width: 46ch;
   margin-bottom: clamp(22px, 3vw, 32px);
 }
 
-/* search-bar-styled link bar */
-.about-linkbar {
-  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-  /* solid + a hairline so it still reads as a bar on the near-white page */
-  background: #fff;
-  border: 1px solid rgba(20,24,26,0.10);
-  border-radius: 999px;
-  padding: 10px 18px;
-  max-width: 100%;
-  box-shadow: 0 2px 10px rgba(20,24,26,0.05);
-}
-.lb-glyph { display: inline-flex; width: 18px; height: 18px; color: rgba(20,24,26,0.45); flex-shrink: 0; }
-.lb-glyph svg { width: 100%; height: 100%; }
-.lb-url {
-  font-family: var(--font-geist-sans), var(--body), sans-serif;
-  font-size: 14px; color: rgba(20,24,26,0.72);
-  text-decoration: none;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  min-width: 0; flex: 1;
-}
-.lb-url:hover { color: #14181A; text-decoration: underline; }
-.lb-cta {
-  font-family: var(--font-caveat), cursive;
-  font-size: 22px; font-weight: 700; line-height: 1;
-  color: var(--accent); text-decoration: none;
-  flex-shrink: 0;
-  transition: opacity 0.18s;
-}
-.lb-cta:hover { opacity: 0.7; }
-.lb-url:focus-visible, .lb-cta:focus-visible { outline: 2px solid #1e5dac; outline-offset: 3px; border-radius: 4px; }
-
 /* quiet text links under the bar — full story + résumé (no pill buttons) */
 .about-actions { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 18px; }
 .about-action {
-  font-family: var(--font-geist-sans), var(--body), sans-serif;
+  font-family: var(--body), sans-serif;
   font-size: 14px; color: #14181A; text-decoration: none;
   border-bottom: 1px solid rgba(20,24,26,0.3);
   padding-bottom: 2px;
@@ -958,7 +927,7 @@ a.bento-tile:hover {
 }
 .about-card-body { padding: 16px 8px 0; }
 .about-card-name {
-  font-family: var(--font-geist-sans), var(--body), sans-serif;
+  font-family: var(--body), sans-serif;
   font-size: 18px; font-weight: 600; color: #14181A;
   letter-spacing: -0.01em;
 }
@@ -967,17 +936,17 @@ a.bento-tile:hover {
   margin-left: 6px;
 }
 .about-card-row {
-  font-family: var(--font-geist-sans), var(--body), sans-serif;
+  font-family: var(--body), sans-serif;
   font-size: 13.5px; color: rgba(20,24,26,0.6);
   margin-top: 7px;
 }
 .about-card-status {
-  font-family: var(--font-geist-sans), var(--body), sans-serif;
+  font-family: var(--body), sans-serif;
   font-size: 13.5px; font-weight: 600; color: #4C7A52;
   margin-top: 6px;
 }
 .about-card-note {
-  font-family: var(--font-geist-sans), var(--body), sans-serif;
+  font-family: var(--body), sans-serif;
   font-size: 13px; line-height: 1.6; color: rgba(20,24,26,0.55);
   margin-top: 14px; padding-top: 14px;
   border-top: 1px solid rgba(20,24,26,0.09);
@@ -990,7 +959,7 @@ a.bento-tile:hover {
   background: #fff;
   border-radius: 999px;
   padding: 8px 15px;
-  font-family: var(--font-geist-sans), var(--body), sans-serif;
+  font-family: var(--body), sans-serif;
   font-size: 12.5px; font-weight: 600; color: #14181A;
   white-space: nowrap;
   box-shadow: 0 8px 20px rgba(120, 92, 50, 0.18);
@@ -1048,7 +1017,7 @@ a.bento-tile:hover {
 .mwv-solidtext {
   position: absolute; inset: 0;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  font-family: var(--font-display), 'Space Grotesk', sans-serif;
+  font-family: var(--font-display), sans-serif;
   font-weight: 700; font-size: clamp(38px, 8.6vw, 100px);
   letter-spacing: -0.03em; line-height: 0.98; color: #14181A;
   text-align: center;
@@ -1066,7 +1035,7 @@ a.bento-tile:hover {
 .mwv-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .mwv-cover { fill: var(--page-bg); }
 .mwv-masktext {
-  font-family: var(--font-display), 'Space Grotesk', sans-serif;
+  font-family: var(--font-display), sans-serif;
   font-weight: 700; font-size: 210px; letter-spacing: -4px;
 }
 /* sub copy */
@@ -1277,7 +1246,7 @@ a.bento-tile:hover {
      display face and at 700 it read blocky at button sizes. Family,
      weight and tracking are set here so every CTA matches; per-button
      font-size and padding stay local so each still fits its context. */
-  font-family: var(--font-geist-sans), var(--body), system-ui, sans-serif;
+  font-family: var(--body), system-ui, sans-serif;
   font-weight: 600;
   letter-spacing: 0.015em;
   transition: all 0.3s;

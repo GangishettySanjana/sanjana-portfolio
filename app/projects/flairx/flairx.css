@@ -704,7 +704,6 @@
   margin-left: -0.5px;
   background: var(--accent);
   border-radius: 2px;
-  transition: height 0.4s ease;
 }
 .fx-v-items {
   display: flex;
@@ -715,7 +714,7 @@
 }
 .fx-v-link {
   font-family: var(--fx-sans);
-  font-size: var(--type-xs);          /* 0.75rem */
+  font-size: var(--type-xs);
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -726,8 +725,18 @@
   line-height: 1;
   pointer-events: all;
   cursor: pointer;
+  padding: 10px 8px;
+  margin: -10px -8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
-.fx-v-link.fx-v-active { color: rgba(0,36,72,0.75); }
+.fx-v-num {
+  font-size: 0.6rem;
+  opacity: 0.5;
+}
+.fx-v-link.fx-v-on { color: rgba(0,36,72,0.75); }
+.fx-v-link.fx-v-on .fx-v-num { opacity: 0.9; }
 
 /* ── floating section nav (Impeccable-style) ─────────────────────── */
 .fx-float-nav {

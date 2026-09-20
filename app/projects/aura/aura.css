@@ -8,7 +8,7 @@
    Palette: Navy #002448 · Purple #A880D4
    ───────────────────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Instrument+Sans:wght@400;500;600;700&display=swap');
+/* Fonts: Cabinet Grotesk (display) · Satoshi (body) — loaded globally via Fontshare */
 
 /* ── Impeccable scale tokens ─────────────────────────────────────── */
 .fx-page {
@@ -27,8 +27,8 @@
   --lh-relaxed: 1.85;
 
   /* Fonts */
-  --fx-display: 'Cormorant Garamond', Georgia, serif;
-  --fx-sans:    'Instrument Sans', system-ui, sans-serif;
+  --fx-display: var(--font-display, 'Cabinet Grotesk'), sans-serif;
+  --fx-sans:    var(--font-body, 'Satoshi'), sans-serif;
 
   /* Palette */
   --base:       #FAFAF8;
@@ -92,7 +92,7 @@
   font-family: var(--fx-display);
   font-size: var(--type-xl);         /* ~28px fixed for sections */
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   line-height: var(--lh-snug);
   color: var(--text);
   letter-spacing: -0.015em;
@@ -161,8 +161,8 @@
 .fx-hero-title {
   font-family: var(--fx-display);
   font-size: var(--type-display);    /* clamp(2rem, 5vw, 3.5rem) */
-  font-weight: 300;
-  font-style: italic;
+  font-weight: 400;
+  font-style: normal;
   letter-spacing: -0.025em;
   line-height: var(--lh-tight);
   color: var(--text);
@@ -301,7 +301,7 @@
   font-family: var(--fx-display);
   font-size: var(--type-lg);         /* ~21px */
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   color: var(--text);
   border: 1px solid var(--accent-bd);
   background: var(--accent-bg);
@@ -353,7 +353,7 @@
 .fx-evidence-card p {
   font-family: var(--fx-display);
   font-size: var(--type-sm);
-  font-style: italic;
+  font-style: normal;
   color: var(--muted);
   line-height: var(--lh-normal);
   margin: 0;
@@ -513,7 +513,7 @@
   font-family: var(--fx-display);
   font-size: var(--type-lg);         /* ~21px */
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   color: var(--text);
   margin: 0 0 20px;
   line-height: var(--lh-snug);
@@ -545,7 +545,7 @@
   font-family: var(--fx-display);
   font-size: var(--type-lg);
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   color: var(--text);
   margin: 0 0 16px;
   padding-bottom: 12px;
@@ -825,7 +825,7 @@
   font-family: var(--fx-display);
   font-size: var(--type-lg);
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   color: var(--text);
   margin: 0 0 14px;
   line-height: var(--lh-snug);
@@ -966,7 +966,7 @@
 .fx-footer-quote {
   font-family: var(--fx-display);
   font-size: var(--type-lg);         /* ~21px */
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   color: var(--muted);
   max-width: 420px;

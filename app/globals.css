@@ -50,7 +50,7 @@ video { pointer-events: none; }
   /* Geist, matching every other CTA. Uppercase and the wider tracking are
      kept here deliberately: at 11px this is a nav micro-label, and setting
      it sentence case would shrink its presence next to the wordmark. */
-  font-family: var(--font-geist-sans), var(--font-label), sans-serif;
+  font-family: var(--font-label), sans-serif;
   font-weight: 600;
   letter-spacing: 0.08em;
   outline: none;
@@ -143,6 +143,20 @@ video { pointer-events: none; }
      not loaded on /about or the project pages — referencing the token
      there previously fell through to a hardcoded fallback. */
   --page-bg: #FAFAF8;
+  /* Display font token — all var(--font-serif) references resolve here.
+     Previously Gemunu Libre (self-hosted woff2), now Cabinet Grotesk. */
+  /* ── 3-font system ──────────────────────────────
+     1. Satoshi      → body copy, UI labels (everywhere)
+     2. Cabinet Grotesk → headings, display (everywhere)
+     3. Instrument Serif → accent-only: About hero, pull quotes,
+        key moments where you want the eye to pause
+  ─────────────────────────────────────────────── */
+  --font-serif: 'Cabinet Grotesk', sans-serif;
+  --font-display: 'Cabinet Grotesk', sans-serif;
+  --font-heading: 'Cabinet Grotesk', sans-serif;
+  --font-body: 'Satoshi', sans-serif;
+  --font-label: 'Satoshi', sans-serif;
+  --font-accent: var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
   /* Color tokens */
   --color-bg: #FFFFFF;
   --color-surface: #FFFFFF;
@@ -158,9 +172,10 @@ video { pointer-events: none; }
 
   /* Motion tokens */
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out: cubic-bezier(0.0, 0, 0.2, 1);
-  --duration-micro: 150ms;
-  --duration-base: 220ms;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1); /* strong ease-out: fast start, long tail */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --duration-micro: 100ms;
+  --duration-base: 200ms;
   --duration-reveal: 700ms;
   --duration-page: 500ms;
 
@@ -192,6 +207,35 @@ body {
   color: var(--color-text);
   font-family: var(--font-body), Georgia, serif;
   overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Text wrapping ──────────────────────────────
+   Progressive enhancement: balance headings so no
+   orphaned last word; pretty on body so the last
+   line never holds a single word.
+─────────────────────────────────────────────── */
+h1, h2, h3, h4, blockquote {
+  text-wrap: balance;
+}
+p, li {
+  text-wrap: pretty;
+}
+
+/* ── Button press feedback ──────────────────────
+   Scale to 0.97 on :active — cheapest tactile
+   feedback; runs on compositor, costs nothing.
+─────────────────────────────────────────────── */
+button,
+a[href],
+[role="button"] {
+  transition: transform var(--duration-micro) var(--ease-out);
+}
+button:active,
+a[href]:active,
+[role="button"]:active {
+  transform: scale(0.97);
 }
 
 /* Hide scrollbar on sticky sidebar */

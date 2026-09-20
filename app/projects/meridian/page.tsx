@@ -6,61 +6,6 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './meridian.css'
 
-/* ── Risk bar chart (hero cover) ──────────────────────────────── */
-function RiskCover() {
-  const bars = [
-    { h: '28%', c: '#3b82f6' }, { h: '52%', c: '#60a5fa' },
-    { h: '70%', c: '#fbbf24' }, { h: '88%', c: '#ef4444' },
-    { h: '45%', c: '#60a5fa' }, { h: '22%', c: '#3b82f6' },
-    { h: '60%', c: '#fbbf24' }, { h: '94%', c: '#ef4444' },
-    { h: '38%', c: '#60a5fa' }, { h: '55%', c: '#fbbf24' },
-    { h: '30%', c: '#3b82f6' }, { h: '76%', c: '#ef4444' },
-  ]
-  return (
-    <div style={{
-      width: '100%', height: '320px', borderRadius: '20px', overflow: 'hidden',
-      background: 'linear-gradient(158deg, #0f1b2d 0%, #1a2d46 60%, #0d1824 100%)',
-      position: 'relative', marginBottom: '64px',
-    }}>
-      {/* grid overlay */}
-      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(100,160,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(100,160,255,.06) 1px,transparent 1px)', backgroundSize: '28px 28px' }} />
-      {/* accent line */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg,#3b82f6,#60a5fa,#2563eb)', opacity: .7 }} />
-      {/* bars */}
-      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'flex-end', gap: '8px', padding: '48px 48px 28px' }}>
-        {bars.map((b, i) => (
-          <div key={i} style={{ flex: 1, height: b.h, background: b.c, opacity: .6, borderRadius: '3px 3px 0 0' }} />
-        ))}
-      </div>
-      {/* stat */}
-      <div style={{ position: 'absolute', bottom: '28px', left: '48px' }}>
-        <div style={{ fontSize: '32px', fontWeight: 700, letterSpacing: '-.02em', color: 'rgba(255,255,255,.92)', lineHeight: 1 }}>
-          40 min <span style={{ fontSize: '22px', color: 'rgba(147,197,253,.6)' }}>→</span> 30 sec
-        </div>
-        <div style={{ fontSize: '11px', color: 'rgba(147,197,253,.55)', marginTop: '5px', letterSpacing: '.04em', textTransform: 'uppercase', fontWeight: 600 }}>
-          Time to surface over-exposed clients
-        </div>
-      </div>
-      {/* tag */}
-      <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize: '9px', fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: 'rgba(147,197,253,.85)', background: 'rgba(59,130,246,.12)', border: '1px solid rgba(59,130,246,.22)', borderRadius: '5px', padding: '4px 9px' }}>
-        Risk Console
-      </div>
-      {/* risk labels */}
-      <div style={{ position: 'absolute', top: '20px', left: '48px', display: 'flex', gap: '8px' }}>
-        {[
-          { label: 'Rate', c: '#3b82f6' },
-          { label: 'Credit', c: '#fbbf24' },
-          { label: 'Concentration', c: '#ef4444' },
-        ].map(({ label, c }) => (
-          <div key={label} style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '.05em', textTransform: 'uppercase', color: 'rgba(255,255,255,.7)', background: `${c}22`, border: `1px solid ${c}44`, borderRadius: '4px', padding: '3px 8px' }}>
-            {label}
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 /* ── Page ─────────────────────────────────────────────────────── */
 export default function MeridianPage() {
   useEffect(() => {
@@ -119,8 +64,7 @@ export default function MeridianPage() {
             { href: '#reflection', n: '06', label: 'Reflection' },
           ].map(({ href, n, label }) => (
             <a key={href} href={href} className="mx-v-link">
-              <span style={{ fontSize: '9px', display: 'block', opacity: 0.6 }}>{n}</span>
-              {label}
+              <span className="mx-v-num">{n}</span>
             </a>
           ))}
         </div>
@@ -237,7 +181,6 @@ export default function MeridianPage() {
             ))}
           </div>
 
-          <RiskCover />
         </div>
       </section>
 

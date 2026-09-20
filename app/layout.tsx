@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
-import { Source_Sans_3, Space_Grotesk, Outfit, Caveat, Instrument_Serif } from 'next/font/google'
-import localFont from 'next/font/local'
+import { Instrument_Serif } from 'next/font/google'
 // Geist isn't in Next 14's next/font/google list — use Vercel's official package
 import { GeistSans } from 'geist/font/sans'
 import Navigation from '@/components/Navigation'
@@ -9,58 +8,6 @@ import SmoothScroll from '@/components/SmoothScroll'
 import ChatWidget from '@/components/ChatWidget'
 import Intro from '@/components/Intro'
 import './globals.css'
-
-// DISPLAY — Space Grotesk: clean structured grotesk, bold and modern (no serif curves)
-const displayFont = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-display',
-  display: 'swap',
-})
-
-// DISPLAY FONT — General Sans (self-hosted). Confident modern grotesk; carries
-// the whole site's display voice on the --font-serif variable (name kept so
-// every var(--font-serif)/var(--serif) reference swaps at once).
-const serifFont = localFont({
-  src: [
-    { path: './fonts/GemunuLibre-Variable.woff2', weight: '100 800', style: 'normal' },
-  ],
-  variable: '--font-serif',
-  display: 'swap',
-})
-
-// HEADINGS — Space Grotesk as well, for one coherent heading voice
-const headingFont = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-heading',
-  display: 'swap',
-})
-
-// BODY — Source Sans 3: humanist sans, highly readable for long-form reading,
-// pairs cleanly with the serif display/heading fonts.
-const bodyFont = Source_Sans_3({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-body',
-  display: 'swap',
-})
-
-// LABELS
-const labelFont = Outfit({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-label',
-  display: 'swap',
-})
-
-// HANDWRITTEN — Caveat, for the signature name + "work with me!" link
-const caveatFont = Caveat({
-  subsets: ['latin'],
-  weight: ['600', '700'],
-  variable: '--font-caveat',
-  display: 'swap',
-})
 
 // TRUE SERIF — Instrument Serif: editorial contrast for fortune slips, About hero, pull quotes
 const instrumentSerifFont = Instrument_Serif({
@@ -108,14 +55,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${displayFont.variable} ${headingFont.variable} ${serifFont.variable} ${bodyFont.variable} ${labelFont.variable} ${GeistSans.variable} ${caveatFont.variable} ${instrumentSerifFont.variable}`}
+      className={`${GeistSans.variable} ${instrumentSerifFont.variable}`}
     >
       <head>
         <link rel="preconnect" href="https://api.fontshare.com"/>
         <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500,600,700,800,900&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet"/>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
       </head>
       <body className="bg-white text-roasted antialiased">
         <Intro />
