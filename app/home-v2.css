@@ -151,7 +151,7 @@
 
 /* ── WORK section ── */
 .home-v2 .work{position:relative;z-index:1;background:var(--cream);padding:40px 0 52px;margin-top:-1px;}
-.home-v2 .wrap{max-width:1120px;margin:0 auto;padding:0 clamp(24px,5vw,40px);position:relative;z-index:1;}
+.home-v2 .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(24px,5vw,40px);position:relative;z-index:1;}
 .home-v2 .eyebrow{font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(28,42,58,0.65);}
 .home-v2 h2.title{font-family:var(--serif);font-weight:500;font-size:clamp(20px,2.4vw,30px);margin:8px 0 8px;letter-spacing:-0.02em;}
 .home-v2 .lede{font-size:15.5px;color:var(--muted);max-width:52ch;line-height:1.6;margin-bottom:4px;}
@@ -203,8 +203,6 @@
   .home-v2 .wt-c-name{font-size:22px;}
 }
 
-.home-v2 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1);}
-.home-v2 .reveal.in{opacity:1;transform:none;}
 
 .home-v2 .tile{border-radius:18px;overflow:hidden;background:var(--card);box-shadow:var(--shadow);
   position:relative;display:flex;flex-direction:column;
@@ -224,7 +222,7 @@
 /* 3 primary projects — stacked, one below the other */
 .home-v2 .feature{padding:clamp(64px,8vh,96px) 0;}
 .home-v2 .feature + .feature{border-top:1px solid var(--line);}
-.home-v2 .feature .fwrap{max-width:1120px;width:100%;margin:0 auto;padding:0 clamp(24px,5vw,40px);
+.home-v2 .feature .fwrap{max-width:1200px;width:100%;margin:0 auto;padding:0 clamp(24px,5vw,40px);
   display:grid;grid-template-columns:1.55fr 0.8fr;gap:clamp(32px,5vw,56px);align-items:center;}
 .home-v2 .feature .fstats{display:none;}
 .home-v2 .feature.flip .fwrap{grid-template-columns:0.8fr 1.55fr;}
@@ -263,7 +261,7 @@
 .home-v2 .bento-2 .b-pov{grid-column:span 1;}
 
 /* ── reverse seam: white work fades back into the sky ── */
-.home-v2 .seam-up{position:relative;z-index:1;height:220px;margin-top:-1px;
+.home-v2 .seam-up{position:relative;z-index:1;height:60px;margin-top:-1px;
   background:linear-gradient(180deg,#ffffff 6%, transparent 100%);}
 
 /* ── DAILY UI ── */
@@ -292,13 +290,13 @@
 }
 
 /* ── ABOUT ── */
-.home-v2 .about{position:relative;z-index:1;background:#ffffff;padding:8px 0 60px;}
-.home-v2 .about .wrap{max-width:1000px;margin:0 auto;padding:0 clamp(24px,5vw,40px);}
+.home-v2 .about{position:relative;z-index:1;background:#ffffff;padding:40px 0 40px;}
+.home-v2 .about .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(24px,5vw,40px);}
 .home-v2 .eyebrow2{font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(28,42,58,0.65);}
 .home-v2 .a-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:clamp(40px,6vw,72px);align-items:center;}
 .home-v2 .a-photo{order:2;}
 .home-v2 .a-text{order:1;}
-.home-v2 .a-photo{width:100%;max-width:360px;border-radius:22px;overflow:hidden;aspect-ratio:1/1;
+.home-v2 .a-photo{width:100%;border-radius:22px;overflow:hidden;aspect-ratio:1/1;
   box-shadow:0 30px 55px -30px rgba(20,40,70,0.4);background:#e6ebf2;}
 .home-v2 .a-photo img{width:100%;height:100%;object-fit:cover;display:block;object-position:center 18%;}
 .home-v2 .about h2{font-family:var(--serif);font-weight:500;font-size:clamp(20px,2.4vw,30px);
@@ -397,14 +395,6 @@
   .home-v2 .work-table:hover .wt-row{opacity:1;}
 }
 
-/* #5 — hero "Previously in" pills cascade in on load (30–80ms stagger) */
-.home-v2 .prev .p{animation:pillIn .5s cubic-bezier(.2,.8,.2,1) both;}
-.home-v2 .prev .p:nth-child(2){animation-delay:.05s}
-.home-v2 .prev .p:nth-child(3){animation-delay:.11s}
-.home-v2 .prev .p:nth-child(4){animation-delay:.17s}
-.home-v2 .prev .p:nth-child(5){animation-delay:.23s}
-.home-v2 .prev .p:nth-child(6){animation-delay:.29s}
-@keyframes pillIn{from{opacity:0;transform:translateY(9px);}to{opacity:1;transform:none;}}
 
 /* Missed opportunity — the "open to work" dot gets a gentle live pulse */
 .home-v2 .status .dot{position:relative;}
@@ -413,16 +403,14 @@
 @keyframes dotPulse{0%{transform:scale(1);opacity:.6;}70%,100%{transform:scale(2.7);opacity:0;}}
 
 @media (prefers-reduced-motion:reduce){
-  .home-v2 .prev .p{animation:none;}
   .home-v2 .status .dot::after{animation:none;}
-  .home-v2 .reveal{opacity:1;transform:none;transition:none;}
 }
 
 /* ── Fun stuff — playable experiments band ───────────────────────── */
 .home-v2 .funstuff{position:relative;z-index:1;
   background:linear-gradient(180deg,rgba(47,107,214,0.05),rgba(47,107,214,0.02));
   padding:104px 0 88px;}   /* top clears the fixed nav with breathing room */
-.home-v2 .funstuff .wrap{max-width:1120px;margin:0 auto;padding:0 clamp(24px,5vw,40px);}
+.home-v2 .funstuff .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(24px,5vw,40px);}
 .home-v2 .fun-grid{display:flex;flex-direction:column;align-items:center;gap:48px;margin-top:30px;}
 .home-v2 .fun-item{display:flex;flex-direction:column;width:100%;max-width:480px;}
 .home-v2 .fun-embed{position:relative;border-radius:20px;overflow:hidden;background:#fff;

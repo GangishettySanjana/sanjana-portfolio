@@ -93,18 +93,6 @@ export default function HomePage() {
       document.querySelectorAll(`.home-v2 .tag[data-skill="${skill}"]`).forEach(t => t.classList.add('on'))
     }, 650)
 
-    /* ── reveal on scroll ── */
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target) }
-    }, { threshold: 0.14 })
-    document.querySelectorAll('.home-v2 .reveal').forEach((el, i) => {
-      ;(el as HTMLElement).style.transitionDelay = (Math.min(i, 6) * 0.05) + 's'
-      io.observe(el)
-    })
-    // bento tiles get their own local stagger (the global delay above flattens past index 6)
-    document.querySelectorAll('.home-v2 .bento .reveal').forEach((el, j) => {
-      ;(el as HTMLElement).style.transitionDelay = (j * 0.06) + 's'
-    })
 
     /* ── fortune cookies (event delegation) ── */
     const fortunes = [
@@ -139,10 +127,54 @@ export default function HomePage() {
     cookiesEl?.addEventListener('click', onCookieClick)
     refill?.addEventListener('click', onRefill)
 
+    /* ── entrance animation via cube-motion (pills only) ── */
+    import('cube-motion').then(({ rise }) => {
+      rise('.home-v2 .prev', { targets: 'children', stagger: 60 })
+    })
+
+    /* ── scroll reveal (synchronous IO — StrictMode-safe) ── */
+    const revealIOs: IntersectionObserver[] = []
+    const revealedEls: HTMLElement[] = []
+
+    const hide = (el: HTMLElement) => {
+      el.style.opacity = '0'
+      el.style.translate = '0 12px'
+      revealedEls.push(el)
+    }
+    const show = (el: HTMLElement, delay = 0) => {
+      const go = () => {
+        el.style.transition = 'opacity 640ms cubic-bezier(0.2,0,0,1), translate 640ms cubic-bezier(0.2,0,0,1)'
+        requestAnimationFrame(() => { el.style.opacity = ''; el.style.translate = '' })
+      }
+      delay ? setTimeout(go, delay) : go()
+    }
+
+    // Single elements
+    const singles = Array.from(document.querySelectorAll('[data-reveal]')) as HTMLElement[]
+    singles.forEach(hide)
+    const io1 = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (!e.isIntersecting) return; show(e.target as HTMLElement); io1.unobserve(e.target) })
+    }, { rootMargin: '0px 0px -10% 0px' })
+    singles.forEach(el => io1.observe(el))
+    revealIOs.push(io1)
+
+    // Work table rows (staggered)
+    const wt = document.getElementById('work-table')
+    if (wt) {
+      const kids = Array.from(wt.children) as HTMLElement[]
+      kids.forEach(hide)
+      const io2 = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (!e.isIntersecting) return; kids.forEach((el, i) => show(el, i * 70)); io2.disconnect() })
+      }, { rootMargin: '0px 0px -10% 0px' })
+      io2.observe(wt)
+      revealIOs.push(io2)
+    }
+
     return () => {
       window.removeEventListener('pointermove', onMove)
       window.clearInterval(intervalId)
-      io.disconnect()
+      revealIOs.forEach(io => io.disconnect())
+      revealedEls.forEach(el => { el.style.opacity = ''; el.style.translate = ''; el.style.transition = '' })
       cookiesEl?.removeEventListener('click', onCookieClick)
       refill?.removeEventListener('click', onRefill)
       if (rowAEl) rowAEl.innerHTML = ''
@@ -167,7 +199,7 @@ export default function HomePage() {
           <div className="nav-right">
             <div className={`navlinks${menuOpen ? ' open' : ''}`}>
               <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
-              <a href="#daily-ui" onClick={() => setMenuOpen(false)}>Daily UI</a>
+              <a href="/daily-ui" onClick={() => setMenuOpen(false)}>Daily UI</a>
               <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
               <Link href="/fun" onClick={() => setMenuOpen(false)}>Fun</Link>
               <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
@@ -195,8 +227,7 @@ export default function HomePage() {
             <div className="divider" />
             <div className="prev">
               <span className="lbl">Previously in</span>
-              <span className="p">AI</span><span className="p">HR Tech</span><span className="p">SaaS</span>
-              <span className="p">EDU Tech</span><span className="p">E-Commerce</span>
+              <span className="p">Fintech</span><span className="p">AI</span><span className="p">SaaS</span>
             </div>
           </div>
         </div>
@@ -224,9 +255,9 @@ export default function HomePage() {
       {/* ══ WORK ══ */}
       <section className="work" id="work">
         <div className="wrap">
-          <p className="eyebrow reveal">Selected work</p>
+          <p className="eyebrow" data-reveal>Selected work</p>
 
-          <div className="work-table reveal">
+          <div className="work-table" id="work-table">
             {[
               { num: '01', name: 'FlairX', tag: 'AI · HR Tech', impact: 'Recruiters spent 2 hours just getting candidates into the system. I got it to 30 minutes. The whole flow, from research to ship.', href: '/projects/flairx' },
               { num: '02', name: 'Meridian', tag: 'Fintech · Risk', impact: 'Wealth advisors were spending 40 minutes hunting for over-exposed clients. I redesigned the risk console. Now it takes 30 seconds.', href: '/projects/meridian' },
@@ -260,41 +291,10 @@ export default function HomePage() {
             </svg>
           </div>
 
-          <p className="eyebrow reveal wt-other-label">Other work</p>
-          <div className="bento bento-2">
-            <a className="tile ttile b-aitm reveal" href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer"><span className="k">Self-initiated · live</span><p className="t">AI Trust Meter shows how grounded an AI answer really is.</p><span className="cta">Try live demo ↗</span></a>
-            <div className="tile ttile b-pov reveal"><span className="k">POV · OpenRouter</span><p className="t">500+ AI models, no guidance. I designed a wizard that gets you to a working API call in four questions.</p><span className="cta">Live prototype →</span></div>
-          </div>
         </div>
       </section>
 
       {/* ══ DAILY UI ══ */}
-      <section className="daily-ui" id="daily-ui">
-        <div className="wrap">
-          <div className="du-header reveal">
-            <p className="eyebrow">Daily UI Challenge</p>
-          </div>
-          <div className="du-subrow reveal">
-            <a href="/daily-ui" className="du-see-all">See all →</a>
-          </div>
-          <div className="du-grid reveal">
-            {([
-              { day: '03', prompt: 'Landing Page',         video: '/daily-ui/003.mp4', href: '#' },
-              { day: '04', prompt: 'Calculator',           video: '/daily-ui/004.mp4', href: '#' },
-              { day: '05', prompt: 'User Profile',         video: '/daily-ui/005.mp4', href: '#' },
-            ] as { day: string; prompt: string; video: string; href: string }[]).map((item) => (
-              <a key={item.day} href={item.href} target="_blank" rel="noopener noreferrer" className="du-card">
-                <div className="du-video-wrap">
-                  <video src={item.video} autoPlay muted loop playsInline className="du-video" />
-                </div>
-                <div className="du-info">
-                  <span className="du-prompt">{item.prompt}</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ══ ABOUT ══ */}
       <section className="about" id="about">
