@@ -3,7 +3,11 @@
 // <SmoothScroll/> without a window global. Falls back to null when Lenis
 // isn't running (reduced-motion, SSR, before mount).
 
-type LenisLike = { scrollTo: (target: number | string | HTMLElement, opts?: Record<string, unknown>) => void }
+type LenisLike = {
+  scrollTo: (target: number | string | HTMLElement, opts?: Record<string, unknown>) => void
+  stop: () => void
+  start: () => void
+}
 
 let instance: LenisLike | null = null
 
