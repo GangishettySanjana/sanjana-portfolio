@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sanjana Gangishetty · Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c2a3a; --muted:rgba(28,42,58,0.62);
+    --serif:Georgia,'Times New Roman',serif;
+    --pill:rgba(255,255,255,0.55); --pill-line:rgba(255,255,255,0.75);
+    --skill:#eceef1; --blue:#2f6bd6;
+    --card:#fff; --line:rgba(20,28,40,0.08);
+    --shadow:0 18px 40px -22px rgba(20,28,40,0.28), 0 3px 10px -6px rgba(20,28,40,0.10);
+    --sky:#d9e7f7; --peach:#f4e3d4; --lilac:#e6ddf2; --sage:#dfe7e0;
+    --cream:#ffffff;
+    --tint-flairx:#ffffff; --tint-fire:#ffffff; --tint-aura:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    color:var(--ink);-webkit-font-smoothing:antialiased;background:#ffffff;}
+
+  /* fixed sky backdrop — hero floats over it, work section scrolls up over it */
+  #sky{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
+    transform-origin:60% 40%;animation:skyLive 46s ease-in-out infinite alternate;will-change:transform;}
+  @keyframes skyLive{0%{transform:scale(1.04) translate(0,0);}100%{transform:scale(1.11) translate(-2.2%,-1.4%);}}
+  .sky-tint{position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(46% 40% at 50% 40%, rgba(255,255,255,0.5), transparent 66%),
+      linear-gradient(180deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.05) 34%, rgba(210,233,252,0.08) 100%);}
+  @media (prefers-reduced-motion:reduce){ #sky{animation:none;transform:scale(1.02);} }
+
+  /* ── nav ── */
+  nav{position:relative;z-index:8;display:flex;align-items:center;justify-content:space-between;
+    padding:18px clamp(24px,5vw,64px);gap:16px;}
+  .nav-left{display:flex;align-items:center;gap:16px;min-width:0;}
+  .brand{font-family:'Instrument Serif',Georgia,serif;font-style:normal;font-size:27px;
+    letter-spacing:0;color:var(--ink);line-height:1;white-space:nowrap;}
+  .status{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;
+    color:var(--muted);white-space:nowrap;}
+  .status .dot{width:8px;height:8px;border-radius:50%;background:#25c26e;box-shadow:0 0 0 3px rgba(37,194,110,0.2);}
+  .navlinks{display:flex;align-items:center;gap:24px;font-size:14px;font-weight:500;}
+  .navlinks a{color:var(--ink);text-decoration:none;opacity:0.85;transition:opacity .15s;}
+  .navlinks a:hover{opacity:1;}
+  .nav-resume{background:var(--ink);color:#fff !important;opacity:1 !important;padding:9px 18px;
+    border-radius:999px;font-weight:600;transition:transform .18s ease, box-shadow .18s ease;}
+  .nav-resume:hover{transform:translateY(-1px);box-shadow:0 10px 20px -10px rgba(20,40,70,0.5);}
+  @media(max-width:760px){ .status{display:none;} }
+
+  /* ── HERO screen ── */
+  .hero-screen{position:relative;min-height:100vh;overflow:hidden;}
+  .hero{position:relative;z-index:6;max-width:1100px;margin:0 auto;padding:0 clamp(24px,5vw,64px);}
+
+  .mid{padding-top:64px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:13px;}
+  .hello{display:inline-flex;align-items:center;gap:14px;font-size:19px;font-weight:500;color:var(--ink);}
+  .avatar-wrap{position:relative;display:inline-flex;}
+  .avatar{width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:center 10%;
+    border:3px solid #fff;box-shadow:0 8px 20px -8px rgba(20,40,70,0.4);}
+  .pill{background:var(--pill);border:1px solid var(--pill-line);border-radius:999px;
+    padding:11px 22px;font-size:14px;font-weight:500;backdrop-filter:blur(6px);
+    box-shadow:0 8px 20px -12px rgba(20,40,70,0.3);}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.9vw,36px);
+    line-height:1.3;letter-spacing:-0.005em;margin-top:10px;max-width:30ch;}
+  .sub{font-size:clamp(15px,1.5vw,17px);line-height:1.62;color:var(--muted);max-width:54ch;margin-top:8px;}
+
+  /* highlights ticker */
+  .highlights{margin-top:18px;display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .highlights-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+    color:rgba(255,255,255,0.55);}
+  .highlights-ticker{position:relative;height:28px;overflow:hidden;min-width:280px;max-width:54ch;}
+  .highlights-ticker .ht-item{position:absolute;top:0;left:0;right:0;
+    font-size:clamp(13px,1.3vw,15px);font-weight:500;color:rgba(255,255,255,0.9);
+    text-align:center;opacity:0;transform:translateY(10px);
+    transition:opacity 0.5s ease,transform 0.5s ease;}
+  .highlights-ticker .ht-item.active{opacity:1;transform:translateY(0);}
+  .highlights-ticker .ht-item.exit{opacity:0;transform:translateY(-10px);}
+
+  .divider{width:min(680px,86%);height:1px;margin:22px auto 0;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.9),transparent);}
+  .prev{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px;}
+  .prev .lbl{font-size:14px;color:var(--muted);margin-right:4px;}
+  .prev .p{background:var(--pill);border:1px solid var(--pill-line);border-radius:999px;
+    padding:9px 18px;font-size:13.5px;font-weight:500;backdrop-filter:blur(6px);}
+
+  /* moving skill marquee at hero bottom */
+  .wall{position:absolute;left:0;right:0;bottom:0;z-index:5;padding:14px 0 24px;
+    display:flex;flex-direction:column;gap:12px;}
+  .mrow-wrap{overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);}
+  .mrow{display:flex;gap:12px;width:max-content;padding-left:12px;animation:mscroll 34s linear infinite;}
+  .mrow.rev{animation-duration:40s;animation-direction:reverse;}
+  .wall:hover .mrow{animation-play-state:paused;}
+  @keyframes mscroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .tag{background:var(--skill);border-radius:12px;padding:11px 20px;font-size:14px;font-weight:600;
+    color:#2a3542;box-shadow:0 2px 0 rgba(255,255,255,0.5) inset;white-space:nowrap;
+    transition:background .35s ease, color .35s ease, transform .35s ease, box-shadow .35s ease;}
+  .tag.on{background:#2f6bd6;color:#fff;transform:translateY(-3px) scale(1.06);
+    box-shadow:0 12px 22px -10px rgba(47,107,214,0.6);}
+  .tag.fun{background:#fff;color:#41506a;font-weight:500;box-shadow:0 8px 18px -10px rgba(20,40,70,0.32);}
+  a.tag.link{text-decoration:none;cursor:pointer;}
+  a.tag.link:hover{background:#1DB954;color:#fff;transform:translateY(-2px);
+    box-shadow:0 12px 22px -10px rgba(29,185,84,0.6);}
+  a.tag.link:hover::after{content:'  ↗';font-weight:700;}
+  @media (prefers-reduced-motion:reduce){ .mrow{animation:none;} }
+
+  .hint{position:absolute;left:50%;bottom:150px;transform:translateX(-50%);z-index:6;
+    font-size:12.5px;color:var(--muted);letter-spacing:0.02em;}
+
+  /* cursor sticker trail */
+  .trail{position:fixed;z-index:20;display:flex;align-items:center;justify-content:center;
+    width:72px;height:72px;border-radius:20px;background:#fff;
+    box-shadow:0 16px 30px -14px rgba(20,40,70,0.45);font-size:36px;line-height:1;pointer-events:none;
+    transform:translate(-50%,-50%) scale(0.5) rotate(var(--rot,0deg));opacity:0;
+    transition:transform .5s cubic-bezier(.2,.9,.3,1.2), opacity .5s ease;will-change:transform,opacity;}
+  .trail.show{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(var(--rot,0deg));}
+  .trail.hide{opacity:0;transform:translate(-50%,-150%) scale(0.7) rotate(var(--rot,0deg));}
+
+  /* ── SEAM: sky fades into warm cream ── */
+  .seam{position:relative;z-index:1;height:210px;margin-top:-1px;
+    background:linear-gradient(180deg, transparent 0%, var(--cream) 88%);}
+
+  /* ── WORK section ── */
+  .work{position:relative;z-index:1;background:var(--cream);padding:8px 0 120px;margin-top:-1px;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 clamp(24px,5vw,40px);position:relative;z-index:1;}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);}
+  h2.title{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,44px);margin:8px 0 8px;letter-spacing:-0.01em;}
+  .lede{font-size:15.5px;color:var(--muted);max-width:52ch;line-height:1.6;margin-bottom:4px;}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+
+  .tile{border-radius:18px;overflow:hidden;background:var(--card);box-shadow:var(--shadow);
+    position:relative;display:flex;flex-direction:column;
+    transition:transform .25s ease, box-shadow .25s ease, opacity .7s ease;}
+  .tile:hover{transform:translateY(-4px);box-shadow:0 26px 50px -24px rgba(20,28,40,0.4);}
+  .imgwrap{width:100%;height:100%;background:#e6ebf2;overflow:hidden;}
+  .imgwrap img{width:100%;height:100%;object-fit:cover;display:block;}
+  .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 14px 12px;color:#fff;
+    background:linear-gradient(transparent,rgba(15,20,28,0.66));
+    font-size:12px;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;}
+  .ttile{padding:18px 18px 16px;justify-content:space-between;text-decoration:none;color:var(--ink);}
+  .ttile .k{font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--blue);}
+  .ttile .big{font-family:var(--serif);font-size:46px;line-height:1;margin-top:2px;}
+  .ttile .t{font-size:13.5px;line-height:1.5;margin-top:8px;}
+  .ttile .cta{font-size:12.5px;font-weight:700;color:var(--blue);margin-top:10px;}
+
+  /* 3 primary projects — stacked, one below the other */
+  .feature{padding:clamp(44px,6vh,72px) 0;}
+  .feature + .feature{border-top:1px solid var(--line);}
+  .feature .fwrap{max-width:1120px;width:100%;margin:0 auto;padding:0 clamp(24px,5vw,40px);
+    display:grid;grid-template-columns:1.55fr 0.8fr;gap:clamp(32px,5vw,56px);align-items:center;}
+  .feature .fstats{display:none;}
+  /* on flipped rows, keep the COVER in the wide column too */
+  .feature.flip .fwrap{grid-template-columns:0.8fr 1.55fr;}
+  /* Fireside: just the picture, matched to the other covers' size */
+  .ffig.match{aspect-ratio:1296/1017;}
+  .feature.flip .ffig{order:2;}
+  .ffig{border-radius:24px;overflow:hidden;aspect-ratio:4/3;background:#eef2f7;border:1px solid var(--line);
+    box-shadow:0 44px 90px -44px rgba(20,28,40,0.5);}
+  .ffig img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease;}
+  .feature:hover .ffig img{transform:scale(1.03);}
+  /* live-embedded, razor-sharp cover (recreated design) */
+  .ffig.embed{aspect-ratio:1296/1017;background:#ffffff;border:1px solid var(--line);}
+  .ffig iframe{width:100%;height:100%;border:0;display:block;pointer-events:none;}
+  .fidx{font-family:var(--serif);font-size:15px;color:var(--muted);letter-spacing:0.08em;}
+  .ftag{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);margin-top:12px;}
+  .feature h3{font-family:var(--serif);font-weight:400;font-size:clamp(36px,4.4vw,56px);line-height:1.04;margin-top:6px;}
+  .fhook{font-size:clamp(16px,1.5vw,19px);line-height:1.6;color:var(--muted);max-width:44ch;margin-top:16px;}
+  .fstats{display:flex;gap:clamp(24px,3vw,40px);margin-top:26px;}
+  .fstats b{font-family:var(--serif);font-size:30px;font-weight:400;display:block;line-height:1;}
+  .fstats span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;}
+  .fgo{display:inline-block;margin-top:26px;font-size:14px;font-weight:700;color:var(--blue);text-decoration:none;}
+  .fgo:hover{text-decoration:underline;}
+  @media(max-width:820px){
+    .feature{min-height:auto;padding:48px 0;}
+    .feature .fwrap{grid-template-columns:1fr;gap:24px;}
+    .feature.flip .ffig{order:0;}
+  }
+
+  /* bento — softer, roomier, all white */
+  .bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:168px;gap:20px;}
+  .bento .tile{border-radius:22px;background:#ffffff;border:1px solid var(--line);
+    box-shadow:0 22px 46px -28px rgba(20,28,40,0.22);}
+  .bento .ttile{padding:22px 22px 20px;}
+  .b-getup{grid-column:span 2;padding:16px;}
+  .b-getup .imgwrap{border-radius:14px;box-shadow:0 14px 28px -18px rgba(20,28,40,0.4);}
+  .b-getup .cap{border-radius:0 0 14px 14px;left:16px;right:16px;bottom:16px;padding:26px 12px 10px;}
+  .b-pov{grid-column:span 2;}
+  .b-aitm .k{color:var(--blue);} .b-aitm .cta{color:var(--blue);}
+
+  /* ── reverse seam: white work fades back into the sky ── */
+  .seam-up{position:relative;z-index:1;height:220px;margin-top:-1px;
+    background:linear-gradient(180deg,#ffffff 6%, transparent 100%);}
+
+  /* ── ABOUT (on the sky again) ── */
+  .about{position:relative;z-index:1;background:#ffffff;padding:8px 0 60px;}
+  .about .wrap{max-width:1000px;margin:0 auto;padding:0 clamp(24px,5vw,40px);}
+  .eyebrow2{font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);}
+  .a-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:clamp(40px,6vw,72px);align-items:center;}
+  .a-photo{width:100%;max-width:360px;border-radius:22px;overflow:hidden;aspect-ratio:1/1;
+    box-shadow:0 30px 55px -30px rgba(20,40,70,0.4);background:#e6ebf2;}
+  .a-photo img{width:100%;height:100%;object-fit:cover;display:block;object-position:center 18%;}
+  .about h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,44px);
+    margin:8px 0 18px;letter-spacing:-0.01em;color:var(--ink);}
+  .a-story{font-size:clamp(16px,1.6vw,19px);line-height:1.65;color:var(--ink);margin-bottom:26px;max-width:42ch;}
+  .a-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;}
+  .a-actions a{display:inline-flex;align-items:center;gap:7px;padding:13px 24px;border-radius:999px;
+    font-size:14px;font-weight:600;text-decoration:none;transition:transform .18s ease, box-shadow .18s ease;}
+  .a-actions .solid{background:var(--ink);color:#fff;}
+  .a-actions .solid:hover{transform:translateY(-2px);box-shadow:0 14px 28px -14px rgba(20,40,70,0.5);}
+  .a-actions .ghost{background:#fff;color:var(--ink);border:1px solid rgba(20,28,40,0.16);}
+  .a-actions .ghost:hover{transform:translateY(-2px);}
+
+  /* ── CONTACT / footer ── */
+  .foot{position:relative;z-index:1;padding:60px 0 70px;}
+  .foot .wrap{display:grid;grid-template-columns:1fr auto;gap:clamp(30px,5vw,64px);align-items:center;}
+  .foot-left{text-align:left;}
+  .foot-left h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3vw,42px);color:var(--ink);margin-top:8px;margin-bottom:22px;}
+  .foot .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
+  .foot .btn{display:inline-flex;align-items:center;gap:7px;padding:13px 24px;border-radius:999px;
+    font-size:14px;font-weight:600;text-decoration:none;transition:transform .18s ease, box-shadow .18s ease;}
+  .foot .btn-solid{background:var(--ink);color:#fff;}
+  .foot .btn-solid:hover{transform:translateY(-2px);box-shadow:0 14px 28px -14px rgba(20,40,70,0.5);}
+  .foot .btn-ghost{background:rgba(255,255,255,0.72);color:var(--ink);border:1px solid rgba(255,255,255,0.85);backdrop-filter:blur(6px);}
+  .foot .btn-ghost:hover{transform:translateY(-2px);}
+  .foot .meta{font-size:12.5px;color:var(--muted);}
+
+  /* fortune cookie — crack it for a feel-good message */
+  .fortune{position:relative;width:clamp(280px,28vw,340px);min-height:196px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+  .fortune .fkicker{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;}
+  .bowl{position:relative;width:232px;height:66px;margin-top:2px;}
+  .bowl .plate{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:186px;height:46px;
+    background:radial-gradient(ellipse at 50% 30%, #f2887a 0%, #d8503f 58%, #b13a2d 100%);
+    border-radius:50%;z-index:0;box-shadow:0 18px 30px -14px rgba(120,30,20,0.5);}
+  .bowl .plate::before{content:'';position:absolute;top:9px;left:50%;transform:translateX(-50%);
+    width:120px;height:26px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.2);}
+  .bowl .cookies{position:absolute;inset:0;z-index:2;}
+  .ck{position:absolute;background:none;border:none;cursor:pointer;padding:0;line-height:1;
+    -webkit-tap-highlight-color:transparent;filter:drop-shadow(0 4px 5px rgba(80,20,15,0.35));
+    transition:transform .2s ease, opacity .45s ease;}
+  .ck.c-bl{left:70px;bottom:30px;font-size:29px;transform:rotate(-14deg);z-index:1;}
+  .ck.c-br{left:116px;bottom:32px;font-size:29px;transform:rotate(12deg);z-index:1;}
+  .ck.c-fl{left:60px;bottom:12px;font-size:35px;transform:rotate(-8deg);z-index:3;}
+  .ck.c-fr{left:112px;bottom:10px;font-size:35px;transform:rotate(9deg);z-index:3;}
+  .ck.c-top{left:88px;bottom:26px;font-size:31px;transform:rotate(4deg);z-index:5;}
+  .ck:hover{transform:translateY(-12px) scale(1.14) rotate(0) !important;}
+  .ck:active{transform:translateY(-4px) scale(1.04) rotate(0) !important;}
+  .ck.used{opacity:0;transform:translateY(-40px) scale(.4) rotate(24deg) !important;pointer-events:none;}
+  .fhint{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0.03em;margin-top:2px;}
+  .slip{display:flex;flex-direction:column;align-items:center;margin:0 0 4px;}
+  .slip[hidden]{display:none;}
+  .slip.in{animation:slipIn .5s cubic-bezier(.2,.9,.3,1.2) both;}
+  @keyframes slipIn{from{opacity:0;transform:translateY(14px) scale(.92)}to{opacity:1;transform:none}}
+  /* cracked-open cookie: two broken halves + paper strip pinched between */
+  .crack{display:flex;align-items:center;justify-content:center;}
+  .crack .chalf{width:56px;height:56px;z-index:1;filter:drop-shadow(0 5px 6px rgba(80,20,15,0.28));}
+  .crack .chalf.l{transform:rotate(-5deg);}
+  .crack .chalf.r{transform:scaleX(-1) rotate(-5deg);}
+  .crack .strip{position:relative;z-index:2;background:#fff;border:1px solid rgba(0,0,0,0.07);
+    padding:14px 20px;max-width:230px;transform:rotate(-1.2deg);box-shadow:0 12px 22px -12px rgba(20,40,70,0.4);
+    font-family:var(--serif);font-size:14.5px;line-height:1.5;color:#2a2418;text-align:center;}
+  .slip .again{margin-top:16px;background:none;border:none;color:var(--blue);font-weight:700;
+    font-size:12.5px;cursor:pointer;font-family:inherit;}
+  .slip .again:hover{text-decoration:underline;}
+
+  @media(max-width:820px){
+    .a-grid{grid-template-columns:1fr;} .a-photo{max-width:320px;margin:0 auto;}
+    .foot .wrap{grid-template-columns:1fr;} .fortune{margin:6px auto 0;}
+  }
+
+  @media(max-width:900px){ .human{display:none;} }
+  @media(max-width:820px){
+    .wall{display:none;}
+    .mid{padding-top:60px;}
+    .primary{grid-template-columns:1fr;}
+    .bento{grid-template-columns:repeat(2,1fr);}
+    .b-getup,.b-pov{grid-column:span 2;}
+  }
+</style>
+</head>
+<body>
+
+  <img id="sky" src="sky.png" alt="" />
+  <div class="sky-tint"></div>
+
+  <!-- ══ HERO ══ -->
+  <div class="hero-screen">
+    <nav>
+      <div class="nav-left">
+        <span class="brand">Sanjana Gangishetty</span>
+        <span class="status"><span class="dot"></span> Currently looking for a role</span>
+      </div>
+      <div class="navlinks">
+        <a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a>
+        <a class="nav-resume" href="https://gangishettysanjana.com/resume.pdf?v=0722" target="_blank" rel="noopener noreferrer">Résumé ↗</a>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div class="mid">
+        <p class="hello">Hello
+          <span class="avatar-wrap">
+            <img class="avatar" src="images/sanjana.jpg" alt="Sanjana">
+          </span>
+          I'm Sanjana</p>
+        <span class="pill">Product Designer · designs &amp; ships</span>
+        <h1>I look for the harmony between what people need and what a product can do. Then I build it, to see if I found it.</h1>
+        <p class="sub">I design across AI, fintech, and e-commerce. Last project, I cut a recruiter's intake from 2 hours to 30 minutes.</p>
+        <div class="highlights">
+          <span class="highlights-label">Highlights</span>
+          <div class="highlights-ticker" id="hticker">
+            <span class="ht-item active">🏆 Lovable Hackathon Finalist</span>
+            <span class="ht-item">FlairxAI · cut candidate review 40 min → 5 min · 45-component design system</span>
+            <span class="ht-item">Northern Trust · portfolio review 40 min → 12 min</span>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="prev">
+          <span class="lbl">Previously in</span>
+          <span class="p">AI</span><span class="p">HR Tech</span><span class="p">SaaS</span>
+          <span class="p">EDU Tech</span><span class="p">E-Commerce</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="hint">move your cursor — a little trail of me ✦</p>
+
+    <div class="wall">
+      <div class="mrow-wrap"><div class="mrow" id="rowA"></div></div>
+      <div class="mrow-wrap"><div class="mrow rev" id="rowB"></div></div>
+    </div>
+  </div>
+
+  <!-- ══ SEAM: sky → white ══ -->
+  <div class="seam"></div>
+
+  <!-- ══ WORK ══ -->
+  <section class="work" id="work">
+    <div class="wrap">
+      <p class="eyebrow reveal">Selected work</p>
+      <h2 class="title reveal">Things I designed, then built</h2>
+      <p class="lede reveal">Different problems, same question underneath: why does this feel harder than it should?</p>
+
+      <div class="features">
+        <div class="feature reveal">
+          <div class="fwrap">
+            <div class="ffig embed"><iframe src="flairx-cover.html" title="FlairX case-study cover" scrolling="no"></iframe></div>
+            <div class="ftxt">
+              <span class="fidx">01 / 04</span>
+              <p class="ftag">Product Design · AI recruiting</p>
+              <h3>FlairX</h3>
+              <p class="fhook">Recruiters spent 2 hours just getting candidates into the system. I got it to 30 minutes — the whole flow, from research to ship.</p>
+              <div class="fstats">
+                <div><b>2h→30m</b><span>Workflow</span></div>
+                <div><b>+130</b><span>Hires sourced</span></div>
+                <div><b>3</b><span>Upload paths</span></div>
+              </div>
+              <a class="fgo">View case study →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature flip reveal">
+          <div class="fwrap">
+            <div class="ffig match"><img src="http://localhost:3000/projects/fireside/exhibit-in-use.png" alt="Fireside exhibit"></div>
+            <div class="ftxt">
+              <span class="fidx">02 / 04</span>
+              <p class="ftag">Interactive exhibit · CU Boulder</p>
+              <h3>Fireside</h3>
+              <p class="fhook">A 3D projected table a 9-year-old understood in 15 seconds, with no instructions. Designed for hands, not manuals.</p>
+              <div class="fstats">
+                <div><b>15s</b><span>To understand</span></div>
+                <div><b>0</b><span>Instructions</span></div>
+                <div><b>8–80</b><span>Ages reached</span></div>
+              </div>
+              <a class="fgo">View case study →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature reveal">
+          <div class="fwrap">
+            <div class="ffig embed"><iframe src="aura-cover.html" title="Aura case-study cover" scrolling="no"></iframe></div>
+            <div class="ftxt">
+              <span class="fidx">03 / 04</span>
+              <p class="ftag">Mobile app · e-commerce</p>
+              <h3>Aura</h3>
+              <p class="fhook">Gifting, rebuilt around how people actually browse, decide, and check out — the full UX flow end to end.</p>
+              <div class="fstats">
+                <div><b>0→1</b><span>Concept to flow</span></div>
+                <div><b>iOS</b><span>Native app</span></div>
+                <div><b>UX</b><span>Research → ship</span></div>
+              </div>
+              <a class="fgo">View case study →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature flip reveal">
+          <div class="fwrap">
+            <div class="ffig" style="background:#f8f9fa;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:40px;">
+              <div style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:.12em;color:#6b7280;text-transform:uppercase;">Risk Exposure · 200 clients</div>
+              <div style="width:100%;max-width:340px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                  <div style="width:3px;height:36px;background:#b91c1c;border-radius:2px;flex-shrink:0;"></div>
+                  <div style="flex:1;background:#fee2e2;height:8px;border-radius:4px;position:relative;"><div style="position:absolute;left:0;top:0;height:100%;width:78%;background:#b91c1c;border-radius:4px;"></div></div>
+                  <span style="font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#b91c1c;width:36px;text-align:right;">0.78</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                  <div style="width:3px;height:36px;background:#b91c1c;border-radius:2px;flex-shrink:0;"></div>
+                  <div style="flex:1;background:#fee2e2;height:8px;border-radius:4px;position:relative;"><div style="position:absolute;left:0;top:0;height:100%;width:71%;background:#b91c1c;border-radius:4px;"></div></div>
+                  <span style="font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#b91c1c;width:36px;text-align:right;">0.71</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                  <div style="width:3px;height:36px;background:#d97706;border-radius:2px;flex-shrink:0;"></div>
+                  <div style="flex:1;background:#fef3c7;height:8px;border-radius:4px;position:relative;"><div style="position:absolute;left:0;top:0;height:100%;width:59%;background:#d97706;border-radius:4px;"></div></div>
+                  <span style="font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#d97706;width:36px;text-align:right;">0.59</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:3px;height:36px;background:#e5e7eb;border-radius:2px;flex-shrink:0;"></div>
+                  <div style="flex:1;background:#f3f4f6;height:8px;border-radius:4px;position:relative;"><div style="position:absolute;left:0;top:0;height:100%;width:41%;background:#9ca3af;border-radius:4px;"></div></div>
+                  <span style="font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:#9ca3af;width:36px;text-align:right;">0.41</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:24px;margin-top:4px;">
+                <div style="text-align:center;"><div style="font-family:'Inter',sans-serif;font-size:22px;font-weight:700;color:#b91c1c;">40 min</div><div style="font-family:'Inter',sans-serif;font-size:11px;color:#9ca3af;margin-top:2px;">before</div></div>
+                <div style="display:flex;align-items:center;color:#d1d5db;font-size:18px;margin-bottom:16px;">→</div>
+                <div style="text-align:center;"><div style="font-family:'Inter',sans-serif;font-size:22px;font-weight:700;color:#16a34a;">30 sec</div><div style="font-family:'Inter',sans-serif;font-size:11px;color:#9ca3af;margin-top:2px;">after</div></div>
+              </div>
+            </div>
+            <div class="ftxt">
+              <span class="fidx">04 / 04</span>
+              <p class="ftag">Product Design · Fintech · Self-initiated</p>
+              <h3>Meridian</h3>
+              <p class="fhook">Private-wealth advisors spent 40 minutes every morning answering one question. I redesigned the tool so it takes 30 seconds — 200 clients, one view, drill-down on demand.</p>
+              <div class="fstats">
+                <div><b>40m→30s</b><span>Morning workflow</span></div>
+                <div><b>200</b><span>Clients, live data</span></div>
+                <div><b>3</b><span>Risk factors</span></div>
+              </div>
+              <a class="fgo" href="http://localhost:5194" target="_blank" rel="noopener noreferrer">View case study →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento">
+        <a class="tile b-getup reveal"><div class="imgwrap"><img src="http://localhost:3000/images/getup.png" alt=""></div><span class="cap">GetUp · brand</span></a>
+        <a class="tile ttile b-aitm reveal" href="https://ai-trust-meter.vercel.app" target="_blank" rel="noopener noreferrer"><span class="k">Self-initiated · live</span><p class="t">AI Trust Meter — shows how grounded an AI answer really is.</p><span class="cta">Try live demo ↗</span></a>
+        <div class="tile ttile b-stat reveal"><span class="k">Selected work</span><div class="big">5</div><span class="t">case studies, shipped end-to-end</span></div>
+        <div class="tile ttile b-pov reveal"><span class="k">POV · OpenRouter</span><p class="t">500+ AI models, no guidance. I designed a wizard that gets you to a working API call in four questions.</p><span class="cta">Live prototype →</span></div>
+        <a class="tile ttile b-pod reveal" href="https://open.spotify.com/episode/7I5EGVw51a9Y68yW5Aqv7z" target="_blank" rel="noopener noreferrer"><span class="k">▶ Podcast</span><p class="t">I talked through my whole path into design.</p><span class="cta">Listen →</span></a>
+        <div class="tile ttile b-bake reveal"><span class="k">Off the clock</span><p class="t">Baking, hiking, and painting little rocks. Coffee, always.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ABOUT (white) ══ -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="a-grid">
+        <div class="a-photo">
+          <img src="http://localhost:3000/images/sanjana-hero.png" alt="Sanjana Gangishetty"
+               onerror="this.src='http://localhost:3000/images/sanjana.jpg'">
+        </div>
+        <div class="a-text">
+          <p class="eyebrow2">Nice to meet you</p>
+          <h2>I'm Sanjana, Product Designer</h2>
+          <p class="a-story">Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists, in the messy middle where nobody's sure what they're solving yet. That's the part most designers skip. I don't.</p>
+          <div class="a-actions">
+            <a class="solid" href="http://localhost:3000/about">Full story →</a>
+            <a class="ghost" href="http://localhost:3000/resume.pdf" target="_blank" rel="noopener noreferrer">Résumé ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ reverse seam: fade into the sky just for the footer ══ -->
+  <div class="seam-up"></div>
+
+  <!-- ══ CONTACT / FOOTER (sky) ══ -->
+  <footer class="foot" id="contact">
+    <div class="wrap">
+      <div class="foot-left">
+        <p class="eyebrow2">Let's connect</p>
+        <h3>Let's talk.</h3>
+        <div class="cta-row">
+          <a class="btn btn-solid" href="mailto:gangishettysanjana084@gmail.com">Email me →</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/sanjana-gangishetty" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <a class="btn btn-ghost" href="http://localhost:3000/resume.pdf" target="_blank" rel="noopener noreferrer">Résumé ↗</a>
+        </div>
+        <p class="meta">Sanjana Gangishetty · Product Designer · open to work · 2026</p>
+      </div>
+
+      <div class="fortune">
+        <div class="slip" id="slip" hidden>
+          <div class="crack">
+            <p class="strip"><span id="slipMsg"></span></p>
+          </div>
+          <button class="again" id="refill" hidden>refill the plate ↻</button>
+        </div>
+        <div class="bowl">
+          <div class="plate"></div>
+          <div class="cookies">
+            <button class="ck c-bl" data-i="0" aria-label="fortune cookie">🥠</button>
+            <button class="ck c-br" data-i="1" aria-label="fortune cookie">🥠</button>
+            <button class="ck c-fl" data-i="2" aria-label="fortune cookie">🥠</button>
+            <button class="ck c-fr" data-i="3" aria-label="fortune cookie">🥠</button>
+            <button class="ck c-top" data-i="4" aria-label="fortune cookie">🥠</button>
+          </div>
+        </div>
+        <p class="fhint">pick a cookie ✦</p>
+      </div>
+    </div>
+  </footer>
+
+<script>
+(() => {
+  /* ── cursor sticker trail (whole page) ── */
+  const host = document.body;
+  const stickers = ['☕','🎨','🏔️','🐶','🧁','🥾','🎙️','🪨','🎧','🌸','✦'];
+  let idx = 0, lastX = null, lastY = null;
+  const GAP = 78, MAX = 14;
+  function spawn(x, y){
+    const el = document.createElement('div');
+    el.className = 'trail';
+    el.textContent = stickers[idx % stickers.length]; idx++;
+    el.style.left = x + 'px'; el.style.top = y + 'px';
+    el.style.setProperty('--rot', (((idx * 47) % 20) - 10) + 'deg');
+    host.appendChild(el);
+    requestAnimationFrame(() => el.classList.add('show'));
+    setTimeout(() => { el.classList.remove('show'); el.classList.add('hide'); }, 500);
+    setTimeout(() => el.remove(), 1030);
+    const live = host.querySelectorAll('.trail');
+    if (live.length > MAX) live[0].remove();
+  }
+  const seamEl = document.querySelector('.seam');
+  window.addEventListener('pointermove', e => {
+    // once the cursor reaches the work section, drop the trail — normal cursor there
+    if (seamEl && e.clientY >= seamEl.getBoundingClientRect().top) { lastX = e.clientX; lastY = e.clientY; return; }
+    if (lastX == null){ lastX = e.clientX; lastY = e.clientY; spawn(e.clientX, e.clientY); return; }
+    if (Math.hypot(e.clientX - lastX, e.clientY - lastY) < GAP) return;
+    lastX = e.clientX; lastY = e.clientY; spawn(e.clientX, e.clientY);
+  });
+
+  /* ── skill marquee + highlight ── */
+  const rowA = [
+    {t:'UI Design'},{t:'Product Design'},{t:'🧁 loves baking',fun:1},{t:'Prototyping'},
+    {t:'Wireframing'},{t:'Figma'},{t:'☕ makes a mean coffee',fun:1},{t:'Framer'},{t:'Webflow'},{t:'After Effects'},
+  ];
+  const rowB = [
+    {t:'User Experience'},{t:'Research'},{t:'🥾 weekend hiker',fun:1},{t:'Interaction Design'},
+    {t:'Design Systems'},{t:'🎙️ recently on a podcast',fun:1,href:'https://open.spotify.com/episode/7I5EGVw51a9Y68yW5Aqv7z'},{t:'Journey Mapping'},
+    {t:'AI-assisted design'},{t:'🎨 paints rocks',fun:1},{t:'Creative thinking'},{t:'Problem solving'},
+  ];
+  const fill = (el, arr) => {
+    el.innerHTML = (arr.map(o => o.href
+      ? `<a class="tag${o.fun?' fun':''} link" data-skill="${o.t}" href="${o.href}" target="_blank" rel="noopener noreferrer">${o.t}</a>`
+      : `<span class="tag${o.fun?' fun':''}" data-skill="${o.t}">${o.t}</span>`).join('')).repeat(2);
+  };
+  fill(document.getElementById('rowA'), rowA);
+  fill(document.getElementById('rowB'), rowB);
+  const order = [...rowA, ...rowB].filter(o => !o.fun).map(o => o.t);
+  let hi = 0;
+  setInterval(() => {
+    document.querySelectorAll('.tag.on').forEach(t => t.classList.remove('on'));
+    const skill = order[hi % order.length]; hi++;
+    document.querySelectorAll(`.tag[data-skill="${skill}"]`).forEach(t => t.classList.add('on'));
+  }, 650);
+
+  /* ── reveal work tiles on scroll ── */
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  }, { threshold: 0.14 });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (Math.min(i, 6) * 0.05) + 's';
+    io.observe(el);
+  });
+
+  /* ── bowl of fortune cookies: each cookie has its own feel-good message ── */
+  const fortunes = [
+    "The thing you're overthinking is already good enough to ship.",
+    "Someone will hire you for exactly the way your brain works.",
+    "The messy middle is your home turf. Stay a beat longer.",
+    "A small honest detail you shipped today will outlive the project.",
+    "The right opportunity is closer than your doubt admits.",
+  ];
+  const cks = [...document.querySelectorAll('.ck')];
+  const slip = document.getElementById('slip');
+  const slipMsg = document.getElementById('slipMsg');
+  const refill = document.getElementById('refill');
+  let usedCount = 0;
+  if (cks.length) {
+    cks.forEach(ck => {
+      ck.addEventListener('click', () => {
+        slipMsg.textContent = fortunes[+ck.dataset.i] || fortunes[0];
+        slip.hidden = false;
+        slip.classList.remove('in'); void slip.offsetWidth; slip.classList.add('in');
+        if (!ck.classList.contains('used')) { ck.classList.add('used'); usedCount++; }
+        if (usedCount >= cks.length) refill.hidden = false;
+      });
+    });
+    refill.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cks.forEach(c => c.classList.remove('used'));
+      usedCount = 0; refill.hidden = true; slip.hidden = true;
+    });
+  }
+})();
+
+/* highlights ticker */
+(function(){
+  const items = document.querySelectorAll('#hticker .ht-item');
+  if(!items.length) return;
+  let cur = 0;
+  setInterval(function(){
+    items[cur].classList.remove('active');
+    items[cur].classList.add('exit');
+    const prev = cur;
+    cur = (cur + 1) % items.length;
+    items[cur].classList.add('active');
+    setTimeout(function(){ items[prev].classList.remove('exit'); }, 500);
+  }, 3500);
+})();
+</script>
+</body>
+</html>
