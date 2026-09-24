@@ -10,6 +10,22 @@ export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [marqueePaused, setMarqueePaused] = useState(false)
   const [resumeOpen, setResumeOpen] = useState(false)
+  const [hlIdx, setHlIdx] = useState(0)
+  const [hlVisible, setHlVisible] = useState(true)
+
+  const highlights = [
+    { tag: 'Lovable Hackathon', text: 'Finalist — shipped a full AI product in 48h' },
+    { tag: 'FlairX', text: 'Cut recruiter screening time by 75% (2 hr → 30 min)' },
+    { tag: 'Northern Trust', text: 'Surfaced portfolio risk in 30 sec, down from 40 min' },
+  ]
+
+  useEffect(() => {
+    const iv = setInterval(() => {
+      setHlVisible(false)
+      setTimeout(() => { setHlIdx(i => (i + 1) % 3); setHlVisible(true) }, 350)
+    }, 3800)
+    return () => clearInterval(iv)
+  }, [])
   const previewRef = useRef<HTMLDivElement>(null)
 
   // Small "view" cue (eye) that follows the cursor while hovering a work row.
@@ -232,6 +248,15 @@ export default function HomePage() {
             <span className="pill">Product Designer · designs &amp; ships</span>
             <TyperHero />
             <p className="sub">3 years in product, 7 in design. Mostly AI and fintech. The messier the problem, the more I like it.</p>
+            <div className="hero-highlights">
+              <span className="hero-hl-label">Highlights</span>
+              <div className="hero-hl-track">
+                <span className="hero-hl-tag">{highlights[hlIdx].tag}</span>
+                <span className="hero-hl-text" style={{ opacity: hlVisible ? 1 : 0, transform: hlVisible ? 'translateY(0)' : 'translateY(6px)', transition: 'opacity 0.3s ease, transform 0.3s ease' }}>
+                  {highlights[hlIdx].text}
+                </span>
+              </div>
+            </div>
             <div className="divider" />
             <div className="prev">
               <span className="lbl">Previously in</span>
