@@ -314,9 +314,9 @@ export default function FiresidePage() {
               {/* Outcome lands before anyone decides whether to keep reading */}
               <CaseStats
                 items={[
-                  { value: '4', label: 'Public events deployed at' },
-                  { value: '8–80', label: 'Age range it had to work for' },
-                  { value: '0', label: 'Instructions needed to start' },
+                  { value: '4', label: 'Public science events deployed at' },
+                  { value: '< 10 sec', label: 'Time to first interaction, no instructions' },
+                  { value: '0', label: 'Facilitated sessions — fully self-guided' },
                 ]}
               />
 
@@ -404,7 +404,7 @@ export default function FiresidePage() {
 
               <div className="fx-prose" style={{ marginBottom: 32 }}>
                 <p>Wildfires are becoming more frequent, more destructive, and harder to predict. But most public education still looks like a pamphlet. The Fireside Interactive project set out to change that, by building a physical exhibit that let visitors actually experience how a wildfire spreads, not just read about it.</p>
-                <p>The project was developed as part of CU Boulder&apos;s community wildfire awareness initiative. The audience was everyone: families, school groups, firefighters, and retirees. The exhibit needed to work in a noisy science museum, capture attention in under 10 seconds, and teach something real in under 5 minutes.</p>
+                <p>The project was developed as part of CU Boulder&apos;s community wildfire awareness initiative. The audience was everyone: families, school groups, firefighters, and retirees. The exhibit needed to work in a noisy science museum, <strong>capture attention in under 10 seconds, and teach something real in under 5 minutes.</strong></p>
               </div>
 
               {/* The constraint carries an argument, so it stays as prose;
@@ -559,7 +559,7 @@ export default function FiresidePage() {
               <h2 className="fx-sec-title">Designed for everyone who walks through the door.</h2>
 
               <div className="fx-prose" style={{ marginBottom: 32 }}>
-                <p>The hardest constraint was the audience range. The same ten seconds of interaction had to land for a kid who can&apos;t read the labels yet and for someone who fights fires for a living, with no instructions and no facilitator standing in between.</p>
+                <p>The hardest constraint was the audience range. <strong>The same ten seconds of interaction had to land for a kid who can&apos;t read the labels yet and for someone who fights fires for a living,</strong> with no instructions and no facilitator standing in between.</p>
               </div>
 
               <CaseFigure
@@ -686,7 +686,7 @@ export default function FiresidePage() {
               <h2 className="fx-sec-title">The table is the interface.</h2>
 
               <div className="fx-prose" style={{ marginBottom: 32 }}>
-                <p>Most of the interaction design decisions were actually spatial decisions. Where you place the controls relative to where the effects appear teaches users without words. We went through four floor plan iterations before the cause-and-effect loop felt immediate.</p>
+                <p>Most of the interaction design decisions were actually spatial decisions. <strong>Where you place the controls relative to where the effects appear teaches users without words.</strong> We went through four floor plan iterations before the cause-and-effect loop felt immediate.</p>
               </div>
 
               <CaseFigure
@@ -734,12 +734,28 @@ export default function FiresidePage() {
 
               <div className="fx-prose">
                 <p>Everything I knew about interface design quietly assumed a flat rectangle. Here the canvas had hills. The projection-on-terrain constraint was genuinely hard and genuinely interesting, I&apos;d never had to think about how pixel density changes meaning when your surface isn&apos;t flat, or how a button reads when it&apos;s cast across a slope.</p>
-                <p>Or how a control feels intuitive not because of its label but because of where it sits relative to the effect. Designing for physical space forced me to think spatially in a way that screen design never had.</p>
+                <p>Or how a control feels intuitive not because of its label but because of where it sits relative to the effect. <strong>Designing for physical space forced me to think spatially</strong> in a way that screen design never had.</p>
               </div>
 
               <div className="fx-reflection-callout">
                 <span className="fx-reflection-label">One thing from a real event</span>
-                <p>At the first public deployment, a family science night at CU Boulder, a kid rotated the wind dial all the way up in Simulation Mode and watched the fire spread across the whole table in about 15 seconds. He turned to his parent and said &ldquo;oh, that&apos;s why it goes that direction.&rdquo; That was the whole design goal, delivered by a 9-year-old who had never seen the exhibit before. We didn&apos;t change anything after that session.</p>
+                <p>At the first public deployment, a family science night at CU Boulder, a kid rotated the wind dial all the way up in Simulation Mode and watched the fire spread across the whole table in about 15 seconds. He turned to his parent and said &ldquo;oh, that&apos;s why it goes that direction.&rdquo; <strong>That was the whole design goal, delivered by a 9-year-old who had never seen the exhibit before.</strong> We didn&apos;t change anything after that session.</p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ── 09 WHAT'S NEXT ──────────────────────────────── */}
+        <section className="fx-sec" id="whats-next">
+          <div className="fx-container">
+            <Reveal>
+              <p className="fx-sec-label">09 · What&apos;s Next</p>
+              <h2 className="fx-sec-title">Keep it public and watch what happens.</h2>
+
+              <div className="fx-prose">
+                <p>The goal was always to make this publicly accessible, not just a museum exhibit or a one-off event. The next phase was wider deployment: more venues, more audiences, more people discovering it without any instructions handed to them.</p>
+                <p>What we wanted from that wasn&apos;t just reach. It was navigation data. How do people who&apos;ve never seen it before find their way in? Where do they stall? What do they try first? Real usage patterns from a real public audience would tell us what to improve in a way that a controlled session never could.</p>
+                <p>The education piece also had room to grow. The exhibit was effective, but it was a single scenario. More fire behavior, more terrain types, more variables to explore. That&apos;s what a sustained public deployment would unlock.</p>
               </div>
             </Reveal>
           </div>

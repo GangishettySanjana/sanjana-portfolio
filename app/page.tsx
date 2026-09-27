@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import TyperHero from '@/components/TyperHero'
 import ResumeModal from '@/components/ResumeModal'
+import { Clock01Icon, RocketIcon, Award01Icon } from 'hugeicons-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { Linkedin01FreeIcons, Menu01FreeIcons, Cancel01FreeIcons } from '@hugeicons/core-free-icons'
 import './home-v2.css'
 
 export default function HomePage() {
@@ -212,26 +215,21 @@ export default function HomePage() {
         <nav>
           <div className="nav-left">
             <span className="brand">Sanjana Gangishetty</span>
-            <Link href="/recruiters" className="status status-link"><span className="dot" /> Currently looking for a role <span className="status-cta">· see if we&rsquo;re a match ↗</span></Link>
+            <Link href="/recruiters" className="status status-link"><span className="dot" /> Currently looking for a role</Link>
           </div>
           <div className="nav-right">
             <div className={`navlinks${menuOpen ? ' open' : ''}`}>
               <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
               <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
               <Link href="/playground" onClick={() => setMenuOpen(false)}>Playground</Link>
-              <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
               <Link href="/recruiters" className="only-mobile" onClick={() => setMenuOpen(false)}>See if we&rsquo;re a match ↗</Link>
             </div>
             <a href="https://www.linkedin.com/in/sanjana-gangishetty" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style={{ display: 'flex', alignItems: 'center', color: '#002448', opacity: 0.7, transition: 'opacity 0.15s', flexShrink: 0 }} onMouseEnter={e => (e.currentTarget.style.opacity='1')} onMouseLeave={e => (e.currentTarget.style.opacity='0.7')}>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                <path d="M4.5 9.5H4C3.05719 9.5 2.58579 9.5 2.29289 9.79289C2 10.0858 2 10.5572 2 11.5V20C2 20.9428 2 21.4142 2.29289 21.7071C2.58579 22 3.05719 22 4 22H4.5C5.44281 22 5.91421 22 6.20711 21.7071C6.5 21.4142 6.5 20.9428 6.5 20V11.5C6.5 10.5572 6.5 10.0858 6.20711 9.79289C5.91421 9.5 5.44281 9.5 4.5 9.5Z"/>
-                <path d="M6.5 4.25C6.5 5.49264 5.49264 6.5 4.25 6.5C3.00736 6.5 2 5.49264 2 4.25C2 3.00736 3.00736 2 4.25 2C5.49264 2 6.5 3.00736 6.5 4.25Z"/>
-                <path d="M12.326 9.5H11.5C10.5572 9.5 10.0858 9.5 9.79289 9.79289C9.5 10.0858 9.5 10.5572 9.5 11.5V20C9.5 20.9428 9.5 21.4142 9.79289 21.7071C10.0858 22 10.5572 22 11.5 22H12C12.9428 22 13.4142 22 13.7071 21.7071C14 21.4142 14 20.9428 14 20L14.0001 16.5001C14.0001 14.8433 14.5281 13.5001 16.0879 13.5001C16.8677 13.5001 17.5 14.1717 17.5 15.0001V19.5001C17.5 20.4429 17.5 20.9143 17.7929 21.2072C18.0857 21.5001 18.5572 21.5001 19.5 21.5001H19.9987C20.9413 21.5001 21.4126 21.5001 21.7055 21.2073C21.9984 20.9145 21.9985 20.4432 21.9987 19.5006L22.0001 14.0002C22.0001 11.515 19.6364 9.50024 17.2968 9.50024C15.9649 9.50024 14.7767 10.1531 14.0001 11.174C14 10.5439 14 10.2289 13.8632 9.995C13.7765 9.84686 13.6531 9.72353 13.505 9.63687C13.2711 9.5 12.9561 9.5 12.326 9.5Z" strokeLinejoin="round"/>
-              </svg>
+              <HugeiconsIcon icon={Linkedin01FreeIcons} size={22} color="currentColor" strokeWidth={1.5} />
             </a>
             <button className="nav-resume" onClick={() => setResumeOpen(true)}>Résumé ↗</button>
             <button className="nav-toggle" aria-label="Menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(v => !v)}>
-              <span /><span /><span />
+              <HugeiconsIcon icon={menuOpen ? Cancel01FreeIcons : Menu01FreeIcons} size={20} color="currentColor" strokeWidth={1.5} />
             </button>
           </div>
         </nav>
@@ -241,8 +239,8 @@ export default function HomePage() {
             <p className="hello">Hello
               <span className="avatar-wrap">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="avatar" src="/images/sanjana.jpg" alt="Sanjana"
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/images/sanjana-hero.png' }} />
+                <img className="avatar" src="/images/sanjana-new.jpeg" alt="Sanjana"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/images/sanjana.jpg' }} />
               </span>
               I&apos;m Sanjana</p>
             <span className="pill">Product Designer · designs &amp; ships</span>
@@ -290,38 +288,159 @@ export default function HomePage() {
         <div className="wrap">
           <p className="eyebrow" data-reveal>Selected work</p>
 
-          <div className="work-table" id="work-table">
-            {[
-              { num: '01', name: 'FlairX', tag: 'AI · HR Tech', impact: 'Recruiters spent 2 hours just getting candidates into the system. I got it to 30 minutes. The whole flow, from research to ship.', href: '/projects/flairx' },
-              { num: '02', name: 'Meridian', tag: 'Fintech · Risk', impact: 'Wealth advisors were spending 40 minutes hunting for over-exposed clients. I redesigned the risk console. Now it takes 30 seconds.', href: '/projects/meridian' },
-              { num: '03', name: 'Fireside', tag: 'Hardware · 0→1', impact: 'A 3D projected table a 9-year-old understood in 15 seconds, with no instructions. Designed for hands, not manuals.', href: '/projects/fireside' },
-              { num: '04', name: 'Aura', tag: 'E-Commerce · 0→1', impact: 'Gifting, rebuilt around how people actually browse, decide, and check out. The full flow, end to end.', href: '/projects/aura' },
-            ].map((p) => (
-              <Link
-                key={p.name}
-                className="wt-row"
-                href={p.href}
-                onMouseEnter={showPreview}
-                onMouseMove={movePreview}
-                onMouseLeave={hidePreview}
-              >
-                <span className="wt-c-num">{p.num}</span>
-                <span className="wt-c-mid">
-                  <span className="wt-c-name">{p.name}</span>
-                  <span className="wt-c-tag">{p.tag}</span>
-                  <span className="wt-c-impact">{p.impact}</span>
-                </span>
-                <span className="wt-c-arrow" aria-hidden="true">→</span>
-              </Link>
-            ))}
-          </div>
+          <div className="cards-grid">
 
-          {/* Cursor-follow "view" cue for the work rows. */}
-          <div className="wt-preview" ref={previewRef} aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z" />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
+            {/* FlairX */}
+            <Link className="pc" href="/projects/flairx">
+              <div className="pc-img pc-img-fx">
+                <div className="fx-wrap">
+                  <div className="fx-header">
+                    <span className="fx-hdr-lbl">Top candidates</span>
+                    <span className="fx-hdr-count">12 screened</span>
+                  </div>
+                  <div className="fx-cand fx-cand-active">
+                    <div className="fx-av fx-av-1" />
+                    <div style={{flex:1}}>
+                      <div className="fx-name">Alex Rivera</div>
+                      <div className="fx-sub">Sr. Product Designer · NYC · 8 yrs</div>
+                    </div>
+                    <div className="fx-badge">87%</div>
+                  </div>
+                  <div className="fx-cand fx-cand-dim">
+                    <div className="fx-av fx-av-2" />
+                    <div style={{flex:1}}>
+                      <div className="fx-name">Jordan Chen</div>
+                      <div className="fx-sub">Product Designer · SF · 5 yrs</div>
+                    </div>
+                    <div className="fx-badge fx-badge-dim">73%</div>
+                  </div>
+                  <div className="fx-bar">
+                    <div className="fx-blbl"><span>AI match · Alex Rivera</span><span style={{color:'#00254B'}}>87/100</span></div>
+                    <div className="fx-trk"><div className="fx-fill" style={{width:'87%'}} /></div>
+                  </div>
+                  <div className="fx-chips">
+                    <span className="fx-chip">B2B SaaS</span>
+                    <span className="fx-chip">AI</span>
+                  </div>
+                </div>
+                <div className="pc-arrow pc-arrow-fx">↗</div>
+              </div>
+              <div className="pc-body">
+                <div className="pc-eye pc-eye-fx">Product Design · FlairX AI</div>
+                <div className="pc-title">Redesigning the Recruiter Workflow</div>
+                <div className="pc-desc">AI-powered résumé screening that cuts processing time and removes guesswork from the shortlist.</div>
+                <div className="pc-stats">
+                  <div className="pc-stat"><span className="pc-check pc-check-fx">✓</span>Résumé batch: 2 hrs → 30 min per cycle</div>
+                  <div className="pc-stat"><span className="pc-check pc-check-fx">✓</span>130 hires sourced through the new flow in 6 months</div>
+                </div>
+                <span className="pc-tag">B2B SaaS</span>
+              </div>
+            </Link>
+
+            {/* Meridian */}
+            <Link className="pc" href="/projects/meridian">
+              <div className="pc-img pc-img-md">
+                <div className="md-wrap">
+                  <div className="md-panel">
+                    <div className="md-head">
+                      <span className="md-th">Client</span>
+                      <span className="md-th">Risk</span>
+                      <span className="md-th">Exposure</span>
+                    </div>
+                    <div className="md-row"><span className="md-client">Hartwell, D.</span><span className="md-pill p-r">High</span><span className="md-val">68.4%</span></div>
+                    <div className="md-row"><span className="md-client">Osei, K.</span><span className="md-pill p-a">Review</span><span className="md-val">51.2%</span></div>
+                    <div className="md-row"><span className="md-client">Patel, R.</span><span className="md-pill p-g">Safe</span><span className="md-val">29.7%</span></div>
+                  </div>
+                  <div className="md-kpi-row">
+                    <span className="md-kpi">40 min → 30 sec</span>
+                    <span className="md-sub">to surface at-risk clients</span>
+                  </div>
+                </div>
+                <div className="pc-arrow pc-arrow-md">↗</div>
+              </div>
+              <div className="pc-body">
+                <div className="pc-eye pc-eye-md">Simplified Management · Private Wealth</div>
+                <div className="pc-title">A Risk Console for Wealth Advisors</div>
+                <div className="pc-desc">Surfaces over-exposed clients in seconds — replacing a 40-minute manual spreadsheet review.</div>
+                <div className="pc-stats">
+                  <div className="pc-stat"><span className="pc-check pc-check-md">✓</span>40 min → 30 sec to identify at-risk clients</div>
+                  <div className="pc-stat"><span className="pc-check pc-check-md">✓</span>200-client prototype: real sort, filter, and drill-down</div>
+                </div>
+                <span className="pc-tag">B2B Fintech</span>
+              </div>
+            </Link>
+
+            {/* Fireside */}
+            <Link className="pc" href="/projects/fireside">
+              <div className="pc-img pc-img-fs">
+                <svg viewBox="0 0 400 244" preserveAspectRatio="xMidYMid slice" style={{position:'absolute',inset:0,width:'100%',height:'100%'}}>
+                  <path d="M0,195 Q45,155 90,168 Q135,181 180,130 Q225,79 270,102 Q315,125 360,85 L400,75 L400,244 L0,244Z" fill="rgba(255,134,65,0.07)"/>
+                  <path d="M0,212 Q55,178 110,190 Q165,202 220,158 Q275,114 330,132 Q365,144 400,118 L400,244 L0,244Z" fill="rgba(255,134,65,0.04)"/>
+                  <path d="M0,195 Q45,155 90,168 Q135,181 180,130 Q225,79 270,102 Q315,125 360,85 L400,75" fill="none" stroke="rgba(255,134,65,0.55)" strokeWidth="1.5"/>
+                  <path d="M0,212 Q55,178 110,190 Q165,202 220,158 Q275,114 330,132 Q365,144 400,118" fill="none" stroke="rgba(255,134,65,0.32)" strokeWidth="1"/>
+                  <path d="M0,228 Q60,208 120,215 Q180,222 240,185 Q300,148 360,162 L400,155" fill="none" stroke="rgba(255,134,65,0.18)" strokeWidth="0.8"/>
+                  <ellipse cx="225" cy="118" rx="38" ry="22" fill="rgba(255,134,65,0.09)" stroke="rgba(255,134,65,0.45)" strokeWidth="1" strokeDasharray="3,3"/>
+                  <text x="210" y="122" fontSize="7.5" fill="rgba(192,74,32,0.75)" fontFamily="monospace">Fire Zone</text>
+                </svg>
+                <div className="fs-wrap">
+                  <div className="fs-panel">
+                    <div className="fs-lbl">Live Conditions · Zone 4-B</div>
+                    <div className="fs-grid">
+                      <div className="fs-cell"><div className="fs-clbl">Wind</div><div className="fs-cval">14mph</div></div>
+                      <div className="fs-cell"><div className="fs-clbl">Humidity</div><div className="fs-cval">9%</div></div>
+                      <div className="fs-cell"><div className="fs-clbl">Spread</div><div className="fs-cval" style={{color:'#e06020'}}>Fast</div></div>
+                    </div>
+                  </div>
+                  <div className="fs-panel">
+                    <div className="fs-lbl">Fuel Load by Terrain</div>
+                    <div className="fs-brow"><span className="fs-blbl">Ridge top</span><div className="fs-trk"><div className="fs-fill" style={{width:'82%'}} /></div></div>
+                    <div className="fs-brow"><span className="fs-blbl">Valley</span><div className="fs-trk"><div className="fs-fill" style={{width:'47%'}} /></div></div>
+                  </div>
+                  <div className="fs-tags"><span className="fs-tag">Physical UX</span><span className="fs-tag">CU Boulder</span></div>
+                </div>
+                <div className="pc-arrow pc-arrow-fs">↗</div>
+              </div>
+              <div className="pc-body">
+                <div className="pc-eye pc-eye-fs">Physical UX · CU Boulder · 2024</div>
+                <div className="pc-title">A Wildfire Exhibit Anyone Could Use</div>
+                <div className="pc-desc">Interaction design for a physical 3D terrain table — teaching fire behavior through touch, not text.</div>
+                <div className="pc-stats">
+                  <div className="pc-stat"><span className="pc-check pc-check-fs">✓</span>Deployed at 4 public science events</div>
+                  <div className="pc-stat"><span className="pc-check pc-check-fs">✓</span>0 instructions needed — usable in under 10 seconds</div>
+                </div>
+                <span className="pc-tag">Physical UX</span>
+              </div>
+            </Link>
+
+            {/* Aura */}
+            <Link className="pc" href="/projects/aura">
+              <div className="pc-img pc-img-au">
+                <div className="au-wrap">
+                  <div className="au-hdr">
+                    <span className="au-nm">Aura</span>
+                    <span className="au-step">Step 1 · Pick delivery date</span>
+                  </div>
+                  <div className="au-list">
+                    <div className="au-row"><div><div className="au-fn">Summer Blush Bouquet</div><div className="au-fp">₹890</div></div><span className="au-s ok">In stock</span></div>
+                    <div className="au-row"><div><div className="au-fn">Golden Garden Mix</div><div className="au-fp">₹1,100</div></div><span className="au-s lo">3 left</span></div>
+                    <div className="au-row"><div><div className="au-fn">White Elegance</div><div className="au-fp">₹750</div></div><span className="au-s ok">In stock</span></div>
+                  </div>
+                  <div className="au-cta">Build your own bouquet →</div>
+                </div>
+                <div className="pc-arrow pc-arrow-au">↗</div>
+              </div>
+              <div className="pc-body">
+                <div className="pc-eye pc-eye-au">Google UX Certificate · E-Commerce · 2023</div>
+                <div className="pc-title">A Florist App Built Around Gifting</div>
+                <div className="pc-desc">Mobile app for a Hyderabad florist with no digital presence — designed end-to-end from scratch.</div>
+                <div className="pc-stats">
+                  <div className="pc-stat"><span className="pc-check pc-check-au">✓</span>0 → 5/5 task completion after checkout reorder</div>
+                  <div className="pc-stat"><span className="pc-check pc-check-au">✓</span>3 rounds of usability testing, end-to-end</div>
+                </div>
+                <span className="pc-tag">E-Commerce</span>
+              </div>
+            </Link>
+
           </div>
 
         </div>
@@ -342,6 +461,20 @@ export default function HomePage() {
               <p className="eyebrow2">Nice to meet you</p>
               <h2>I&apos;m Sanjana, Product Designer</h2>
               <p className="a-story">Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re solving yet. That&apos;s the part I care about most.</p>
+              <div className="a-stats">
+                <div className="a-stat-card">
+                  <div className="a-stat-num-row"><Clock01Icon size={18} className="a-stat-icon" /><span className="a-stat-num">3+</span></div>
+                  <span className="a-stat-lbl">Years of Experience</span>
+                </div>
+                <div className="a-stat-card">
+                  <div className="a-stat-num-row"><RocketIcon size={18} className="a-stat-icon" /><span className="a-stat-num">10+</span></div>
+                  <span className="a-stat-lbl">Projects Shipped</span>
+                </div>
+                <div className="a-stat-card">
+                  <div className="a-stat-num-row"><Award01Icon size={18} className="a-stat-icon" /><span className="a-stat-num">Finalist</span></div>
+                  <span className="a-stat-lbl">Lovable Hackathon · 2024</span>
+                </div>
+              </div>
               <div className="a-actions">
                 <Link className="solid" href="/about">Full story →</Link>
                 <button className="ghost" onClick={() => setResumeOpen(true)}>Résumé ↗</button>

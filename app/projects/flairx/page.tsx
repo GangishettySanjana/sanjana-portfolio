@@ -496,8 +496,8 @@ export default function FlairXPage() {
             {/* Outcome lands before anyone decides whether to keep reading */}
             <CaseStats
               items={[
-                { value: '2 hrs → 30 min', label: 'To process a résumé batch' },
-                { value: '+130', label: 'Hires sourced through the new flow' },
+                { value: '4×', label: 'Faster résumé batch processing' },
+                { value: '130', label: 'Hires sourced through the new flow in 6 months' },
                 { value: '3', label: 'Upload paths redesigned at once' },
               ]}
             />
@@ -577,14 +577,14 @@ export default function FlairXPage() {
                 compress into a scannable strip. */}
             <div className="fx-prose fx-ctx-lead">
               <p>
-                Every field was typed by hand. Every time. A recruiter couldn&apos;t start
+                <strong>Every field was typed by hand. Every time.</strong> A recruiter couldn&apos;t start
                 scheduling until they&apos;d finished data entry, which could take hours
                 depending on the batch size.
               </p>
               <p>
-                The constraint was that recruiters had to stay in control. The automation was
-                there to save time, not to make the system feel like a black box. If it
-                can&apos;t tell you what it did, it shouldn&apos;t do it quietly.
+                The constraint was that <strong>recruiters had to stay in control.</strong> The automation was
+                there to save time, not to make the system feel like a black box. <strong>If it
+                can&apos;t tell you what it did, it shouldn&apos;t do it quietly.</strong>
               </p>
             </div>
 
@@ -855,27 +855,11 @@ export default function FlairXPage() {
           </div>
         </section>
 
-        {/* ── 05.5 ATS INTEGRATION PROTOTYPE ─────────────── */}
-        <section className="fx-sec fx-sec-alt" id="ats-prototype">
-          <div className="fx-container">
-            <Reveal>
-            <p className="fx-sec-label">06 · Stage 3 · ATS Integration</p>
-            <h2 className="fx-sec-title">What connecting to an ATS would look like.</h2>
-
-            <div className="fx-prose" style={{ marginBottom: 36 }}>
-              <p>Stage 3 was the most technically opaque part of the flow for recruiters. They knew they needed their ATS data in FlairX, but had no mental model for how that transfer would work. This is what I designed for it: a flow where you can see exactly what&apos;s being pulled, which fields map where, and confirm before anything lands in the pipeline.</p>
-            </div>
-
-            <ATSPrototype />
-            </Reveal>
-          </div>
-        </section>
-
         {/* ── 06 EDGE CASES ───────────────────────────────── */}
         <section className="fx-sec fx-sec-alt" id="edgecases">
           <div className="fx-container">
             <Reveal>
-            <p className="fx-sec-label">07 · Edge Cases</p>
+            <p className="fx-sec-label">06 · Edge Cases</p>
             <h2 className="fx-sec-title">Real hiring doesn&apos;t go smoothly. The system had to be ready for that.</h2>
 
             <div style={{ marginBottom: 48 }}>
@@ -993,14 +977,14 @@ export default function FlairXPage() {
         <section className="fx-sec" id="impact">
           <div className="fx-container">
             <Reveal>
-            <p className="fx-sec-label">08 · Impact</p>
+            <p className="fx-sec-label">07 · Impact</p>
             <h2 className="fx-sec-title">It shipped, it worked, and it changed how the team hired.</h2>
 
             {/* the numbers pop on the accent before the detail below */}
             <CaseStats
               tone="band"
               items={[
-                { value: '2 hrs → 30 min', label: 'To process a batch of résumés' },
+                { value: '4×', label: 'Faster — 2 hrs to 30 min per résumé batch' },
                 { value: '130', label: 'Hires sourced through the flow in six months' },
                 { value: '0', label: 'Manual duplicate checks left' },
               ]}
@@ -1038,7 +1022,7 @@ export default function FlairXPage() {
         <section className="fx-sec" id="handoff">
           <div className="fx-container">
             <Reveal>
-            <p className="fx-sec-label">09 · Handoff</p>
+            <p className="fx-sec-label">08 · Handoff</p>
             <h2 className="fx-sec-title">What the engineers actually received.</h2>
 
             <div className="fx-prose">
@@ -1082,17 +1066,42 @@ export default function FlairXPage() {
         <section className="fx-sec fx-sec-alt" id="reflection">
           <div className="fx-container">
             <Reveal>
-            <p className="fx-sec-label">10 · Reflection</p>
+            <p className="fx-sec-label">09 · Reflection</p>
             <h2 className="fx-sec-title">The hardest design call was knowing when to stay quiet.</h2>
 
             <div className="fx-prose">
-              <p>Showing AI reasoning on every card created noise that made people trust the system less, not more. Early prototypes showed everything: the confidence score, the extracted fields, the source data. Recruiters didn&apos;t feel informed. They felt watched.</p>
-              <p>The final design shows its reasoning only when confidence is low, or when a recruiter stops to look. When the AI is sure, it just fills the field. When it&apos;s not, it flags it. That calibration wasn&apos;t in the brief. It came out of watching people use the early version and noticing where they flinched.</p>
+              <p>Showing AI reasoning on every card created noise that made people <strong>trust the system less, not more.</strong> Early prototypes showed everything: the confidence score, the extracted fields, the source data. Recruiters didn&apos;t feel informed. They felt watched.</p>
+              <p>The final design shows its reasoning only when confidence is low, or when a recruiter stops to look. When the AI is sure, it just fills the field. When it&apos;s not, it flags it. <strong>That calibration wasn&apos;t in the brief.</strong> It came out of watching people use the early version and noticing where they flinched.</p>
             </div>
 
             <div className="fx-reflection-callout">
               <span className="fx-reflection-label">What I&apos;d do differently</span>
               <p>I&apos;d want to sit with recruiters doing 100+ candidates in a day. The single-page flow works fine at normal volume, but at that scale it might get exhausting. A stepper with clear checkpoints could work better. I haven&apos;t tested it and I don&apos;t know for sure.</p>
+            </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ── 10 WHAT'S NEXT ──────────────────────────────── */}
+        <section className="fx-sec" id="whats-next">
+          <div className="fx-container">
+            <Reveal>
+            <p className="fx-sec-label">10 · What&apos;s Next</p>
+            <h2 className="fx-sec-title">Where the project was headed when I left.</h2>
+
+            <div className="fx-prose" style={{ marginBottom: 36 }}>
+              <p>The CSV and resume upload flows were live. The next phase was ATS direct connection: pulling candidate data straight from Greenhouse or Lever instead of exporting files manually. I had designed the flow before I left: field mapping, a preview of what gets pulled, and a confirm step before anything lands in the pipeline.</p>
+              <p>Below is that design. It was handed off to engineering as the next milestone.</p>
+            </div>
+
+            <ATSPrototype />
+
+            <div className="fx-prose" style={{ marginTop: 40 }}>
+              <p>Beyond ATS sync, two other things were on the roadmap:</p>
+              <ul className="fx-bullets" style={{ marginTop: 12 }}>
+                <li>A hiring manager view. Recruiters process the candidates, but someone else has to act on them. That interface didn't exist yet.</li>
+                <li>Volume stress testing. The single-page review flow worked well at normal volume. We hadn't tested it at 100+ candidates in a day. A stepper with checkpoints might work better at that scale.</li>
+              </ul>
             </div>
             </Reveal>
           </div>

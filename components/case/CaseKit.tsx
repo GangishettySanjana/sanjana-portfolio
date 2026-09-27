@@ -74,8 +74,11 @@ export function Reveal({
       { rootMargin: '0px 0px -8% 0px' }
     )
     io.observe(el)
+    // Immediately reveal if already in viewport (e.g. hero on internal navigation)
+    const rect = el.getBoundingClientRect()
+    if (rect.top < window.innerHeight && rect.bottom > 0) reveal()
     // safety net: never let content stay invisible
-    const t = window.setTimeout(reveal, 1500)
+    const t = window.setTimeout(reveal, 400)
     return () => {
       io.disconnect()
       window.clearTimeout(t)

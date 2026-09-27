@@ -286,9 +286,9 @@ export default function AuraPage() {
                 column's left edge, as on FlairX and Fireside. */}
             <CaseStats
               items={[
-                { value: '20 → 5', label: 'Screened, then interviewed in depth' },
-                { value: '3', label: 'Rounds of usability testing' },
-                { value: 'End-to-end', label: 'Research through final prototype' },
+                { value: '5/5', label: 'Task completion after checkout reorder' },
+                { value: '3', label: 'Rounds of usability testing, end-to-end' },
+                { value: '0 → ship', label: 'No digital presence to validated prototype' },
               ]}
             />
 
@@ -497,7 +497,7 @@ export default function AuraPage() {
 
             <div className="fx-reflection-callout" style={{ marginTop: 32 }}>
               <span className="fx-reflection-label">What the gap told me</span>
-              <p>Every competitor failed at the same two things: customization and trust that the real product matches what is shown. FNP buries customization in a long flow, local florists have no way to preview, and grocery stores only sell ready-made. That overlap is exactly where research landed too, &lsquo;fear the real product will not match.&rsquo; So customization and a live preview did not become features in Aura. They became the spine of the product, which is why the bouquet builder and the real-inventory signals carry the whole design.</p>
+              <p>Every competitor failed at the same two things: customization and trust that the real product matches what is shown. FNP buries customization in a long flow, local florists have no way to preview, and grocery stores only sell ready-made. That overlap is exactly where research landed too, &lsquo;fear the real product will not match.&rsquo; So customization and a live preview did not become features in Aura. <strong>They became the spine of the product,</strong> which is why the bouquet builder and the real-inventory signals carry the whole design.</p>
             </div>
             </Reveal>
           </div>
@@ -515,7 +515,7 @@ export default function AuraPage() {
             </blockquote>
 
             <div className="fx-prose">
-              <p>The HMW reframed the project from &lsquo;build an ordering app&rsquo; to &lsquo;replicate the personal florist experience online.&rsquo; That distinction changed what we designed: not just a product catalog, but a guided customization flow with real inventory signals and a gifting-native checkout.</p>
+              <p>The HMW reframed the project from &lsquo;build an ordering app&rsquo; to <strong>&lsquo;replicate the personal florist experience online.&rsquo;</strong> That distinction changed what we designed: not just a product catalog, but a guided customization flow with real inventory signals and a gifting-native checkout.</p>
             </div>
 
             <div className="fx-principle-cards">
@@ -673,14 +673,29 @@ export default function AuraPage() {
             <h2 className="fx-sec-title">The thing you think is the feature is sometimes not the hardest design problem.</h2>
 
             <div className="fx-prose">
-              <p>I came into this project thinking I&apos;d design a bouquet customizer. I ended up redesigning the checkout sequence after round 2 completely broke the flow. Users were building full bouquets only to find their delivery date unavailable. Moving the date picker to step 1 felt obvious in retrospect, but it wasn&apos;t. I had to watch three real users hit that wall before I was willing to restructure the whole checkout.</p>
-              <p>The hard problem was not the picker. It was learning to let what I observed override what I&apos;d assumed. Round one: preview too small. Round two: checkout sequence wrong. Round three: it worked. Each fix came from watching people use the prototype, not from design intuition.</p>
+              <p>I came into this project thinking I&apos;d design a bouquet customizer. I ended up redesigning the checkout sequence after round 2 completely broke the flow. Users were building full bouquets only to find their delivery date unavailable. Moving the date picker to step 1 felt obvious in retrospect, but it wasn&apos;t. <strong>I had to watch three real users hit that wall</strong> before I was willing to restructure the whole checkout.</p>
+              <p>The hard problem was not the picker. It was <strong>learning to let what I observed override what I&apos;d assumed.</strong> Round one: preview too small. Round two: checkout sequence wrong. Round three: it worked. Each fix came from watching people use the prototype, not from design intuition.</p>
             </div>
 
             <div className="fx-reflection-callout">
               <span className="fx-reflection-label">What I&apos;d do differently</span>
-              <p>I&apos;d run a mental simulation of the full gifting scenario before building a single screen: someone buying flowers for another person, under deadline pressure, on a day with limited delivery slots. That scenario would have surfaced the date-selection issue before any prototype existed. I learned to think about pressure cases first, not happy path first.</p>
+              <p>I&apos;d run a mental simulation of the full gifting scenario before building a single screen: someone buying flowers for another person, under deadline pressure, on a day with limited delivery slots. That scenario would have surfaced the date-selection issue before any prototype existed. I learned to think about <strong>pressure cases first, not happy path first.</strong></p>
             </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ── 08 WHAT'S NEXT ──────────────────────────────── */}
+        <section className="fx-sec" id="whats-next">
+          <div className="fx-container">
+            <Reveal>
+              <p className="fx-sec-label">08 · What&apos;s Next</p>
+              <h2 className="fx-sec-title">If this went to production, the real work would start.</h2>
+
+              <div className="fx-prose">
+                <p>This was a prototype validated through three rounds of testing. It worked. But usability testing in a controlled session is not the same as real customers buying flowers under deadline pressure for someone they love.</p>
+                <p>If Aura had shipped, the next step would have been to watch real usage: where people slow down, where they drop off, what they try that the design didn&apos;t anticipate. The three rounds of testing surfaced real problems: the date picker, the preview size, the checkout sequence. Production would have surfaced more. That iteration loop is where the product would have actually been built.</p>
+              </div>
             </Reveal>
           </div>
         </section>
