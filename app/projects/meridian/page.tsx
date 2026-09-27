@@ -225,7 +225,7 @@ export default function MeridianPage() {
             <p style={{ fontSize: 'var(--type-xs)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.08em', color: 'var(--dim)', marginBottom: 16 }}>
               Before: what an advisor was working with
             </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 16 }}>
               {[
                 { label: 'Rate Exposure', note: 'Separate PDF report, generated weekly' },
                 { label: 'Credit Quality', note: 'Spreadsheet, maintained manually' },
@@ -351,7 +351,7 @@ export default function MeridianPage() {
           </ul>
 
           {/* risk dimension illustration */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 16 }}>
             {[
               {
                 label: 'Rate Exposure',
@@ -474,7 +474,7 @@ export default function MeridianPage() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16, marginTop: 28 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginTop: 28 }}>
             {[
               {
               tag: 'At-threshold client',

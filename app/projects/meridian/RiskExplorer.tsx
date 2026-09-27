@@ -212,8 +212,8 @@ export default function RiskExplorer() {
       </div>
 
       <div className="flex">
-        <div className="flex-1 min-w-0 overflow-hidden">
-          <div className="overflow-y-auto" style={{ maxHeight: 480 }}>
+        <div className="flex-1 min-w-0">
+          <div className="overflow-y-auto overflow-x-auto" style={{ maxHeight: 480 }}>
             <table className="w-full border-collapse">
               <thead className="sticky top-0 bg-white z-10">
                 <tr className="border-b-2 border-gray-200">
