@@ -23,10 +23,23 @@ export default function TyperHero() {
       return () => { clearTimeout(t); typer.destroy() }
     }
 
-    const onDone = () => { introHasPlayed = true; typer.in() }
+    const onDone = () => {
+      introHasPlayed = true
+      window.clearTimeout(fallback)
+      typer.in()
+    }
     window.addEventListener('curtain-done', onDone, { once: true })
 
+    // Safety net: if curtain-done never fires (preloader error, slow load, etc.),
+    // reveal the headline after 4s so it never stays permanently invisible.
+    const fallback = window.setTimeout(() => {
+      introHasPlayed = true
+      window.removeEventListener('curtain-done', onDone)
+      typer.in()
+    }, 4000)
+
     return () => {
+      window.clearTimeout(fallback)
       window.removeEventListener('curtain-done', onDone)
       typer.destroy()
     }
