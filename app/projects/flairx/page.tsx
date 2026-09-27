@@ -564,7 +564,7 @@ export default function FlairXPage() {
         </section>
 
         {/* seam: sky fades into the white reading body */}
-        <div className="fx-sky-seam" aria-hidden="true" />
+        <div className="fx-sky-seam" aria-hidden="true" style={{ height: '80px' }} />
 
         {/* ── 01 CONTEXT ──────────────────────────────────── */}
         <section className="fx-sec" id="context">
