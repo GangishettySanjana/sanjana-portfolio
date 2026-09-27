@@ -10,5 +10,30 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // When embedded as iframe, auto-scroll to #explorer and lock
+      if (window.self !== window.top) {
+        history.scrollRestoration = 'manual';
+        var _lock = null;
+        var _checks = 0;
+        function _scrollToExplorer() {
+          var el = document.getElementById('explorer');
+          if (el) {
+            clearInterval(_lock);
+            var target = el.offsetTop;
+            window.scrollTo(0, target);
+            // Re-apply for 2s in case React re-renders shift layout
+            var _ticks = 0;
+            _lock = setInterval(function() {
+              window.scrollTo(0, target);
+              if (++_ticks >= 10) clearInterval(_lock);
+            }, 200);
+          } else if (_checks++ < 50) {
+            setTimeout(_scrollToExplorer, 100);
+          }
+        }
+        window.addEventListener('load', function() { setTimeout(_scrollToExplorer, 100); });
+      }
+    </script>
   </body>
 </html>

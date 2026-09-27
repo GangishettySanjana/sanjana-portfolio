@@ -169,6 +169,8 @@
 .fx-page .cs-stat-label { font-family: var(--fx-sans); color: var(--muted); }
 .fx-page .cs-stats-plain { border-color: var(--accent-bd); }
 .fx-page .cs-stats-band { background: #2f6bd6; }
+.fx-page .cs-stats-band .cs-stat-value { color: #fff; font-weight: 600; }
+.fx-page .cs-stats-band .cs-stat-label { color: rgba(255,255,255,0.88); }
 .fx-page .cs-spec-key { font-family: var(--fx-sans); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; color: var(--accent); }
 .fx-page .cs-spec-val { font-family: var(--fx-sans); color: var(--text); }
 
