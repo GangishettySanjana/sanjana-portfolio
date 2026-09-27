@@ -13,13 +13,14 @@ export default function MeridianPage() {
     gsap.registerPlugin(ScrollTrigger)
 
     const NAV = [
-      { id: 'context',       num: '01', label: 'Context'   },
-      { id: 'problem',       num: '02', label: 'Problem'   },
-      { id: 'current-state', num: '03', label: 'Before'    },
-      { id: 'approach',      num: '04', label: 'Approach'  },
-      { id: 'decisions',     num: '05', label: 'Decisions' },
-      { id: 'prototype',     num: '06', label: 'Prototype' },
-      { id: 'reflection',    num: '07', label: 'Reflection'},
+      { id: 'context',       num: '01', label: 'Context'    },
+      { id: 'problem',       num: '02', label: 'Problem'    },
+      { id: 'current-state', num: '03', label: 'Before'     },
+      { id: 'approach',      num: '04', label: 'Approach'   },
+      { id: 'decisions',     num: '05', label: 'Decisions'  },
+      { id: 'prototype',     num: '06', label: 'Prototype'  },
+      { id: 'edge-cases',    num: '07', label: 'Edge Cases' },
+      { id: 'reflection',    num: '08', label: 'Reflection' },
     ]
 
     const sections = NAV.map(n => document.getElementById(n.id)).filter(Boolean) as HTMLElement[]
@@ -54,7 +55,7 @@ export default function MeridianPage() {
       {/* ── SCROLLSPY NAV ──────────────────────────────── */}
       <nav className="mx-v-nav" aria-label="Page sections">
         <div className="mx-v-track">
-          <div className="mx-v-fill" style={{ height: '16.6%' }}></div>
+          <div className="mx-v-fill" style={{ height: '12.5%' }}></div>
         </div>
         <div className="mx-v-items">
           {[
@@ -64,7 +65,8 @@ export default function MeridianPage() {
             { href: '#approach',      n: '04', label: 'Approach'   },
             { href: '#decisions',     n: '05', label: 'Decisions'  },
             { href: '#prototype',     n: '06', label: 'Prototype'  },
-            { href: '#reflection',    n: '07', label: 'Reflection' },
+            { href: '#edge-cases',    n: '07', label: 'Edge Cases' },
+            { href: '#reflection',    n: '08', label: 'Reflection' },
           ].map(({ href, n, label }) => (
             <a key={href} href={href} className="mx-v-link">
               <span className="mx-v-num">{n}</span>
@@ -412,7 +414,7 @@ export default function MeridianPage() {
                 title: 'Generated data, not mockups',
                 what:  '200 clients with realistic variance across all three risk factors. The prototype runs on real computed data.',
                 why:   'Static mockups let you cheat the UX. If the sort and filter work on a list where someone chose which 8 clients to show, you learn nothing. 200 clients with realistic spread means the table actually needs to sort correctly, the scores have to make sense, and the drill-down has to render sensibly even for the boring cases in the middle of the distribution.',
-                diff:  "I'd want to add edge cases: clients at exactly threshold, clients with missing data, clients with zero risk in one dimension. The data right now is uniformly well-formed. Real data isn't.",
+                diff:  "The data right now is uniformly well-formed. Real advisor books aren't. That gap is where the next version of this prototype needs to go.",
               },
             ].map(({ num, title, what, why, diff }) => (
               <div key={num} className="mx-decision">
@@ -433,6 +435,7 @@ export default function MeridianPage() {
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
@@ -459,10 +462,161 @@ export default function MeridianPage() {
         </div>
       </section>
 
-      {/* ── 07 REFLECTION ───────────────────────────── */}
+      {/* ── 07 EDGE CASES ───────────────────────────── */}
+      <section className="mx-sec mx-sec-alt" id="edge-cases">
+        <div className="mx-container">
+          <p className="mx-sec-label">07 · Edge Cases</p>
+          <h2 className="mx-sec-title">Four scenarios the prototype had to handle.</h2>
+
+          <div className="mx-prose">
+            <p>
+              The prototype uses clean generated data, but real advisor books don&apos;t look like that. These are the four scenarios I thought through explicitly — each one breaks the default UI assumptions.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16, marginTop: 28 }}>
+            {[
+              {
+              tag: 'At-threshold client',
+              tagColor: '#f59e0b',
+              scenario: 'A client sits at exactly 15% concentration — right on the limit, not over it.',
+              problem: 'The default sort puts this client mid-table. But an advisor who just raised the limit last quarter needs to know this client is one trade away from a flag.',
+              decision: 'Show a "near limit" indicator distinct from "over limit." The row color stays neutral; a thin amber border signals proximity without triggering alarm.',
+              screen: (
+                <div style={{ background: 'var(--base)', border: '1px solid var(--border)', borderRadius: 10, overflow: 'hidden', marginTop: 14 }}>
+                  <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--dim)', padding: '8px 12px', borderBottom: '1px solid var(--border)' }}>UI · Concentration column</div>
+                  <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {[
+                      { name: 'R. Alvarez', val: '23.4%', badge: 'OVER LIMIT', bg: '#fef2f2', color: '#ef4444', border: '#fca5a5' },
+                      { name: 'W. Morrison', val: '15.0%', badge: 'NEAR LIMIT', bg: '#fffbeb', color: '#d97706', border: '#fcd34d' },
+                      { name: 'C. Okafor',  val: '9.1%',  badge: null, bg: 'transparent', color: 'var(--muted)', border: 'var(--border)' },
+                    ].map(({ name, val, badge, bg, color, border }) => (
+                      <div key={name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 10px', borderRadius: 6, background: bg, border: `1px solid ${border}` }}>
+                        <span style={{ fontSize: 11, color: 'var(--text)', fontWeight: 500 }}>{name}</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <span style={{ fontSize: 11, fontWeight: 700, color }}>{val}</span>
+                          {badge && <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.06em', color, padding: '2px 6px', background: 'white', borderRadius: 4, border: `1px solid ${border}` }}>{badge}</span>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ),
+            },
+            {
+              tag: 'Missing data',
+              tagColor: '#6366f1',
+              scenario: 'A client has no credit rating data — bond positions exist but ratings are unresolved.',
+              problem: 'The composite score can\'t be computed. Treating a null as zero makes this client look safe. Hiding them from the table makes them invisible.',
+              decision: 'Surface the client with a "Data incomplete" badge and a dash in the credit column. They stay in the sort, ranked conservatively, until the data resolves.',
+              screen: (
+                <div style={{ background: 'var(--base)', border: '1px solid var(--border)', borderRadius: 10, overflow: 'hidden', marginTop: 14 }}>
+                  <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--dim)', padding: '8px 12px', borderBottom: '1px solid var(--border)' }}>UI · Credit quality column</div>
+                  <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {[
+                      { name: 'T. Lindqvist', credit: 'BB–', status: null },
+                      { name: 'S. Osei', credit: '—', status: 'DATA INCOMPLETE' },
+                      { name: 'P. Nakamura', credit: 'A+', status: null },
+                    ].map(({ name, credit, status }) => (
+                      <div key={name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 10px', borderRadius: 6, background: status ? '#f5f3ff' : 'transparent', border: `1px solid ${status ? '#c4b5fd' : 'var(--border)'}` }}>
+                        <span style={{ fontSize: 11, color: 'var(--text)', fontWeight: 500 }}>{name}</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <span style={{ fontSize: 11, fontWeight: 700, color: status ? '#7c3aed' : 'var(--muted)' }}>{credit}</span>
+                          {status && <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.06em', color: '#7c3aed', padding: '2px 6px', background: 'white', borderRadius: 4, border: '1px solid #c4b5fd' }}>{status}</span>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ),
+            },
+            {
+              tag: 'Zero risk in one dimension',
+              tagColor: '#10b981',
+              scenario: 'A client holds only short-duration treasuries — rate exposure is effectively zero.',
+              problem: 'If rate exposure is 0.00, a bar chart or score card looks broken. "0" reads as missing. "Very low" is ambiguous.',
+              decision: 'Show a filled bar at minimum width with a "None" label. Zero is a valid, meaningful state and the UI needs to say so explicitly.',
+              screen: (
+                <div style={{ background: 'var(--base)', border: '1px solid var(--border)', borderRadius: 10, overflow: 'hidden', marginTop: 14 }}>
+                  <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--dim)', padding: '8px 12px', borderBottom: '1px solid var(--border)' }}>UI · Rate exposure bar</div>
+                  <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    {[
+                      { name: 'R. Alvarez', pct: 84, label: '0.84', color: '#ef4444' },
+                      { name: 'C. Park',    pct: 41, label: '0.41', color: '#f59e0b' },
+                      { name: 'M. Johansson', pct: 2, label: 'None', color: '#10b981', isZero: true },
+                    ].map(({ name, pct, label, color, isZero }) => (
+                      <div key={name}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                          <span style={{ fontSize: 11, color: 'var(--text)', fontWeight: 500 }}>{name}</span>
+                          <span style={{ fontSize: 11, fontWeight: 700, color: isZero ? '#10b981' : color }}>{label}</span>
+                        </div>
+                        <div style={{ height: 6, background: 'var(--surface)', borderRadius: 3, overflow: 'hidden' }}>
+                          <div style={{ height: '100%', width: `${pct}%`, minWidth: isZero ? 6 : 0, background: color, borderRadius: 3 }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ),
+            },
+            {
+              tag: 'Empty state (all filtered out)',
+              tagColor: '#3b82f6',
+              scenario: 'An advisor sets the risk threshold filter high enough that no clients meet it.',
+              problem: 'A blank table with no explanation is alarming. Did something break? Is the data still loading?',
+              decision: 'Show an explicit empty state: "No clients above this threshold" with the current filter value visible. The message is the outcome — a clean book is good news, not an error.',
+              screen: (
+                <div style={{ background: 'var(--base)', border: '1px solid var(--border)', borderRadius: 10, overflow: 'hidden', marginTop: 14 }}>
+                  <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--dim)', padding: '8px 12px', borderBottom: '1px solid var(--border)' }}>UI · Empty state</div>
+                  <div style={{ padding: '24px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, textAlign: 'center' }}>
+                    <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>✓</div>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text)' }}>No clients above this threshold</div>
+                    <div style={{ fontSize: 11, color: 'var(--muted)' }}>Filter: composite risk &gt; 0.80 · 0 of 200 clients match</div>
+                    <div style={{ fontSize: 10, color: '#3b82f6', marginTop: 4 }}>Lower the threshold to see more clients</div>
+                  </div>
+                </div>
+              ),
+            },
+          ].map(({ tag, tagColor, scenario, problem, decision, screen }) => (
+              <div key={tag} style={{
+                border: '1px solid var(--border)',
+                borderRadius: 14,
+                padding: '22px 24px',
+                borderLeft: `3px solid ${tagColor}`,
+              }}>
+                <div style={{
+                  display: 'inline-block',
+                  fontSize: 'var(--type-xs)',
+                  fontWeight: 700,
+                  letterSpacing: '.06em',
+                  textTransform: 'uppercase',
+                  color: tagColor,
+                  marginBottom: 14,
+                }}>{tag}</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {[
+                    { label: 'Scenario', text: scenario },
+                    { label: 'The problem', text: problem },
+                    { label: 'What I did', text: decision },
+                  ].map(({ label, text }) => (
+                    <div key={label}>
+                      <div style={{ fontSize: 'var(--type-xs)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.06em', color: 'var(--dim)', marginBottom: 3 }}>{label}</div>
+                      <p style={{ fontSize: 'var(--type-sm)', color: 'var(--muted)', lineHeight: 1.6, margin: 0 }}>{text}</p>
+                    </div>
+                  ))}
+                </div>
+                {screen}
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 08 REFLECTION ───────────────────────────── */}
       <section className="mx-sec" id="reflection">
         <div className="mx-container">
-          <p className="mx-sec-label">07 · Reflection</p>
+          <p className="mx-sec-label">08 · Reflection</p>
           <h2 className="mx-sec-title">The hardest call was what not to show.</h2>
 
           <div className="mx-prose">
