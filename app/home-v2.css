@@ -102,7 +102,7 @@
 .home-v2 .hero-hl-text{font-size:13.5px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .home-v2 .divider{width:min(680px,86%);height:1px;margin:22px auto 0;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,0.9),transparent);}
-.home-v2 .prev{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:1px;}
+.home-v2 .prev{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px;}
 .home-v2 .prev .lbl{font-size:12px;font-weight:500;color:#5a6a7a;margin-right:4px;}
 .home-v2 .prev .p{background:var(--pill);border:1px solid var(--pill-line);border-radius:999px;
   padding:9px 18px;font-size:13.5px;font-weight:500;backdrop-filter:blur(6px);}
