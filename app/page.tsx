@@ -260,9 +260,10 @@ export default function HomePage() {
               <span className="lbl">Previously in</span>
               <span className="p">Fintech</span><span className="p">AI</span><span className="p">SaaS</span>
             </div>
-            <p className="hint">move your cursor, a little trail of me ✦</p>
           </div>
         </div>
+
+        <p className="hint">move your cursor, a little trail of me ✦</p>
 
         <div className={`wall${marqueePaused ? ' paused' : ''}`}>
           <div className="mrow-wrap"><div className="mrow" id="rowA" /></div>
