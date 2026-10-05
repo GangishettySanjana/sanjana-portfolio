@@ -7,6 +7,7 @@ import Navigation from '@/components/Navigation'
 import SmoothScroll from '@/components/SmoothScroll'
 import ChatWidget from '@/components/ChatWidget'
 import Intro from '@/components/Intro'
+import { PHProvider } from './providers'
 import './globals.css'
 
 // TRUE SERIF — Instrument Serif: editorial contrast for fortune slips, About hero, pull quotes
@@ -64,11 +65,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
       </head>
       <body className="bg-white text-roasted antialiased">
-        <Intro />
-        <SmoothScroll />
-        <Navigation />
-        {children}
-        <ChatWidget />
+        <PHProvider>
+          <Intro />
+          <SmoothScroll />
+          <Navigation />
+          {children}
+          <ChatWidget />
+        </PHProvider>
         <Analytics />
       </body>
     </html>
