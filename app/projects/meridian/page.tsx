@@ -79,7 +79,7 @@ export default function MeridianPage() {
       <section className="mx-hero" id="hero">
         <div className="mx-container">
           <Link href="/#work" className="mx-back-link" onClick={() => sessionStorage.setItem('skipIntro', '1')}>← Back to work</Link>
-          <p className="mx-eyebrow">Self-Initiated · Private Wealth · B2B Fintech</p>
+          <p className="mx-eyebrow">Private Wealth · B2B Fintech</p>
           <h1 className="mx-hero-title">When finding risk takes 40 minutes</h1>
           <p className="mx-hero-sub">
             Wealth advisors had no way to see over-exposed clients at a glance.

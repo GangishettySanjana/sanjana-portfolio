@@ -15,20 +15,11 @@ export default function HomePage() {
   const [resumeOpen, setResumeOpen] = useState(false)
   const [hlIdx, setHlIdx] = useState(0)
   const [hlVisible, setHlVisible] = useState(true)
-
   const highlights = [
-    { tag: 'Lovable Hackathon', text: 'Finalist — shipped a full AI product in 48h' },
     { tag: 'FlairX', text: 'Cut recruiter screening time by 75% (2 hr → 30 min)' },
     { tag: 'Northern Trust', text: 'Surfaced portfolio risk in 30 sec, down from 40 min' },
+    { tag: 'Lovable Hackathon', text: 'Finalist — shipped a full AI product in 48h' },
   ]
-
-  useEffect(() => {
-    const iv = setInterval(() => {
-      setHlVisible(false)
-      setTimeout(() => { setHlIdx(i => (i + 1) % 3); setHlVisible(true) }, 350)
-    }, 3800)
-    return () => clearInterval(iv)
-  }, [])
   const previewRef = useRef<HTMLDivElement>(null)
 
   // Small "view" cue (eye) that follows the cursor while hovering a work row.
@@ -52,6 +43,17 @@ export default function HomePage() {
   const hidePreview = () => {
     previewRef.current?.classList.remove('on')
   }
+  useEffect(() => {
+    const id = setInterval(() => {
+      setHlVisible(false)
+      setTimeout(() => {
+        setHlIdx(i => (i + 1) % 3)
+        setHlVisible(true)
+      }, 300)
+    }, 3200)
+    return () => clearInterval(id)
+  }, [])
+
   useEffect(() => {
     const host = document.body
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -248,11 +250,9 @@ export default function HomePage() {
             <p className="sub">3 years in product, 7 in design. Mostly AI and fintech. The messier the problem, the more I like it.</p>
             <div className="hero-highlights">
               <span className="hero-hl-label">Highlights</span>
-              <div className="hero-hl-track">
+              <div className={`hero-hl-track${hlVisible ? ' hl-in' : ' hl-out'}`}>
                 <span className="hero-hl-tag">{highlights[hlIdx].tag}</span>
-                <span className="hero-hl-text" style={{ opacity: hlVisible ? 1 : 0, transform: hlVisible ? 'translateY(0)' : 'translateY(6px)', transition: 'opacity 0.3s ease, transform 0.3s ease' }}>
-                  {highlights[hlIdx].text}
-                </span>
+                <span className="hero-hl-text">{highlights[hlIdx].text}</span>
               </div>
             </div>
             <div className="divider" />
@@ -411,34 +411,6 @@ export default function HomePage() {
               </div>
             </Link>
 
-            {/* Aura */}
-            <Link className="pc" href="/projects/aura">
-              <div className="pc-img pc-img-au">
-                <div className="au-wrap">
-                  <div className="au-hdr">
-                    <span className="au-nm">Aura</span>
-                    <span className="au-step">Step 1 · Pick delivery date</span>
-                  </div>
-                  <div className="au-list">
-                    <div className="au-row"><div><div className="au-fn">Summer Blush Bouquet</div><div className="au-fp">₹890</div></div><span className="au-s ok">In stock</span></div>
-                    <div className="au-row"><div><div className="au-fn">Golden Garden Mix</div><div className="au-fp">₹1,100</div></div><span className="au-s lo">3 left</span></div>
-                    <div className="au-row"><div><div className="au-fn">White Elegance</div><div className="au-fp">₹750</div></div><span className="au-s ok">In stock</span></div>
-                  </div>
-                  <div className="au-cta">Build your own bouquet →</div>
-                </div>
-                <div className="pc-arrow pc-arrow-au">↗</div>
-              </div>
-              <div className="pc-body">
-                <div className="pc-eye pc-eye-au">Google UX Certificate · E-Commerce · 2023</div>
-                <div className="pc-title">A Florist App Built Around Gifting</div>
-                <div className="pc-desc">Mobile app for a Hyderabad florist with no digital presence — designed end-to-end from scratch.</div>
-                <div className="pc-stats">
-                  <div className="pc-stat"><span className="pc-check pc-check-au">✓</span>0 → 5/5 task completion after checkout reorder</div>
-                  <div className="pc-stat"><span className="pc-check pc-check-au">✓</span>3 rounds of usability testing, end-to-end</div>
-                </div>
-                <span className="pc-tag">E-Commerce</span>
-              </div>
-            </Link>
 
           </div>
 

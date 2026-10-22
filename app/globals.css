@@ -1030,6 +1030,12 @@ aside::-webkit-scrollbar { display: none; }
     margin-right: 0;
   }
   .about-beat-watermark { display: none; }
+  /* section padding vars are used as inline styles; override at scope to reduce mobile gaps */
+  .about-texture { --section-pad-lg: 56px; --section-pad: 48px; }
+}
+
+@media (max-width: 560px) {
+  .about-texture { --section-pad-lg: 40px; --section-pad: 32px; }
 }
 
 @media (max-width: 680px) {

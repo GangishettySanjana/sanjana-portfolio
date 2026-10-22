@@ -409,16 +409,12 @@ export default function FlairXPage() {
     gsap.registerPlugin(ScrollTrigger)
 
     const NAV = [
-      { id: 'context',       num: '01', label: 'Context'    },
-      { id: 'problem',       num: '02', label: 'Problem'    },
-      { id: 'ideation',      num: '03', label: 'Ideation'   },
-      { id: 'decisions',     num: '04', label: 'Decisions'  },
-      { id: 'finals',        num: '05', label: 'Finals'     },
-      { id: 'ats-prototype', num: '06', label: 'ATS Flow'   },
-      { id: 'edgecases',     num: '07', label: 'Edge Cases' },
-      { id: 'impact',        num: '08', label: 'Impact'     },
-      { id: 'handoff',       num: '09', label: 'Handoff'    },
-      { id: 'reflection',    num: '10', label: 'Reflection' },
+      { id: 'problem',    num: '01', label: 'Problem'    },
+      { id: 'decisions',  num: '02', label: 'Decisions'  },
+      { id: 'finals',     num: '03', label: 'Finals'     },
+      { id: 'edgecases',  num: '04', label: 'Edge Cases' },
+      { id: 'impact',     num: '05', label: 'Impact'     },
+      { id: 'reflection', num: '06', label: 'Reflection' },
     ]
 
     const sections = NAV.map(n => document.getElementById(n.id)).filter(Boolean) as HTMLElement[]
@@ -459,16 +455,12 @@ export default function FlairXPage() {
           </div>
           <div className="fx-v-items">
             {[
-              { href: '#context',       n: '01', label: 'Context'    },
-              { href: '#problem',       n: '02', label: 'Problem'    },
-              { href: '#ideation',      n: '03', label: 'Ideation'   },
-              { href: '#decisions',     n: '04', label: 'Decisions'  },
-              { href: '#finals',        n: '05', label: 'Finals'     },
-              { href: '#ats-prototype', n: '06', label: 'ATS Flow'   },
-              { href: '#edgecases',     n: '07', label: 'Edge Cases' },
-              { href: '#impact',        n: '08', label: 'Impact'     },
-              { href: '#handoff',       n: '09', label: 'Handoff'    },
-              { href: '#reflection',    n: '10', label: 'Reflection' },
+              { href: '#problem',    n: '01', label: 'Problem'    },
+              { href: '#decisions',  n: '02', label: 'Decisions'  },
+              { href: '#finals',     n: '03', label: 'Finals'     },
+              { href: '#edgecases',  n: '04', label: 'Edge Cases' },
+              { href: '#impact',     n: '05', label: 'Impact'     },
+              { href: '#reflection', n: '06', label: 'Reflection' },
             ].map(({ href, n, label }) => (
               <a key={href} href={href} className="fx-v-link">
                 <span className="fx-v-num">{n}</span>
@@ -566,54 +558,11 @@ export default function FlairXPage() {
         {/* seam: sky fades into the white reading body */}
         <div className="fx-sky-seam" aria-hidden="true" style={{ height: '80px' }} />
 
-        {/* ── 01 CONTEXT ──────────────────────────────────── */}
-        <section className="fx-sec" id="context">
-          <div className="fx-container">
-            <Reveal>
-            <p className="fx-sec-label">01 · Context</p>
-            <h2 className="fx-sec-title">The intake flow was slow and manual. I had three workflows to fix at once.</h2>
-
-            {/* The two that carry an argument stay as prose; the rest
-                compress into a scannable strip. */}
-            <div className="fx-prose fx-ctx-lead">
-              <p>
-                <strong>Every field was typed by hand. Every time.</strong> A recruiter couldn&apos;t start
-                scheduling until they&apos;d finished data entry, which could take hours
-                depending on the batch size.
-              </p>
-              <p>
-                The constraint was that <strong>recruiters had to stay in control.</strong> The automation was
-                there to save time, not to make the system feel like a black box. <strong>If it
-                can&apos;t tell you what it did, it shouldn&apos;t do it quietly.</strong>
-              </p>
-            </div>
-
-            <CaseSpecStrip
-              items={[
-                { label: 'Role', value: 'Founding Product Designer' },
-                { label: 'Scope', value: 'Résumé parsing, bulk upload, ATS integration, all three at once' },
-                { label: 'Team', value: 'Founder/CEO, product, frontend + backend engineers' },
-                { label: 'Timeline', value: '3 months: discovery sprint, design and testing, handoff' },
-                { label: 'Research', value: '6 recruiter interviews, 3 rounds of testing' },
-              ]}
-            />
-
-            <CaseFigure
-              src={FX.entryPoint}
-              alt="FlairX candidate upload screen, the entry point to the redesigned intake flow"
-              width="wide"
-              frame="browser"
-              caption="The redesigned entry point: drop in a résumé and the AI fills the fields, leaving the recruiter to check rather than type."
-            />
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ── 02 PROBLEM ──────────────────────────────────── */}
+        {/* ── 01 PROBLEM ──────────────────────────────────── */}
         <section className="fx-sec cs-band-tint" id="problem">
           <div className="fx-container">
             <Reveal>
-            <p className="fx-sec-label">02 · The Problem</p>
+            <p className="fx-sec-label">01 · The Problem</p>
             <h2 className="fx-sec-title">Hours of data entry before the first interview. That was the baseline.</h2>
 
             <ul className="fx-bullets" style={{ marginBottom: 40 }}>
@@ -680,32 +629,11 @@ export default function FlairXPage() {
           </div>
         </section>
 
-        {/* ── 03 IDEATION & FLOW ──────────────────────────── */}
-        <section className="fx-sec" id="ideation">
-          <div className="fx-container">
-            <Reveal>
-            <p className="fx-sec-label">03 · Ideation &amp; Flow</p>
-            <h2 className="fx-sec-title">Three separate workflows with enough in common to solve at once.</h2>
-
-            <ul className="fx-bullets" style={{ marginBottom: 36 }}>
-              {[
-                'Started by mapping all three areas: CSV, résumé parsing, and ATS integrations',
-                'Ran several directions in parallel before anything got built',
-                'Drew a clear line between what the AI should handle and what the recruiter had to decide',
-                'Cut anything that made the recruiter do work the system could do itself',
-              ].map(item => <li key={item}>{item}</li>)}
-            </ul>
-
-            <FlairXFlowChart />
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ── 04 DESIGN DECISIONS ─────────────────────────── */}
+        {/* ── 02 DESIGN DECISIONS ─────────────────────────── */}
         <section className="fx-sec fx-sec-alt" id="decisions">
           <div className="fx-container">
             <Reveal>
-            <p className="fx-sec-label">04 · Design Decisions</p>
+            <p className="fx-sec-label">02 · Design Decisions</p>
             <h2 className="fx-sec-title">The four calls that actually mattered.</h2>
             <p className="fx-hero-sub" style={{ marginBottom: 40 }}>
               The obvious fix looked like a cleaner form. It wasn&apos;t the problem, and testing it is what proved that.
@@ -794,7 +722,7 @@ export default function FlairXPage() {
         <section className="fx-sec" id="finals">
           <div className="fx-container">
             <Reveal>
-            <p className="fx-sec-label">05 · Final Designs</p>
+            <p className="fx-sec-label">03 · Final Designs</p>
             <h2 className="fx-sec-title">What each upload path actually looks like.</h2>
 
             {[
@@ -859,7 +787,7 @@ export default function FlairXPage() {
         <section className="fx-sec fx-sec-alt" id="edgecases">
           <div className="fx-container">
             <Reveal>
-            <p className="fx-sec-label">06 · Edge Cases</p>
+            <p className="fx-sec-label">04 · Edge Cases</p>
             <h2 className="fx-sec-title">Real hiring doesn&apos;t go smoothly. The system had to be ready for that.</h2>
 
             <div style={{ marginBottom: 48 }}>
@@ -977,7 +905,7 @@ export default function FlairXPage() {
         <section className="fx-sec" id="impact">
           <div className="fx-container">
             <Reveal>
-            <p className="fx-sec-label">07 · Impact</p>
+            <p className="fx-sec-label">05 · Impact</p>
             <h2 className="fx-sec-title">It shipped, it worked, and it changed how the team hired.</h2>
 
             {/* the numbers pop on the accent before the detail below */}
@@ -1018,55 +946,11 @@ export default function FlairXPage() {
           </div>
         </section>
 
-        {/* ── 07.5 HANDOFF ────────────────────────────────── */}
-        <section className="fx-sec" id="handoff">
-          <div className="fx-container">
-            <Reveal>
-            <p className="fx-sec-label">08 · Handoff</p>
-            <h2 className="fx-sec-title">What the engineers actually received.</h2>
-
-            <div className="fx-prose">
-              <p>The design handoff covered all three upload paths, every edge case, and the full alert system. Engineers received a Figma file with component-level annotations, interaction states documented in Notion, and a Jira ticket per feature with acceptance criteria written against observed user behavior, not against design spec.</p>
-            </div>
-
-            <div className="fx-decisions-list">
-              {[
-                {
-                  num: '01',
-                  title: 'Figma component library',
-                  text: 'Every screen in the intake flow built from reusable components with explicit state coverage: default, hover, loading, error, success, disabled.',
-                },
-                {
-                  num: '02',
-                  title: 'Interaction annotations',
-                  text: 'Inline notes on every non-obvious behavior: what triggers the duplicate detection, what cancels an in-progress upload, how the AI confidence threshold maps to the review table display.',
-                },
-                {
-                  num: '03',
-                  title: 'Edge case matrix',
-                  text: 'A documented matrix of every failure mode we designed for: mixed upload states, AI misses, unsaved files warning, empty pipeline. Expected behavior for each.',
-                },
-              ].map(({ num, title, text }) => (
-                <div key={num} className="fx-decision">
-                  <div className="fx-decision-num">{num}</div>
-                  <div className="fx-decision-body">
-                    <h3>{title}</h3>
-                    <div className="fx-dblock">
-                      <p>{text}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ── 08 REFLECTION ───────────────────────────────── */}
+        {/* ── 06 REFLECTION ───────────────────────────────── */}
         <section className="fx-sec fx-sec-alt" id="reflection">
           <div className="fx-container">
             <Reveal>
-            <p className="fx-sec-label">09 · Reflection</p>
+            <p className="fx-sec-label">06 · Reflection</p>
             <h2 className="fx-sec-title">The hardest design call was knowing when to stay quiet.</h2>
 
             <div className="fx-prose">
@@ -1077,31 +961,6 @@ export default function FlairXPage() {
             <div className="fx-reflection-callout">
               <span className="fx-reflection-label">What I&apos;d do differently</span>
               <p>I&apos;d want to sit with recruiters doing 100+ candidates in a day. The single-page flow works fine at normal volume, but at that scale it might get exhausting. A stepper with clear checkpoints could work better. I haven&apos;t tested it and I don&apos;t know for sure.</p>
-            </div>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ── 10 WHAT'S NEXT ──────────────────────────────── */}
-        <section className="fx-sec" id="whats-next">
-          <div className="fx-container">
-            <Reveal>
-            <p className="fx-sec-label">10 · What&apos;s Next</p>
-            <h2 className="fx-sec-title">Where the project was headed when I left.</h2>
-
-            <div className="fx-prose" style={{ marginBottom: 36 }}>
-              <p>The CSV and resume upload flows were live. The next phase was ATS direct connection: pulling candidate data straight from Greenhouse or Lever instead of exporting files manually. I had designed the flow before I left: field mapping, a preview of what gets pulled, and a confirm step before anything lands in the pipeline.</p>
-              <p>Below is that design. It was handed off to engineering as the next milestone.</p>
-            </div>
-
-            <ATSPrototype />
-
-            <div className="fx-prose" style={{ marginTop: 40 }}>
-              <p>Beyond ATS sync, two other things were on the roadmap:</p>
-              <ul className="fx-bullets" style={{ marginTop: 12 }}>
-                <li>A hiring manager view. Recruiters process the candidates, but someone else has to act on them. That interface didn't exist yet.</li>
-                <li>Volume stress testing. The single-page review flow worked well at normal volume. We hadn't tested it at 100+ candidates in a day. A stepper with checkpoints might work better at that scale.</li>
-              </ul>
             </div>
             </Reveal>
           </div>
