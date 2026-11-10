@@ -155,7 +155,7 @@
 .trail.hide{opacity:0;transform:translate(-50%,-150%) scale(0.7) rotate(var(--rot,0deg));}
 
 /* ── SEAM: sky fades into white ── */
-.home-v2 .seam{position:relative;z-index:1;height:320px;margin-top:-1px;
+.home-v2 .seam{position:relative;z-index:3;height:320px;margin-top:-1px;
   background:linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.3) 35%, rgba(255,255,255,0.72) 60%, var(--cream) 100%);}
 
 /* ── WORK section ── */
