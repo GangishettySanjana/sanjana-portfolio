@@ -18,7 +18,7 @@ export default function HomePage() {
   const highlights = [
     { tag: 'FlairX', text: 'Cut recruiter screening time by 75% (2 hr → 30 min)' },
     { tag: 'Northern Trust', text: 'Surfaced portfolio risk in 30 sec, down from 40 min' },
-    { tag: 'Lovable Hackathon', text: 'Finalist — shipped a full AI product in 48h' },
+    { tag: 'Lovable Hackathon', text: 'Finalist, shipped a full AI product in 48h' },
   ]
   const previewRef = useRef<HTMLDivElement>(null)
 
@@ -223,7 +223,6 @@ export default function HomePage() {
             <div className={`navlinks${menuOpen ? ' open' : ''}`}>
               <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
               <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-              <Link href="/playground" onClick={() => setMenuOpen(false)}>Playground</Link>
               <Link href="/recruiters" className="only-mobile" onClick={() => setMenuOpen(false)}>See if we&rsquo;re a match ↗</Link>
             </div>
             <a href="https://www.linkedin.com/in/sanjana-gangishetty" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style={{ display: 'flex', alignItems: 'center', color: '#002448', opacity: 0.7, transition: 'opacity 0.15s', flexShrink: 0 }} onMouseEnter={e => (e.currentTarget.style.opacity='1')} onMouseLeave={e => (e.currentTarget.style.opacity='0.7')}>
@@ -264,19 +263,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className={`wall${marqueePaused ? ' paused' : ''}`}>
-          <div className="mrow-wrap"><div className="mrow" id="rowA" /></div>
-          <div className="mrow-wrap"><div className="mrow rev" id="rowB" /></div>
-          <button
-            type="button"
-            className="marquee-toggle"
-            aria-pressed={marqueePaused}
-            aria-label={marqueePaused ? 'Play scrolling skills' : 'Pause scrolling skills'}
-            onClick={() => setMarqueePaused(v => !v)}
-          >
-            {marqueePaused ? '▶' : '‖'}
-          </button>
-        </div>
       </div>
 
       {/* ══ SEAM ══ */}
@@ -292,47 +278,21 @@ export default function HomePage() {
             {/* FlairX */}
             <Link className="pc" href="/projects/flairx">
               <div className="pc-img pc-img-fx">
-                <div className="fx-wrap">
-                  <div className="fx-header">
-                    <span className="fx-hdr-lbl">Top candidates</span>
-                    <span className="fx-hdr-count">12 screened</span>
-                  </div>
-                  <div className="fx-cand fx-cand-active">
-                    <div className="fx-av fx-av-1" />
-                    <div style={{flex:1}}>
-                      <div className="fx-name">Alex Rivera</div>
-                      <div className="fx-sub">Sr. Product Designer · NYC · 8 yrs</div>
-                    </div>
-                    <div className="fx-badge">87%</div>
-                  </div>
-                  <div className="fx-cand fx-cand-dim">
-                    <div className="fx-av fx-av-2" />
-                    <div style={{flex:1}}>
-                      <div className="fx-name">Jordan Chen</div>
-                      <div className="fx-sub">Product Designer · SF · 5 yrs</div>
-                    </div>
-                    <div className="fx-badge fx-badge-dim">73%</div>
-                  </div>
-                  <div className="fx-bar">
-                    <div className="fx-blbl"><span>AI match · Alex Rivera</span><span style={{color:'#00254B'}}>87/100</span></div>
-                    <div className="fx-trk"><div className="fx-fill" style={{width:'87%'}} /></div>
-                  </div>
-                  <div className="fx-chips">
-                    <span className="fx-chip">B2B SaaS</span>
-                    <span className="fx-chip">AI</span>
-                  </div>
-                </div>
-                <div className="pc-arrow pc-arrow-fx">↗</div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/flairx/Screenshot%202025-12-08%20at%2011.07.15%20AM%201.jpg" alt="FlairX upload flow — Upload your Talent Pool screen" style={{width:'100%',height:'100%',objectFit:'contain',objectPosition:'center',borderRadius:'inherit'}} />
               </div>
               <div className="pc-body">
-                <div className="pc-eye pc-eye-fx">Product Design · FlairX AI</div>
-                <div className="pc-title">Redesigning the Recruiter Workflow</div>
-                <div className="pc-desc">AI-powered résumé screening that cuts processing time and removes guesswork from the shortlist.</div>
-                <div className="pc-stats">
-                  <div className="pc-stat"><span className="pc-check pc-check-fx">✓</span>Résumé batch: 2 hrs → 30 min per cycle</div>
-                  <div className="pc-stat"><span className="pc-check pc-check-fx">✓</span>130 hires sourced through the new flow in 6 months</div>
+                <div className="pc-details-inner">
+                  <div className="pc-eye pc-eye-fx">Product Design · FlairX AI</div>
+                  <div className="pc-title">Redesigning the Recruiter Workflow</div>
+                  <div className="pc-desc">AI-powered résumé screening that cuts processing time and removes guesswork from the shortlist.</div>
+                  <div className="pc-bullets">
+                    <div className="pc-bullet"><span className="pc-bullet-icon pc-check-fx">✓</span>Résumé batch: 2 hrs → 30 min per cycle</div>
+                    <div className="pc-bullet"><span className="pc-bullet-icon pc-check-fx">✓</span>130 hires sourced through the new flow in 6 months</div>
+                  </div>
+                  <div className="pc-tags"><span className="pc-tag">B2B</span><span className="pc-tag">SaaS</span><span className="pc-tag">AI Workflows</span></div>
                 </div>
-                <span className="pc-tag">B2B SaaS</span>
+                <div className="pc-cta">View case study →</div>
               </div>
             </Link>
 
@@ -355,61 +315,43 @@ export default function HomePage() {
                     <span className="md-sub">to surface at-risk clients</span>
                   </div>
                 </div>
-                <div className="pc-arrow pc-arrow-md">↗</div>
               </div>
               <div className="pc-body">
-                <div className="pc-eye pc-eye-md">Simplified Management · Private Wealth</div>
-                <div className="pc-title">A Risk Console for Wealth Advisors</div>
-                <div className="pc-desc">Surfaces over-exposed clients in seconds — replacing a 40-minute manual spreadsheet review.</div>
-                <div className="pc-stats">
-                  <div className="pc-stat"><span className="pc-check pc-check-md">✓</span>40 min → 30 sec to identify at-risk clients</div>
-                  <div className="pc-stat"><span className="pc-check pc-check-md">✓</span>200-client prototype: real sort, filter, and drill-down</div>
+                <div className="pc-details-inner">
+                  <div className="pc-eye pc-eye-md">Simplified Management · Private Wealth</div>
+                  <div className="pc-title">A Risk Console for Wealth Advisors</div>
+                  <div className="pc-desc">Surfaces over-exposed clients in seconds, replacing a 40-minute manual spreadsheet review.</div>
+                  <div className="pc-bullets">
+                    <div className="pc-bullet"><span className="pc-bullet-icon pc-check-md">✓</span>40 min → 30 sec to identify at-risk clients</div>
+                    <div className="pc-bullet"><span className="pc-bullet-icon pc-check-md">✓</span>200-client prototype: real sort, filter, and drill-down</div>
+                  </div>
+                  <div className="pc-tags"><span className="pc-tag">B2B</span><span className="pc-tag">Fintech</span><span className="pc-tag">AI</span></div>
                 </div>
-                <span className="pc-tag">B2B Fintech</span>
+                <div className="pc-cta">View case study →</div>
               </div>
             </Link>
 
             {/* Fireside */}
             <Link className="pc" href="/projects/fireside">
               <div className="pc-img pc-img-fs">
-                <svg viewBox="0 0 400 244" preserveAspectRatio="xMidYMid slice" style={{position:'absolute',inset:0,width:'100%',height:'100%'}}>
-                  <path d="M0,195 Q45,155 90,168 Q135,181 180,130 Q225,79 270,102 Q315,125 360,85 L400,75 L400,244 L0,244Z" fill="rgba(255,134,65,0.07)"/>
-                  <path d="M0,212 Q55,178 110,190 Q165,202 220,158 Q275,114 330,132 Q365,144 400,118 L400,244 L0,244Z" fill="rgba(255,134,65,0.04)"/>
-                  <path d="M0,195 Q45,155 90,168 Q135,181 180,130 Q225,79 270,102 Q315,125 360,85 L400,75" fill="none" stroke="rgba(255,134,65,0.55)" strokeWidth="1.5"/>
-                  <path d="M0,212 Q55,178 110,190 Q165,202 220,158 Q275,114 330,132 Q365,144 400,118" fill="none" stroke="rgba(255,134,65,0.32)" strokeWidth="1"/>
-                  <path d="M0,228 Q60,208 120,215 Q180,222 240,185 Q300,148 360,162 L400,155" fill="none" stroke="rgba(255,134,65,0.18)" strokeWidth="0.8"/>
-                  <ellipse cx="225" cy="118" rx="38" ry="22" fill="rgba(255,134,65,0.09)" stroke="rgba(255,134,65,0.45)" strokeWidth="1" strokeDasharray="3,3"/>
-                  <text x="210" y="122" fontSize="7.5" fill="rgba(192,74,32,0.75)" fontFamily="monospace">Fire Zone</text>
-                </svg>
-                <div className="fs-wrap">
-                  <div className="fs-panel">
-                    <div className="fs-lbl">Live Conditions · Zone 4-B</div>
-                    <div className="fs-grid">
-                      <div className="fs-cell"><div className="fs-clbl">Wind</div><div className="fs-cval">14mph</div></div>
-                      <div className="fs-cell"><div className="fs-clbl">Humidity</div><div className="fs-cval">9%</div></div>
-                      <div className="fs-cell"><div className="fs-clbl">Spread</div><div className="fs-cval" style={{color:'#e06020'}}>Fast</div></div>
-                    </div>
-                  </div>
-                  <div className="fs-panel">
-                    <div className="fs-lbl">Fuel Load by Terrain</div>
-                    <div className="fs-brow"><span className="fs-blbl">Ridge top</span><div className="fs-trk"><div className="fs-fill" style={{width:'82%'}} /></div></div>
-                    <div className="fs-brow"><span className="fs-blbl">Valley</span><div className="fs-trk"><div className="fs-fill" style={{width:'47%'}} /></div></div>
-                  </div>
-                  <div className="fs-tags"><span className="fs-tag">Physical UX</span><span className="fs-tag">CU Boulder</span></div>
-                </div>
-                <div className="pc-arrow pc-arrow-fs">↗</div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/projects/fireside/exhibit-in-use.png" alt="Fireside physical terrain table with neon topographic lighting and iPad" style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'center',borderRadius:'inherit'}} />
               </div>
               <div className="pc-body">
-                <div className="pc-eye pc-eye-fs">Physical UX · CU Boulder · 2024</div>
-                <div className="pc-title">A Wildfire Exhibit Anyone Could Use</div>
-                <div className="pc-desc">Interaction design for a physical 3D terrain table — teaching fire behavior through touch, not text.</div>
-                <div className="pc-stats">
-                  <div className="pc-stat"><span className="pc-check pc-check-fs">✓</span>Deployed at 4 public science events</div>
-                  <div className="pc-stat"><span className="pc-check pc-check-fs">✓</span>0 instructions needed — usable in under 10 seconds</div>
+                <div className="pc-details-inner">
+                  <div className="pc-eye pc-eye-fs">Physical UX · CU Boulder · 2024</div>
+                  <div className="pc-title">A Wildfire Exhibit Anyone Could Use</div>
+                  <div className="pc-desc">Interaction design for a physical 3D terrain table, teaching fire behavior through touch, not text.</div>
+                  <div className="pc-bullets">
+                    <div className="pc-bullet"><span className="pc-bullet-icon pc-check-fs">✓</span>Deployed at 4 public science events</div>
+                    <div className="pc-bullet"><span className="pc-bullet-icon pc-check-fs">✓</span>0 instructions needed; usable in under 10 seconds</div>
+                  </div>
+                  <div className="pc-tags"><span className="pc-tag">Physical UX</span></div>
                 </div>
-                <span className="pc-tag">Physical UX</span>
+                <div className="pc-cta">View case study →</div>
               </div>
             </Link>
+
 
 
           </div>
@@ -422,33 +364,33 @@ export default function HomePage() {
       {/* ══ ABOUT ══ */}
       <section className="about" id="about">
         <div className="wrap">
-          <div className="a-grid">
+          <div className="a-bento">
             <div className="a-photo">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/sanjana-hero.png" alt="Sanjana Gangishetty"
                 onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/images/sanjana.jpg' }} />
             </div>
-            <div className="a-text">
+            <div className="a-story-card">
               <p className="eyebrow2">Nice to meet you</p>
               <h2>I&apos;m Sanjana, Product Designer</h2>
               <p className="a-story">Shipped AI tools, fintech products, e-commerce. I do my best work before the wireframe exists, in the messy middle where nobody&apos;s sure what they&apos;re solving yet. That&apos;s the part I care about most.</p>
-              <div className="a-stats">
-                <div className="a-stat-card">
-                  <div className="a-stat-num-row"><Clock01Icon size={18} className="a-stat-icon" /><span className="a-stat-num">3+</span></div>
-                  <span className="a-stat-lbl">Years of Experience</span>
-                </div>
-                <div className="a-stat-card">
-                  <div className="a-stat-num-row"><RocketIcon size={18} className="a-stat-icon" /><span className="a-stat-num">10+</span></div>
-                  <span className="a-stat-lbl">Projects Shipped</span>
-                </div>
-                <div className="a-stat-card">
-                  <div className="a-stat-num-row"><Award01Icon size={18} className="a-stat-icon" /><span className="a-stat-num">Finalist</span></div>
-                  <span className="a-stat-lbl">Lovable Hackathon · 2024</span>
-                </div>
-              </div>
               <div className="a-actions">
                 <Link className="solid" href="/about">Full story →</Link>
                 <button className="ghost" onClick={() => setResumeOpen(true)}>Résumé ↗</button>
+              </div>
+            </div>
+            <div className="a-stats-card">
+              <div className="a-stat-card">
+                <div className="a-stat-num-row"><Clock01Icon size={18} className="a-stat-icon" /><span className="a-stat-num">3+</span></div>
+                <span className="a-stat-lbl">Years of Experience</span>
+              </div>
+              <div className="a-stat-card">
+                <div className="a-stat-num-row"><RocketIcon size={18} className="a-stat-icon" /><span className="a-stat-num">10+</span></div>
+                <span className="a-stat-lbl">Projects Shipped</span>
+              </div>
+              <div className="a-stat-card">
+                <div className="a-stat-num-row"><Award01Icon size={18} className="a-stat-icon" /><span className="a-stat-num">Finalist</span></div>
+                <span className="a-stat-lbl">Lovable Hackathon · 2024</span>
               </div>
             </div>
           </div>
