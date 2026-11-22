@@ -17,7 +17,7 @@ export default function HomePage() {
   const [hlVisible, setHlVisible] = useState(true)
   const highlights = [
     { tag: 'FlairX', text: 'Cut recruiter screening time by 75% (2 hr → 30 min)' },
-    { tag: 'Northern Trust', text: 'Surfaced portfolio risk in 30 sec, down from 40 min' },
+    { tag: 'Meridian · Concept', text: 'Surfaced portfolio risk in 30 sec, down from 40 min' },
     { tag: 'Lovable Hackathon', text: 'Finalist, shipped a full AI product in 48h' },
   ]
   const previewRef = useRef<HTMLDivElement>(null)
