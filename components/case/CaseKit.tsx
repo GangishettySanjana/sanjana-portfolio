@@ -170,7 +170,7 @@ export function CaseFigure({
   width,
   frame,
   fit = 'width',
-  zoom = true,
+  zoom = false,
   priority = false,
   variant,
   maxWidth,
